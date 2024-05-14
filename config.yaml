@@ -62,6 +62,9 @@ episodes:
 - 1-intro-reproducible-examples.md
 - 2-understanding-your-code.Rmd
 - 3-debugging-basics.Rmd
+- 4-minimal-reproducible-data.Rmd
+- 5-minimal-reproducible-code.Rmd
+- 6-asking-your-question.Rmd
 - introduction.Rmd
 
 # Information for Learners
