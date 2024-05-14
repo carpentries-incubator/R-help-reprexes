@@ -11,13 +11,13 @@
 carpentry: 'incubator'
 
 # Overall title for pages.
-title: 'Lesson Title' # FIXME
+title: 'RRRRRRR, I'm stuck!'
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
-created: ~ # FIXME
+created: 2024-05-14 # FIXME
 
 # Comma-separated list of keywords for the lesson
-keywords: 'software, data, lesson, The Carpentries' # FIXME
+keywords: 'R, reprex, help, The Carpentries, error, debug, reproducible example' # FIXME
 
 # Life cycle stage of the lesson
 # possible values: pre-alpha, alpha, beta, stable
@@ -33,7 +33,7 @@ source: 'https://github.com/carpentries/workbench-template-rmd' # FIXME
 branch: 'main'
 
 # Who to contact if there are any issues
-contact: 'team@carpentries.org' # FIXME
+contact: 'kgahm@ucla.edu'
 
 # Navigation ------------------------------------------------
 #
