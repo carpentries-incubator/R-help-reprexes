@@ -1,4 +1,12 @@
-# The Carpentries Workbench Template R Markdown Lesson
+# RRRRRRRRR I'm stuck!
+
+This is a lesson for beginner R coders in data science to learn how to identify problems in code and solve them through the use of reproducible examples and community. 
+
+#### Primary Authors:
+
+- Kaija Gahm [kgahm [at] g.ucla.edu](kgahm@g.ucla.edu)
+- Xochitl Ortiz Ross [xortizross [at] g.ucla.edu](xortizross@g.ucla.edu)
+- Peter Laurin [peterlaurin [at] g.ucla.edu](peterlaurin@g.ucla.edu)
 
 This lesson is a template lesson that uses [The Carpentries Workbench][workbench].
 
