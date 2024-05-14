@@ -60,7 +60,9 @@ contact: 'kgahm@ucla.edu'
 # Order of episodes in your lesson
 episodes: 
 - introduction.Rmd
-- intro-reproducible-examples.md
+- 1-intro-reproducible-examples.md
+- 2-understanding-your-code.Rmd
+- 3-debugging-basics.Rmd
 
 # Information for Learners
 learners: 
