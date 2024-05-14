@@ -60,6 +60,7 @@ contact: 'kgahm@ucla.edu'
 # Order of episodes in your lesson
 episodes: 
 - introduction.Rmd
+- intro-reproducible-examples.md
 
 # Information for Learners
 learners: 
