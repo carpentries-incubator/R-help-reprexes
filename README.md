@@ -2,6 +2,8 @@
 
 This is a lesson for beginner R coders in data science to learn how to identify problems in code and solve them through the use of reproducible examples and community. 
 
+[**Link to CodiMD**](https://codimd.carpentries.org/ElXZ2pJjTDGZsJjgvYs_Ig?both#Assessments%E2%80%93Notes-amp-discussion)
+
 #### Primary Authors:
 
 - Kaija Gahm [kgahm [at] g.ucla.edu](kgahm@g.ucla.edu)
