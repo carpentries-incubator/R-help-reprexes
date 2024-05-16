@@ -26,3 +26,29 @@ exercises: 2
 - List ways to share a sample dataset
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::: challenge
+
+### Exercise 1
+
+Which of the following datasets are reproducible? Which ones need editing, why? Edit as necessary.
+
+A) this dataset comes from an inaccessible directory
+B) this dataset works great
+C) this dataset uses dplyr but does not specify the package
+D) this dataset is way too long (not minimal)
+
+:::::::::::::: solution
+
+### Solution
+
+Here is just one example for how each dataset could be improved.
+
+:::::::::::::::::::::::::
+
+A) do not use data from your computer unless you are attaching the data file. You can reproduce a subset of that data from scratch (dummy data). For example:
+B) This dataset is already reproducible and needs no editing
+C) add `library(dplyr)` or `dplyr::function()` 
+D) Reduce the length of this dataset by...
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
