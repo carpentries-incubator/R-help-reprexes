@@ -1,7 +1,7 @@
 ---
 title: "Minimal Reproducible Data"
-teaching: 10
-exercises: 2
+teaching: 40
+exercises: 4
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -15,13 +15,13 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
+After completing this episode, participants should be able to...
+
 - Describe a minimal reproducible dataset
-- List the requirements for a minimal reproducible dataset
 - Identify the minimum objects required to reproduce your coding problem
 - Create a data frame from scratch ("dummy data")
 - List readily available datasets and how to access them
 - Create a sample dataset from a subset of your data
-- (optional) Evaluate when to use which type of dataset
 - (optional) Include NAs or NULL values in your dataset
 - List ways to share a sample dataset
 
@@ -44,10 +44,14 @@ D) this dataset is way too long (not minimal)
 
 Here is just one example for how each dataset could be improved.
 
-A) do not use data from your computer unless you are attaching the data file. You can reproduce a subset of that data from scratch (dummy data). For example:
-B) This dataset is already reproducible and needs no editing
-C) add `library(dplyr)` or `dplyr::function()` 
-D) Reduce the length of this dataset by...
+A) Not reproducible.  
+Do not use data from your computer unless you are attaching the data file. You can reproduce a subset of that data from scratch (dummy data). For example:
+B) Minimal and reproducible!  
+This dataset is already reproducible and needs no editing
+C) Not reproducible.  
+Add `library(dplyr)` or `dplyr::function()` 
+D) Not minimal.  
+Reduce the length of this dataset by...
 
 :::::::::::::::::::::::::
 
