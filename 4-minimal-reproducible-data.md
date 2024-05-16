@@ -52,3 +52,9 @@ D) Reduce the length of this dataset by...
 :::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::: keypoints
+ - A minimal reproducible dataset contains the minimum number of lines and variables to reproduce a certain problem and can be fully reproduced by someone else using only the information provided 
+ - You can create a dataset from scratch using `as.data.frame`, you can use available datasets like `iris` or you can use a subset of your own dataset
+ - You can share your data by...
+::::::
