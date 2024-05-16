@@ -19,3 +19,16 @@ exercises: 2
 - Explain what the {reprex} package does and what it is used for.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Mentors and helpers usually need to run your code in order to help debug it.
+- Minimal reproducible examples make it possible for helpers to run your code, which lets them "feel your pain" and figure out what's wrong.
+- Making a minimal reproducible example helps you understand your own problem and often leads to finding the answer yourself!
+- You can use the {reprex} package to test whether your example is reproducible.
+  
+::::::::::::::::::::::::::::::::::::::::::::::::
