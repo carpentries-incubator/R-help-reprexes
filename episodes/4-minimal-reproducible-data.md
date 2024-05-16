@@ -44,11 +44,11 @@ D) this dataset is way too long (not minimal)
 
 Here is just one example for how each dataset could be improved.
 
-:::::::::::::::::::::::::
-
 A) do not use data from your computer unless you are attaching the data file. You can reproduce a subset of that data from scratch (dummy data). For example:
 B) This dataset is already reproducible and needs no editing
 C) add `library(dplyr)` or `dplyr::function()` 
 D) Reduce the length of this dataset by...
+
+:::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
