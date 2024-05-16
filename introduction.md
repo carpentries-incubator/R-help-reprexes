@@ -76,8 +76,7 @@ You can add a line with at least three colons and a `solution` tag.
 
 You can also include figures generated from R Markdown:
 
-
-```r
+```{r pyramid, fig.alt = "pie chart illusion of a pyramid", fig.cap = "Sun arise each and every morning"}
 pie(
   c(Sky = 78, "Sunny side of pyramid" = 17, "Shady side of pyramid" = 5), 
   init.angle = 315, 
@@ -85,11 +84,6 @@ pie(
   border = FALSE
 )
 ```
-
-<div class="figure" style="text-align: center">
-<img src="fig/introduction-rendered-pyramid-1.png" alt="pie chart illusion of a pyramid"  />
-<p class="caption">Sun arise each and every morning</p>
-</div>
 
 Or you can use standard markdown for static figures with the following syntax:
 
