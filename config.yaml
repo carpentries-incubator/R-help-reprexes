@@ -66,6 +66,7 @@ episodes:
 - 5-minimal-reproducible-code.md
 - 6-asking-your-question.md
 - introduction.md
+- test.Rmd
 
 # Information for Learners
 learners: 
