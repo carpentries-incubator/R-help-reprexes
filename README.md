@@ -1,4 +1,4 @@
-# RRRRRRRRR I'm stuck!
+# aRRRRRRRRR I'm stuck!
 
 This is a lesson for beginner R coders in data science to learn how to identify problems in code and solve them through the use of reproducible examples and community. 
 
