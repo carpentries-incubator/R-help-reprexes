@@ -1,3 +1,21 @@
+---
+title: "This is a test episode"
+teaching: 5
+exercises: 0
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- example question
+  
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- example objective
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
 ```{r}
 head(mtcars)
 print("This is a test")
