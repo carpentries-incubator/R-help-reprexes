@@ -2,7 +2,7 @@
 
 This is a lesson for beginner R coders in data science to learn how to identify problems in code and solve them through the use of reproducible examples and community. 
 
-[**Link to Doc**]()
+[**Link to Lesson Development Doc**](https://docs.google.com/document/d/1CkcEyFjr3u1JTos1w9lO0XYcgTJ9wRE6m6LhlwDh1dA/edit#heading=h.awmdspank0xf)
 
 [**Link to CodiMD**](https://codimd.carpentries.org/ElXZ2pJjTDGZsJjgvYs_Ig?both#Assessments%E2%80%93Notes-amp-discussion)
 
