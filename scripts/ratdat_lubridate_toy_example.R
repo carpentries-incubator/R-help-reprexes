@@ -5,7 +5,6 @@ rat_data <- ratdat::complete
 rat_data <- rat_data %>% mutate(time = mdy(paste(month, day, year)))
 
 dips <- rat_data %>% filter(genus == "Dipodomys")
-ggplot(dips) + geom_point(aes(time, weight, color=plot_type)) + facet_wrap(~species)
 
 # time plots
 ggplot(dips, aes(time, fill = plot_type)) + geom_histogram()  + facet_wrap(~species) + theme_bw() + scale_fill_viridis_d(option="plasma")
