@@ -35,7 +35,7 @@ After completing this episode, participants should be able to...
 * Minimal runnable code that can reproduce the error using the minimal dataset
 * Basic information about the system, R version, and packages being used
 * In case of random functions, a seed that will produce the same results each time (e.g., use set.seed())
-- The first step in creating an MRE is to set up some data *for your helper to be able to reproduce your error and play around with the code in order to fix it.*
+- The first step in creating an MRE is to set up some data **for your helper to be able to reproduce your error and play around with the code in order to fix it.**
 
 Why? Remember our IT problem? It would be a lot easier for the IT support person to fix your computer if they could actually touch it, see the screen, and click around.
 
