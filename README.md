@@ -6,6 +6,8 @@ This is a lesson for beginner R coders in data science to learn how to identify 
 
 [**Link to CodiMD**](https://codimd.carpentries.org/ElXZ2pJjTDGZsJjgvYs_Ig?both#Assessments%E2%80%93Notes-amp-discussion)
 
+[**Etherpad for lesson alpha demo**](https://pad.carpentries.org/2024-08-12_reprex_alpha)
+
 #### Primary Authors:
 
 - Kaija Gahm [kgahm [at] g.ucla.edu](kgahm@g.ucla.edu)
