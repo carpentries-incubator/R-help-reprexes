@@ -218,8 +218,76 @@ Make sure you name your variables and keep it simple.
 
 ::::::::::::: callout 
 
+Callout
+For more handy functions for creating data frames and variables, see the cheatsheet.
+For some questions, specific formats can be needed. For these, one can use any of the provided as.someType functions: `as.factor`, `as.integer`, `as.numeric`, `as.character`, `as.Date`, `as.xts`.
 
 ::::::::::::::
+
+Example:
+
+We want to quantify presence/absence of three rodent species in a particular treatment plot after 12 days of sampling.
+Let’s think about what variables we would need.
+
+A variable for species, how many? Let’s say 3 species, and call them A, B, and C.
+
+```r
+species <- c(‘A’,’B’,’C’)
+```
+
+We then need a variable that tells us whether or not the species is present in that treatment plot.
+
+```r
+present <- c(‘yes’,’no’)
+```
+
+If we are only looking at one treatment plot then we don’t need a “treatment” variable. Keep it minimal!
+Ok, now we need to randomly sample from these to generate our dataset after 12 days of sampling and make a new variable “day” with numbers 1-12
+
+```r
+day <- c(1:12)
+```
+
+We can then sample our first two variables 12 times.
+
+```r
+sample_data <- data.frame(
+  Species = sample(species, 12, replace=T),
+  Present = sample(present, 12, replace=T),
+  Day = day
+)
+```
+
+Now what is wrong with this?
+→ we sampled 12 times, but what we needed was to sample each species 12 times.
+
+```r
+sample_data <- data.frame(
+  Species = species,
+  Present = sample(present, 36, replace=T)
+  Day = day
+)
+```
+
+We also didn’t set a seed. Remember: sample() creates a random dataset! This will not be consistently reproducible.
+```r
+set.seed(1)
+sample_data <- data.frame(
+  Species = species,
+  Present = sample(present, 36, replace=T)
+  Day = day
+)
+```
+
+Instead of creating the original variables we can also do it all at once when creating the data frame:
+```r
+set.seed(1)
+data <- data.frame(
+		Species = c(‘A’,’B’,’C’),
+		Present = sample(c(‘yes’, ‘no’), 36, replace=T),
+		Day = c(1:12)
+) 
+```
 
 
 :::::: keypoints
