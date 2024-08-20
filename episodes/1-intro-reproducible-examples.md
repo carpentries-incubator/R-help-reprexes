@@ -23,7 +23,7 @@ exercises: 2
 #### Welcome and introductions
 - Welcome to "RRRR, I'm Stuck!" We're glad you're here! Let's first take care of a few setup steps. You should have all followed the setup instructions on the [workshop website](kaijagahm.github.io/R-help-reprexes/), and you should have both R and RStudio installed.
  
-- You should also have the following packages installed: {**reprex**}, {**ratdat**}, {**tidyverse**}.
+- You should also have the following packages installed: {**reprex**}, {**ratdat**}, {**dplyr**}.
 
 - We have a range of levels of experience here. This workshop assumes that you are researcher in ecology/biology who has some prior experience working with R in RStudio.
 
