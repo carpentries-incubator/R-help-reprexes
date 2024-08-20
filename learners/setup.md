@@ -85,12 +85,12 @@ While this may sound scary, it is **far more common** to run into issues due to 
 
 ### Install required R packages
 
-During the course we will need a number of R packages. Packages contain useful R code written by other people. We will use the packages `ratdat`, `reprex`, and `dplyr`. 
+During the course we will need a number of R packages. Packages contain useful R code written by other people. We will use the packages `ratdat`, `reprex`, `dplyr`, and `ggplot2`. 
 
 To try to install these packages, open RStudio and copy and paste the following command into the console window (look for a blinking cursor on the bottom left), then press the <kbd>Enter</kbd> (Windows and Linux) or <kbd>Return</kbd> (MacOS) to execute the command.
 
 ```{r}
-install.packages(c("ratdat", "reprex", "dplyr"))
+install.packages(c("ratdat", "reprex", "dplyr", "ggplot2"))
 ```
 
 Alternatively, you can install the packages using RStudio's graphical user interface by going to `Tools > Install Packages` and typing the names of the packages separated by a comma.
@@ -103,6 +103,7 @@ When the installation has finished, you can try to load the packages by pasting 
 library(ratdat)
 library(reprex)
 library(dplyr)
+library(ggplot2)
 ```
 
 If you do not see an error like `there is no package called ‘...’` you are good to go! 
