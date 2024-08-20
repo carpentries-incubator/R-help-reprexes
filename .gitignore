@@ -36,3 +36,4 @@ docs/
 po/*~
 # renv detritus
 renv/sandbox/
+data/
