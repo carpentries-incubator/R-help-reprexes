@@ -311,6 +311,8 @@ B. We have housing data of zipcodes, home prices, number of bedrooms and bathroo
 A. We just need a T/F vector of whether someone voted for A (T) or B (F). 
 B. We need a dataframe with separate columns for zipcodes (int), home prices (double), number of bedrooms (int), and bathrooms (double). Some NA’s should be included. 
 
+:::::::::::::::::::::::::
+
 ::::::::::::::::::::::::::::::::::::::::
 
 :::::: keypoints
