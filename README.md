@@ -8,9 +8,10 @@ This lesson is a template lesson that uses [The Carpentries Workbench][workbench
 
 ## Lesson Developers:
 
-- Kaija Gahm [kgahm [at] g.ucla.edu](kgahm@g.ucla.edu)
-- Xochitl Ortiz Ross [xortizross [at] g.ucla.edu](xortizross@g.ucla.edu)
-- Peter Laurin [peterlaurin [at] g.ucla.edu](peterlaurin@g.ucla.edu)
+[Kaija Gahm](https://github.com/kaijagahm) (kgahm [at] g.ucla.edu)  
+[Xochitl Ortiz Ross](https://github.com/xortizross) (xortizross [at] g.ucla.edu)   
+[Peter Laurin](https://github.com/peterlaurin) (peterlaurin [at] g.ucla.edu)  
+
 
 ## The Data
 
