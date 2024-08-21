@@ -289,6 +289,31 @@ data <- data.frame(
 ) 
 ```
 
+:::::::::::::::::::::::::::::::::::::: challenge
+
+### Exercise 3
+Now practice doing it yourself. Create a data frame with: 
+A. One categorical variable with 5 levels. One continuous variable.
+B. One continuous variable normally distributed
+C. First name, last name, sex, age, and treatment type.
+
+:::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::: challenge
+
+### Exercise 4
+For each of the following, identify the necessary data type to create a minimal reproducible dataset.
+A. We have data representing whether someone voted for a candidate from party A or party B. 
+B. We have housing data of zipcodes, home prices, number of bedrooms and bathrooms for each house. Some of the data may be missing
+
+::::::::::::::::::::::::: solution
+
+A. We just need a T/F vector of whether someone voted for A (T) or B (F). 
+B. We need a dataframe with separate columns for zipcodes (int), home prices (double), number of bedrooms (int), and bathrooms (double). Some NA’s should be included. 
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::
 
 :::::: keypoints
  - A minimal reproducible dataset contains the minimum number of lines and variables to reproduce a certain problem and can be fully reproduced by someone else using only the information provided 
