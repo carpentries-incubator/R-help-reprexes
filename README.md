@@ -1,34 +1,28 @@
-# RRRRRRRRR I'm stuck!
+# RRRRR... I'm stuck!
 
-This is a lesson for beginner R coders in data science to learn how to identify problems in code and solve them through the use of reproducible examples and community. 
+This is a lesson for beginner R coders in data science to learn how to identify and resolve problematic code by using minimal reproducible examples to ask for help from the community. 
+
+The website for this lesson can be found at https://kaijagahm.github.io/R-help-reprexes/
+
+This lesson is a template lesson that uses [The Carpentries Workbench][workbench].
+
+## Lesson Developers:
+
+- Kaija Gahm [kgahm [at] g.ucla.edu](kgahm@g.ucla.edu)
+- Xochitl Ortiz Ross [xortizross [at] g.ucla.edu](xortizross@g.ucla.edu)
+- Peter Laurin [peterlaurin [at] g.ucla.edu](peterlaurin@g.ucla.edu)
+
+## The Data
+
+This lesson uses data from the `ratdat` package (CRAN page: https://cran.r-project.org/web/packages/ratdat/index.html).
+
+## Links related to the course development
 
 [**Link to Lesson Development Doc**](https://docs.google.com/document/d/1CkcEyFjr3u1JTos1w9lO0XYcgTJ9wRE6m6LhlwDh1dA/edit#heading=h.awmdspank0xf)
 
 [**Link to CodiMD**](https://codimd.carpentries.org/ElXZ2pJjTDGZsJjgvYs_Ig?both#Assessments%E2%80%93Notes-amp-discussion)
 
 [**Etherpad for lesson alpha demo**](https://pad.carpentries.org/2024-08-12_reprex_alpha)
-
-#### Primary Authors:
-
-- Kaija Gahm [kgahm [at] g.ucla.edu](kgahm@g.ucla.edu)
-- Xochitl Ortiz Ross [xortizross [at] g.ucla.edu](xortizross@g.ucla.edu)
-- Peter Laurin [peterlaurin [at] g.ucla.edu](peterlaurin@g.ucla.edu)
-
-This lesson is a template lesson that uses [The Carpentries Workbench][workbench].
-
-## Note about lesson life cycle stage
-Although the `config.yaml` states the life cycle stage as pre-alpha, **the template is stable and ready to use**. The life cycle stage is preset to `"pre-alpha"` as this setting is appropriate for new lessons initialised using the template.
-
-## Create a new repository from this template
-
-To use this template to start a new lesson repository, 
-make sure you're logged into Github.   
-Visit https://github.com/carpentries/workbench-template-rmd/generate
-and follow the instructions.
-Checking the 'Include all branches' option will save some time waiting for the first website build
-when your new repository is initialised.
-
-If you have any questions, contact [@tobyhodges](https://github.com/tobyhodges)
 
 ## Setup
    `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, and `LICENSE.md` files**
