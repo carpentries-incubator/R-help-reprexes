@@ -6,6 +6,14 @@ projects, and we welcome contributions of all kinds: new lessons, fixes to
 existing material, bug reports, and reviews of proposed changes are all
 welcome.
 
+### Current contributors
+
+[Kaija Gahm](https://github.com/kaijagahm)  
+[Xochitl Ortiz Ross](https://github.com/xortizross)   
+[Peter Laurin](https://github.com/peterlaurin)  
+
+Feel free to contact current contributors if you wish to contribute or have any questions.
+
 ### Contributor Agreement
 
 By contributing, you agree that we may redistribute your work under [our
