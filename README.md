@@ -25,5 +25,8 @@ This lesson uses data from the `ratdat` package (CRAN page: https://cran.r-proje
 
 [**Etherpad for lesson alpha demo**](https://pad.carpentries.org/2024-08-12_reprex_alpha)
 
+## How to contribute
+
+If you're interested in contributing to this lesson, please take a look at the [contribution guidelines](https://github.com/kaijagahm/R-help-reprexes/blob/main/CONTRIBUTING.md).
 
 [workbench]: https://carpentries.github.io/sandpaper-docs/
