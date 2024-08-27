@@ -32,11 +32,22 @@ This lesson is a template lesson that uses [The Carpentries Workbench][workbench
 This lesson uses data from the `ratdat` package (learn more on the CRAN page: https://cran.r-project.org/web/packages/ratdat/index.html).
 
 ## Acknowledgements
-The following people aided the development of this curriculum, by providing training, suggestions, reviews, and inspiration:
+
+The following people aided the development of this curriculum, by providing training, suggestions, reviews, and inspiration.
+
+<img align="left" width='130' src="https://github.com/carpentries/lesson-development-training/blob/main/episodes/fig/CLDT-hex-sticker.png"  /> 
+
+Our trainers:
 
 * [Toby Hodges](https://github.com/tobyhodges)
+  
 * [Sarah Stevens](https://github.com/sstevens2)
+  
 * [Erin Becker](https://github.com/erinbecker)
+
+
+Our first demo/focus group:
+
 * Evan Doughty
 * Madigan Durham
 * Mariana Harris
