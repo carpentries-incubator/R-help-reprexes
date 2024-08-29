@@ -65,8 +65,9 @@ Maintainers are responsible for ensuring that all such contributions are credite
 e.g. on the curriculum site and/or when a release of the curriculum is made to Zenodo.
 
 ## Maintainer Meetings
-The Maintainer team meets frequently,
-at minimum for at least 1 hour four times per year, but ideally more often.
+The Maintainer team meets twice a month, as explained above. Going forward, the
+maintainer team must meet at *minimum* 4 times a year for 1 hour, but ideally more often (e.g.
+keep the twice-monthly schedule, or transition to monthly).
 Meetings provide an opportunity for Maintainers to
 discuss outstanding issues and pull requests and co-work on the project where necessary.
 
@@ -86,7 +87,7 @@ with (at least) sections to record the following information:
 Notes will be taken in the agenda, with new meeting agendas/notes being added above 
 the notes from the previous meeting.
 
-Meeting agendas and notes can be found in the [project Google Doc](https://docs.google.com/document/d/1CkcEyFjr3u1JTos1w9lO0XYcgTJ9wRE6m6LhlwDh1dA/edit#heading=h.awmdspank0xf).
+Meeting agendas and notes can be found in the [Lesson Development doc](https://docs.google.com/document/d/1CkcEyFjr3u1JTos1w9lO0XYcgTJ9wRE6m6LhlwDh1dA/edit#heading=h.awmdspank0xf).
 
 ### Meeting roles
 Each meeting will have a Facilitator, a Notetaker, and (if needed) a Timekeeper:
@@ -123,4 +124,5 @@ Decisions made asynchronously must allow at least one week for Maintainers to re
 
 Communication between the Maintainers also happens in a shared Slack channel.
 If decisions are made via asynchronous communication in Slack, they will be
-recorded in relevant issue(s), or in a new issue in the repository, to ensure documentation.
+recorded in the meeting notes section of the [Lesson Development doc](https://docs.google.com/document/d/1CkcEyFjr3u1JTos1w9lO0XYcgTJ9wRE6m6LhlwDh1dA/edit), or in the 
+relevant issue(s), or in a new issue in the repository, to ensure documentation.
