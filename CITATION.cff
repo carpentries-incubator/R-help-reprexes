@@ -1,22 +1,56 @@
-# This template CITATION.cff file was generated with cffinit.
-# Visit https://bit.ly/cffinit to replace its contents
-# with information about your lesson.
-# Remember to update this file periodically, 
-# ensuring that the author list and other fields remain accurate.
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
 
 cff-version: 1.2.0
-title: FIXME
+title: RRRRR... I'm stuck!
 message: >-
-  Please cite this lesson using the information in this file
-  when you refer to it in publications, and/or if you
-  re-use, adapt, or expand on the content in your own
-  training material.
-type: dataset
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
 authors:
-  - given-names: FIXME
-    family-names: FIXME
-abstract: >-
-  FIXME Replace this with a short abstract describing the
-  lesson, e.g. its target audience and main intended
-  learning objectives.
+  - given-names: Kaija
+    family-names: Gahm
+    email: kaija.gahm@gmail.com
+    affiliation: UCLA
+    orcid: 'https://orcid.org/0000-0002-4612-4426'
+  - given-names: Xochitl
+    family-names: Ortiz-Ross
+    affiliation: UCLA
+    email: xortizross@g.ucla.edu
+    orcid: 'https://orcid.org/0000-0002-2598-8268'
+  - given-names: Peter
+    family-names: Laurin
+    orcid: 'https://orcid.org/0000-0003-0294-514X'
+    affiliation: UCLA
+    email: laurinpeter0@gmail.com
+identifiers:
+  - type: doi
+    value: 10.17605/OSF.IO/37JPQ
+    description: OSF DOI (always resolves to latest version)
+repository-code: 'https://github.com/kaijagahm/R-help-reprexes'
+url: 'https://kaijagahm.github.io/R-help-reprexes/'
+abstract: >
+This is a lesson for beginner R coders in (ecological) data science. 
+This lesson will teach how to identify and resolve problematic code by using minimal reproducible examples to ask for help from the community. 
+While this lesson should be appropriate for all levels, it is merely a supplement and not a replacement for an intro to R lesson. 
+As such, this lesson assumes a basic understanding of data structures, manipulation, and visualization in R. 
+Familiarity with the tidyverse package is helpful but not required. 
+An example of an introductory lesson that covers all pre-requisites is The Carpentries' Data Analysis and Visualization in R for Ecologists.
+The website for this lesson can be found at https://kaijagahm.github.io/R-help-reprexes/.
+This lesson is a template lesson that uses The Carpentries Workbench. Click on the link to learn more.
+
+keywords:
+  - reprex
+  - R
+  - debugging
+  - error
+  - coding
+  - RStudio
+  - reproducible example
+  - MRE
+  - minimal reproducible example
+  - minimal
+  - reproducible
+  - example
+  - question
 license: CC-BY-4.0
