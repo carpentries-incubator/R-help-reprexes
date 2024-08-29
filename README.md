@@ -48,9 +48,9 @@ Our trainers:
 
 Our first demo/focus group:
 
-* Evan Doughty
+* [Evan Doughty](https://orcid.org/0000-0002-0248-8818)
 * Madigan Durham
-* Mariana Harris
+* [Mariana Harris](https://github.com/mariharris)
 * Garrett Lawson
 * Maddie Zuercher
 
