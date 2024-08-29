@@ -24,14 +24,21 @@ authors:
     affiliation: UCLA
     email: laurinpeter0@gmail.com
 identifiers:
-  - type: url
-    value: 'https://github.com/kaijagahm/R-help-reprexes'
+  - type: doi
+    value: 10.17605/OSF.IO/37JPQ
+    description: OSF DOI (always resolves to latest version)
 repository-code: 'https://github.com/kaijagahm/R-help-reprexes'
 url: 'https://kaijagahm.github.io/R-help-reprexes/'
-abstract: >-
-  This is a lesson for beginner R coders in data science to
-  learn how to identify problems in code and solve them
-  through the use of reproducible examples and community.
+abstract: >
+This is a lesson for beginner R coders in (ecological) data science. 
+This lesson will teach how to identify and resolve problematic code by using minimal reproducible examples to ask for help from the community. 
+While this lesson should be appropriate for all levels, it is merely a supplement and not a replacement for an intro to R lesson. 
+As such, this lesson assumes a basic understanding of data structures, manipulation, and visualization in R. 
+Familiarity with the tidyverse package is helpful but not required. 
+An example of an introductory lesson that covers all pre-requisites is The Carpentries' Data Analysis and Visualization in R for Ecologists.
+The website for this lesson can be found at https://kaijagahm.github.io/R-help-reprexes/.
+This lesson is a template lesson that uses The Carpentries Workbench. Click on the link to learn more.
+
 keywords:
   - reprex
   - R
