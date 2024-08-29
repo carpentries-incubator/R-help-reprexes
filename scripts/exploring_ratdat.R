@@ -1,6 +1,7 @@
 # Exploring the ratdat dataset
 library(ratdat)
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
 head(complete_old)
 summary(complete_old)
 
