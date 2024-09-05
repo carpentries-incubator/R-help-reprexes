@@ -289,3 +289,8 @@ krats <- krats %>%
 
 # We now need something more complicate errors for the reprex code
 
+
+# Making linear models
+## It's not clear that weight or hindfoot length can predict sex, but maybe the combination of them can? Let's make a linear model to find out!
+
+mod1 <- lm(sex ~ hindfoot_length + weight + species, data = krats)
