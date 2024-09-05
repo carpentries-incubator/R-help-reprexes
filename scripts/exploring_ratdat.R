@@ -5,8 +5,6 @@ library(ggplot2)
 head(complete_old)
 summary(complete_old)
 
-# test edit
-
 # Examples of basic plots -------------------------------------------------
 complete_old %>%
   ggplot(aes(x = plot_type, y = weight, col = sex))+
@@ -41,3 +39,15 @@ complete_old %>%
 complete_old %>%
   mutate(date = lubridate::ymd(paste(month, day, year)))
 # all date formats failed to parse, because you put these in the wrong format
+
+# Filtering down to just Dipodomys
+dips <- complete %>%
+  filter(species == "Dipodomys")
+dips %>%
+  ggplot(aes(x = hindfoot_length, y = weight, col = species))+
+  geom_point()+
+  theme_minimal() # problem: Why is this blank??
+
+# section -----------------------------------------------------------------
+
+glimpse(complete)
