@@ -10,7 +10,7 @@ editor_options:
 **HELP**
 **We need to include but hide the data previously run so that we can continue to use it**
 
-```{r}
+```r
 # Hide this chunk
 library(readr)
 library(dplyr)
@@ -243,7 +243,7 @@ Since we will be working with the same dataset this year, we want to know how ma
 
 Here is the code you use:
 
-```{r}
+```r
 krats %>%
   ggplot(aes(x = date, fill = plot_type)) +
   geom_histogram(alpha=0.6)+
@@ -463,7 +463,7 @@ Let the students try it out and discuss outloud
 
 We end up with the following code:
 
-```{r}
+```r
 krats_per_day <- krats %>%
   group_by(date, year, species) %>%
   summarize(n = n()) %>%
@@ -481,7 +481,8 @@ krats_per_day %>%
 ::: challenge
 How might you reproduce this using the mpg dataset?
 :::
-  ::: solution
+
+::: solution
   Substitute krats with cars, species with class, date with year. The question becomes, how many cars of each class are produced per year?
   ```{r}
   set.seed(1)
@@ -518,7 +519,7 @@ How might you reproduce this using the mpg dataset?
     ylab("Cars per year")+
     xlab("Class")
   ```
-  :::
+:::
 
 ## Using your own data by creating a minimal subset
 
@@ -570,15 +571,15 @@ C) sample_data <- data.frame(x = 1:3, y = 4:6)
 
 D) sample_data <- ____
    dim(sample_data)
-   > NULL 
-   
-  ::: solution
+   NULL 
+:::   
+::: solution
   A) "fruit" needs to be a factor and the order of the levels must be specified:
      `sample_data <- data.frame(fruit = factor(rep(c("apple", "banana"), 6), levels = c("banana",          "apple")), weight = rnorm(12))`
   B) one of the blanks must be an NA
   C) **?? + what's really the point of this one?**
   D) `sample_data <- data.frame(x = factor(1:3), y = 4:6)`
-  :::
+:::
 
 
 ::: keypoints
