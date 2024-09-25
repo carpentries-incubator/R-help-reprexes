@@ -7,6 +7,23 @@ editor_options:
     wrap: sentence
 ---
 
+**HELP**
+**We need to include but hide the data previously run so that we can continue to use it**
+
+```{r}
+# Hide this chunk
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(stringr)
+library(ratdat)
+rodents<-complete_old
+krats <- rodents %>%
+  filter(genus == "Dipodomys")%>%
+  mutate(date = lubridate::ymd(paste(year, month, day, sep = "-")))
+```
+
+
 ::: questions
 -   What is a minimal reproducible dataset and why do I need it?
 -   What do I need to include in a minimal reproducible dataset?
@@ -58,6 +75,7 @@ It's useful to strip the dataset to its essential parts to identify where exactl
 A minimal dataset is a dataset that includes the information necessary to run the code, but removes all other unnecessary parts (extra columns/rows, extra context, etc.)
 
 We need minimal reproducible datasets to make it easy/simple/fast for the helper to focus in on the problem at hand and "get their hands dirty" tinkering with the dataset.
+
 
 ## 4.2 What do I need to include in a minimal reproducible dataset?
 
@@ -136,7 +154,7 @@ For an extra challenge, can you edit the above datasets to make them minimal and
 :::: challenge
 ### Exercise 2
 
-Here is a piece of code that is throwing me a simple error:
+Here is a piece of code that is throwing me a simple error (it is returning NA):
 
 ``` r
 mean(rodents$weight)
@@ -241,7 +259,7 @@ We want to ask someone online but we first need to create a minimal reproducible
 What variables would we need to reproduce this figure?
 
 A variable for species, how many?
-3.
+4.
 Let’s call them A, B, C, and D.
 
 ``` r
@@ -300,6 +318,7 @@ sample_data <- data.frame(
   Plot = sample(plot.type, 100, replace=T),
   Day = day
 )
+sample_data
 ```
 
 Now we have our minimal reproducible example!
@@ -318,7 +337,7 @@ sample_data %>%
 Yes!
 It is certainly simplified, but it has the elements we want it to have.
 And now we can ask how to get rid of "C".
-Given that this was a very simple question, we could have simplified this example even further; we could have used 2 species and even just 1 day, in which case a simple solution could be
+Given that this was a very simple question, we could have simplified this example even further; we could have used 2 species and even just 2 days, in which case a simple solution could be
 
 ``` r
 sample_data2 <- data.frame(
@@ -332,7 +351,7 @@ sample_data2 %>%
   facet_wrap(~species)+ 
   theme_bw()
 ```
-which is even more simplistic than the one before. Or you could even add a "blank" species too and say that's what you want to get rid of.
+which is even more simplistic than the one before but still contains the elemnts we are interested--we have a set of "species" separated into facets and we want to get rid of one of them. In reality, had we realized that we needed to get rid of the rows with "sp." in them, we could have ignored the figure entirely and posed the question about the data alone. E.g., "how do I remove rows that contain a specific name?" Then give just the example dataset we created.
 
 ::: challenge
 ### Exercise 3 (10 minutes)
@@ -340,22 +359,14 @@ which is even more simplistic than the one before. Or you could even add a "blan
 Now practice doing it yourself.
 Create a data frame with:
 
-A. One categorical variable with 5 levels.
-One continuous variable.
-B.
-One continuous variable normally distributed C.
-First name, last name, sex, age, and treatment type.
-:::
-
-::: keypoints
--   A minimal reproducible dataset contains the minimum number of lines and variables to reproduce a certain problem and can be fully reproduced by someone else using only the information provided
--   You can create a dataset from scratch using `as.data.frame`, you can use available datasets like `iris` or you can use a subset of your own dataset
--   You can share your data by...
+A. One categorical variable with 5 levels. One continuous variable.
+B. One continuous variable normally distributed 
+C. First name, last name, sex, age, and treatment type.
 :::
 
 ## 4.3.2 Create a dataset using an existing dataset
 
-If you don't want to create a dataset from scratch, maybe because you have too many variables or it's a more complicated structure and you are not sure where the error is, you can subset from an existing dataset.
+If you don't want to create a dataset from scratch, maybe because you have too many variables or it's a more complicated structure and you are not sure where the error is, you can subset from an existing dataset. Useful functions for subsetting a dataset include `subset()`, `head()`, `tail()`, indexing with [] (e.g., iris[1:4,]). Alternatively, you can use tidyverse functions like `select()`, and `filter()`. You can also use the same `sample()` functions we covered earlier.
 
 A list of readily available datasets can be found using `library(help="datasets")`. You can then use `?` in front of the dataset name to get more information about what the contents of the dataset.
 
@@ -433,16 +444,18 @@ Now it is your turn!
 
 ::: challenge
 For each of the following, identify which data are necessary to create a minimal reproducible dataset using `mpg`.
-A. We want to know how the highway mpg has changed over the years
-B. We need a list of all "types" of cars and their fuel type for each manufacturer
-C. We want to compare the average city mpg for a compact car from each manufacturer
+A) We want to know how the highway mpg has changed over the years  
+B) We need a list of all "types" of cars and their fuel type for each manufacturer  
+C) We want to compare the average city mpg for a compact car from each manufacturer  
 :::
 
-ALTERNATIVELY
+**OR change the above challenge to be about ratdat**
+
+**OR move to...**
 
 Now that we know how many of each species were captured over the years, we want to know how many of each species you might expect to catch per day. 
 
-Let's practice how we would do this with out data.
+Let's practice how we would do this with our data.
 
 ::: instructor
 Let the students try it out and discuss outloud
@@ -459,13 +472,53 @@ krats_per_day <- krats %>%
 krats_per_day %>%
   ggplot(aes(x = species, y = n))+
   geom_boxplot(outlier.shape = NA)+
-  geom_jitter(width = 0.2, alpha = 0.2, aes(col = year))+
+  geom_jitter(width = 0.2, alpha = 0.2)+
   theme_classic()+
   ylab("Number per day")+
   xlab("Species")
 ```
 
+::: challenge
 How might you reproduce this using the mpg dataset?
+:::
+  ::: solution
+  Substitute krats with cars, species with class, date with year. The question becomes, how many cars of each class are produced per year?
+  ```{r}
+  set.seed(1)
+    cars_per_y <- mpg %>%
+    filter(class %in% sample(class, 4, replace=F)) %>%
+    group_by(class, year) %>%
+    summarize(n=n()) %>%
+    group_by(class)
+    
+  cars_per_y %>%
+    ggplot(aes(x = class, y = n))+
+    geom_boxplot(outlier.shape = NA)+
+    geom_jitter(width = 0.2, alpha=0.2)+
+    theme_classic()+
+    ylab("Cars per year")+
+    xlab("Class")
+  
+  # this is only giving us 3 classes even though we asked for 4, why?
+  
+  # Because it is sampling from the column "class" which has many of the same class. 
+  # Therefore, we need to specify that we want to sample from within the unique values in "class".
+  
+  cars_per_y <- mpg %>%
+    filter(class %in% sample(unique(mpg$class), 4, replace=F)) %>%
+    group_by(class, year) %>%
+    summarize(n=n()) %>%
+    group_by(class)
+    
+  cars_per_y %>%
+    ggplot(aes(x = class, y = n))+
+    geom_boxplot(outlier.shape = NA)+
+    geom_jitter(width = 0.2, alpha=0.2)+
+    theme_classic()+
+    ylab("Cars per year")+
+    xlab("Class")
+  ```
+  :::
 
 ## Using your own data by creating a minimal subset
 
@@ -474,9 +527,62 @@ Perhaps you are now thinking that if you can use a subset of an existing dataset
 For example, using our previous data2
 
 ```r
-dput(data2)
+dput(cars_per_y)
 ```
 
 As you can see, even with our minimal dataset, it is still quite a chunk of code. What if you tried putting in krats_per_day? It is clear that either way you will still need to considerably minimize your data. Even then, it will often be simpler to provide an existing dataset or provide one from scratch. Furthermore, often we are able to discover the source of our error or solve our own problem when we have to go through the process of breaking it down into its essential components!
 
 Nevertheless, it remains an option for when your data appears too complex or you are not quite sure where your error lies and therefore are not sure what minimal components are needed to reproduce the example.
+
+::: callout
+*What about NAs?* If your data has NAs and they may be causing the problem, it is important to include them in your MR dataset. You can find where there are NAs in your dataset by using `is.na`, for example: `is.na(krats$weight)`. This will return a logical vector or TRUE if the cell contains an NA and FALSE if not. 
+The simplest way to include NAs in your dummy dataset is to directly include it in vectors: `x <- c(1,2,3,NA)`. You can also subset a dataset that already contains NAs, or change some of the values to NAs using `mutate(ifelse())` or substitute all the values in a column by sampling from within a vector that contains NAs. 
+
+One important thing to note when subsetting a dataset with NAs is that subsetting methods that use a condition to match rows won’t necessarily match NA values in the way you expect. For example
+```r
+test <- data.frame(x = c(NA, NA, 3, 1), y = rnorm(4))
+test %>% filter(x != 3) 
+# you might expect that the NA values would be included, since “NA is not equal to 3”. But actually, the expression NA != 3 evaluates to NA, not TRUE. So the NA rows will be dropped!
+# Instead you should use is.na() to match NAs
+test %>% filter(x != 3 | is.na(x))
+```
+:::
+
+Here are some more practice exercises if you wish to test your knowledge
+
+**(I copied these from excercise 6 in the google doc... but I'm not sure that they are getting at the point of the lesson...)
+::: challenge
+**Excercise:** Each of the following examples needs your help to create a dataset that will correctly reproduce the given result and/or warning message when the code is run. Fix the dataset shown or fill in the blanks so it reproduces the problem.
+A) set.seed(1)
+   sample_data <- data.frame(fruit = rep(c(“apple”, “banana”), 6), weight = rnorm(12))
+   ggplot(sample_data, aes(x = fruit, y = weight)) + geom_boxplot()
+   **HELP: how do I insert an image from clipboard?? Is it even possible?**
+
+B) bodyweight <- c(12, 13, 14, __, __)
+   max(bodyweight)
+   [1] NA
+
+C) sample_data <- data.frame(x = 1:3, y = 4:6)
+   mean(sample_data$x)
+   [1] NA
+   Warning message:
+   In mean.default(sample_data$x): argument is not numeric or logical: returning NA
+
+D) sample_data <- ____
+   dim(sample_data)
+   > NULL 
+   
+  ::: solution
+  A) "fruit" needs to be a factor and the order of the levels must be specified:
+     `sample_data <- data.frame(fruit = factor(rep(c("apple", "banana"), 6), levels = c("banana",          "apple")), weight = rnorm(12))`
+  B) one of the blanks must be an NA
+  C) **?? + what's really the point of this one?**
+  D) `sample_data <- data.frame(x = factor(1:3), y = 4:6)`
+  :::
+
+
+::: keypoints
+-   A minimal reproducible dataset contains (a) the minimum number of lines, variables, and categories, in the correct format, to reproduce a certain problem; and (b) it must be fully reproducible, meaning that someone else can reproduce the same problem using only the information provided.
+-   You can create a dataset from scratch using `as.data.frame`, you can use available datasets like `iris` or you can use a subset of your own dataset
+-   You can share your data by...
+:::
