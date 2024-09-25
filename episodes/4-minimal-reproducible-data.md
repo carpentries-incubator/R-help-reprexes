@@ -571,7 +571,7 @@ C) sample_data <- data.frame(x = 1:3, y = 4:6)
 D) sample_data <- ____
    dim(sample_data)
    > NULL 
-   
+ :::  
   ::: solution
   A) "fruit" needs to be a factor and the order of the levels must be specified:
      `sample_data <- data.frame(fruit = factor(rep(c("apple", "banana"), 6), levels = c("banana",          "apple")), weight = rnorm(12))`
