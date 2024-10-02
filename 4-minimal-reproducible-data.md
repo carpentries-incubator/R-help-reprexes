@@ -1,26 +1,31 @@
 ---
 title: "Minimal Reproducible Data"
-teaching: 40
-exercises: 4
-editor_options: 
-  markdown: 
-    wrap: sentence
+author: "Xochitl Ortiz Ross"
+date: "2024-10-02"
+output: html_document
 ---
+
+
 
 **HELP**
 **We need to include but hide the data previously run so that we can continue to use it**
 
-```r
-# Hide this chunk
-library(readr)
-library(dplyr)
-library(ggplot2)
-library(stringr)
-library(ratdat)
-rodents<-complete_old
-krats <- rodents %>%
-  filter(genus == "Dipodomys")%>%
-  mutate(date = lubridate::ymd(paste(year, month, day, sep = "-")))
+
+``` output
+
+Attaching package: 'dplyr'
+```
+
+``` output
+The following objects are masked from 'package:stats':
+
+    filter, lag
+```
+
+``` output
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
 ```
 
 
@@ -112,16 +117,22 @@ These will usually be minimal and reproducible.
 
 For example, let's look at the function `mean`:
 
+
 ``` r
 ?mean
 ```
 
 We see examples that can be run directly on the console, with no additional code.
 
+
 ``` r
 x <- c(0:10, 50)
 xm <- mean(x)
 c(xm, mean(x, trim = 0.10))
+```
+
+``` output
+[1] 8.75 5.50
 ```
 :::
 
@@ -156,8 +167,13 @@ For an extra challenge, can you edit the above datasets to make them minimal and
 
 Here is a piece of code that is throwing me a simple error (it is returning NA):
 
+
 ``` r
 mean(rodents$weight)
+```
+
+``` output
+[1] NA
 ```
 
 Which of the following represents a minimal reproducible dataset for this code?
@@ -200,6 +216,7 @@ We then need to know which elements of your dataset are necessary.
 
 You can create vectors using
 
+
 ``` r
   vector <- c(1,2,3,4) 
 ```
@@ -208,11 +225,13 @@ You can add some randomness by sampling from a vector using sample()
 
 For example you can sample numbers 1 through 10 in a random order
 
+
 ``` r
     x <- sample(1:10)
 ```
 
 Or you can use a random normal distribution
+
 
 ``` r
     x <- rnorm(10)
@@ -220,14 +239,17 @@ Or you can use a random normal distribution
 
 You can also use letters to create factors.
 
+
 ``` r
 x <- sample(letters[1:4], 20, replace=T)
 ```
 
 You can create a dataframe using `data.frame` (or `tibble` in the `dplyr` package).
 
+
 ``` r
-    data <- data.frame (x = sample(letters[1:3], 20, replace=T]), y = rnorm(1:20))
+data <- data.frame (x = sample(letters[1:3], 20, replace=T), 
+                    y = rnorm(1:20))
 ```
 
 Make sure you name your variables and keep it simple.
@@ -241,9 +263,10 @@ For these, one can use any of the provided as.someType functions: `as.factor`, `
 Let's come back to our kangaroo rats example.
 Since we will be working with the same dataset this year, we want to know how many kangaroo rats of each species were found in each plot type in past years so that we can better estimate what sample size we can expect.
 
-Here is the code you use:
+Here is the code we use:
 
-```r
+
+``` r
 krats %>%
   ggplot(aes(x = date, fill = plot_type)) +
   geom_histogram(alpha=0.6)+
@@ -252,6 +275,12 @@ krats %>%
   scale_fill_viridis_d(option = "plasma")+
   geom_vline(aes(xintercept = lubridate::ymd("1988-01-01")), col = "red")
 ```
+
+``` output
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+<img src="fig/4-minimal-reproducible-data-rendered-unnamed-chunk-10-1.png" style="display: block; margin: auto;" />
 
 Now let's say we saw this and decided we wanted to get rid of "sp." but didn't know how.
 We want to ask someone online but we first need to create a minimal reproducible example.
@@ -262,6 +291,7 @@ A variable for species, how many?
 4.
 Let’s call them A, B, C, and D.
 
+
 ``` r
 species <- c('A','B','C','D')
 ```
@@ -269,12 +299,14 @@ species <- c('A','B','C','D')
 We then need a variable for plot type, we have 5 but we could cut it down to 2; let's call them P1 and P2.
 In reality, we probably don't even need this for this question, but for the sake of practicing let's add it in.
 
+
 ``` r
 plot.type <- c('P1','P2')
 ```
 
 Lastly we need a variable for date.
 The specifics don't matter here, so let's just call it days and make it 1-10.
+
 
 ``` r
 days <- c(1:10)
@@ -289,12 +321,24 @@ Since we want species to repeat, we will also set replace to T.
 We then need to sample the plots for the same number of times, so that each species sample is associated with either P1 or P2.
 Lastly, we want to add each day we sampled.
 
+
 ``` r
 sample_data <- data.frame(
   Species = sample(species, 100, replace=T),
   Plot = sample(plot.type, 100, replace=T),
-  Day = day
+  Day = days
 )
+head(sample_data)
+```
+
+``` output
+  Species Plot Day
+1       C   P2   1
+2       D   P2   2
+3       C   P2   3
+4       A   P2   4
+5       C   P2   5
+6       A   P1   6
 ```
 
 Great!
@@ -311,19 +355,31 @@ Remember: sample() creates a random dataset!
 This will not be consistently reproducible.
 In order to make this example fully reproducible we should first `set.seed()`.
 
+
 ``` r
 set.seed(1)
 sample_data <- data.frame(
   Species = sample(species, 100, replace=T),
   Plot = sample(plot.type, 100, replace=T),
-  Day = day
+  Day = days
 )
-sample_data
+head(sample_data)
+```
+
+``` output
+  Species Plot Day
+1       A   P2   1
+2       D   P2   2
+3       C   P2   3
+4       A   P1   4
+5       B   P1   5
+6       A   P1   6
 ```
 
 Now we have our minimal reproducible example!
 But are we sure it reproduces what we are trying to reproduce?
 Let's test it out.
+
 
 ``` r
 sample_data %>%
@@ -334,10 +390,17 @@ sample_data %>%
   scale_fill_viridis_d(option = "plasma")
 ```
 
+``` output
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+<img src="fig/4-minimal-reproducible-data-rendered-unnamed-chunk-16-1.png" style="display: block; margin: auto;" />
+
 Yes!
 It is certainly simplified, but it has the elements we want it to have.
 And now we can ask how to get rid of "C".
 Given that this was a very simple question, we could have simplified this example even further; we could have used 2 species and even just 2 days, in which case a simple solution could be
+
 
 ``` r
 sample_data2 <- data.frame(
@@ -351,6 +414,12 @@ sample_data2 %>%
   facet_wrap(~species)+ 
   theme_bw()
 ```
+
+``` output
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+<img src="fig/4-minimal-reproducible-data-rendered-unnamed-chunk-17-1.png" style="display: block; margin: auto;" />
 which is even more simplistic than the one before but still contains the elemnts we are interested--we have a set of "species" separated into facets and we want to get rid of one of them. In reality, had we realized that we needed to get rid of the rows with "sp." in them, we could have ignored the figure entirely and posed the question about the data alone. E.g., "how do I remove rows that contain a specific name?" Then give just the example dataset we created.
 
 ::: challenge
@@ -374,7 +443,8 @@ When working with a built-in dataset you still have to edit your code to fit the
 
 Let's keep using our previous example, how can we reproduce that figure using the existing dataset `mpg`. First, let's interrogate this dataset to see what we are working with.
 
-```r
+
+``` r
 ?mpg
 ```
 
@@ -382,36 +452,67 @@ Which variable from mpg do you think we could use to replace our variables? Reme
 
 There are certainly multiple options! Let's go with model for species, manufacturer for plot type, and year for date.
 
-```r
+
+``` r
 data <- mpg %>% select(model, manufacturer, year)
 dim(data)
+```
+
+``` output
+[1] 234   3
+```
+
+``` r
 glimpse(data)
+```
+
+``` output
+Rows: 234
+Columns: 3
+$ model        <chr> "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro", "…
+$ manufacturer <chr> "audi", "audi", "audi", "audi", "audi", "audi", "audi", "…
+$ year         <int> 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, 200…
 ```
 
 We only need 4 species, and 5 plots. How many do we have here?
 
-```r
+
+``` r
 length(unique(data$model)) 
+```
+
+``` output
+[1] 38
+```
+
+``` r
 length(unique(data$manufacturer))
+```
+
+``` output
+[1] 15
 ```
 
 Certainly more than we need. Then let's simplify.
 
-```r
+
+``` r
 set.seed(1)
 data <- data %>%
     filter(model %in% sample(model, 4, replace = F))
 ```
 Cool, now we have just 4 models. BUT we also only have 2 years... so maybe year wasn't the best choice afterall, let's change it to hwy
 
-```r
+
+``` r
 data <- mpg %>% select(model, manufacturer, hwy) %>%
   filter(model %in% sample(model, 4, replace = F))
 ```
 
 Now we can try out plot
 
-```r
+
+``` r
 data %>%
   ggplot(aes(x = hwy, fill = manufacturer)) +
   geom_histogram(alpha=0.6)+
@@ -420,13 +521,20 @@ data %>%
   scale_fill_viridis_d(option = "plasma")
 ```
 
+``` output
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+<img src="fig/4-minimal-reproducible-data-rendered-unnamed-chunk-23-1.png" style="display: block; margin: auto;" />
+
 Do you think that works?
 
 It turns out that maybe manufacturer was not the best representation for plot, since we do need each car model to appear in each "plot". What would all cars have?
 
 Let's change model to manufacturer, and let's add class.
 
-```r
+
+``` r
 set.seed(1)
 data2 <- mpg %>% select(manufacturer, class, hwy) %>%
   filter(manufacturer %in% sample(manufacturer, 4, replace = F))
@@ -438,6 +546,12 @@ data2 %>%
   theme_bw()+
   scale_fill_viridis_d(option = "plasma")
 ```
+
+``` output
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+<img src="fig/4-minimal-reproducible-data-rendered-unnamed-chunk-24-1.png" style="display: block; margin: auto;" />
 That's more like it! You can keep playing around with it or you can give it more thought apriori, but either way you get the idea. While what we get is not an exact replica, it's an analogy. The important thing is that we created a figure whose basic elements/structure or "key features" remain intact--namely, the number and type of variables and categories.
 
 Now it is your turn!
@@ -463,12 +577,20 @@ Let the students try it out and discuss outloud
 
 We end up with the following code:
 
-```r
+
+``` r
 krats_per_day <- krats %>%
   group_by(date, year, species) %>%
   summarize(n = n()) %>%
   group_by(species)
+```
 
+``` output
+`summarise()` has grouped output by 'date', 'year'. You can override using the
+`.groups` argument.
+```
+
+``` r
 krats_per_day %>%
   ggplot(aes(x = species, y = n))+
   geom_boxplot(outlier.shape = NA)+
@@ -478,20 +600,30 @@ krats_per_day %>%
   xlab("Species")
 ```
 
+<img src="fig/4-minimal-reproducible-data-rendered-unnamed-chunk-25-1.png" style="display: block; margin: auto;" />
+
 ::: challenge
 How might you reproduce this using the mpg dataset?
 :::
 
 ::: solution
   Substitute krats with cars, species with class, date with year. The question becomes, how many cars of each class are produced per year?
-  ```{r}
+
+``` r
   set.seed(1)
     cars_per_y <- mpg %>%
     filter(class %in% sample(class, 4, replace=F)) %>%
     group_by(class, year) %>%
     summarize(n=n()) %>%
     group_by(class)
-    
+```
+
+``` output
+`summarise()` has grouped output by 'class'. You can override using the
+`.groups` argument.
+```
+
+``` r
   cars_per_y %>%
     ggplot(aes(x = class, y = n))+
     geom_boxplot(outlier.shape = NA)+
@@ -499,7 +631,11 @@ How might you reproduce this using the mpg dataset?
     theme_classic()+
     ylab("Cars per year")+
     xlab("Class")
-  
+```
+
+<img src="fig/4-minimal-reproducible-data-rendered-unnamed-chunk-26-1.png" style="display: block; margin: auto;" />
+
+``` r
   # this is only giving us 3 classes even though we asked for 4, why?
   
   # Because it is sampling from the column "class" which has many of the same class. 
@@ -510,7 +646,14 @@ How might you reproduce this using the mpg dataset?
     group_by(class, year) %>%
     summarize(n=n()) %>%
     group_by(class)
-    
+```
+
+``` output
+`summarise()` has grouped output by 'class'. You can override using the
+`.groups` argument.
+```
+
+``` r
   cars_per_y %>%
     ggplot(aes(x = class, y = n))+
     geom_boxplot(outlier.shape = NA)+
@@ -518,7 +661,9 @@ How might you reproduce this using the mpg dataset?
     theme_classic()+
     ylab("Cars per year")+
     xlab("Class")
-  ```
+```
+
+<img src="fig/4-minimal-reproducible-data-rendered-unnamed-chunk-26-2.png" style="display: block; margin: auto;" />
 :::
 
 ## Using your own data by creating a minimal subset
@@ -527,8 +672,21 @@ Perhaps you are now thinking that if you can use a subset of an existing dataset
 
 For example, using our previous data2
 
-```r
+
+``` r
 dput(cars_per_y)
+```
+
+``` output
+structure(list(class = c("midsize", "midsize", "pickup", "pickup", 
+"subcompact", "subcompact", "suv", "suv"), year = c(1999L, 2008L, 
+1999L, 2008L, 1999L, 2008L, 1999L, 2008L), n = c(20L, 21L, 16L, 
+17L, 19L, 16L, 29L, 33L)), class = c("grouped_df", "tbl_df", 
+"tbl", "data.frame"), row.names = c(NA, -8L), groups = structure(list(
+    class = c("midsize", "pickup", "subcompact", "suv"), .rows = structure(list(
+        1:2, 3:4, 5:6, 7:8), ptype = integer(0), class = c("vctrs_list_of", 
+    "vctrs_vctr", "list"))), class = c("tbl_df", "tbl", "data.frame"
+), row.names = c(NA, -4L), .drop = TRUE))
 ```
 
 As you can see, even with our minimal dataset, it is still quite a chunk of code. What if you tried putting in krats_per_day? It is clear that either way you will still need to considerably minimize your data. Even then, it will often be simpler to provide an existing dataset or provide one from scratch. Furthermore, often we are able to discover the source of our error or solve our own problem when we have to go through the process of breaking it down into its essential components!
@@ -540,12 +698,28 @@ Nevertheless, it remains an option for when your data appears too complex or you
 The simplest way to include NAs in your dummy dataset is to directly include it in vectors: `x <- c(1,2,3,NA)`. You can also subset a dataset that already contains NAs, or change some of the values to NAs using `mutate(ifelse())` or substitute all the values in a column by sampling from within a vector that contains NAs. 
 
 One important thing to note when subsetting a dataset with NAs is that subsetting methods that use a condition to match rows won’t necessarily match NA values in the way you expect. For example
-```r
+
+``` r
 test <- data.frame(x = c(NA, NA, 3, 1), y = rnorm(4))
 test %>% filter(x != 3) 
+```
+
+``` output
+  x         y
+1 1 0.7635935
+```
+
+``` r
 # you might expect that the NA values would be included, since “NA is not equal to 3”. But actually, the expression NA != 3 evaluates to NA, not TRUE. So the NA rows will be dropped!
 # Instead you should use is.na() to match NAs
 test %>% filter(x != 3 | is.na(x))
+```
+
+``` output
+   x            y
+1 NA -0.294720447
+2 NA -0.005767173
+3  1  0.763593461
 ```
 :::
 
@@ -573,6 +747,7 @@ D) sample_data <- ____
    dim(sample_data)
    NULL 
 :::   
+
 ::: solution
   A) "fruit" needs to be a factor and the order of the levels must be specified:
      `sample_data <- data.frame(fruit = factor(rep(c("apple", "banana"), 6), levels = c("banana",          "apple")), weight = rnorm(12))`
