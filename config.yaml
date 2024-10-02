@@ -62,7 +62,7 @@ episodes:
 - 1-intro-reproducible-examples.md
 - 2-understanding-your-code.md
 - 3-identify-the-problem.md
-- 4-minimal-reproducible-data.Rmd
+- 4-minimal-reproducible-data.md
 - 5-minimal-reproducible-code.md
 - 6-asking-your-question.md
 
