@@ -6,14 +6,20 @@ exercises: 2
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- To do
+- Which part of my code is causing an error message or an incorrect result?
+- I want to make my code minimal, but where do I even start?
+- How do I make non-reproducible code reproducible?
+- How do I tell whether a code snippet is reproducible or not?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- To do
+- Identify the step that is generating the error
+- Implement a stepwise approach to make minimal code
+- Edit a piece of code to make it reproducible
+- Evaluate whether a piece of code is reproducible as is or not. If not, identify what is missing.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-Idea: take some of the same exercises from the understanding your code section and use those to get people to break down code into minimal chunks. Emphasize that it's not always going to be linear (
+
