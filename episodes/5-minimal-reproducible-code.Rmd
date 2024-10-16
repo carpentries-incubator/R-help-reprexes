@@ -20,3 +20,39 @@ exercises: 2
 - Identify pieces of code that can be removed without affecting the central functionality.
 :::
 
+## The road map for simplifying your code
+0. Make a new script to hold your reproducible example.
+1. Where is the problem area? (What is breaking?)
+  - add it to the script
+2. What is needed to run this code?
+  A. Variables
+    Ex: ID all the variables used
+  B. Packages
+    Ex: ID all the packages used
+    ! Not all functions are obviously attached to a package!
+      - shortcut: all packages you loaded
+        Ex: Why not? What's the drawback of this?
+      - double colon :: for defining functions (a useful exercise for you, if nothing else!)
+        Ex: What might be missed by this? Are there any important things that can't be defined by the double colon?
+      - search for function in help docs
+3. Add the packages as library() calls at the top of the script
+    ! What if someone doesn't have the package installed? Typically we don't include `install.packages()` in our code. We assume that people will see the library() calls and take action to install the packages themselves. However, there is an alternative approach [instert content/example of the if(require()) thing--but note that explaining this properly requires explaining why require() is different from library(), why it returns a logical, etc. and is kind of a rabbit hole that I don't really want to go down.]
+4. Where are the variables defined, and what do they depend on?
+  Ex: draw a tree
+  - Add those necessary parts in your new minimal script.
+    ! Wow this is getting long! If the previous code has a lot of data wrangling steps, including all the dependencies won't really help simplify things. What can you do instead?
+      Ex: brainstorm ways you could use a minimal dataset here instead of your literal data
+        ! Using a minimal dataset simplifies not just the data but also the code!! Key takeaway.
+5. Can we pare this down even more?
+  - General procedure: remove something and test whether it breaks the key problem.
+  Ex: removing various things, observing what happens, identifying whether or not we care about those things. (Need to include at least one that's tricky, like maybe it does change the actual values but it doesn't change their relationship to each other)
+
+Ex: reflection. That was a lot! Let's take a moment to think.
+- What's one thing you learned in this episode, an insight, etc?
+- What's one thing you're still confused about?
+
+Putting it all together: Given a broken script, can you reduce it down to its smallest parts and make a minimal reprex?
+    
+Box [ROAD MAP IN SIMPLE TERMS]
+    
+    
