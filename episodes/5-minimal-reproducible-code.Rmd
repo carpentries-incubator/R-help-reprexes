@@ -20,6 +20,43 @@ exercises: 2
 - Identify pieces of code that can be removed without affecting the central functionality.
 :::
 
+## Why is it important to simplify code?
+
+::::::::::::::::::::::::::::::::::::::::::: challenge
+**Exercise:** Imagine you're opening up a project after a long time away from it. You know you were stuck on one of the scripts, so you open it up to try to figure out what's going on. (If you have easy access to one of your past projects, try this in real time!)
+
+On the Etherpad, write a few notes about the thoughts and feelings you experience when you do this. How do you feel about diving into this script again?
+::::::::::::::::::::::::::::::::::::::::::: 
+
+Now imagine that your colleague sends you *their* analysis script. It's broken and they want help fixing it. You open the script in R and it runs. Awesome! But now you're staring at a long complicated script, and you're not really sure where to start on fixing the problem.
+- Ugh, this is going to take a long time. You're not exactly excited to dive into it.
+
+When someone is doing you the favor of helping you figure out what's wrong with your code, the happier you make them, the likelier they are to help you quickly and easily. Why lay more barriers in their way?
+
+This is especially important with strangers on the internet who don't have a pre-existing relationship with you. They're only going to help if you make it really really easy for them to do so.
+
+XXX exercise that puts them in the shoes of the person receiving the example and trying to run it, so they feel how annoying it is.
+XXX do we really need to hit them over the head with this? Maybe they get it already?
+
+## Where is the problem area
+
+So we've seen that simplifying your code down [helps other people help you](LINK TO JENNY BRYAN'S TALK) and gets you answers more quickly. But how do we actually go about doing that?
+
+In this episode, we're going to walk you through a road map of steps for approaching your code and breaking it down into its simplest form while making sure that 1) it still runs and 2) it still reproduces the problem you actually care about solving. In the last episode, we saw that a minimal dataset isn't useful if it doesn't demonstrate the thing you're trying to focus on! The same thing applies to code.
+
+For now, we'll go through this road map step by step. At the end, we'll review it. One thing we want you to take away from this lesson is that there is a step by step process to follow, and you can refer back to it if you feel lost in the future.
+
+**Step 1: Identify the problem area.**
+
+Sometimes, it's really easy to tell which part of your code is broken. Everything was working, and then suddenly you add a new line and it generates an error message. But sometimes it's more subtle. Maybe there's no error message, but the plot you're producing doesn't look like you want it to. Maybe things were working last time you ran the script, but since then you've added 50 more lines of code and now it doesn't work well.
+
+XXX EXAMPLE WHERE THE PLOT CREATED DOESN'T MATCH WHAT THEY WERE GOING FOR (because that's easier to debug than an actual error message). XXX we need to focus more on actual errors in this lesson I think... can add that in later.
+
+Which line of code created that plot?
+- If you're not sure, try stepping through your code line by line.
+
+XXX start here
+---------
 ## The road map for simplifying your code
 0. Make a new script to hold your reproducible example.
 1. Where is the problem area? (What is breaking?)

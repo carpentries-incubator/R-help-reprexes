@@ -95,7 +95,7 @@ Unfortunately, Taylor soon writes back.
 
 Of course! The data! That's important.
 ::: challenge
-**Excercise:** On the Etherpad or in your own notes, identify the dataset that you'll need to send to Taylor so they can run your code. What are a few different ways that you could give him the data? What are the advantages or disadvantages to each?
+**Exercise:** On the Etherpad or in your own notes, identify the dataset that you'll need to send to Taylor so they can run your code. What are a few different ways that you could give him the data? What are the advantages or disadvantages to each?
 :::   
 ::: solution
 XXX INSERT SOLUTION
