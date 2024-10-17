@@ -71,7 +71,7 @@ XXX start here
         Ex: Why not? What's the drawback of this?
       - double colon :: for defining functions (a useful exercise for you, if nothing else!)
         Ex: What might be missed by this? Are there any important things that can't be defined by the double colon?
-      - search for function in help docs
+      - search for function in help docs with ??fun
 3. Add the packages as library() calls at the top of the script
     ! What if someone doesn't have the package installed? Typically we don't include `install.packages()` in our code. We assume that people will see the library() calls and take action to install the packages themselves. However, there is an alternative approach [instert content/example of the if(require()) thing--but note that explaining this properly requires explaining why require() is different from library(), why it returns a logical, etc. and is kind of a rabbit hole that I don't really want to go down.]
 4. Where are the variables defined, and what do they depend on?
