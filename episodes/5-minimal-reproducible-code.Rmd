@@ -71,15 +71,7 @@ Which line of code created that plot?
 
 Now that we've identified the trouble spot, let's copy and paste it over to our script, "reprex-script.R".
 
-**Step 2: What is needed to run this code?**
-
-We isolated the problem, so we're done, right? Not so fast.
-
-The piece of code that we copied over came from line [LINE NUMBER] of our analysis script. We had done a lot of analyses before then, including modifying datasets and assigning intermediate objects/variables.
-
-Our code snippet *depends* on all those previous steps, so when we isolate it in a new script, it might not be able to run anymore. More importantly, when a helper doesn't have access to the rest of our script, the code might not run for them either.
-
-To fix this, we need to provide some additional context around our reprex so that it runs. 
+**Step 2: Dependencies (functions and packages)**
 
 R code consists primarily of *variables* and *functions*. 
 
@@ -119,9 +111,29 @@ You can search for a function in the help docs with `??fun` (where "fun" is the 
 Now that we have a list of the packages that the helper will need to load in order to run our example, we can add those as `library()` calls to the top of our script.
 XXX Stylistic question--when to use callouts vs. think-pair-share exercises vs. just talking?
 
+But what if our helper doesn't have all of these packages installed? Won't the code not be reproducible?
 
+Typically, we don't include `install.packages()` in our code for each of the packages that we include in the `library()` calls, because `install.packages()` is a one-time piece of code that doesn't need to be repeated every time the script is run. We assume that our helper will see `library(specialpackage)` and know that they need to go install "specialpackage" on their own.
 
+Technically, this makes that part of the code not reproducible! But it's also much more "polite". Our helper might have their own way of managing package versions, and forcing them to install a package when they run our code risks messing up our workflow. It is a common convention to stick with `library()` and let them figure it out from there.
+XXX this feels over-explained... pare it down!
 
+::::::::::::::::::::::::::::::::::::::::::: callout
+**Using require() to install packages conditionally**
+There is an alternative approach to installing packages [insert content/example of the if(require()) thing--but note that explaining this properly requires explaining why require() is different from library(), why it returns a logical, etc. and is kind of a rabbit hole that I don't want to go down here.]
+::::::::::::::::::::::::::::::::::::::::::: 
+
+**Step 3: Dependencies (datasets and variables)**
+
+We isolated the problem in our problem area, and we loaded all the necessary packages, so we're done, right? 
+
+Not so fast.
+
+The piece of code that we copied over came from line [LINE NUMBER] of our analysis script. We had done a lot of analyses before then, including modifying datasets and assigning intermediate objects/variables.
+
+Our code snippet *depends* on all those previous steps, so when we isolate it in a new script, it might not be able to run anymore. More importantly, when a helper doesn't have access to the rest of our script, the code might not run for them either.
+
+To fix this, we need to provide some additional context around our reprex so that it runs. 
 
 ::::::::::::::::::::::::::::::::::::::::::: challenge
 **Exercise:** For each of the following code snippets, identify all the variables used
@@ -134,7 +146,42 @@ XXX Stylistic question--when to use callouts vs. think-pair-share exercises vs. 
 Remember, you can rename variables in R, so a variable with the same name doesn't necessarily contain the same exact object!
 ::::::::::::::::::::::::::::::::::::::::::: 
 
-R code consists primarily of variables and functions. 
+Now that we've identified the variables and datasets used, what do *they* depend on? Where did they come from?
+
+::::::::::::::::::::::::::::::::::::::::::: exercise
+Map out the origins of the variables and datasets involved in your reprex. Starting with the list of variables you came up with in the previous exercise, draw arrows backwards to show what variables each one of those depends on, and so on, and so on, backwards.
+
+It might help you to ask the question "Where did this come from?" for each variable.
+
+What do you notice?
+
+How can you make sure the helpers can access these objects too?
+::::::::::::::::::::::::::::::::::::::::::: 
+
+::::::::::::::::::::::::::::::::::::::::::: callout
+Every object should be able to map back to either a file, a built-in dataset in R, or another intermediate step. If you found any variables where you weren't able to answer the "Where did this come from?" question, then that's a problem! Did you build a script that mistakenly relied on an object that was in your environment but was never properly defined?
+
+Mapping exercises like this can be a great way to check whether your code is reproducible.
+
+See the {targets} package for more.
+::::::::::::::::::::::::::::::::::::::::::: 
+
+Wow, this is getting long! 
+
+One thing we could do now is to use the map we just drew to guide us, tracing back through the code and pasting each new code snippet into the script.
+XXX START HERE
+
+Where are the variables defined, and what do they depend on?
+  Ex: draw a tree
+  - Add those necessary parts in your new minimal script.
+    ! Wow this is getting long! If the previous code has a lot of data wrangling steps, including all the dependencies won't really help simplify things. What can you do instead?
+      Ex: brainstorm ways you could use a minimal dataset here instead of your literal data
+        ! Using a minimal dataset simplifies not just the data but also the code!! Key takeaway.
+        
+For our helpers to be able to run our code, we need to make sure they have access to the same datasets and variables--or at least to reasonable stand-ins!
+
+
+
 
 ---------
 ## The road map for simplifying your code
@@ -151,17 +198,11 @@ R code consists primarily of variables and functions.
         Ex: What might be missed by this? Are there any important things that can't be defined by the double colon?
       - search for function in help docs with ??fun
      Add the packages as library() calls at the top of the script
-         ! What if someone doesn't have the package installed? Typically we don't include `install.packages()` in our code. We assume that people will see the library() calls and take action to install the packages themselves. However, there is an alternative approach [instert content/example of the if(require()) thing--but note that explaining this properly requires explaining why require() is different from library(), why it returns a logical, etc. and is kind of a rabbit hole that I don't really want to go down.]
+         ! What if someone doesn't have the package installed?
   
 3. Dependencies: datasets and variables
  Ex: ID all the variables used
- 
- Where are the variables defined, and what do they depend on?
-  Ex: draw a tree
-  - Add those necessary parts in your new minimal script.
-    ! Wow this is getting long! If the previous code has a lot of data wrangling steps, including all the dependencies won't really help simplify things. What can you do instead?
-      Ex: brainstorm ways you could use a minimal dataset here instead of your literal data
-        ! Using a minimal dataset simplifies not just the data but also the code!! Key takeaway.
+
   
 4. Simplify
   - General procedure: remove something and test whether it breaks the key problem.
