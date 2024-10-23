@@ -230,7 +230,6 @@ To review, here's our **road map**:
   - remove anything extra/distracting that can be removed
 ::::::::::::::::::::::::::::::::::::::::::: 
 
-
 Ex: reflection. That was a lot! Let's take a moment to think.
 - What's one thing you learned in this episode, an insight, etc?
 - What's one thing you're still confused about?
