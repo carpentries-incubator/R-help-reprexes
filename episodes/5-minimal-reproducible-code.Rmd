@@ -40,31 +40,109 @@ XXX do we really need to hit them over the head with this? Maybe they get it alr
 
 ## Where is the problem area
 
-So we've seen that simplifying your code down [helps other people help you](LINK TO JENNY BRYAN'S TALK) and gets you answers more quickly. But how do we actually go about doing that?
+So we've seen that simplifying your code down [helps other people help you](https://www.youtube.com/results?search_query=help+me+help+you+jenny+bryan) and gets you answers more quickly. But how do we actually do that?
 
-In this episode, we're going to walk you through a road map of steps for approaching your code and breaking it down into its simplest form while making sure that 1) it still runs and 2) it still reproduces the problem you actually care about solving. In the last episode, we saw that a minimal dataset isn't useful if it doesn't demonstrate the thing you're trying to focus on! The same thing applies to code.
+In this episode, we're going to walk through a road map for breaking your code down to its simplest form while making sure that 1) it still runs and 2) it reproduces the problem you care about solving. In the last episode, we saw that a minimal dataset isn't useful if it doesn't demonstrate the thing you're trying to focus on! The same thing applies to code.
 
 For now, we'll go through this road map step by step. At the end, we'll review it. One thing we want you to take away from this lesson is that there is a step by step process to follow, and you can refer back to it if you feel lost in the future.
 
+Here's the road map we're going to follow:
+[XXX DIAGRAM OF THE ROAD MAP]
+
+**Step 0: Create a separate script**
+Let's create a new script to store the simplified code.
+
+::::::::::::::::::::::::::::::::::::::::::: 
+File > New File > R Script
+::::::::::::::::::::::::::::::::::::::::::: 
+
+We'll call it something recognizable, such as "reprex-script.R"
+
 **Step 1: Identify the problem area.**
 
-Sometimes, it's really easy to tell which part of your code is broken. Everything was working, and then suddenly you add a new line and it generates an error message. But sometimes it's more subtle. Maybe there's no error message, but the plot you're producing doesn't look like you want it to. Maybe things were working last time you ran the script, but since then you've added 50 more lines of code and now it doesn't work well.
+The first step is to zero in on what's broken.
 
-XXX EXAMPLE WHERE THE PLOT CREATED DOESN'T MATCH WHAT THEY WERE GOING FOR (because that's easier to debug than an actual error message). XXX we need to focus more on actual errors in this lesson I think... can add that in later.
+Sometimes, it's easy to tell which part of your code is broken. Everything was working, and then you add a new line and get an error. Other times, it's more subtle. The plot you're making doesn't look right. Your code gives an answer, but not the right answer. Maybe things were working last time you ran the script, but you've since added 50 more lines of code and you're not sure what's broken.
+
+[XXX EXAMPLE WHERE THE PLOT CREATED DOESN'T MATCH WHAT THEY WERE GOING FOR] (because that's easier to debug than an actual error message). XXX we need to focus more on actual errors in this lesson I think... can add that in later.
 
 Which line of code created that plot?
 - If you're not sure, try stepping through your code line by line.
 
-XXX start here
+Now that we've identified the trouble spot, let's copy and paste it over to our script, "reprex-script.R".
+
+**Step 2: What is needed to run this code?**
+
+We isolated the problem, so we're done, right? Not so fast.
+
+The piece of code that we copied over came from line [LINE NUMBER] of our analysis script. We had done a lot of analyses before then, including modifying datasets and assigning intermediate objects/variables.
+
+Our code snippet *depends* on all those previous steps, so when we isolate it in a new script, it might not be able to run anymore. More importantly, when a helper doesn't have access to the rest of our script, the code might not run for them either.
+
+To fix this, we need to provide some additional context around our reprex so that it runs. 
+
+R code consists primarily of *variables* and *functions*. 
+
+::::::::::::::::::::::::::::::::::::::::::: challenge
+**Exercise:** Where do functions come from?
+
+When coding in R, we use a lot of different functions. Where do those functions come from? How can we make sure that our helpers have access to those sources? Take a moment to brainstorm.
+::::::::::::::::::::::::::::::::::::::::::: 
+::: solution
+Functions in R typically come from packages. Some packages, such as {base} and {stats}, are loaded in R by default, so you might not have realized that they are packages too.
+
+You can see a complete list of functions in {base} and {stats} by running `library(help = "base")` or `library(help = "stats")`.
+
+Some functions might be user-defined. In that case, you'll need to make sure to include the function definition in your reprex.
+
+[RELEVANT EXAMPLE OF A USER-DEFINED FUNCTION]
+:::
+
+The quickest way to make sure others have access to the functions contained in packages is to include a `library()` call in your reprex, so they know to load the package too.
+
+[CALLOUT--dev versions of packages]
+
+::::::::::::::::::::::::::::::::::::::::::: callout
+Sometimes it can be hard to figure out where a function comes from. Especially if a function comes from a package you use frequently, you might not remember where it comes from!
+
+You can search for a function in the help docs with `??fun` (where "fun" is the name of the function). To explicitly declare which package a function comes from, you can use a double colon `::`--for example, `dplyr::select()`. Declaring the function with a double colon also allows you to use that function even if the package is not loaded, as long as it's installed.
+:::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::: challenge
+**Exercise:** For each of the following code snippets, identify all the packages used.
+
+- Example (including an ambiguous function: `dplyr::select()` is a good one because it masks `plyr::select()`)
+- Example where you have to look up which package a function comes from
+- Example with a user-defined function that doesn't exist in any package
+::::::::::::::::::::::::::::::::::::::::::: 
+
+Now that we have a list of the packages that the helper will need to load in order to run our example, we can add those as `library()` calls to the top of our script.
+XXX Stylistic question--when to use callouts vs. think-pair-share exercises vs. just talking?
+
+
+
+
+
+::::::::::::::::::::::::::::::::::::::::::: challenge
+**Exercise:** For each of the following code snippets, identify all the variables used
+
+- [Straightforward example]
+- [Example where they use a built-in dataset but it contains a column that that dataset doesn't actually contain.]
+::::::::::::::::::::::::::::::::::::::::::: 
+
+::::::::::::::::::::::::::::::::::::::::::: callout
+Remember, you can rename variables in R, so a variable with the same name doesn't necessarily contain the same exact object!
+::::::::::::::::::::::::::::::::::::::::::: 
+
+R code consists primarily of variables and functions. 
+
 ---------
 ## The road map for simplifying your code
 0. Make a new script to hold your reproducible example.
 1. Where is the problem area? (What is breaking?)
   - add it to the script
-2. What is needed to run this code?
-  A. Variables
-    Ex: ID all the variables used
-  B. Packages
+  
+2. Dependencies: functions
     Ex: ID all the packages used
     ! Not all functions are obviously attached to a package!
       - shortcut: all packages you loaded
@@ -72,15 +150,20 @@ XXX start here
       - double colon :: for defining functions (a useful exercise for you, if nothing else!)
         Ex: What might be missed by this? Are there any important things that can't be defined by the double colon?
       - search for function in help docs with ??fun
-3. Add the packages as library() calls at the top of the script
-    ! What if someone doesn't have the package installed? Typically we don't include `install.packages()` in our code. We assume that people will see the library() calls and take action to install the packages themselves. However, there is an alternative approach [instert content/example of the if(require()) thing--but note that explaining this properly requires explaining why require() is different from library(), why it returns a logical, etc. and is kind of a rabbit hole that I don't really want to go down.]
-4. Where are the variables defined, and what do they depend on?
+     Add the packages as library() calls at the top of the script
+         ! What if someone doesn't have the package installed? Typically we don't include `install.packages()` in our code. We assume that people will see the library() calls and take action to install the packages themselves. However, there is an alternative approach [instert content/example of the if(require()) thing--but note that explaining this properly requires explaining why require() is different from library(), why it returns a logical, etc. and is kind of a rabbit hole that I don't really want to go down.]
+  
+3. Dependencies: datasets and variables
+ Ex: ID all the variables used
+ 
+ Where are the variables defined, and what do they depend on?
   Ex: draw a tree
   - Add those necessary parts in your new minimal script.
     ! Wow this is getting long! If the previous code has a lot of data wrangling steps, including all the dependencies won't really help simplify things. What can you do instead?
       Ex: brainstorm ways you could use a minimal dataset here instead of your literal data
         ! Using a minimal dataset simplifies not just the data but also the code!! Key takeaway.
-5. Can we pare this down even more?
+  
+4. Simplify
   - General procedure: remove something and test whether it breaks the key problem.
   Ex: removing various things, observing what happens, identifying whether or not we care about those things. (Need to include at least one that's tricky, like maybe it does change the actual values but it doesn't change their relationship to each other)
 
@@ -88,8 +171,9 @@ Ex: reflection. That was a lot! Let's take a moment to think.
 - What's one thing you learned in this episode, an insight, etc?
 - What's one thing you're still confused about?
 
+Ex: 
 Putting it all together: Given a broken script, can you reduce it down to its smallest parts and make a minimal reprex?
     
-Box [ROAD MAP IN SIMPLE TERMS]
+
     
     
