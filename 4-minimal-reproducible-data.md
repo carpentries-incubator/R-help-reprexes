@@ -333,11 +333,11 @@ head(sample_data)
 
 ``` output
   Species Plot Day
-1       A   P1   1
+1       B   P1   1
 2       C   P1   2
-3       D   P1   3
-4       D   P1   4
-5       D   P2   5
+3       C   P2   3
+4       B   P2   4
+5       B   P2   5
 6       A   P2   6
 ```
 
