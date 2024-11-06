@@ -133,7 +133,7 @@ In this case, x is the dummy dataset consisting of just 1 variable. Notice how i
 ### Exercise 1
 
 These datasets are not well suited for use in a reprex.
-For each one, try to reproduce the dataset on your own in R.
+For each one, try to reproduce the dataset on your own in R (copy-paste).
 Does it work?
 What happened?
 Explain.
@@ -187,25 +187,33 @@ E)  uses a dataset that isn't accessible without previous data wrangling code–
 
 ## 4.3 How do I create a minimal reproducible dataset?
 
-This is where many often get stuck: how do I recreate the key elements of my dataset in order to reproduce my error??
+This is where many often get stuck: how do I recreate the key elements of my dataset in order to reproduce my error?
 That seems really hard!
-If you are like me and find this initially overwhelming, don’t worry.
+If you also find this initially overwhelming, don’t worry.
 We will break it down into smaller steps.
 
 First, there are three approaches to providing a dataset.
-You can (1) create one from scratch, (2) use a dataset that is already available, (3) copy/recreate your actual dataset in a way that is . 
+You can (1) create one from scratch, (2) use a dataset that is already available, (3) copy/recreate your actual dataset in a way that is minimal and reproducible. The approach you choose to take will depend largely on the nature and source of the problem as well as the complexity of your original dataset. Therefore, no matter which approach we take we first need to know which elements of our dataset are necessary:
 
-We then need to know which elements of your dataset are necessary.
-
-- How many variables?
+- How many variables do we need?
 - What data type is each variable?
 - How many levels and/or observations are necessary?
 - How many of the values need to be the same/different?
 - Are there any NAs that could be relevant?
 
+Keep these questions in mind as we move through our examples.
+
+::: instructor
+OR should we start with an example right here where they need to answer those questions?
+:::
+
+Let's start from scratch.
+
 ### 4.3.1 Create a dummy dataset from scratch
 
-You can create vectors from scratch using `c()`
+There are many ways one can create a dummy dataset from scratch.
+
+You can create vectors using `c()`
 
 ```{r}
 vector <- c(1,2,3,4) 
@@ -221,21 +229,21 @@ x <- sample(1:10)
 x
 ```
 
-Or you can use a random normal distribution
+Or you can randomly sample from a normal distribution
 
 ```{r}
 x <- rnorm(10)
 x
 ```
 
-You can also use letters to create factors.
+You can also use `letters` to create factors.
 
 ```{r}
 x <- sample(letters[1:4], 20, replace=T)
 x
 ```
 
-You can create a dataframe using `data.frame` (or `tibble` in the `dplyr` package).
+Remember that a data frame is just a collection of vectors. You can create a data frame using `data.frame` (or `tibble` in the `dplyr` package). You can then create a vector for each variable. 
 
 ```{r}
 data <- data.frame (x = sample(letters[1:3], 20, replace=T), 
@@ -268,48 +276,73 @@ krats %>%
 ```
 
 Now let's say we saw this and decided we wanted to get rid of "sp." but didn't know how.
-We want to ask someone online but we first need to create a minimal reproducible example.
+We want to ask someone online but we first need to create a minimal reproducible example. Remember our questions from earlier...
 
-What variables would we need to reproduce this figure?
+:::: challenge
+### Excercise 3 
+Try to answer the following questions oon your own and see if you can determine what we need to include in our minimal reproducible dataset:
 
-A variable for species, how many?
-4.
-Let’s call them A, B, C, and D.
+1. How many variables do we need? 
+1. What data type is each variable?
+1. How many levels and/or observations are necessary?
+1. How many of the values need to be the same/different?
+1. Are there any NAs that could be relevant?
+
+::: solution
+1. We will need 3 variables to represent species, plot type, and date.
+1. Two of our variables will need to be categorical (factors) and one of them continuous.
+1. To reproduce the figure, we can use 2-4 levels for one factors (species), and maybe 2 levels for the other factor (plot type) to keep it minimal. Our continuous variable could range 1 to 10 (date). We don't need too many observations, but we do have 2 categories, one with 4 levels. Let's make it an even 100.
+1. NAs are not relevant to our problem
+:::
+
+::: instructor
+Maybe we don't need to include the solution and we just walk through it in the following section.
+:::
+
+1. What variables would we need to reproduce this figure?
+
+We will need 3 variables to represent species, plot type, and date. 
+
+2. What data type is each variable?
+
+Two of our variables (species and plot type) will need to be categorical (factors) and one of them continuous (date).
+
+3. How many levels and/or observations are necessary?
+
+For species, our original figure has 4 levels. We could reduce this to 2, but let's keep it at 4. Let's call these species A, B, C, and D.
 
 ```{r}
 species <- c('A','B','C','D')
 ```
 
-We then need a variable for plot type, we have 5 but we could cut it down to 2; let's call them P1 and P2.
+For plot type, our original figure has 5 levles, but we could cut it down to 2. Let's call them P1 and P2.
 In reality, we probably don't even need this for this question, but for the sake of practicing let's add it in.
 
 ```{r}
 plot.type <- c('P1','P2')
 ```
 
-Lastly we need a variable for date.
-The specifics don't matter here, so let's just call it days and make it 1-10.
+Lastly, date is our continuous variable. To mimic our original figure, we probably want it long enough to show multiple bars along the x axis, but we still want to keep it minimal.
+Let's just call it days and make it 1-10.
 
 ```{r}
 days <- c(1:10)
 ```
 
 Great!
-Now we have all of our variables, let's go sampling--we can simulate the data collected each day by using `sample()`.
+Now we have all of our variables, we need to go sampling. How many observations do we need? Again, we want enough to show a similar graph, but also keep it minimal. We need to sample each plot for 10 days, and each plot should give us a varying number of species, of which we have 4. Let's say we find 20 individuals.
 
-We need to sample each plot for 10 days and presumably find a certain number of each species in each plot.
-Let's pretend we find a total of 100 species, this mean we need to sample the vector `species` 100 times.
-Since we want species to repeat, we will also set replace to T.
-We then need to sample the plots for the same number of times, so that each species sample is associated with either P1 or P2.
-Lastly, we want to add each day we sampled.
+We can simulate the data collected each day by using `sample()` and specifying our number of observations (we need to sample 20 times). Since we want species and plots to repeat, we will also set replace to T.
+
+All together we get:
 
 ```{r}
 sample_data <- data.frame(
-  Species = sample(species, 100, replace=T),
-  Plot = sample(plot.type, 100, replace=T),
-  Day = days
+  Day = days,
+  Plot = sample(plot.type, 20, replace=T),
+  Species = sample(species, 20, replace=T)
 )
-head(sample_data)
+sample_data
 ```
 
 Great!
@@ -329,8 +362,8 @@ In order to make this example fully reproducible we should first `set.seed()`.
 ```{r}
 set.seed(1)
 sample_data <- data.frame(
-  Species = sample(species, 100, replace=T),
-  Plot = sample(plot.type, 100, replace=T),
+  Species = sample(species, 20, replace=T),
+  Plot = sample(plot.type, 20, replace=T),
   Day = days
 )
 head(sample_data)
@@ -358,35 +391,34 @@ Given that this was a very simple question, we could have simplified this exampl
 
 ```{r}
 sample_data2 <- data.frame(
-species = sample(c('A','B'), 100, replace = T),
+species = sample(c('A','B'), 6, replace = T),
 days = 1:2
 )
 
 sample_data2 %>%
   ggplot(aes(x=days)) +
-  geom_histogram(alpha=0.6)+
-  facet_wrap(~species)+ 
-  theme_bw()
+  geom_histogram()+
+  facet_wrap(~species)
 ```
-which is even more simplistic than the one before but still contains the elemnts we are interested--we have a set of "species" separated into facets and we want to get rid of one of them. In reality, had we realized that we needed to get rid of the rows with "sp." in them, we could have ignored the figure entirely and posed the question about the data alone. E.g., "how do I remove rows that contain a specific name?" Then give just the example dataset we created.
+which is even more simplistic than the one before but still contains the elements we are interested in--we have a set of "species" separated into facets and we want to get rid of one of them. In reality, had we realized that we needed to get rid of the rows with "sp." in them, we could have ignored the figure entirely and posed the question about the data alone. E.g., "how do I remove rows that contain a specific name?" Then give just the example dataset we created.
 
 :::: challenge
 
-### Exercise 3 (10 minutes)
+### Exercise 4 (10 minutes) -- optional?
 
 Now practice doing it yourself.
 Create a data frame with:
 
-A. One categorical variable with 5 levels. One continuous variable.
-B. One continuous variable normally distributed 
-C. First name, last name, sex, age, and treatment type.
+A. One categorical variable with 2 levels and one continuous variable.
+B. One continuous variable that is normally distributed. 
+C. Name, sex, age, and treatment type.
 :::
 
 ### 4.3.2 Create a dataset using an existing dataset
 
-If you don't want to create a dataset from scratch, maybe because you have too many variables or it's a more complicated structure and you are not sure where the error is, you can subset from an existing dataset. Useful functions for subsetting a dataset include `subset()`, `head()`, `tail()`, indexing with [] (e.g., iris[1:4,]). Alternatively, you can use tidyverse functions like `select()`, and `filter()`. You can also use the same `sample()` functions we covered earlier.
+If you don't want to create a dataset from scratch, maybe because you have too many variables or it's a more complicated structure and you are not sure where the error is, you can subset from an existing dataset. Useful functions for subsetting a dataset include `subset()`, `head()`, `tail()`, and indexing with [] (e.g., iris[1:4,]). Alternatively, you can use tidyverse functions like `select()`, and `filter()` from the tidyverse. You can also use the same `sample()` functions we covered earlier.
 
-A list of readily available datasets can be found using `library(help="datasets")`. You can then use `?` in front of the dataset name to get more information about what the contents of the dataset.
+A list of readily available datasets can be found using `library(help="datasets")`. You can then use `?` in front of the dataset name to get more information about the contents of the dataset.
 
 When working with a built-in dataset you still have to edit your code to fit the new data, but it is probably faster than building a large dataset from scratch, and it gets easier with practice! 
 
@@ -427,7 +459,7 @@ data <- mpg %>% select(model, manufacturer, hwy) %>%
   filter(model %in% sample(model, 4, replace = F))
 ```
 
-Now we can try out plot
+Now we can try our plot
 
 ```{r}
 data %>%
