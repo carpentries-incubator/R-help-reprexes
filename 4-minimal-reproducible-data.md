@@ -235,7 +235,7 @@ x
 ```
 
 ``` output
- [1]  2  8  1  9  7  3  6  4  5 10
+ [1]  8 10  1  9  4  5  3  6  2  7
 ```
 
 Or you can randomly sample from a normal distribution
@@ -247,8 +247,8 @@ x
 ```
 
 ``` output
- [1] -0.16009642 -0.72392615  0.07982225  1.29734116 -1.13233531  0.12238511
- [7] -0.34906597 -0.90982400  1.07258807  0.29336262
+ [1]  0.149017030 -2.052662308  0.724898963  1.871982075  0.742617077
+ [6] -1.016991218 -1.601141112 -0.418243299 -0.009791657  0.070510038
 ```
 
 You can also use `letters` to create factors.
@@ -260,7 +260,7 @@ x
 ```
 
 ``` output
- [1] "b" "d" "d" "b" "a" "c" "d" "d" "a" "a" "d" "d" "b" "d" "b" "c" "b" "a" "c"
+ [1] "a" "b" "d" "d" "a" "b" "c" "d" "c" "b" "a" "a" "d" "c" "d" "b" "a" "a" "b"
 [20] "b"
 ```
 
@@ -275,12 +275,12 @@ head(data)
 
 ``` output
   x          y
-1 c  0.1140206
-2 b  0.6479275
-3 c  0.9508726
-4 b -0.3745663
-5 b  0.9525995
-6 b -1.6245941
+1 a -0.7829378
+2 b  0.7175819
+3 a  0.1804369
+4 c  0.7685845
+5 a -0.1094398
+6 c -0.8375016
 ```
 
 **However**, when sampling at random you must remember to `set.seed()` before sending it to someone to make sure you both get the same numbers!
@@ -387,26 +387,26 @@ sample_data
 
 ``` output
    Day Plot Species
-1    1   P2       D
-2    2   P2       C
-3    3   P2       D
-4    4   P1       B
-5    5   P2       D
-6    6   P2       C
-7    7   P1       C
-8    8   P2       D
-9    9   P2       B
-10  10   P1       D
-11   1   P2       C
-12   2   P2       A
-13   3   P2       B
-14   4   P1       A
+1    1   P2       B
+2    2   P1       C
+3    3   P1       A
+4    4   P1       A
+5    5   P2       B
+6    6   P1       B
+7    7   P2       C
+8    8   P1       A
+9    9   P2       D
+10  10   P2       A
+11   1   P2       A
+12   2   P1       D
+13   3   P1       A
+14   4   P1       C
 15   5   P2       C
-16   6   P2       A
-17   7   P2       B
-18   8   P2       A
-19   9   P1       C
-20  10   P1       B
+16   6   P2       D
+17   7   P1       A
+18   8   P1       B
+19   9   P1       B
+20  10   P2       C
 ```
 
 Great!
