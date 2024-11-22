@@ -5,19 +5,19 @@ exercises: 2
 ---
 
 ::: questions
+- Why can't I just post my whole script?
 - Which parts of my code are directly relevant to my problem?
 - Which parts of my code are necessary in order for the problem area to run correctly?
 - I feel overwhelmed by this script--where do I even start?
-- Why can't I just post my whole script?
 :::
 
 ::: objectives
 - Explain the value of a minimal code snippet.
 - Simplify a script down to a minimal code example.
-- Have a road map to follow to simplify your code. [metacognitive LO]
 - Identify the problem area of the code.
 - Identify supporting parts of the code that are essential to include.
 - Identify pieces of code that can be removed without affecting the central functionality.
+- Have a road map to follow to simplify your code. [metacognitive LO]
 :::
 
 ## Why is it important to simplify code?
@@ -70,6 +70,8 @@ Which line of code created that plot?
 - If you're not sure, try stepping through your code line by line.
 
 Now that we've identified the trouble spot, let's copy and paste it over to our script, "reprex-script.R".
+
+XXX potentially add something about running the first half of the script and cutting down by halves
 
 **Step 2: Dependencies (functions and packages)**
 
@@ -216,18 +218,23 @@ Ex: removing various things, observing what happens, identifying whether or not 
 
 To review, here's our **road map**:
 ::::::::::::::::::::::::::::::::::::::::::: callout
+**Road map for everything**
+() Figure out whether your problem is caused by an error/warning that can be fixed by examining the help files and other quick debugging tactics (what peter covers in his ep)--what type of error
+() Determine that you need a reproducible example:
+If so, move on to the sub-roadmap for breaking your code down into simpler pieces
 **Road map for simplifying code**
-0. Make a new script
-1. Identify the problem area (what is breaking?)
-  - add it to the script
-2. Dependencies: functions and packages
-  - identify all necessary packages and add them as library() calls
-  - define any other functions
-3. Dependencies: variables and datasets
-  - identify/map variables and datasets used
-  - replace with minimal datasets
-4. Simplify the example even more
-  - remove anything extra/distracting that can be removed
+  0. Make a new script
+  1. Identify the problem area (what is breaking?)
+    - add it to the script
+  2. Dependencies: functions and packages
+    - identify all necessary packages and add them as library() calls
+    - define any other functions
+  3. Dependencies: variables and datasets
+    - identify/map variables and datasets used
+    - replace with minimal datasets (sub-step here: go make a minimal dataset!!! which we taught you how to do previously)
+  4. Simplify the example even more
+    - remove anything extra/distracting that can be removed
+() Post your reprex or send it to someone to get help; understand the landscape of resources for doing that
 ::::::::::::::::::::::::::::::::::::::::::: 
 
 Ex: reflection. That was a lot! Let's take a moment to think.
