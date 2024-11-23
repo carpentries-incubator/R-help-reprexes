@@ -331,7 +331,7 @@ dataset?</a></li>
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Minimal Reproducible Data</h1>
-        <p>Last updated on 2024-11-19 |
+        <p>Last updated on 2024-11-23 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/4-minimal-reproducible-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -704,7 +704,7 @@ answer those questions?</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1]  8 10  1  9  4  5  3  6  2  7</code></pre>
+<pre class="output" tabindex="0"><code> [1]  1  7  5  6 10  4  2  8  9  3</code></pre>
 </div>
 <p>Or you can randomly sample from a normal distribution</p>
 <div class="codewrapper sourceCode" id="cb10">
@@ -717,8 +717,8 @@ answer those questions?</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1]  0.149017030 -2.052662308  0.724898963  1.871982075  0.742617077
- [6] -1.016991218 -1.601141112 -0.418243299 -0.009791657  0.070510038</code></pre>
+<pre class="output" tabindex="0"><code> [1]  1.10569801 -0.14450191 -0.19032124 -1.58765128 -0.11233821  0.69410554
+ [7] -1.44132971 -0.09031697  0.11538538 -0.87659347</code></pre>
 </div>
 <p>You can also use <code>letters</code> to create factors.</p>
 <div class="codewrapper sourceCode" id="cb12">
@@ -731,8 +731,8 @@ answer those questions?</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1] "a" "b" "d" "d" "a" "b" "c" "d" "c" "b" "a" "a" "d" "c" "d" "b" "a" "a" "b"
-[20] "b"</code></pre>
+<pre class="output" tabindex="0"><code> [1] "c" "a" "d" "c" "d" "c" "b" "d" "a" "b" "b" "d" "d" "d" "a" "b" "c" "b" "b"
+[20] "d"</code></pre>
 </div>
 <p>Remember that a data frame is just a collection of vectors. You can
 create a data frame using <code>data.frame</code> (or
@@ -750,12 +750,12 @@ create a vector for each variable.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>  x          y
-1 a -0.7829378
-2 b  0.7175819
-3 a  0.1804369
-4 c  0.7685845
-5 a -0.1094398
-6 c -0.8375016</code></pre>
+1 a  0.3779883
+2 a -0.4848711
+3 a  2.3144652
+4 b -1.1755378
+5 a -0.5694976
+6 b  1.9108507</code></pre>
 </div>
 <p><strong>However</strong>, when sampling at random you must remember
 to <code>set.seed()</code> before sending it to someone to make sure you
@@ -911,24 +911,24 @@ also set replace to T.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>   Day Plot Species
-1    1   P2       B
-2    2   P1       C
-3    3   P1       A
-4    4   P1       A
-5    5   P2       B
-6    6   P1       B
-7    7   P2       C
-8    8   P1       A
-9    9   P2       D
-10  10   P2       A
-11   1   P2       A
-12   2   P1       D
-13   3   P1       A
-14   4   P1       C
-15   5   P2       C
-16   6   P2       D
-17   7   P1       A
-18   8   P1       B
+1    1   P1       A
+2    2   P1       B
+3    3   P1       D
+4    4   P1       B
+5    5   P1       A
+6    6   P2       C
+7    7   P2       D
+8    8   P1       C
+9    9   P2       A
+10  10   P1       C
+11   1   P2       D
+12   2   P1       B
+13   3   P2       C
+14   4   P1       D
+15   5   P2       B
+16   6   P1       B
+17   7   P2       C
+18   8   P2       B
 19   9   P1       B
 20  10   P2       C</code></pre>
 </div>
@@ -1564,8 +1564,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/R-help-reprexes/instructor/4-minimal-reproducible-data.html",
   "identifier": "https://carpentries-incubator.github.io/R-help-reprexes/instructor/4-minimal-reproducible-data.html",
   "dateCreated": "2024-05-14",
-  "dateModified": "2024-11-19",
-  "datePublished": "2024-11-19"
+  "dateModified": "2024-11-23",
+  "datePublished": "2024-11-23"
 }
 
   </script><script>
