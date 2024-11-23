@@ -118,11 +118,11 @@
   RRRRRRR, I’m stuck!
 </div>
 
-<aside class="col-md-12 lesson-progress"><div style="width: 84%" class="percentage">
-    84%
+<aside class="col-md-12 lesson-progress"><div style="width: 59%" class="percentage">
+    59%
   </div>
   <div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 84%" aria-valuenow="84" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar incubator" role="progressbar" style="width: 59%" aria-valuenow="59" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
     </div>
   </div>
 </aside><div class="container">
@@ -242,12 +242,21 @@
 <div class="accordion accordion-flush" id="accordionFlushcurrent">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-headingcurrent">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
         5. Minimal Reproducible Code
         </span>
-      
+      </button>
     </div><!--/div.accordion-header-->
+
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+      <div class="accordion-body">
+        <ul><li><a href="#why-is-it-important-to-simplify-code">Why is it important to simplify code?</a></li>
+<li><a href="#a-road-map-for-simplifying-your-code">A road map for simplifying your code</a></li>
+<li><a href="#road-map-review">Road map review</a></li>
+        </ul></div><!--/div.accordion-body-->
+    </div><!--/div.accordion-collapse-->
 
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
@@ -321,11 +330,11 @@
         <h1>Minimal Reproducible Code</h1>
         <p>Last updated on 2024-11-23 |
 
-        <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/5-minimal-reproducible-code.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+        <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/5-minimal-reproducible-code.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
 
 
-        <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
+        <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 75 minutes</p>
 
         <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
@@ -340,7 +349,11 @@
 <div class="card-body">
 <div class="inner">
 <h3 class="card-title">Questions</h3>
-<ul><li>To do</li>
+<ul><li>Why can’t I just post my whole script?</li>
+<li>Which parts of my code are directly relevant to my problem?</li>
+<li>Which parts of my code are necessary in order for the problem area
+to run correctly?</li>
+<li>I feel overwhelmed by this script–where do I even start?</li>
 </ul></div>
 </div>
 </div>
@@ -348,23 +361,658 @@
 <div class="card-body">
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
-<ul><li>To do</li>
+<ul><li>Explain the value of a minimal code snippet.</li>
+<li>Simplify a script down to a minimal code example.</li>
+<li>Identify the problem area of the code.</li>
+<li>Identify supporting parts of the code that are essential to
+include.</li>
+<li>Identify pieces of code that can be removed without affecting the
+central functionality.</li>
+<li>Have a road map to follow to simplify your code.</li>
 </ul></div>
 </div>
 </div>
 </div>
 </div>
-<p>Idea: take some of the same exercises from the understanding your
-code section and use those to get people to break down code into minimal
-chunks. Emphasize that it’s not always going to be linear (</p>
+<p>You’re excited by how much progress you’re making in your research.
+You’ve made a lot of descriptive plots and gained some interesting
+insights into your data. Now you’re excited to investigate whether the
+k-rat exclusion plots are actually working. You set to work writing a
+bunch of code to do this, using a combination of descriptive
+visualizations and linear models.</p>
+<p>So far, you’ve been saving all of your analysis in a script called
+“krat-analysis.R”. At this point, it looks something like this:</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Kangaroo rat analysis using the Portal data</span></span>
+<span><span class="co"># Created by: Research McResearchface</span></span>
+<span><span class="co"># Last updated: 2024-11-22</span></span>
+<span></span>
+<span><span class="co"># Load packages to use in this script</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">readr</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">ggplot2</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">stringr</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Read in the data</span></span>
+<span><span class="va">rodents</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"scripts/data/surveys_complete_77_89.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">### DATA WRANGLING ####</span></span>
+<span><span class="fu">glimpse</span><span class="op">(</span><span class="va">rodents</span><span class="op">)</span> <span class="co"># or click on the environment</span></span>
+<span><span class="fu">str</span><span class="op">(</span><span class="va">rodents</span><span class="op">)</span> <span class="co"># an alternative that does the same thing</span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">rodents</span><span class="op">)</span> <span class="co"># or open fully with View() or click in environment</span></span>
+<span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents</span><span class="op">$</span><span class="va">taxa</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Abundance distribution of taxa</span></span>
+<span><span class="va">rodents</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x<span class="op">=</span><span class="va">taxa</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="co"># Examine NA values</span></span>
+<span><span class="co">## How do we find NAs anyway? ----</span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="fu">is.na</span><span class="op">(</span><span class="va">rodents</span><span class="op">$</span><span class="va">taxa</span><span class="op">)</span><span class="op">)</span> <span class="co"># logical--tells us when an observation is an NA (T or F)</span></span>
+<span></span>
+<span><span class="co"># Not very helpful. BUT</span></span>
+<span><span class="fu">sum</span><span class="op">(</span><span class="fu">is.na</span><span class="op">(</span><span class="va">rodents</span><span class="op">$</span><span class="va">taxa</span><span class="op">)</span><span class="op">)</span> <span class="co"># sum considers T = 1 and F = 0</span></span>
+<span></span>
+<span><span class="co"># Simplify down to just rodents</span></span>
+<span><span class="va">rodents</span> <span class="op">&lt;-</span> <span class="va">rodents</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">taxa</span> <span class="op">==</span> <span class="st">"Rodent"</span><span class="op">)</span></span>
+<span><span class="fu">glimpse</span><span class="op">(</span><span class="va">rodents</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Just kangaroo rats because this is what we are studying</span></span>
+<span><span class="va">krats</span> <span class="op">&lt;-</span> <span class="va">rodents</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">genus</span> <span class="op">==</span> <span class="st">"Dipodomys"</span><span class="op">)</span></span>
+<span><span class="fu">dim</span><span class="op">(</span><span class="va">krats</span><span class="op">)</span> <span class="co"># okay, so that's a lot smaller, great.</span></span>
+<span><span class="fu">glimpse</span><span class="op">(</span><span class="va">krats</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Prep for time analysis</span></span>
+<span><span class="co"># To examine trends over time, we'll need to create a date column</span></span>
+<span><span class="va">krats</span> <span class="op">&lt;-</span> <span class="va">krats</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>date <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu">ymd</span><span class="op">(</span><span class="fu">paste</span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, sep <span class="op">=</span> <span class="st">"-"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="co"># Examine differences in different time periods</span></span>
+<span><span class="va">krats</span> <span class="op">&lt;-</span> <span class="va">krats</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>time_period <span class="op">=</span> <span class="fu">ifelse</span><span class="op">(</span><span class="va">year</span> <span class="op">&lt;</span> <span class="fl">1988</span>, <span class="st">"early"</span>, <span class="st">"late"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Check that this went through; check for NAs</span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">krats</span><span class="op">$</span><span class="va">time_period</span>, exclude <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="co"># learned how to do this earlier</span></span>
+<span></span>
+<span><span class="co">### QUESTION 1: How many k-rats over time in the past? ###</span></span>
+<span><span class="co"># How many kangaroo rats of each species were found at the study site in past years (so you know what to expect for a sample size this year)?</span></span>
+<span></span>
+<span><span class="co"># Numbers over time by plot type</span></span>
+<span><span class="va">krats</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">date</span>, fill <span class="op">=</span> <span class="va">plot_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">species</span><span class="op">)</span><span class="op">+</span> </span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">scale_fill_viridis_d</span><span class="op">(</span>option <span class="op">=</span> <span class="st">"plasma"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">geom_vline</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu">ymd</span><span class="op">(</span><span class="st">"1988-01-01"</span><span class="op">)</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"dodgerblue"</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="co"># Oops we gotta get rid of the unidentified k-rats</span></span>
+<span><span class="va">krats</span> <span class="op">&lt;-</span> <span class="va">krats</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">species</span> <span class="op">!=</span> <span class="st">"sp."</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="co"># Re-do the plot above</span></span>
+<span><span class="va">krats</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">date</span>, fill <span class="op">=</span> <span class="va">plot_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">species</span><span class="op">)</span><span class="op">+</span> </span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">scale_fill_viridis_d</span><span class="op">(</span>option <span class="op">=</span> <span class="st">"plasma"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">geom_vline</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu">ymd</span><span class="op">(</span><span class="st">"1988-01-01"</span><span class="op">)</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"dodgerblue"</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="co"># How many individuals caught per day?</span></span>
+<span><span class="va">krats_per_day</span> <span class="op">&lt;-</span> <span class="va">krats</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">date</span>, <span class="va">year</span>, <span class="va">species</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">summarize</span><span class="op">(</span>n <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">species</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">krats_per_day</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>, y <span class="op">=</span> <span class="va">n</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">geom_boxplot</span><span class="op">(</span>outlier.shape <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">geom_jitter</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.2</span>, alpha <span class="op">=</span> <span class="fl">0.2</span>, <span class="fu">aes</span><span class="op">(</span>col <span class="op">=</span> <span class="va">year</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">ylab</span><span class="op">(</span><span class="st">"Number per day"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">xlab</span><span class="op">(</span><span class="st">"Species"</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="co">#### QUESTION 2: Do the k-rat exclusion plots work? #####</span></span>
+<span><span class="co"># Do the k-rat exclusion plots work? (i.e. Does the abundance of each species differ by plot?)</span></span>
+<span><span class="co"># If the k-rat plots work, then we would expect:</span></span>
+<span><span class="co"># A. Fewer k-rats overall in any of the exclusion plots than in the control, with the fewest in the long-term k-rat exclusion plot</span></span>
+<span><span class="va">counts_per_day</span> <span class="op">&lt;-</span> <span class="va">krats</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">year</span>, <span class="va">plot_id</span>, <span class="va">plot_type</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">species_id</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">summarize</span><span class="op">(</span>count_per_day <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">counts_per_day</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">plot_type</span>, y <span class="op">=</span> <span class="va">count_per_day</span>, fill <span class="op">=</span> <span class="va">species_id</span>, group <span class="op">=</span> <span class="fu">interaction</span><span class="op">(</span><span class="va">plot_type</span>, <span class="va">species_id</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">geom_boxplot</span><span class="op">(</span>outlier.size <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Kangaroo rat captures, all years"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Plot type"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Individuals per day"</span>,</span>
+<span>       fill <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># B. For Spectabilis-specific exclosure, we expect a lower proportion of spectabilis there than in the other plots.</span></span>
+<span><span class="va">control_spectab</span> <span class="op">&lt;-</span> <span class="va">krats</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">plot_type</span> <span class="op">%in%</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Control"</span>, <span class="st">"Spectab exclosure"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">prop_spectab</span> <span class="op">&lt;-</span> <span class="va">control_spectab</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">year</span>, <span class="va">plot_type</span>, <span class="va">species_id</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">summarize</span><span class="op">(</span>total_count <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop_last"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>prop <span class="op">=</span> <span class="va">total_count</span><span class="op">/</span><span class="fu">sum</span><span class="op">(</span><span class="va">total_count</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">species_id</span> <span class="op">==</span> <span class="st">"DS"</span><span class="op">)</span> <span class="co"># keep only spectabilis</span></span>
+<span></span>
+<span><span class="va">prop_spectab</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">prop</span>, col <span class="op">=</span> <span class="va">plot_type</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Spectab exclosures did not reduce proportion of\nspectab captures"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Spectabilis proportion"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Year"</span>,</span>
+<span>       color <span class="op">=</span> <span class="st">"Plot type"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#### MODELING ####</span></span>
+<span><span class="va">counts_mod</span> <span class="op">&lt;-</span> <span class="fu">lm</span><span class="op">(</span><span class="va">count_per_day</span> <span class="op">~</span> <span class="va">plot_type</span> <span class="op">+</span> <span class="va">species_id</span>, data <span class="op">=</span> <span class="va">counts_per_day</span><span class="op">)</span></span>
+<span><span class="fu">summary</span><span class="op">(</span><span class="va">counts_mod</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># with interaction term: </span></span>
+<span><span class="va">counts_mod_interact</span> <span class="op">&lt;-</span> <span class="fu">lm</span><span class="op">(</span><span class="va">count_per_day</span> <span class="op">~</span> <span class="va">plot_type</span><span class="op">*</span><span class="va">species_id</span>, data <span class="op">=</span> <span class="va">counts_per_day</span><span class="op">)</span></span>
+<span><span class="fu">summary</span><span class="op">(</span><span class="va">counts_mod_interact</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">summary</span><span class="op">(</span><span class="va">counts_mod</span><span class="op">)</span></span>
+<span><span class="fu">summary</span><span class="op">(</span><span class="va">counts_mod_interact</span><span class="op">)</span></span></code></pre>
+</div>
+<section><h2 class="section-heading" id="why-is-it-important-to-simplify-code">Why is it important to simplify code?<a class="anchor" aria-label="anchor" href="#why-is-it-important-to-simplify-code"></a></h2>
+<hr class="half-width"><p>Learning how to simplify your code is one of the most important parts
+of making a minimal reproducible example, asking others for help, and
+helping yourself.</p>
+<div id="making-sense-of-code" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="making-sense-of-code" class="callout-inner">
+<h3 class="callout-title">Making sense of code</h3>
+<div class="callout-content">
+<p>Reflect on a time when you opened a coding project after a long time
+away from it. Or maybe you had to look through and try to run someone
+else’s code.</p>
+<p>(If you have easy access to one of your past projects, maybe try
+opening it now and taking a look through it right now!)</p>
+<p>How do situations like this make you feel? Write some reflections on
+the Etherpad.</p>
+<p>This exercise should take about 5 minutes.</p>
+</div>
+</div>
+</div>
+<p>Debugging is a time when it’s common to have to read through long and
+complex code (either your own or someone else’s). That means that the
+person doing the debugging is likely to experience some of the emotions
+we just talked about.</p>
+<p>The more we can reduce the negative emotions and make the experience
+of solving errors easy and painless, the likelier you are to find
+solutions to your problems (or convince others to take the time to help
+you). Helpers are doing us a favor–why put barriers in their way?</p>
+<p>Let’s illustrate the importance of simplifying our code by focusing
+on an error in the big long analysis script we created, shown above.
+Let’s imagine we’re getting ready to show these preliminary results to
+our advisor, but when we re-run the whole script, we realize there’s a
+problem.</p>
+<p>[DESCRIPTION OF PROBLEM HERE]</p>
+</section><section><h2 class="section-heading" id="a-road-map-for-simplifying-your-code">A road map for simplifying your code<a class="anchor" aria-label="anchor" href="#a-road-map-for-simplifying-your-code"></a></h2>
+<hr class="half-width"><p>In this episode, we’re going to walk through a road map for breaking
+your code down to its simplest form while making sure that 1) it still
+runs, and 2) it reproduces the problem you care about solving.</p>
+<p>For now, we’ll go through this road map step by step. At the end,
+we’ll review the whole thing. One takeaway from this lesson is that
+there is a step by step process to follow, and you can refer back to it
+if you feel lost in the future.</p>
+<div class="section level3">
+<h3 id="step-0--create-a-separate-script">Step 0. Create a separate script<a class="anchor" aria-label="anchor" href="#step-0--create-a-separate-script"></a></h3>
+<p>When we know there’s a problem with our script, it helps to start
+solving it by examining smaller parts of the code in a separate script,
+instead of editing the original.</p>
+<div id="a-separate-place-for-minimal-code" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="a-separate-place-for-minimal-code" class="callout-inner">
+<h3 class="callout-title">A separate place for minimal code</h3>
+<div class="callout-content">
+<p>Create a new, blank R script and give it a name, such as
+“reprex-script.R”</p>
+<p>There are several ways to make an R script - File &gt; New File &gt;
+R Script - Click the white square with a green plus sign at the top left
+corner of your RStudio window - Use a keyboard shortcut: Cmd + Shift + N
+(on a Mac) or Ctrl + Shift + N (on Windows)</p>
+<p>Once you’ve created the script, click the Save button to name and
+save it.</p>
+<p>This exercise should take about 2 minutes.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="step-1--identify-the-problem-area">Step 1. Identify the problem area<a class="anchor" aria-label="anchor" href="#step-1--identify-the-problem-area"></a></h3>
+<p>Now that we have a script, let’s zero in on what’s broken.</p>
+<p>First, we should use some of the techniques we learned in the
+“Identify the Problem” episode and see if they help us solve our
+error.</p>
+<p>[MORE CONTENT THAT CALLS BACK TO PL’S EPISODE HERE]</p>
+<p>In this particular case, though, we weren’t able to completely
+resolve our error.</p>
+<p>[WHY? maybe because it’s not an error but a case of “the plot isn’t
+returning what we want”? Or maybe it’s an extra difficult error message
+that we can’t find an easy answer to?</p>
+<p>I need to figure out what error to introduce into the script in the
+first place… that will determine the justification to use here.]</p>
+<p>(<em>Using the plot example for now</em>)</p>
+<p>Okay, so we know that the plot doesn’t look the way we want it to.
+Which part of the code created that plot? One way to figure this out if
+we’re not sure is to step through the code line by line.</p>
+<div id="stepping-through-code-line-by-line" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="stepping-through-code-line-by-line" class="callout-inner">
+<h3 class="callout-title">Stepping through code, line by line</h3>
+<div class="callout-content">
+<p>Placing your cursor on a line of code and using the keyboard shortcut
+Cmd + Enter (Mac) or Ctrl + Enter (Windows) will run that line of code
+<em>and</em> it will automatically advance your cursor to the next line.
+This makes it easy to “step through” your code without having to click
+or highlight.</p>
+</div>
+</div>
+</div>
+<p>Yay, we found the trouble spot! Let’s go ahead and copy that line of
+code and paste it over into the empty script we created,
+“reprex-script.R”.</p>
+</div>
+<div class="section level3">
+<h3 id="step-2--give-context-functions-and-packages">Step 2. Give context: functions and packages<a class="anchor" aria-label="anchor" href="#step-2--give-context-functions-and-packages"></a></h3>
+<p>R code consists primarily of <em>variables</em> and
+<em>functions</em>.</p>
+<div id="where-do-functions-come-from" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="where-do-functions-come-from" class="callout-inner">
+<h3 class="callout-title">Where do functions come from?</h3>
+<div class="callout-content">
+<p>When coding in R, we use a lot of different functions. Where do those
+functions come from? How can we make sure that our helpers have access
+to those sources? Take a moment to brainstorm.</p>
+<p>This exercise should take about 3 minutes.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div class="accordion-body">
+<p>Functions in R typically come from packages. Some packages, such as
+<code>{base}</code> and <code>{stats}</code>, are loaded in R by
+default, so you might not have realized that they are packages too.</p>
+<p>You can see a complete list of functions in <code>{base}</code> and
+<code>{stats}</code> by running <code>library(help = "base")</code> or
+<code>library(help = "stats")</code>.</p>
+<p>Some functions might be user-defined. In that case, you’ll need to
+make sure to include the function definition in your reprex.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="finding-functions" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="finding-functions" class="callout-inner">
+<h3 class="callout-title">Finding functions</h3>
+<div class="callout-content">
+<p>Sometimes it can be hard to figure out where a function comes from.
+Especially if a function comes from a package you use frequently, you
+might not remember where it comes from!</p>
+<p>You can search for a function in the help docs with
+<code>??fun</code> (where “fun” is the name of the function). To
+explicitly declare which package a function comes from, you can use a
+double colon <code>::</code>–for example, <code>dplyr::select()</code>.
+Declaring the function with a double colon also allows you to use that
+function even if the package is not loaded, as long as it’s
+installed.</p>
+</div>
+</div>
+</div>
+<p>The quickest way to make sure others have access to the functions
+contained in packages is to include a <code>library()</code> call in
+your reprex, so they know to load the package too.</p>
+<div id="which-packages-are-essential" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="which-packages-are-essential" class="callout-inner">
+<h3 class="callout-title">Which packages are essential?</h3>
+<div class="callout-content">
+<p>In each of the following code snippets, identify the necessary
+packages (or other code) to make the example reproducible.</p>
+<ul><li>[Example (including an ambiguous function:
+<code>dplyr::select()</code> is a good one because it masks
+<code>plyr::select()</code>)]</li>
+<li>[Example where you have to look up which package a function comes
+from]</li>
+<li>[Example with a user-defined function that doesn’t exist in any
+package]</li>
+</ul><p>This exercise should take about 5 minutes.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div class="accordion-body">
+<p>FIXME</p>
+</div>
+</div>
+</div>
+</div>
+<p>Looking through the problem area that we isolated, we can see that
+we’ll need to load the following packages: FIXME -
+<code>{package}</code> - <code>{package}</code> -
+<code>{package}</code></p>
+<p>Let’s go ahead and add those as <code>library()</code> calls to the
+top of our script.</p>
+<div id="installing-vs.-loading-packages" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="installing-vs.-loading-packages" class="callout-inner">
+<h3 class="callout-title">Installing vs. loading packages</h3>
+<div class="callout-content">
+<p>But what if our helper doesn’t have all of these packages installed?
+Won’t the code not be reproducible?</p>
+<p>Typically, we don’t include <code>install.packages()</code> in our
+code for each of the packages that we include in the
+<code>library()</code> calls, because <code>install.packages()</code> is
+a one-time piece of code that doesn’t need to be repeated every time the
+script is run. We assume that our helper will see
+<code>library(specialpackage)</code> and know that they need to go
+install “specialpackage” on their own.</p>
+<p>Technically, this makes that part of the code not reproducible! But
+it’s also much more “polite”. Our helper might have their own way of
+managing package versions, and forcing them to install a package when
+they run our code risks messing up our workflow. It is a common
+convention to stick with <code>library()</code> and let them figure it
+out from there. FIXME this feels over-explained… pare it down!</p>
+</div>
+</div>
+</div>
+<div id="installing-packages-conditionally" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="installing-packages-conditionally" class="callout-inner">
+<h3 class="callout-title">Installing packages conditionally</h3>
+<div class="callout-content">
+<p>There is an alternative approach to installing packages [insert
+content/example of the if(require()) thing–but note that explaining this
+properly requires explaining why require() is different from library(),
+why it returns a logical, etc. and is kind of a rabbit hole that I don’t
+want to go down here.]</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="step-3--give-context-variables-and-datasets">Step 3. Give context: variables and datasets<a class="anchor" aria-label="anchor" href="#step-3--give-context-variables-and-datasets"></a></h3>
+<p>Isolating the problem area and loading the necessary packages and
+functions was an important step to making our example code
+self-contained. But we’re still not done making the code minimal and
+reproducible. Almost certainly, our code snippet relies on variables,
+such as datasets, that our helper won’t have access to.</p>
+<p>The piece of code that we copied over came from line [LINE NUMBER] of
+our analysis script. We had done a lot of analyses before then,
+including modifying datasets and creating intermediate
+objects/variables.</p>
+<p>Our code snippet depends on all those previous steps, so when we
+isolate it in a new script, it might not be able to run anymore. More
+importantly, when a helper doesn’t have access to the rest of our
+script, the code might not run for them either.</p>
+<p>To fix this, we need to provide some additional context around our
+reprex so that it runs.</p>
+<div id="identifying-variables" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="identifying-variables" class="callout-inner">
+<h3 class="callout-title">Identifying variables</h3>
+<div class="callout-content">
+<p>For each of the following code snippets, identify all the variables
+used</p>
+<ul><li>[Straightforward example]</li>
+<li>[Example where they use a built-in dataset but it contains a column
+that that dataset doesn’t actually contain, i.e. because it’s been
+modified previously. Might be good to use the <code>date</code> column
+that we put into <code>krats</code> for this]</li>
+</ul><p>This exercise should take about 5 minutes.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
+  <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
+</button>
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div class="accordion-body">
+<p>FIXME</p>
+</div>
+</div>
+</div>
+</div>
+<p>As you might have noticed, identifying these variables isn’t always
+straightforward. Sometimes variables depend on other variables, and
+before you know it, you end up needing the entire script.</p>
+<p>Let’s work together as a group to sketch out which variables depend
+on which others. A helpful way to do this is to start with the variables
+included in our code snippet and ask, for each one, “Where did this come
+from?”</p>
+<p>[Make a big dependency graph. The point is to illustrate that it gets
+very long and you can’t always rely on this process to identify a simple
+way to include the needed variables.]</p>
+<p>How can we make sure that helpers can access these objects too,
+without providing them the entire long script?</p>
+<p>Theoretically, we could meticulously trace each object back and make
+sure to include the code to create all of its predecessors from the
+original data, which we would provide to our helper. But pretty soon, we
+might find that we’re just giving the helper the original (long,
+complicated) script!</p>
+<p>As with other types of writing, creating a good minimal reprex takes
+hard work and time.</p>
+<blockquote>
+<p>“I would have written a shorter letter, but I did not have the
+time.”</p>
+<ul><li>Blaise Pascal, <em>Lettres Provinciales</em>, 1657</li>
+</ul></blockquote>
+<div id="computational-reproducibility" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="computational-reproducibility" class="callout-inner">
+<h3 class="callout-title">Computational reproducibility</h3>
+<div class="callout-content">
+<p>Every object should be able to map back to either a file, a built-in
+dataset in R, or another intermediate step. If you found any variables
+where you weren’t able to answer the “Where did this come from?”
+question, then that’s a problem! Did you build a script that mistakenly
+relied on an object that was in your environment but was never properly
+defined?</p>
+<p>Mapping exercises like this can be a great way to check whether
+entire script is reproducible. Reproducibility is important in more
+cases than just debugging! More and more journals are requiring full
+analysis code to be posted, and if that code isn’t reproducible, it will
+severely hamper other researchers’ efforts to confirm and expand on what
+you’ve done.</p>
+<p>Various packages can help you keep track of your code and make it
+more reproducible. Check out the <a href="https://books.ropensci.org/targets/" class="external-link"><code>{targets}</code></a>
+and <a href="https://rstudio.github.io/renv/articles/renv.html" class="external-link"><code>{renv}</code></a>
+packages in particular if you’re interested in learning more.</p>
+</div>
+</div>
+</div>
+<p>Luckily, we can make our lives easier if we realize that helpers
+don’t always need the exact same variables and datasets, just reasonably
+good stand-ins. Let’s think back to the last episode, where we talked
+about different ways to create minimal reproducible datasets. We can
+lean on those skills here to make our example reproducible and greatly
+reduce the amount of code that we need to include.</p>
+<div id="incorporating-minimal-datasets" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="incorporating-minimal-datasets" class="callout-inner">
+<h3 class="callout-title">Incorporating minimal datasets</h3>
+<div class="callout-content">
+<p>Brainstorm some places in our reprex where you could use minimal
+reproducible data to make your problem area code snippet
+reproducible.</p>
+<p>Which of the techniques from the <a href="LINK%20TO%20DATA%20EPISODE">data episode</a> will you choose in
+each case, and why?</p>
+<p>This exercise should take about 5 minutes.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution4" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
+  <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
+</button>
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div class="accordion-body">
+<p>FIXME</p>
+</div>
+</div>
+</div>
+</div>
+<p><em><strong>Using a minimal dataset simplifies not just your data but
+also your code, because it lets you avoid including data wrangling steps
+in your reprex!</strong></em></p>
+</div>
+<div class="section level3">
+<h3 id="step-4--simplify">Step 4. Simplify<a class="anchor" aria-label="anchor" href="#step-4--simplify"></a></h3>
+<p>We’re almost done! Now we have code that runs because it includes the
+necessary <code>library()</code> calls and makes use of minimal datasets
+that still allow us to showcase the problem. Our script is almost ready
+to send to our helpers.</p>
+<p>But reading someone else’s code can be slow! We want to make it very,
+very easy for our helper to see which part of the code is important to
+focus on. Let’s see if there are any places where we can trim code down
+even more to eliminate distractions.</p>
+<p>Often, analysis code contains exploratory steps or other analyses
+that don’t directly relate to the problem, such as calls to
+<code>head()</code>, <code>View()</code>, <code>str()</code>, or similar
+functions. (Exception: if you’re using these directly to show things
+like dimension changes that help to illustrate the problem).</p>
+<p>Some other common examples are exploratory analyses, extra formatting
+added to plots, and [ANOTHER EXAMPLE].</p>
+<p>When cutting these things, we have to be careful not to remove
+anything that would cause the code to no longer reproduce our problem.
+In general, it’s a good idea to comment out the line you think is
+extraneous, re-run the code, and check that the focal problem persists
+before removing it entirely.</p>
+<div id="trimming-down-the-bells-and-whistles" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="trimming-down-the-bells-and-whistles" class="callout-inner">
+<h3 class="callout-title">Trimming down the bells and whistles</h3>
+<div class="callout-content">
+<p>[Ex: removing various things, observing what happens, identifying
+whether or not we care about those things. (Need to include at least one
+that’s tricky, like maybe it does change the actual values but it
+doesn’t change their relationship to each other)]</p>
+<p>This exercise should take about 5 minutes.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution5" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
+  <h4 class="accordion-header" id="headingSolution5"> Show me the solution </h4>
+</button>
+<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
+<div class="accordion-body">
+<p>FIXME</p>
+</div>
+</div>
+</div>
+</div>
+<p>Great work! We’ve created a minimal reproducible example. In the next
+episode, we’ll learn about <a href="https://reprex.tidyverse.org" class="external-link">reprex</a>, a package that can
+help us double-check that our example is reproducible by running it in a
+clean environment. (As an added bonus, <a href="https://reprex.tidyverse.org" class="external-link">reprex</a> will format
+our example nicely so it’s easy to post to places like Slack, GitHub,
+and StackOverflow.)</p>
+<p>More on that soon. For now, let’s review the road map that we just
+practiced.</p>
+</div>
+</section><section><h2 class="section-heading" id="road-map-review">Road map review<a class="anchor" aria-label="anchor" href="#road-map-review"></a></h2>
+<hr class="half-width"><div class="section level3">
+<h3 id="step-0--create-a-separate-script-1">Step 0. Create a separate script<a class="anchor" aria-label="anchor" href="#step-0--create-a-separate-script-1"></a></h3>
+<ul><li>It helps to have a separate place to work on your minimal code
+snippet.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="step-1--identify-the-problem-area-1">Step 1. Identify the problem area<a class="anchor" aria-label="anchor" href="#step-1--identify-the-problem-area-1"></a></h3>
+<ul><li>Which part of the code is causing the problem? Move it over to the
+reprex script so we can focus on it.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="step-2--give-context-functions-and-packages-1">Step 2. Give context: functions and packages<a class="anchor" aria-label="anchor" href="#step-2--give-context-functions-and-packages-1"></a></h3>
+<ul><li>Make sure that helpers have access to all the functions they’ll need
+to run your code snippet.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="step-3--give-context-variables-and-datasets-1">Step 3. Give context: variables and datasets<a class="anchor" aria-label="anchor" href="#step-3--give-context-variables-and-datasets-1"></a></h3>
+<ul><li>Make sure that helpers have access to all the variables they’ll need
+to run your code snippet, or reasonable stand-ins.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="step-4--simplify-1">Step 4. Simplify<a class="anchor" aria-label="anchor" href="#step-4--simplify-1"></a></h3>
+<ul><li>Remove any extra code that isn’t absolutely necessary to demonstrate
+your problem.</li>
+</ul><div id="reflection" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="reflection" class="callout-inner">
+<h3 class="callout-title">Reflection</h3>
+<div class="callout-content">
+<p>Let’s take a moment to reflect on this process.</p>
+<ul><li><p>What’s one thing you learned in this episode? An insight; a new
+skill; a process?</p></li>
+<li><p>What is one thing you’re still confused about? What questions do
+you have?</p></li>
+</ul><p>This exercise should take about 5 minutes.</p>
+</div>
+</div>
+</div>
 <!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
-
-
-
-      </div> <!-- / div.lesson-content -->
+</div>
+</section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="../instructor/4-minimal-reproducible-data.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="../instructor/6-asking-your-question.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
@@ -388,7 +1036,7 @@ any links that you are not going to use.
         <p>This lesson is subject to the <a href="CODE_OF_CONDUCT.html">Code of Conduct</a></p>
         <p>
 
-        <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/5-minimal-reproducible-code.md" class="external-link">Edit on GitHub</a>
+        <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/5-minimal-reproducible-code.Rmd" class="external-link">Edit on GitHub</a>
 
 	
         | <a href="https://github.com/carpentries-incubator/R-help-reprexes/blob/main/CONTRIBUTING.md" class="external-link">Contributing</a>

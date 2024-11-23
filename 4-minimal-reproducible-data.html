@@ -118,11 +118,11 @@
   RRRRRRR, I’m stuck!
 </div>
 
-<aside class="col-md-12 lesson-progress"><div style="width: 20%" class="percentage">
-    20%
+<aside class="col-md-12 lesson-progress"><div style="width: 14%" class="percentage">
+    14%
   </div>
   <div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 20%" aria-valuenow="20" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar incubator" role="progressbar" style="width: 14%" aria-valuenow="14" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
     </div>
   </div>
 </aside><div class="container">
@@ -405,7 +405,7 @@ the screen, and click around.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Another example: </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>You’re knitting a sweater and one of the sleeves looks wonky. You
 call a friend and ask why it’s messed up. They can’t possibly help
@@ -550,7 +550,7 @@ work? What happened? Explain.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: upper-alpha"><li>Not reproducible because it is a screenshot.</li>
 <li>Not reproducible because it is a path to a file that only exists on
@@ -602,7 +602,7 @@ this code? Can you describe why the other ones are not?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>The correct answer is C!</p>
 <ol style="list-style-type: upper-alpha"><li>does not include the variable of interest (weight).</li>
@@ -667,7 +667,7 @@ need to know which elements of our dataset are necessary:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1]  1  7  5  6 10  4  2  8  9  3</code></pre>
+<pre class="output" tabindex="0"><code> [1]  1  8  5  3  7  6  4  9  2 10</code></pre>
 </div>
 <p>Or you can randomly sample from a normal distribution</p>
 <div class="codewrapper sourceCode" id="cb10">
@@ -680,8 +680,8 @@ need to know which elements of our dataset are necessary:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1]  1.10569801 -0.14450191 -0.19032124 -1.58765128 -0.11233821  0.69410554
- [7] -1.44132971 -0.09031697  0.11538538 -0.87659347</code></pre>
+<pre class="output" tabindex="0"><code> [1]  0.4542974 -1.1649277 -2.0257380 -0.5615092  0.7459265 -1.7232703
+ [7] -0.7450010  0.3361192  0.7315899  0.1394792</code></pre>
 </div>
 <p>You can also use <code>letters</code> to create factors.</p>
 <div class="codewrapper sourceCode" id="cb12">
@@ -694,8 +694,8 @@ need to know which elements of our dataset are necessary:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1] "c" "a" "d" "c" "d" "c" "b" "d" "a" "b" "b" "d" "d" "d" "a" "b" "c" "b" "b"
-[20] "d"</code></pre>
+<pre class="output" tabindex="0"><code> [1] "c" "c" "b" "c" "b" "c" "d" "d" "d" "a" "c" "b" "d" "b" "c" "b" "c" "b" "b"
+[20] "a"</code></pre>
 </div>
 <p>Remember that a data frame is just a collection of vectors. You can
 create a data frame using <code>data.frame</code> (or
@@ -713,12 +713,12 @@ create a vector for each variable.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>  x          y
-1 a  0.3779883
-2 a -0.4848711
-3 a  2.3144652
-4 b -1.1755378
-5 a -0.5694976
-6 b  1.9108507</code></pre>
+1 a  1.2385047
+2 b  0.5443206
+3 b -0.3309462
+4 a  0.3185965
+5 b  3.3840512
+6 a -1.4050286</code></pre>
 </div>
 <p><strong>However</strong>, when sampling at random you must remember
 to <code>set.seed()</code> before sending it to someone to make sure you
@@ -784,7 +784,7 @@ dataset:</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <ol style="list-style-type: decimal"><li>We will need 3 variables to represent species, plot type, and
 date.</li>
@@ -862,26 +862,26 @@ also set replace to T.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>   Day Plot Species
-1    1   P1       A
+1    1   P2       B
 2    2   P1       B
-3    3   P1       D
-4    4   P1       B
-5    5   P1       A
+3    3   P1       B
+4    4   P2       D
+5    5   P2       C
 6    6   P2       C
-7    7   P2       D
-8    8   P1       C
+7    7   P1       B
+8    8   P1       B
 9    9   P2       A
-10  10   P1       C
-11   1   P2       D
-12   2   P1       B
-13   3   P2       C
-14   4   P1       D
-15   5   P2       B
-16   6   P1       B
-17   7   P2       C
-18   8   P2       B
-19   9   P1       B
-20  10   P2       C</code></pre>
+10  10   P2       B
+11   1   P1       D
+12   2   P1       D
+13   3   P2       A
+14   4   P2       A
+15   5   P2       A
+16   6   P2       C
+17   7   P1       B
+18   8   P1       C
+19   9   P2       D
+20  10   P2       B</code></pre>
 </div>
 <p>Great! Now we have a sample data set that is minimal, but is is
 reproducible?</p>
@@ -1197,7 +1197,7 @@ catch per day.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
   <h4 class="accordion-header" id="headingSolution5"> Show me the solution </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
 <div class="accordion-body">
 <p>Substitute krats with cars, species with class, date with year. The
 question becomes, how many cars of each class are produced per year?</p>
@@ -1397,7 +1397,7 @@ logical: returning NA</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution6" aria-expanded="false" aria-controls="collapseSolution6">
   <h4 class="accordion-header" id="headingSolution6"> Show me the solution </h4>
 </button>
-<div id="collapseSolution6" class="accordion-collapse collapse" aria-labelledby="headingSolution6" data-bs-parent="#accordionSolution6">
+<div id="collapseSolution6" class="accordion-collapse collapse" data-bs-parent="#accordionSolution6" aria-labelledby="headingSolution6">
 <div class="accordion-body">
 <ol style="list-style-type: upper-alpha"><li>“fruit” needs to be a factor and the order of the levels must be
 specified:
