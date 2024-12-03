@@ -38,7 +38,7 @@ library(ggplot2)
 library(stringr)
 
 # Read in the data
-rodents <- read_csv("../scripts/data/surveys_complete_77_89.csv")
+rodents <- read_csv("data/surveys_complete_77_89.csv")
 
 ```
 
