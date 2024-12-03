@@ -55,7 +55,6 @@ The accompanying error message attempts to tell you exactly how your code failed
 
 ```{r}
 ggplot(x = taxa) + geom_bar()
-Error: object 'taxa' not found
 ```
 
 Though we know somewhere there is an object called `taxa` (it is actually a column of the dataset `rodents`), R is trying to communicate that it cannot find any such object in the local environment. Let's try again, appropriately pointing ggplot to the `rodents` dataset and `taxa` column using the `$` operator. 
@@ -65,7 +64,7 @@ ggplot(aes(x = rodents$taxa)) + geom_bar()
 ```
  Whoops! Here we see another error message -- this time, R responds with a perhaps more-uninterpretable message:
 
-```{r} 
+``` 
 Error in `fortify()`:
 ! `data` must be a <data.frame>, or an object coercible by `fortify()`, or a valid <data.frame>-like object
   coercible by `as.data.frame()`, not a <uneval> object.
@@ -111,7 +110,7 @@ table(rodents$taxa)
 
 We're interested in the Rodents, and thankfully it seems like a majority of our observations will be maintained when subsetting to rodents. Except wait. In our plot, we can clearly see the presence of NA values. Why are we not seeing them here? This is an example of a semantic error -- our command is executed correctly, but the output is not everything we intended. Having no error message to interpret, let's jump straight to the documentation:
 
-```
+```{r}
 ?table
 ```
 
