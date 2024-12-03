@@ -1,0 +1,234 @@
+---
+title: "Researcher Narrative"
+format: html
+editor: source
+---
+
+# Intro
+
+## Introduce researcher
+
+You are a PhD student studying kangaroo rats. In preparation for some fieldwork this year, you are analyzing an old dataset from your lab between 1977 and 1989. Your new fieldwork will attempt to replicate some of this, and you want to make sure you have a good handle on your focal organisms, several species of kangaroo rat.
+
+You're somewhat familiar with this dataset, but this is your first time doing a deep dive on visualizing and analyzing it. You already know that the dataset contains information from rodent captures in various types of study plots. Body measurements were taken and many of the rodents were sexed.
+
+## Identify research questions
+
+Some things you want to find out: 1. How many kangaroo rats of each species were found at the study site in past years (so you know what to expect for a sample size this year)? 2. Do the k-rat exclusion plots work? (i.e. Does the abundance of each species differ by plot?)
+
+# (Episode 3: Identify the problem)
+
+## Load in the data
+
+First, let's load some packages we're going to need for our analysis
+
+```{r}
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(stringr)
+```
+
+We can start by reading in our dataset from a csv file
+
+```{r}
+rodents <- read_csv("scripts/data/surveys_complete_77_89.csv")
+```
+
+## Explore/understand data structure
+
+When we were out in the field, we recorded genus, species, the day, and each individual's weight and hindfoot length. Let's take a look at these to remind ourselves of what our dataset looks like:
+
+```{r}
+glimpse(rodents) # or click on the environment
+str(rodents) # an alternative that does the same thing
+head(rodents) # or open fully with View() or click in environment
+```
+
+Whoops, when I look at the data, I remember that we actually recorded data about more than just rodents. I can tell this because there's a `taxa` column that includes "Rodent" as an option. It also has other options.
+
+```{r}
+table(rodents$taxa)
+```
+
+As an alternative, we can make a simple plot to visualize the abundance distribution of taxa
+
+```{r}
+rodents %>%
+  ggplot(aes(x=taxa))+
+  geom_bar()
+```
+
+Let's examine the NA values in the taxa column of the dataset
+
+```{r}
+## How do we find NAs anyway? ----
+head(is.na(rodents$taxa)) # logical--tells us when an observation is an NA (T or F)
+
+# Not very helpful. BUT
+sum(is.na(rodents$taxa)) # sum considers T = 1 and F = 0
+```
+
+## Data wrangling part 1
+
+Let's simplify it down to just the rodents!
+
+```{r}
+rodents <- rodents %>%
+  filter(taxa == "Rodent")
+glimpse(rodents)
+```
+
+We're interested in studying kangaroo rats. Let's see if we can find a way to filter down the data just to kangaroo rats. Kangaroo rats belong to the genus *Dipodomys*, so let's filter to that.
+
+```{r}
+krats <- rodents %>%
+  filter(genus == "Dipodomys")
+dim(krats) # okay, so that's a lot smaller, great.
+glimpse(krats)
+```
+
+We know we're going to want to look at some trends over time, and currently the date information is divided into three different columns. Let's create a single date column.
+
+```{r}
+krats <- krats %>%
+  mutate(date = lubridate::ymd(paste(year, month, day, sep = "-")))
+```
+
+We know from our colleagues' previous records that there were some changes made to the experimental setup in January 1988. "Rodent treatments were changed on subsets of the short-term plots at three points in time. In January 1988, treatments were changed on 8 of the short-term plots: 2 control plots became Banner-tailed exclosures, 2 Banner-tailed exclosures became rodent exclosures, and 4 controls became kangaroo rat exclosures." [REF](https://www.biorxiv.org/content/10.1101/332783v3.full.pdf+html)
+
+Therefore, we'd like to make a new column to indicate before/after the change.
+
+```{r}
+krats <- krats %>%
+  mutate(time_period = ifelse(year < 1988, "early", "late"))
+
+# Check that this went through; check for NAs
+table(krats$time_period, exclude = NULL) # learned how to do this earlier
+```
+
+# (Episode 4: Reproducible data)
+
+## Make exploratory visualizations
+
+To get a sense of the data and begin addressing your research questions, you decide to make some exploratory visualizations.
+
+Starting with the first research question: 1. How many kangaroo rats of each species were found at the study site in past years (so you know what to expect for a sample size this year)?
+
+You additionally decide to look at this by plot type because you know the numbers might differ.
+
+```{r}
+krats %>%
+  ggplot(aes(x = date, fill = plot_type)) +
+  geom_histogram()+
+  facet_wrap(~species)+ 
+  theme_bw()+
+  scale_fill_viridis_d(option = "plasma")+
+  geom_vline(aes(xintercept = lubridate::ymd("1988-01-01")), col = "dodgerblue")
+```
+
+You realize you should remove the unidentified k-rats.
+
+```{r}
+krats <- krats %>%
+  filter(species != "sp.")
+```
+
+Re-do the plot with these removed:
+
+```{r}
+krats %>%
+  ggplot(aes(x = date, fill = plot_type)) +
+  geom_histogram()+
+  facet_wrap(~species)+ 
+  theme_bw()+
+  scale_fill_viridis_d(option = "plasma")+
+  geom_vline(aes(xintercept = lubridate::ymd("1988-01-01")), col = "dodgerblue")
+```
+
+Yay, beautiful!
+
+You're curious how many individuals of each species you might expect to catch per day.
+
+```{r}
+krats_per_day <- krats %>%
+  group_by(date, year, species) %>%
+  summarize(n = n()) %>%
+  group_by(species)
+
+krats_per_day %>%
+  ggplot(aes(x = species, y = n))+
+  geom_boxplot(outlier.shape = NA)+
+  geom_jitter(width = 0.2, alpha = 0.2, aes(col = year))+
+  theme_classic()+
+  ylab("Number per day")+
+  xlab("Species")
+```
+
+# (Episode 5: Reproducible code)
+
+Okay, so we know we are going to be catching different numbers of individuals, but now let's see why: did the exclusion plots work at keeping the target species out of certain areas?
+
+2.  Do the k-rat exclusion plots work? (i.e. Does the abundance of each species differ by plot?)
+
+If the k-rat plots work, then we would expect:
+
+A.   Fewer k-rats overall in any of the exclusion plots than in the control, with the fewest in the long-term k-rat exclusion plot
+
+```{r}
+counts_per_day <- krats %>%
+  group_by(year, plot_id, plot_type, month, day, species_id) %>%
+  summarize(count_per_day = n())
+
+counts_per_day %>%
+  ggplot(aes(x = plot_type, y = count_per_day, fill = species_id, group = interaction(plot_type, species_id)))+
+  geom_boxplot(outlier.size = 0.5)+
+  theme_minimal()+
+  labs(title = "Kangaroo rat captures, all years",
+       x = "Plot type",
+       y = "Individuals per day",
+       fill = "Species")
+```
+Interestingly, we don't appear to have a difference in the number of k-rats captured in the different plot types! We expected to catch more k-rats in the control plots (which don't exclude rodents) than in the exclosure plots, but the rates appear to be about the same. That doesn't bode well for the effectiveness of these plots!
+
+B.   For Spectabilis-specific exclosure, we expect a lower proportion of spectabilis there than in the other plots.
+
+We already know from the previous plot that we don't appear to have caught fewer spectabilis in the spectabilis exclosure plot than in the control. In fact, if anything, we seem to have caught more! But do spectabilis captures make up a smaller proportion of the k-rats caught
+
+```{r}
+control_spectab <- krats %>%
+  filter(plot_type %in% c("Control", "Spectab exclosure"))
+
+prop_spectab <- control_spectab %>%
+  group_by(year, plot_type, species_id) %>%
+  summarize(total_count = n(), .groups = "drop_last") %>%
+  mutate(prop = total_count/sum(total_count)) %>%
+  filter(species_id == "DS") # keep only spectabilis
+
+prop_spectab %>%
+  ggplot(aes(x = year, y = prop, col = plot_type))+
+  geom_point()+
+  geom_line()+
+  theme_minimal()+
+  labs(title = "Spectab exclosures did not reduce proportion of\nspectab captures",
+       y = "Spectabilis proportion",
+       x = "Year",
+       color = "Plot type")
+```
+Strangely, it does not appear that fewer spectabilis individuals were caught in the spectabilis exclosure plots (proportional to the number of total k-rats caught) than in the control. Our exclosure plots aren't really working!
+
+## Modeling part 1
+
+To be sure of our conclusions, let's build some models. Going to just build a model to predict the number of k-rats caught per day, by species and plot type.
+
+```{r}
+counts_mod <- lm(count_per_day ~ plot_type + species_id, data = counts_per_day)
+summary(counts_mod)
+```
+
+Adding an interaction term:
+
+```{r}
+counts_mod_interact <- lm(count_per_day ~ plot_type*species_id, data = counts_per_day)
+summary(counts_mod_interact)
+```
