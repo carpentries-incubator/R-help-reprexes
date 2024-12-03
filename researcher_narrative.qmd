@@ -16,7 +16,6 @@ You're somewhat familiar with this dataset, but this is your first time doing a 
 
 Some things you want to find out: 1. How many kangaroo rats of each species were found at the study site in past years (so you know what to expect for a sample size this year)? 2. Do the k-rat exclusion plots work? (i.e. Does the abundance of each species differ by plot?)
 
-# (Episode 3: Identify the problem)
 
 ## Load in the data
 
@@ -107,7 +106,7 @@ krats <- krats %>%
 table(krats$time_period, exclude = NULL) # learned how to do this earlier
 ```
 
-# (Episode 4: Reproducible data)
+# (Episode 3: Reproducible data)
 
 ## Make exploratory visualizations
 
@@ -165,7 +164,7 @@ krats_per_day %>%
   xlab("Species")
 ```
 
-# (Episode 5: Reproducible code)
+# (Episode 4: Reproducible code)
 
 Okay, so we know we are going to be catching different numbers of individuals, but now let's see why: did the exclusion plots work at keeping the target species out of certain areas?
 

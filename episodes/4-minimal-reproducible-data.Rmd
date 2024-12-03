@@ -182,6 +182,7 @@ The correct answer is C!
 
 A)  does not include the variable of interest (weight).
 B)  does not produce the same problem (NA result with a warning message)--the code runs just fine.
+C)  minimal and reproducible.
 D)  is not reproducible. Sample randomly samples 10 items; sometimes it may include NAs, sometime it may not (not guaranteed to reproduce the error). It can be used if a seed is set (see next section for more info).
 E)  uses a dataset that isn't accessible without previous data wrangling code–the object rodents_modified doesn't exist.
 :::
