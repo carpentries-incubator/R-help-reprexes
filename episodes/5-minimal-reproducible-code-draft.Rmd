@@ -1,0 +1,166 @@
+---
+title: "Minimal Reproducible Code"
+teaching: 10
+exercises: 2
+---
+
+::: questions
+-   Which part of my code is causing an error message or an incorrect result?
+-   I want to make my code minimal, but where do I even start?
+-   How do I make non-reproducible code reproducible?
+-   How do I tell whether a code snippet is reproducible or not?
+:::
+
+::: objectives
+-   Identify the step that is generating the error
+-   Implement a stepwise approach to make minimal code
+-   Edit a piece of code to make it reproducible
+-   Evaluate whether a piece of code is reproducible as is or not. If not, identify what is missing.
+:::
+
+In the last episode, we focused in on how to make minimal datasets that would reproduce a target piece of code, but we didn't talk much about the code itself. In each example, we already had a piece of code that needed a dataset. But how do you know which part of your code is the problem and should be focused on?
+
+At this point, we as researchers have been exploring our kangaroo rat data for a while and making several plots. Now we know how many kangaroo rats we can expect to catch, and we can move on to our second research question: Do the rodent exclusion plots actually working at keeping the target species out of certain areas?
+
+If the exclusion plots work, we would expect differences in abundance in the different plot types. Specifically, we'd expect to see fewer kangaroo rats overall in any of the exclusion plots than in the control.
+
+We start by making a plot to examine this
+
+```{r, include = F}
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(stringr)
+library(here) # XXX COME BACK TO THIS, SEE https://github.com/carpentries-incubator/R-help-reprexes/issues/61
+rodents <- read_csv(here("scripts/data/surveys_complete_77_89.csv"))
+rodents <- rodents %>%
+  filter(taxa == "Rodent")
+krats <- rodents %>%
+  filter(genus == "Dipodomys")
+krats <- krats %>%
+  mutate(date = lubridate::ymd(paste(year, month, day, sep = "-")))
+krats <- krats %>%
+  mutate(time_period = ifelse(year < 1988, "early", "late"))
+krats <- krats %>%
+  filter(species != "sp.")
+krats_per_day <- krats %>%
+  group_by(date, year, species) %>%
+  summarize(n = n()) %>%
+  group_by(species)
+```
+
+To start figuring this out, we decide to make a plot of counts per day, per plot type, per species, per year.
+
+```{r}
+counts_per_day <- krats %>%
+  group_by(year, plot_id, plot_type, month, day, species_id) %>%
+  summarize(count_per_day = n())
+```
+
+Then, we use that information to visualize the distribution of counts per day in the different plot types to see if there's a difference overall.
+
+```{r}
+counts_per_day %>%
+  ggplot(aes(x = plot_type, y = count_per_day, fill = species_id, group = interaction(plot_type, species_id)))+
+  geom_boxplot(outlier.size = 0.5)+
+  theme_minimal()+
+  labs(title = "Kangaroo rat captures, all years",
+       x = "Plot type",
+       y = "Individuals per day",
+       fill = "Species")
+```
+
+Interestingly, we don't see a difference in the number of k-rats captured in the different plot types! We expected to catch more k-rats in the control plots (which don't exclude rodents) than in the various rodent exclosure plots, but the rates appear to be about the same. That doesn't bode well for the effectiveness of these experimental plots!
+
+You're really interested in this result, and you want to talk to your coworker about it. One of your coworkers, Taylor, asks to see the code you used to make this plot so that they can investigate it on their own. You say "No problem, I'll send the code over!"
+
+You send the following email:
+
+*Hi Taylor,*
+*Here's the code I used to make that plot! I hope it works.*
+```
+counts_per_day %>%
+  ggplot(aes(x = plot_type, y = count_per_day, fill = species_id, group = interaction(plot_type, species_id)))+
+  geom_boxplot(outlier.size = 0.5)+
+  theme_minimal()+
+  labs(title = "Kangaroo rat captures, all years",
+       x = "Plot type",
+       y = "Individuals per day",
+       fill = "Species")
+```
+
+Unfortunately, Taylor soon writes back. 
+*Hey Sam,*
+*That code didn't run properly for me. Maybe you need to include the data?*
+
+Of course! The data! That's important.
+::: challenge
+**Exercise:** On the Etherpad or in your own notes, identify the dataset that you'll need to send to Taylor so they can run your code. What are a few different ways that you could give him the data? What are the advantages or disadvantages to each?
+:::   
+::: solution
+XXX INSERT SOLUTION
+:::
+
+You decide that instead of sending Taylor the modified file, you're going to send him more of the code so he can reproduce the entire thing himself. You look back over the code you've written so far. It's kind of messy! 
+XXX TODO: Add messy comments and other tangents to this script to make it long.
+XXX TOOD: How do we show a script that includes line numbers? That will be important--they all need to have the same reference point for this challenge.
+```
+# Note: your code might look a little different! That's okay.
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(stringr)
+library(here) # XXX COME BACK TO THIS, SEE https://github.com/carpentries-incubator/R-help-reprexes/issues/61
+rodents <- read_csv(here("scripts/data/surveys_complete_77_89.csv"))
+rodents <- rodents %>%
+  filter(taxa == "Rodent")
+krats <- rodents %>%
+  filter(genus == "Dipodomys")
+krats <- krats %>%
+  mutate(date = lubridate::ymd(paste(year, month, day, sep = "-")))
+krats <- krats %>%
+  mutate(time_period = ifelse(year < 1988, "early", "late"))
+krats <- krats %>%
+  filter(species != "sp.")
+krats_per_day <- krats %>%
+  group_by(date, year, species) %>%
+  summarize(n = n()) %>%
+  group_by(species)
+counts_per_day <- krats %>%
+  group_by(year, plot_id, plot_type, month, day, species_id) %>%
+  summarize(count_per_day = n())
+counts_per_day %>%
+  ggplot(aes(x = plot_type, y = count_per_day, fill = species_id, group = interaction(plot_type, species_id)))+
+  geom_boxplot(outlier.size = 0.5)+
+  theme_minimal()+
+  labs(title = "Kangaroo rat captures, all years",
+       x = "Plot type",
+       y = "Individuals per day",
+       fill = "Species")
+```
+
+::: challenge
+**Excercise:** Which lines of code in the script above does Taylor absolutely NEED to run in order to reproduce your plot?
+Bonus: What are some lines of code that Taylor doesn't NEED to run but which might provide him useful extra context?
+
+(For this challenge, use the line numbers in the script above, even if your script looks slightly different. For extra practice, do the same exercise with your own script! Do you find any different answers?)
+:::   
+::: solution
+XXX INSERT SOLUTION, referencing line numbers
+:::
+
+Taylor emails you back again:
+*Hi Sam,*
+*Thanks, that looks like it will probably work. Do I really have to install all those packages, though? I'm a little worried about running out of space on my computer.*
+
+You roll your eyes internally, but he's right--probably not all those packages are totally necessary!
+
+::: challenge
+**Excercise:** Email Taylor back and tell him which packages he needs in order to run your code.
+:::   
+::: solution
+*Hi Taylor,*
+*Good point. Yeah, you don't need all those packages. Some of them were from other parts of the code that I didn't include here, and there are some that I just forgot to remove when I stopped using them! You can just install {dplyr}, {ggplot2}, {here}, and {readr} and the code should run fine!*
+*Sam*
+:::
+
