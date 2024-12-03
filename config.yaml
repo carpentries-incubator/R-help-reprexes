@@ -1,3 +1,4 @@
+
 #------------------------------------------------------------
 # Values for this lesson.
 #------------------------------------------------------------
@@ -61,7 +62,7 @@ contact: 'kgahm@ucla.edu'
 episodes:
 - 1-intro-reproducible-examples.md
 - 2-understanding-your-code.md
-- 3-identify-the-problem.md
+- 3-identify-the-problem.Rmd
 - 4-minimal-reproducible-data.Rmd
 - 5-minimal-reproducible-code.Rmd
 - 6-asking-your-question.md
@@ -79,5 +80,3 @@ profiles:
 #
 # This space below is where custom yaml items (e.g. pinning
 # sandpaper and varnish versions) should live
-
-
