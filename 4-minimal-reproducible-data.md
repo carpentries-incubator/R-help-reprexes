@@ -179,6 +179,7 @@ The correct answer is C!
 
 A)  does not include the variable of interest (weight).
 B)  does not produce the same problem (NA result with a warning message)--the code runs just fine.
+C)  minimal and reproducible.
 D)  is not reproducible. Sample randomly samples 10 items; sometimes it may include NAs, sometime it may not (not guaranteed to reproduce the error). It can be used if a seed is set (see next section for more info).
 E)  uses a dataset that isn't accessible without previous data wrangling code–the object rodents_modified doesn't exist.
 :::
@@ -235,7 +236,7 @@ x
 ```
 
 ``` output
- [1]  1  8  5  3  7  6  4  9  2 10
+ [1]  8 10  2  3  1  4  6  5  7  9
 ```
 
 Or you can randomly sample from a normal distribution
@@ -247,8 +248,8 @@ x
 ```
 
 ``` output
- [1]  0.4542974 -1.1649277 -2.0257380 -0.5615092  0.7459265 -1.7232703
- [7] -0.7450010  0.3361192  0.7315899  0.1394792
+ [1] -1.15147204 -0.49372383 -0.77244318 -0.34890722  0.01152801 -0.81740177
+ [7]  0.20870688 -0.74824265 -1.09940772  0.08663059
 ```
 
 You can also use `letters` to create factors.
@@ -260,8 +261,8 @@ x
 ```
 
 ``` output
- [1] "c" "c" "b" "c" "b" "c" "d" "d" "d" "a" "c" "b" "d" "b" "c" "b" "c" "b" "b"
-[20] "a"
+ [1] "b" "c" "b" "c" "c" "a" "d" "a" "c" "a" "c" "b" "b" "c" "b" "a" "a" "b" "b"
+[20] "c"
 ```
 
 Remember that a data frame is just a collection of vectors. You can create a data frame using `data.frame` (or `tibble` in the `dplyr` package). You can then create a vector for each variable. 
@@ -274,13 +275,13 @@ head(data)
 ```
 
 ``` output
-  x          y
-1 a  1.2385047
-2 b  0.5443206
-3 b -0.3309462
-4 a  0.3185965
-5 b  3.3840512
-6 a -1.4050286
+  x           y
+1 c -2.29437118
+2 c -0.06235243
+3 c  0.42491846
+4 b -1.26774180
+5 c -0.98678492
+6 a -0.48549256
 ```
 
 **However**, when sampling at random you must remember to `set.seed()` before sending it to someone to make sure you both get the same numbers!
@@ -388,25 +389,25 @@ sample_data
 ``` output
    Day Plot Species
 1    1   P2       B
-2    2   P1       B
-3    3   P1       B
-4    4   P2       D
-5    5   P2       C
-6    6   P2       C
-7    7   P1       B
-8    8   P1       B
-9    9   P2       A
-10  10   P2       B
-11   1   P1       D
-12   2   P1       D
-13   3   P2       A
-14   4   P2       A
-15   5   P2       A
-16   6   P2       C
-17   7   P1       B
-18   8   P1       C
-19   9   P2       D
-20  10   P2       B
+2    2   P1       A
+3    3   P1       D
+4    4   P1       D
+5    5   P2       D
+6    6   P1       D
+7    7   P1       D
+8    8   P1       C
+9    9   P1       C
+10  10   P2       A
+11   1   P2       A
+12   2   P1       C
+13   3   P2       C
+14   4   P1       C
+15   5   P1       C
+16   6   P1       D
+17   7   P1       A
+18   8   P1       D
+19   9   P1       D
+20  10   P1       B
 ```
 
 Great!
