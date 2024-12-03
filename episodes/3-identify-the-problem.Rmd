@@ -38,11 +38,10 @@ library(ggplot2)
 library(stringr)
 
 # Read in the data
-rodents <- read_csv("scripts/data/surveys_complete_77_89.csv")
+rodents <- read_csv("../scripts/data/surveys_complete_77_89.csv")
 
 ```
 
-# add error example with lubdridate
 
 As simple as it may seem, the first step we'll cover is what to do when encountering an error or other undesired output from your code. It is our experience that many seemingly-impossible errors can be fixed on the route to create a reproducible example for an expert helper. With this episode, we hope to teach you the basics about identifying how your error might be occurring, and how to isolate the problem for others to look at. 
 
@@ -53,24 +52,18 @@ Something that may go wrong is an error in your code. By this, we mean any code 
 
 The accompanying error message attempts to tell you exactly how your code failed. For example, consider the following error message that occurs when I run this command in the R console:
 
-```{r}
+```{r,error=T}
 ggplot(x = taxa) + geom_bar()
 ```
 
 Though we know somewhere there is an object called `taxa` (it is actually a column of the dataset `rodents`), R is trying to communicate that it cannot find any such object in the local environment. Let's try again, appropriately pointing ggplot to the `rodents` dataset and `taxa` column using the `$` operator. 
 
-```{r}
+```{r, error=T}
 ggplot(aes(x = rodents$taxa)) + geom_bar()
 ```
- Whoops! Here we see another error message -- this time, R responds with a perhaps more-uninterpretable message:
-
-``` 
-Error in `fortify()`:
-! `data` must be a <data.frame>, or an object coercible by `fortify()`, or a valid <data.frame>-like object
-  coercible by `as.data.frame()`, not a <uneval> object.
-ℹ Did you accidentally pass `aes()` to the `data` argument?
-Run `rlang::last_trace()` to see where the error occurred.
-```
+ 
+ 
+ Whoops! Here we see another error message -- this time, R responds with a perhaps more-uninterpretable message.
 
 Let's go over each part briefly. First, we see an error from a function called `fortify`, which we didn't even call! Then a much more helpful informational message: Did we accidentally pass `aes()` to the `data` argument? This does seem to relate to our function call, as we do pass `aes`, potentially where our data should go. A helpful starting place when attempting to decipher an error message is checking the documentation for the function which caused the error:
 
@@ -81,9 +74,13 @@ Here, a Help window pops up in RStudio which provides some more information. Ski
 ```{r} 
 ggplot(rodents, aes(x = taxa)) + geom_bar()
 ```
+
+
 Here we see our desired plot. 
 
 
+
+## Summary
 
 In general, when encountering an error message for which a remedy is not immediately apparent, some steps to take include:
 
@@ -116,7 +113,7 @@ We're interested in the Rodents, and thankfully it seems like a majority of our 
 
 Here, the documentation provides some clues: there seems to be an argument called `useNA` that accepts "no", "ifany", and "always", but it's not immediately apparent which one we should use. As a second approach, let's go to `Examples` to see if we can find any quick fixes. Here we see a couple lines further down: 
 
-```{r}
+```r
 table(a)                 # does not report NA's
 table(a, exclude = NULL) # reports NA's
 ```
@@ -132,6 +129,8 @@ Now, we do see that by subsetting to the "Rodent" taxa, we are losing about 357 
 rodents <- rodents %>% filter(taxa == "Rodent")
 ```
 
+## Summary
+
 In general, when encountering a semantic error for which a remedy is not immediately apparent, some steps to take include:
 
 1. Reading any warning or informational messages that may pop up when executing your code.
@@ -146,6 +145,7 @@ And, when all else fails, preparing our code into a reproducible example for exp
 
 
 ::::::::::::::::::::: callout
+
 Generally, the more your code deviates from just using base R functions, or the more you use specific packages, both the quality of documentation and online help available from search engines and Googling gets worse and worse. While base R errors will often be solvable in a couple of minutes from a quick `?help` check or a long online discussion and solutions on a website like Stack Overflow, errors arising from  little-used packages applied in bespoke analyses might merit isolating your specific problem to a reproducible example for online help, or even getting in touch with the developers! Such community input and questions are often the way packages and documentation improves over time. 
 
 :::::::::::::::::::::
@@ -157,7 +157,7 @@ Isolating your problem may not be as simple as assessing the output from a singl
 Consider the example below, where we now are attempting to see how which species of kangaroo rodents appear in different plot types over the years. 
 
 
-```{r}
+```{r, error=T}
 krats <- rodents %>% filter(genus == "Dipadomys") #kangaroo rat genus
 
 ggplot(krats, aes(year, fill=plot_type)) + 
@@ -190,12 +190,16 @@ geom_histogram() +
 facet_wrap(~species)
 
 ```
+
+
 Our improved code here looks good. A quick "dim" call confirms we now have all the Dipodomys observations, and our plot is looking better. In general, having a 'print' statement or some other output before plots or other major steps can be a good way to check your code is producing intermediate results consistent with your expectations. 
 
 However, there's something funky happening here. The bins are definitely weirdly spaced -- we can see some bins are not filled with any observations, while those exactly containing one of the integer years happens to contain all the observations for that year. 
 
 :::::::: challenge 
+
 As a group, name some potential problems or undesired outcomes from this graph...
+
 ::::::::
 
 :::::::: solution
@@ -227,7 +231,7 @@ One aspect we can see with this exercise above is that by setting up a reproduci
 ::::::::
 
 
-
+## Summary
 
 In general, we need to isolate the specific areas of code causing the bug or problem. There is no general rule of thumb as to how large this needs to be, but in general, think about what we would want to include in a reprex. Any early lines which we know run correctly and as intended may not need to be included, and we should seek to isolate the problem area as much as we can to make it understandable to others. 
 
@@ -258,8 +262,6 @@ dim(krats)
 
 krats <- krats %>% mutate(date = lubridate::ymd(paste(year,month,day,sep='-')))
 
-krats <- krats %>% filter(species != "sp.")
-
 
 krats %>%
   ggplot(aes(x = date, fill = plot_type)) +
@@ -273,29 +275,6 @@ krats %>%
 
 It looks like the study change helped to reduce merriami sightings in the Rodent and Short-term Krat exclosures. 
 
-:::::::::::::::::::::::::::::::::::::: challenge
 
-### Predict the output from a base R function call
-
-Which of the following results when running the following line of code:
-
-```r
-length(5, 6, 7)
-```
-
-a. 3
-b. Error in length(5, 6, 7) :
-   3 arguments passed to 'length' which requires 1
-c. NULL
-d. 1, 1, 1
-
-:::::::::::::::: solution
-
-### Solution Title
-
-b. Error in length(5, 6, 7) :
-   3 arguments passed to 'length' which requires 1
-
-:::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
