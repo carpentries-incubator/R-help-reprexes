@@ -61,11 +61,10 @@ contact: 'kgahm@ucla.edu'
 # Order of episodes in your lesson
 episodes:
 - 1-intro-reproducible-examples.md
-- 2-understanding-your-code.md
-- 3-identify-the-problem.Rmd
-- 4-minimal-reproducible-data.Rmd
-- 5-minimal-reproducible-code.Rmd
-- 6-asking-your-question.md
+- 2-identify-the-problem.Rmd
+- 3-minimal-reproducible-data.Rmd
+- 4-minimal-reproducible-code.Rmd
+- 5-asking-your-question.md
 
 # Information for Learners
 learners:
