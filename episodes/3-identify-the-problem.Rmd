@@ -27,6 +27,7 @@ After completing this episode, participants should be able to...
 - Describe the output of code you are seeking. ## identify relevant warnings or code output
 - Identify and quickly fix commonly-encountered R errors ###### what was I thinking here
 - Identify which problems are better suited for asking for further help, including online help and reprex
+- Make a pull request
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
