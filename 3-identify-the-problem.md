@@ -59,11 +59,21 @@ library(ggplot2)
 library(stringr)
 
 # Read in the data
-rodents <- read_csv("../scripts/data/surveys_complete_77_89.csv")
+rodents <- read_csv("data/surveys_complete_77_89.csv")
 ```
 
-``` error
-Error: '../scripts/data/surveys_complete_77_89.csv' does not exist in current working directory ('/home/runner/work/R-help-reprexes/R-help-reprexes/site/built').
+``` output
+Rows: 16878 Columns: 13
+```
+
+``` output
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (6): species_id, sex, genus, species, taxa, plot_type
+dbl (7): record_id, month, day, year, plot_id, hindfoot_length, weight
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 
@@ -114,9 +124,7 @@ Here, a Help window pops up in RStudio which provides some more information. Ski
 ggplot(rodents, aes(x = taxa)) + geom_bar()
 ```
 
-``` error
-Error: object 'rodents' not found
-```
+<img src="fig/3-identify-the-problem-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
 
 
 Here we see our desired plot. 
@@ -149,8 +157,10 @@ With our rodent analysis, the next step in the plan is to subset to just the `Ro
 table(rodents$taxa)
 ```
 
-``` error
-Error: object 'rodents' not found
+``` output
+
+   Bird  Rabbit Reptile  Rodent 
+    300      69       4   16148 
 ```
 
 We're interested in the Rodents, and thankfully it seems like a majority of our observations will be maintained when subsetting to rodents. Except wait. In our plot, we can clearly see the presence of NA values. Why are we not seeing them here? This is an example of a semantic error -- our command is executed correctly, but the output is not everything we intended. Having no error message to interpret, let's jump straight to the documentation:
@@ -185,18 +195,16 @@ That seems like it should be inclusive. Let's try again:
 table(rodents$taxa, exclude = NULL)
 ```
 
-``` error
-Error: object 'rodents' not found
+``` output
+
+   Bird  Rabbit Reptile  Rodent    <NA> 
+    300      69       4   16148     357 
 ```
 Now, we do see that by subsetting to the "Rodent" taxa, we are losing about 357 NAs, which themselves could be rodents! However, in this case, it seems a small enough portion to safely omit. Let's subset our data to the rodent taxa
 
 
 ``` r
 rodents <- rodents %>% filter(taxa == "Rodent")
-```
-
-``` error
-Error: object 'rodents' not found
 ```
 
 ## Summary
@@ -230,20 +238,15 @@ Consider the example below, where we now are attempting to see how which species
 
 ``` r
 krats <- rodents %>% filter(genus == "Dipadomys") #kangaroo rat genus
-```
 
-``` error
-Error: object 'rodents' not found
-```
-
-``` r
 ggplot(krats, aes(year, fill=plot_type)) + 
 geom_histogram() +
 facet_wrap(~species)
 ```
 
 ``` error
-Error: object 'krats' not found
+Error in `combine_vars()` at ggplot2/R/facet-wrap.R:186:5:
+! Faceting variables must have at least one value.
 ```
 
 Uh-oh. Another error here, this time in "combine_vars?" What is that? "Faceting variables must have at least one value": What does that mean?
@@ -256,8 +259,11 @@ Well it may be clear enough that we seem to be missing "species" values where we
 krats
 ```
 
-``` error
-Error: object 'krats' not found
+``` output
+# A tibble: 0 × 13
+# ℹ 13 variables: record_id <dbl>, month <dbl>, day <dbl>, year <dbl>,
+#   plot_id <dbl>, species_id <chr>, sex <chr>, hindfoot_length <dbl>,
+#   weight <dbl>, genus <chr>, species <chr>, taxa <chr>, plot_type <chr>
 ```
 It's empty! What went wrong with our "Dipadomys" filter?
 
@@ -266,26 +272,33 @@ It's empty! What went wrong with our "Dipadomys" filter?
 rodents %>% count(genus)
 ```
 
-``` error
-Error: object 'rodents' not found
+``` output
+# A tibble: 12 × 2
+   genus                n
+   <chr>            <int>
+ 1 Ammospermophilus   136
+ 2 Baiomys              3
+ 3 Chaetodipus        382
+ 4 Dipodomys         9573
+ 5 Neotoma            904
+ 6 Onychomys         1656
+ 7 Perognathus        553
+ 8 Peromyscus        1271
+ 9 Reithrodontomys   1412
+10 Rodent               4
+11 Sigmodon           103
+12 Spermophilus       151
 ```
 We see two things here. For one, we've misspelled Dipodomys, which we can now amend. This quick function call also tells us we should expect a data frame with 9573 values resulting after subsetting to the genus Dipodomys.
 
 
 ``` r
 krats <- rodents %>% filter(genus == "Dipodomys") #kangaroo rat genus
-```
-
-``` error
-Error: object 'rodents' not found
-```
-
-``` r
 dim(krats)
 ```
 
-``` error
-Error: object 'krats' not found
+``` output
+[1] 9573   13
 ```
 
 ``` r
@@ -294,9 +307,11 @@ geom_histogram() +
 facet_wrap(~species)
 ```
 
-``` error
-Error: object 'krats' not found
+``` output
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
+
+<img src="fig/3-identify-the-problem-rendered-unnamed-chunk-12-1.png" style="display: block; margin: auto;" />
 
 
 Our improved code here looks good. A quick "dim" call confirms we now have all the Dipodomys observations, and our plot is looking better. In general, having a 'print' statement or some other output before plots or other major steps can be a good way to check your code is producing intermediate results consistent with your expectations. 
@@ -322,37 +337,26 @@ As we discussed in the challenge, there are some issues to visualizing our data 
 
 ``` r
 krats <- rodents %>% filter(genus == "Dipodomys") #kangaroo rat genus
-```
-
-``` error
-Error: object 'rodents' not found
-```
-
-``` r
 dim(krats)
 ```
 
-``` error
-Error: object 'krats' not found
+``` output
+[1] 9573   13
 ```
 
 ``` r
 krats <- krats %>% mutate(date = lubridate::ymd(paste(year,month,day,sep='-')))
-```
 
-``` error
-Error: object 'krats' not found
-```
-
-``` r
 ggplot(krats, aes(date, fill=plot_type)) + 
 geom_histogram() +
 facet_wrap(~species)
 ```
 
-``` error
-Error: object 'krats' not found
+``` output
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
+
+<img src="fig/3-identify-the-problem-rendered-unnamed-chunk-13-1.png" style="display: block; margin: auto;" />
 
 This looks much better, and is easier to see the trends over time as well. Note our x axis still shows bins with year labelings, but the continuous spread of our data over these bins shows that dates are treated more continuously and fall more continuously within histogram bins.
 
@@ -389,29 +393,17 @@ Finally, let's make our plot publication-ready by changing some aesthetics. Let'
 
 ``` r
 krats <- rodents %>% filter(genus == "Dipodomys") #kangaroo rat genus
-```
-
-``` error
-Error: object 'rodents' not found
-```
-
-``` r
 dim(krats)
 ```
 
-``` error
-Error: object 'krats' not found
+``` output
+[1] 9573   13
 ```
 
 ``` r
 krats <- krats %>% mutate(date = lubridate::ymd(paste(year,month,day,sep='-')))
-```
 
-``` error
-Error: object 'krats' not found
-```
 
-``` r
 krats %>%
   ggplot(aes(x = date, fill = plot_type)) +
   geom_histogram()+
@@ -421,9 +413,11 @@ krats %>%
   geom_vline(aes(xintercept = lubridate::ymd("1988-01-01")), col = "dodgerblue")
 ```
 
-``` error
-Error: object 'krats' not found
+``` output
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
+
+<img src="fig/3-identify-the-problem-rendered-unnamed-chunk-14-1.png" style="display: block; margin: auto;" />
 
 It looks like the study change helped to reduce merriami sightings in the Rodent and Short-term Krat exclosures. 
 
