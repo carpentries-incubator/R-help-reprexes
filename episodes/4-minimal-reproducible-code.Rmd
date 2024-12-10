@@ -5,9 +5,9 @@ exercises: 35
 ---
 
 ::: questions
-- Which part of my code is causing the problem?
-- Which parts of my code are necessary in order for the problem area to run correctly?
 - Why is it important to make a minimal code example?
+- Which part of my code is causing the problem?
+- Which parts of my code should I include in a minimal example?
 - How can I tell whether a code snippet is reproducible or not?
 - How can I make my code reproducible?
 :::
