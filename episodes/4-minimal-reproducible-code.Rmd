@@ -23,6 +23,78 @@ exercises: 35
 - Describe the {reprex} package and its uses
 :::
 
+You're happy with the progress you've made in exploring your data, and you're excited to move on to your second research question: Do the k-rat exclusion plots actually exclude k-rats?
+
+You start by making a couple predictions. 
+
+Prediction 1: If the k-rat plots work, then we would expect to see fewer k-rats overall in any of the exclusion plots than in the control, with the fewest k-rats in the long-term exclusion plot.
+
+Second, if the k-rat plots work, then we would expect a lower proportion of *spectabilis* in the *spectabilis*-specific exclosure than in the control plot
+
+You start by computing summary counts of the number of k-rats per day in each type of plot, and then using boxplots to show the differences between daily counts in each plot type. 
+
+Then, you focus in on the spectabilis-specific exclosures, compute counts and proportions for those, and visualize the relative proportions in the spectabilis exclosure versus the control.
+
+```{r}
+# Prediction 1: expect fewer k-rats in exclusion plots than in control plot
+# Count number of k-rats per day, per plot type
+counts_per_day <- krats %>%
+  group_by(year, plot_id, plot_type, month, day, species_id) %>%
+  summarize(count_per_day = n())
+
+# Visualize
+counts_per_day %>%
+  ggplot(aes(x = plot_type, y = count_per_day, fill = species_id, group = interaction(plot_type, species_id)))+
+  geom_boxplot(outlier.size = 0.5)+
+  theme_minimal()+
+  labs(title = "Kangaroo rat captures, all years",
+       x = "Plot type",
+       y = "Individuals per day",
+       fill = "Species")
+
+# Prediction 2: Expect fewer *spectabilis* in the *spectabilis* exclusion plots than in the control plot
+
+# Focus in on the control and spectab exclosure plots
+control_spectab <- krats %>%
+  filter(plot_type %in% c("Control", "Spectab exclosure"))
+
+# Calculate proportion of spectabilis caught
+prop_spectab <- control_spectab %>%
+  group_by(year, plot_type, species_id) %>%
+  summarize(total_count = n(), .groups = "drop_last") %>%
+  mutate(prop = total_count/sum(total_count)) %>%
+  filter(species_id == "DS") # keep only spectabilis
+
+# Visualize proportions
+prop_spectab %>%
+  ggplot(aes(x = year, y = prop, col = plot_type))+
+  geom_point()+
+  geom_line()+
+  theme_minimal()+
+  labs(title = "Spectab exclosures did not reduce proportion of\nspectab captures",
+       y = "Spectabilis proportion",
+       x = "Year",
+       color = "Plot type")
+```
+
+
+
+
+#### MODELING ####
+counts_mod <- lm(count_per_day ~ plot_type + species_id, data = counts_per_day)
+summary(counts_mod)
+
+# with interaction term:
+counts_mod_interact <- lm(count_per_day ~ plot_type*species_id, data = counts_per_day)
+summary(counts_mod_interact)
+
+summary(counts_mod)
+summary(counts_mod_interact)
+
+
+
+# XXX START HERE
+
 You're excited by how much progress you're making in your research. You've made a lot of descriptive plots and gained some interesting insights into your data. Now you're excited to investigate whether the k-rat exclusion plots are actually working. You set to work writing a bunch of code to do this, using a combination of descriptive visualizations and linear models.
 
 So far, you've been saving all of your analysis in a script called "krat-analysis.R". 
