@@ -112,14 +112,14 @@ R code consists primarily of *variables* and *functions*.
 When coding in R, we use a lot of different functions. Where do those functions come from? How can we make sure that our helpers have access to those sources? Take a moment to brainstorm.
 
 This exercise should take about 3 minutes.
-::::::::::::::::::::::::::::::::::::::::::: 
-::: solution
+:::solution
 Functions in R typically come from packages. Some packages, such as `{base}` and `{stats}`, are loaded in R by default, so you might not have realized that they are packages too.
 
 You can see a complete list of functions in `{base}` and `{stats}` by running `library(help = "base")` or `library(help = "stats")`.
 
 Some functions might be user-defined. In that case, you'll need to make sure to include the function definition in your reprex.
 :::
+:::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::: callout
 ## Finding functions
@@ -141,10 +141,10 @@ In each of the following code snippets, identify the necessary packages (or othe
 - [Example with a user-defined function that doesn't exist in any package]
 
 This exercise should take about 5 minutes.
-::::::::::::::::::::::::::::::::::::::::::: 
-::: solution
+:::solution
 FIXME
 :::
+:::::::::::::::::::::::::::::::::::::::::::
 
 Looking through the problem area that we isolated, we can see that we'll need to load the following packages: FIXME
 - `{package}`
@@ -161,7 +161,6 @@ But what if our helper doesn't have all of these packages installed? Won't the c
 Typically, we don't include `install.packages()` in our code for each of the packages that we include in the `library()` calls, because `install.packages()` is a one-time piece of code that doesn't need to be repeated every time the script is run. We assume that our helper will see `library(specialpackage)` and know that they need to go install "specialpackage" on their own.
 
 Technically, this makes that part of the code not reproducible! But it's also much more "polite". Our helper might have their own way of managing package versions, and forcing them to install a package when they run our code risks messing up our workflow. It is a common convention to stick with `library()` and let them figure it out from there.
-FIXME this feels over-explained... pare it down!
 :::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::: callout
@@ -189,10 +188,10 @@ For each of the following code snippets, identify all the variables used
 - [Example where they use a built-in dataset but it contains a column that that dataset doesn't actually contain, i.e. because it's been modified previously. Might be good to use the `date` column that we put into `krats` for this]
 
 This exercise should take about 5 minutes.
-::::::::::::::::::::::::::::::::::::::::::: 
 ::: solution
 FIXME
 :::
+::::::::::::::::::::::::::::::::::::::::::: 
 
 As you might have noticed, identifying these variables isn't always straightforward. Sometimes variables depend on other variables, and before you know it, you end up needing the entire script.
 
@@ -231,10 +230,10 @@ Brainstorm some places in our reprex where you could use minimal reproducible da
 Which of the techniques from the [data episode](LINK TO DATA EPISODE) will you choose in each case, and why?
 
 This exercise should take about 5 minutes.
-::::::::::::::::::::::::::::::::::::::::::: 
 ::: solution
 FIXME
 :::
+::::::::::::::::::::::::::::::::::::::::::: 
 
 _**Using a minimal dataset simplifies not just your data but also your code, because it lets you avoid including data wrangling steps in your reprex!**_
 
@@ -256,10 +255,10 @@ When cutting these things, we have to be careful not to remove anything that wou
 [Ex: removing various things, observing what happens, identifying whether or not we care about those things. (Need to include at least one that's tricky, like maybe it does change the actual values but it doesn't change their relationship to each other)]
 
 This exercise should take about 5 minutes.
-::::::::::::::::::::::::::::::::::::::::::: 
 ::: solution
 FIXME
 :::
+::::::::::::::::::::::::::::::::::::::::::: 
 
 Great work! We've created a minimal reproducible example. In the next episode, we'll learn about `{reprex}`, a package that can help us double-check that our example is reproducible by running it in a clean environment. (As an added bonus, `{reprex}` will format our example nicely so it's easy to post to places like Slack, GitHub, and StackOverflow.)
 
