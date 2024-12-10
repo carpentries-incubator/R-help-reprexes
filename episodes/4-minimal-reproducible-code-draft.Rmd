@@ -5,26 +5,27 @@ exercises: 2
 ---
 
 ::: questions
--   Which part of my code is causing an error message or an incorrect result?
+-   Which part of my code is causing the problem?
 -   I want to make my code minimal, but where do I even start?
--   How do I make non-reproducible code reproducible?
 -   How do I tell whether a code snippet is reproducible or not?
+-   How do I make my code reproducible?
 :::
 
 ::: objectives
 -   Identify the step that is generating the error
 -   Implement a stepwise approach to make minimal code
--   Edit a piece of code to make it reproducible
 -   Evaluate whether a piece of code is reproducible as is or not. If not, identify what is missing.
+-   Edit a piece of code to make it reproducible
+-   Describe the {reprex} package and its uses
 :::
 
-In the last episode, we focused in on how to make minimal datasets that would reproduce a target piece of code, but we didn't talk much about the code itself. In each example, we already had a piece of code that needed a dataset. But how do you know which part of your code is the problem and should be focused on?
+In the last episode, we focused on making minimal datasets that would reproduce a target piece of code, but we didn't talk much about the code itself. In each example, we already had a piece of code that needed a dataset. But how do you know which part of your code is the problem and should be focused on?
 
-At this point, we as researchers have been exploring our kangaroo rat data for a while and making several plots. Now we know how many kangaroo rats we can expect to catch, and we can move on to our second research question: Do the rodent exclusion plots actually working at keeping the target species out of certain areas?
+At this point, we as researchers have been exploring our kangaroo rat data for a while and making several plots. Now we know how many kangaroo rats we can expect to catch, and we can move on to our second research question: Do the rodent exclusion plots actually work to keep the target species out of certain areas?
 
 If the exclusion plots work, we would expect differences in abundance in the different plot types. Specifically, we'd expect to see fewer kangaroo rats overall in any of the exclusion plots than in the control.
 
-We start by making a plot to examine this
+We start by making a plot to examine this.
 
 ```{r, include = F}
 library(readr)
