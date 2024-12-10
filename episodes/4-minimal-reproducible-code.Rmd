@@ -5,19 +5,22 @@ exercises: 35
 ---
 
 ::: questions
-- Why can't I just post my whole script?
-- Which parts of my code are directly relevant to my problem?
+- Which part of my code is causing the problem?
 - Which parts of my code are necessary in order for the problem area to run correctly?
-- I feel overwhelmed by this script--where do I even start?
+- Why is it important to make a minimal code example?
+- How can I tell whether a code snippet is reproducible or not?
+- How can I make my code reproducible?
 :::
 
 ::: objectives
 - Explain the value of a minimal code snippet.
-- Simplify a script down to a minimal code example.
-- Identify the problem area of the code.
+- Identify the problem area of a script.
 - Identify supporting parts of the code that are essential to include.
-- Identify pieces of code that can be removed without affecting the central functionality.
+- Simplify a script down to a minimal code example.
+- Evaluate whether a piece of code is reproducible as is or not. If not, identify what is missing.
+- Edit a piece of code to make it reproducible
 - Have a road map to follow to simplify your code.
+- Describe the {reprex} package and its uses
 :::
 
 You're excited by how much progress you're making in your research. You've made a lot of descriptive plots and gained some interesting insights into your data. Now you're excited to investigate whether the k-rat exclusion plots are actually working. You set to work writing a bunch of code to do this, using a combination of descriptive visualizations and linear models.
