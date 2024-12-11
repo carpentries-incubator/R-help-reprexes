@@ -106,6 +106,7 @@ Now, reflect on a time when you have had to look through and run someone else's 
 How do situations like this make you feel? Turn to the person next to you and discuss for a minute (or write some reflections on the Etherpad).
 
 This exercise should take about 3 minutes.
+
 :::solution
 FIXME: I think this is way too long and needs to be more targeted. We are trying to get them to realize that this is a frustrating/overwhelming/scary experience for the person in the helper role.
 
@@ -128,7 +129,7 @@ In order to get help from Jordan, we're going to need to do some work up front t
 
 Debugging is a time when it's common to have to read through long and complex code (either your own or someone else's). The more we can reduce their frustration and overwhelm and make the experience of solving errors easy and painless, the more likely that others will want to take the time to help us. Helpers are doing us a favor--why put barriers in their way?
 
-
+# XXX START HERE
 
 # XXX this story should end with Mishka solving their own problem.
 
