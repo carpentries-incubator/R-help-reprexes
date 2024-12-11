@@ -85,6 +85,9 @@ Interesting! In this analysis, we do see, as expected, that the *spectabilis* ex
 
 But speaking of proportions... looking closer at the y-axis, we can see that something looks wrong. You remember from the previous plot that *merriami* was generally more common than the other two species, but you don't remember that *spectabilis* was quite this rare! Could it really be true that only 3% of the k-rats caught were *spectabilis* at the absolute highest? 
 
+# XXX FIXME:
+Here, I've presented this as though part of the mystery is figuring out whether there's something wrong with the data. That type of data sleuthing (is my code bad, or is my data bad??) is a really important skill, but I think it might be a bit tangential for us to focus on here. The easy way to have this stick to the LOs would be to have some ground truth that shows us for absolutely sure that <3% is wrong, which means it's the code that's bad, not the original data.
+
 This seems wrong. But your code is running fine, so you're not really sure where your error is or how to start fixing it.
 
 You're feeling overwhelmed, so you decide to ask your labmate, Jordan, for help. 
@@ -129,7 +132,99 @@ In order to get help from Jordan, we're going to need to do some work up front t
 
 Debugging is a time when it's common to have to read through long and complex code (either your own or someone else's). The more we can reduce their frustration and overwhelm and make the experience of solving errors easy and painless, the more likely that others will want to take the time to help us. Helpers are doing us a favor--why put barriers in their way?
 
-# XXX START HERE
+## A road map for simplifying your code
+
+Sometimes, it can be challenging to know where to start simplifying your code. In this episode, we're going to walk through a road map for breaking your code down to its simplest form while making sure that 1) it still runs, and 2) it reproduces the problem you care about solving.
+
+For now, we'll go through this road map step by step. At the end, we'll review the whole thing. One takeaway from this lesson is that there is a step by step process to follow, and you can refer back to it if you feel lost in the future.
+
+### Step 0. Create a separate script
+
+To begin creating a simpler piece of code to show Jordan, let's create a separate script. We can separate out small pieces of the code and craft the perfect minimal example while still keeping the original analysis intact.
+
+Create and save a new, blank R script and give it a name, such as "reprex-script.R"
+
+```{r filename = "reprex-script.R"}
+```
+
+
+:::::::::::::::::::::::::::::::::::::callout
+## Creating a new R script
+There are several ways to make an R script
+- File > New File > R Script
+- Click the white square with a green plus sign at the top left corner of your RStudio window
+- Use a keyboard shortcut: Cmd + Shift + N (on a Mac) or Ctrl + Shift + N (on Windows)
+::::::::::::::::::::::::::::::::::::::::::: 
+
+### Step 1. Identify the problem area
+
+Now that we have a script, let's zero in on what's broken.
+
+First, we should use some of the techniques we learned in the "Identify the Problem" episode and see if they help us solve our error.
+
+# FIXME: Peter, let's make sure this follows nicely from your lesson. 
+- Look for error messages or warnings --> there aren't any
+- Google it --> not really informative
+
+In this case, the debugging tips we learned weren't enough to help us figure out what was wrong with our code.
+
+This is quite common, especially when you're faced with a **semantic error** (your code runs, but it doesn't produce the correct result).
+
+In this case, we can start by identifying the piece of code that *showed us there was a problem*. We noticed the problem by looking at the plot, so that would be an obvious place to start. But is the plot code really the problem area? Maybe, or maybe not. We know that some weird values are showing up on the plot. That means that either there are weird values in the data that created the plot, or the values in the data looked okay and something happened when we created the plot.
+
+To distinguish between those possibilities, let's take a look at the plot again:
+
+```{r}
+# Visualize proportions
+prop_spectab %>%
+  ggplot(aes(x = year, y = prop, col = plot_type))+
+  geom_point()+
+  geom_line()+
+  theme_minimal()+
+  labs(title = "Spectab exclosures did not reduce proportion of\nspectab captures",
+       y = "Spectabilis proportion",
+       x = "Year",
+       color = "Plot type")
+```
+
+...and then at the data used to generate that plot
+```{r filename = "Console"}
+head(prop_spectab)
+```
+
+Aha! The `prop` column of `prop_spectab` shows very small values, and those values correspond to the plot we created.
+
+So it looks like the problem is in the data, not in the plot code itself. The plot was just what allowed us to see the problem in our data. This is often the case. Visualizations are important!
+
+So instead of focusing on the plot, let's zoom in on the step right before the plot as our "problem area": the code that created the `prop_spectab` object. Let's copy and paste that section of code into the new, blank script that we just created.
+
+```{r filename = "reprex-script.R"}
+
+```
+
+
+```{r}
+# Calculate proportion of spectabilis caught
+prop_spectab <- control_spectab %>%
+  group_by(year, plot_type, species_id) %>%
+  summarize(total_count = n(), .groups = "drop") %>%
+  mutate(prop = total_count/sum(total_count)) %>%
+  filter(species_id == "DS") # keep only spectabilis
+```
+
+
+:::::::::::::::::::::::::::::::::::::callout
+## Stepping through code, line by line
+
+Placing your cursor on a line of code and using the keyboard shortcut Cmd + Enter (Mac) or Ctrl + Enter (Windows) will run that line of code *and* it will automatically advance your cursor to the next line. This makes it easy to "step through" your code without having to click or highlight.
+::::::::::::::::::::::::::::::::::::::::::: 
+
+Yay, we found the trouble spot! Let's go ahead and copy that line of code and paste it over into the empty script we created, "reprex-script.R".
+
+
+
+
+
 
 # XXX this story should end with Mishka solving their own problem.
 
@@ -150,35 +245,6 @@ summary(counts_mod_interact)
 
 
 
-Let's illustrate the importance of simplifying our code by focusing on an error in the big long analysis script we created, shown above. Let's imagine we're getting ready to show these preliminary results to our advisor, but when we re-run the whole script, we realize there's a problem.
-
-[DESCRIPTION OF PROBLEM HERE]
-
-## A road map for simplifying your code
-
-In this episode, we're going to walk through a road map for breaking your code down to its simplest form while making sure that 1) it still runs, and 2) it reproduces the problem you care about solving.
-
-For now, we'll go through this road map step by step. At the end, we'll review the whole thing. One takeaway from this lesson is that there is a step by step process to follow, and you can refer back to it if you feel lost in the future.
-
-### Step 0. Create a separate script
-
-When we know there's a problem with our script, it helps to start solving it by examining smaller parts of the code in a separate script, instead of editing the original.
-
-:::::::::::::::::::::::::::::::::::::challenge
-## A separate place for minimal code
-
-Create a new, blank R script and give it a name, such as "reprex-script.R"
-
-There are several ways to make an R script
-- File > New File > R Script
-- Click the white square with a green plus sign at the top left corner of your RStudio window
-- Use a keyboard shortcut: Cmd + Shift + N (on a Mac) or Ctrl + Shift + N (on Windows)
-
-Once you've created the script, click the Save button to name and save it.
-
-This exercise should take about 2 minutes.
-::::::::::::::::::::::::::::::::::::::::::: 
-
 ### Step 1. Identify the problem area
 
 Now that we have a script, let's zero in on what's broken.
@@ -197,13 +263,7 @@ I need to figure out what error to introduce into the script in the first place.
 
 Okay, so we know that the plot doesn't look the way we want it to. Which part of the code created that plot? One way to figure this out if we're not sure is to step through the code line by line.
 
-:::::::::::::::::::::::::::::::::::::callout
-## Stepping through code, line by line
 
-Placing your cursor on a line of code and using the keyboard shortcut Cmd + Enter (Mac) or Ctrl + Enter (Windows) will run that line of code *and* it will automatically advance your cursor to the next line. This makes it easy to "step through" your code without having to click or highlight.
-::::::::::::::::::::::::::::::::::::::::::: 
-
-Yay, we found the trouble spot! Let's go ahead and copy that line of code and paste it over into the empty script we created, "reprex-script.R".
 
 ### Step 2. Give context: functions and packages
 
