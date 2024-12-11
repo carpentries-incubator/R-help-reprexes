@@ -50,6 +50,7 @@ counts_per_day %>%
        y = "Individuals per day",
        fill = "Species")
 ```
+
 Interesting! You expected that there would be fewer k-rats caught per day in the control than in the exclosure plots, but that doesn't seem to be the pattern. It looks like the exclosures tend to have similar daily numbers of k-rats to the control. There might be more to investigate here, such as a day-by-day comparison, but for now you're feeling ready to take a first look at the *spectabilis*-specific exclosures.
 
 You restrict the data to just the control and *spectabilis* exclosure plots. Then you calculate the number and proportion of each species of k-rat caught in each plot and visualize those proportions.
@@ -87,7 +88,6 @@ But speaking of proportions... looking closer at the y-axis, we can see that som
 This seems wrong. But your code is running fine, so you're not really sure where your error is or how to start fixing it.
 
 You're feeling overwhelmed, so you decide to ask your labmate, Jordan, for help. 
-
 > Hi Jordan,
 > I ran into a problem with my code today, and I'm wondering if you can help. I made this plot about kangaroo rat abundance in different plot types, but the proportions look weirdly low. I don't know what's wrong--can you help me figure it out? I'm attaching my script to this email.
 > Thanks,
