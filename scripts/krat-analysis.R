@@ -1,5 +1,5 @@
 # Kangaroo rat analysis using the Portal data
-# Created by: Research McResearchface
+# Created by: Mishka
 # Last updated: 2024-11-22
 
 # Load packages to use in this script
