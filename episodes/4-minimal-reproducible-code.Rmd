@@ -128,6 +128,14 @@ counts_per_day <- krats %>%
   group_by(year, plot_id, plot_type, month, day, species_id) %>%
   summarize(count_per_day = n())
 
+### ***EDIT-start *** ###
+
+# --> Why doesn't this use "date" like we had set up earlier?
+# --> Is per day even the best way to do it? This isn't even average per day, just total per day.... Doesn't seem right
+# --> what about that cut-off year? What was that about and should that be accounted for here?
+
+###  **EDIT-end** ###
+
 counts_per_day %>%
   ggplot(aes(x = plot_type, y = count_per_day, fill = species_id, group = interaction(plot_type, species_id)))+
   geom_boxplot(outlier.size = 0.5)+
@@ -137,7 +145,48 @@ counts_per_day %>%
        y = "Individuals per day",
        fill = "Species")
 
+### ***EDIT-start *** ###
+
+# If I were to try and attempt to plot "krats per day, per plot this is what I would do:
+counts_per_day %>%
+  ggplot(aes(x=plot_type, y=count_per_day, fill=species_id)) +
+  geom_boxplot() 
+
+# what is the group=interaction() adding?
+
+# I feel like we need to figure out what these exclosures are doing and if it's an over-time kinda thing then that needs to be accounted for. This just doesn't look right to me?
+
+###  **EDIT-end** ###
+
 # B. For Spectabilis-specific exclosure, we expect a lower proportion of spectabilis there than in the other plots.
+
+### ***EDIT-start *** ###
+#
+# Here is a plot that shows the proportions... but it doesn't use counts_per_day
+krats %>%
+  ggplot(aes(x= species_id, fill=plot_type)) +
+  geom_bar(position='fill') # easy error, forget the '' around fill
+# or
+krats %>%
+  ggstatsplot::grouped_ggbarstats(x=plot_type, y=year,
+                          palette = 'Set2',
+                          grouping.var = species_id)
+#
+# But I now see you did it over time.
+# First you calculated the proportion of captured DS among plots each year, which means
+
+prop_DS <- krats %>%
+  group_by(year, species_id, plot_type) %>%
+  summarise(total_n = n()) %>%
+  mutate(prop = total_n/sum(total_n)) %>%
+  filter(species_id == 'DS')
+
+# then you want to plot it
+ggplot(prop_DS, aes(x=year, y=prop, colour=plot_type)) +
+  geom_line() 
+# DIFFERENCE: I included all the plots in calculating the proportions.
+###  **EDIT-end** ###
+
 control_spectab <- krats %>%
   filter(plot_type %in% c("Control", "Spectab exclosure"))
 
@@ -146,6 +195,12 @@ prop_spectab <- control_spectab %>%
   summarize(total_count = n(), .groups = "drop_last") %>%
   mutate(prop = total_count/sum(total_count)) %>%
   filter(species_id == "DS") # keep only spectabilis
+
+### **EDIT-start ###
+
+# these proportions don't look right to me... not in the way that I was thinking about them at least...
+
+### *EDIT-end ###
 
 prop_spectab %>%
   ggplot(aes(x = year, y = prop, col = plot_type))+
