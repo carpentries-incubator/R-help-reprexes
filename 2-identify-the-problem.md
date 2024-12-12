@@ -103,7 +103,7 @@ ggplot(aes(x = rodents$taxa)) + geom_bar()
 ```
 
 ``` error
-Error in `fortify()` at ggplot2/R/plot.R:121:3:
+Error in `fortify()`:
 ! `data` must be a <data.frame>, or an object coercible by `fortify()`,
   or a valid <data.frame>-like object coercible by `as.data.frame()`, not a
   <uneval> object.
@@ -124,7 +124,7 @@ Here, a Help window pops up in RStudio which provides some more information. Ski
 ggplot(rodents, aes(x = taxa)) + geom_bar()
 ```
 
-<img src="fig/3-identify-the-problem-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
+<img src="fig/2-identify-the-problem-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
 
 
 Here we see our desired plot. 
@@ -245,7 +245,7 @@ facet_wrap(~species)
 ```
 
 ``` error
-Error in `combine_vars()` at ggplot2/R/facet-wrap.R:186:5:
+Error in `combine_vars()`:
 ! Faceting variables must have at least one value.
 ```
 
@@ -311,7 +311,7 @@ facet_wrap(~species)
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-<img src="fig/3-identify-the-problem-rendered-unnamed-chunk-12-1.png" style="display: block; margin: auto;" />
+<img src="fig/2-identify-the-problem-rendered-unnamed-chunk-12-1.png" style="display: block; margin: auto;" />
 
 
 Our improved code here looks good. A quick "dim" call confirms we now have all the Dipodomys observations, and our plot is looking better. In general, having a 'print' statement or some other output before plots or other major steps can be a good way to check your code is producing intermediate results consistent with your expectations. 
@@ -356,7 +356,7 @@ facet_wrap(~species)
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-<img src="fig/3-identify-the-problem-rendered-unnamed-chunk-13-1.png" style="display: block; margin: auto;" />
+<img src="fig/2-identify-the-problem-rendered-unnamed-chunk-13-1.png" style="display: block; margin: auto;" />
 
 This looks much better, and is easier to see the trends over time as well. Note our x axis still shows bins with year labelings, but the continuous spread of our data over these bins shows that dates are treated more continuously and fall more continuously within histogram bins.
 
@@ -417,7 +417,7 @@ krats %>%
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-<img src="fig/3-identify-the-problem-rendered-unnamed-chunk-14-1.png" style="display: block; margin: auto;" />
+<img src="fig/2-identify-the-problem-rendered-unnamed-chunk-14-1.png" style="display: block; margin: auto;" />
 
 It looks like the study change helped to reduce merriami sightings in the Rodent and Short-term Krat exclosures. 
 
