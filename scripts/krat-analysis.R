@@ -114,6 +114,7 @@ counts_per_day %>%
 control_spectab <- krats %>%
   filter(plot_type %in% c("Control", "Spectab exclosure"))
 
+head(control_spectab)
 prop_spectab <- control_spectab %>%
   group_by(year, plot_type, species_id) %>%
   summarize(total_count = n(), .groups = "drop_last") %>%

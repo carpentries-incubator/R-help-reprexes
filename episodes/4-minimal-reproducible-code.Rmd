@@ -71,6 +71,7 @@ control_spectab <- krats %>%
   filter(plot_type %in% c("Control", "Spectab exclosure"))
 
 # Calculate proportion of spectabilis caught
+head(control_spectab)
 prop_spectab <- control_spectab %>%
   group_by(year, plot_type, species_id) %>%
   summarize(total_count = n(), .groups = "drop") %>%
@@ -171,7 +172,7 @@ Now that we have a script, let's zero in on what's broken.
 
 First, we should use some of the techniques we learned in the "Identify the Problem" episode and see if they help us solve our error.
 
-# FIXME: Peter, let's make sure this follows nicely from your lesson. 
+XXX FIXME: Peter, let's make sure this follows nicely from your lesson. 
 - Look for error messages or warnings --> there aren't any
 - Google it --> not really informative
 
@@ -212,6 +213,7 @@ So instead of focusing on the plot, let's zoom in on the step right before the p
 # Created by Mishka on 2024-12-17
 
 # Calculate proportion of spectabilis caught
+head(control_spectab)
 prop_spectab <- control_spectab %>%
   group_by(year, plot_type, species_id) %>%
   summarize(total_count = n(), .groups = "drop") %>%
@@ -256,6 +258,7 @@ Here's what our script looks like so far.
 # Created by Mishka on 2024-12-17
 
 # Calculate proportion of spectabilis caught
+head(control_spectab)
 prop_spectab <- control_spectab %>%
   group_by(year, plot_type, species_id) %>%
   summarize(total_count = n(), .groups = "drop") %>%
@@ -264,7 +267,7 @@ prop_spectab <- control_spectab %>%
 ```
 
 You look through the script and list out the following functions:
-`%>%`
+`head()`
 `group_by()`
 `summarize()`
 `n()`
@@ -274,6 +277,7 @@ You look through the script and list out the following functions:
 
 :::callout
 `%>%` is technically an operator, not a function...
+FIXME note: `%>%` is an operator that also needs dplyr to be loaded. It might be relevant because the literal error that Jordan will get first is one about %>% if they don't have that loaded. But it's also exhausting to talk about and it might confuse people. By the time they finish loading {dplyr} for the sake of the other functions, the %>% will be included with {dplyr} and it will no longer be a problem. Hmm...
 :::
 
 You remember from your introductory R lesson that `group_by()` and `summarize()` are both functions that come from the `{dplyr}` package, so you can go ahead and add `library(dplyr)` to the top of your script.
@@ -286,6 +290,7 @@ You remember from your introductory R lesson that `group_by()` and `summarize()`
 library(dplyr)
 
 # Calculate proportion of spectabilis caught
+head(control_spectab)
 prop_spectab <- control_spectab %>%
   group_by(year, plot_type, species_id) %>%
   summarize(total_count = n(), .groups = "drop") %>%
@@ -325,6 +330,7 @@ Let's add that to our script, so that it's really clear which `filter()` we're u
 library(dplyr)
 
 # Calculate proportion of spectabilis caught
+head(control_spectab)
 prop_spectab <- control_spectab %>%
   group_by(year, plot_type, species_id) %>%
   summarize(total_count = n(), .groups = "drop") %>%
@@ -365,42 +371,47 @@ FIXME
 There is an alternative approach to installing packages [insert content/example of the if(require()) thing--but note that explaining this properly requires explaining why require() is different from library(), why it returns a logical, etc. and is kind of a rabbit hole that I don't want to go down here.]
 ::::::::::::::::::::::::::::::::::::::::::: 
 
+Including `library()` calls will definitely help Jordan be able to run your code. But another reason that your code still won't work as written is that Jordan doesn't have access to the same *objects*, or *variables*, that you used in the code.
 
+The piece of code that we copied over to "reprex-script.R" from  "krat-analysis.R" came from line 117. We had done a lot of analyses before then, starting from the raw dataset and creating and modifying new objects along the way. 
 
+You realize that Jordan doesn't have access to `control_spectab`, the dataset that the reprex relies on.
 
+One way to fix this would be to add the code that creates `control_spectab` to the reprex, like this:
 
+```{r}
+# This script will contain my minimal reproducible example.
+# Created by Mishka on 2024-12-17
 
-### Step 3. Give context: variables and datasets
+# Load packages needed for the analysis
+library(dplyr)
 
-Isolating the problem area and loading the necessary packages and functions was an important step to making our example code self-contained. But we're still not done making the code minimal and reproducible. Almost certainly, our code snippet relies on variables, such as datasets, that our helper won't have access to.
+# B. For Spectabilis-specific exclosure, we expect a lower proportion of spectabilis there than in the other plots.
+control_spectab <- krats %>%
+  filter(plot_type %in% c("Control", "Spectab exclosure"))
 
-The piece of code that we copied over came from line [LINE NUMBER] of our analysis script. We had done a lot of analyses before then, including modifying datasets and creating intermediate objects/variables. 
+# Calculate proportion of spectabilis caught
+head(control_spectab)
+prop_spectab <- control_spectab %>%
+  group_by(year, plot_type, species_id) %>%
+  summarize(total_count = n(), .groups = "drop") %>%
+  mutate(prop = total_count/sum(total_count)) %>%
+  dplyr::filter(species_id == "DS") # keep only spectabilis
+```
 
-Our code snippet depends on all those previous steps, so when we isolate it in a new script, it might not be able to run anymore. More importantly, when a helper doesn't have access to the rest of our script, the code might not run for them either.
+But that doesn't fix the problem either, because now Jordan doesn't have access to `krats`. Let's go back to where `krats` was created, on line 40:
 
-To fix this, we need to provide some additional context around our reprex so that it runs. 
+```{r}
+# Just kangaroo rats because this is what we are studying
+krats <- rodents %>%
+  filter(genus == "Dipodomys")
+dim(krats) # okay, so that's a lot smaller, great.
+glimpse(krats)
+```
 
-
-
-
-
-# XXX this story should end with Mishka solving their own problem.
-
-
-### run an ANOVA or something
-
-#### MODELING ####
-counts_mod <- lm(count_per_day ~ plot_type + species_id, data = counts_per_day)
-summary(counts_mod)
-
-# with interaction term:
-counts_mod_interact <- lm(count_per_day ~ plot_type*species_id, data = counts_per_day)
-summary(counts_mod_interact)
-
-summary(counts_mod)
-summary(counts_mod_interact)
-
-
+But there are several other places in the code where we modified `krats`, and we need to include those as well if we want our code to be truly reproducible. For example, on line 47, a date column was added, and on line 70 we removed unidentified k-rats. And even after including those, we would need to go back even farther, because the `rodents` object also isn't something that Jordan has access to! We called the raw data `rodents` after reading it in, and we also made several modifications, such as when we removed non-rodent taxa on line 35.
+XXX This example would be better illustrated if we could actually show it breaking... like, if we think we've succeeded in tracing back far enough, and then it doesn't run because e.g. an essential column is missing/different.
+XXX This is definitely too much detail... but I do want this section to at least partially feel like "aaaah information overload, too complicated!" because the point is to show how hard it is to trace every object backwards and convince them of the value of using minimal data.
 
 ::::::::::::::::::::::::::::::::::::::::::: challenge
 ## Identifying variables
@@ -412,59 +423,262 @@ For each of the following code snippets, identify all the variables used
 
 This exercise should take about 5 minutes.
 ::: solution
-FIXME
+TBH maybe we don't need this exercise at all, since we want to just redirect them to minimal data anyway?
 :::
 ::::::::::::::::::::::::::::::::::::::::::: 
 
-As you might have noticed, identifying these variables isn't always straightforward. Sometimes variables depend on other variables, and before you know it, you end up needing the entire script.
+This process is confusing and difficult! If you keep tracing each variable back through your script, before you know it, you end up needing to include the entire script to give context, and then your code is no longer minimal.
 
-Let's work together as a group to sketch out which variables depend on which others. A helpful way to do this is to start with the variables included in our code snippet and ask, for each one, "Where did this come from?"
-
-[Make a big dependency graph. The point is to illustrate that it gets very long and you can't always rely on this process to identify a simple way to include the needed variables.]
-
-How can we make sure that helpers can access these objects too, without providing them the entire long script?
-
-Theoretically, we could meticulously trace each object back and make sure to include the code to create all of its predecessors from the original data, which we would provide to our helper. But pretty soon, we might find that we're just giving the helper the original (long, complicated) script!
-
-As with other types of writing, creating a good minimal reprex takes hard work and time.
-
-> "I would have written a shorter letter, but I did not have the time."
->
-> - Blaise Pascal, *Lettres Provinciales*, 1657
-
-
-::::::::::::::::::::::::::::::::::::::::::: callout
-## Computational reproducibility
-
-Every object should be able to map back to either a file, a built-in dataset in R, or another intermediate step. If you found any variables where you weren't able to answer the "Where did this come from?" question, then that's a problem! Did you build a script that mistakenly relied on an object that was in your environment but was never properly defined?
-
-Mapping exercises like this can be a great way to check whether entire script is reproducible. Reproducibility is important in more cases than just debugging! More and more journals are requiring full analysis code to be posted, and if that code isn't reproducible, it will severely hamper other researchers' efforts to confirm and expand on what you've done.
-
-Various packages can help you keep track of your code and make it more reproducible. Check out the [`{targets}`](https://books.ropensci.org/targets/) and [`{renv}`](https://rstudio.github.io/renv/articles/renv.html) packages in particular if you're interested in learning more.
-::::::::::::::::::::::::::::::::::::::::::: 
-
-Luckily, we can make our lives easier if we realize that helpers don't always need the exact same variables and datasets, just reasonably good stand-ins. Let's think back to the last episode, where we talked about different ways to create minimal reproducible datasets. We can lean on those skills here to make our example reproducible and greatly reduce the amount of code that we need to include.
+We can make our lives easier if we realize that helpers don't always need the exact same variables and datasets that we were using, just reasonably good stand-ins. Let's think back to the last episode, where we talked about different ways to create minimal reproducible datasets. We can lean on those skills here to make our example reproducible and greatly reduce the amount of code that we need to include.
 
 :::::::::::::::::::::::::::::::::::::::::::challenge
 ## Incorporating minimal datasets
 
-Brainstorm some places in our reprex where you could use minimal reproducible data to make your problem area code snippet reproducible.
-
-Which of the techniques from the [data episode](LINK TO DATA EPISODE) will you choose in each case, and why?
+What are some ways that you could use a minimal dataset to make this reprex better? What are the advantages and disadvantages of each approach?
 
 This exercise should take about 5 minutes.
 ::: solution
-FIXME
+- Could provide the `control_spectab` file directly to Jordan, e.g. via email attachment. 
+  - Advantages: less work, keeps the context, Jordan is a coworker so they probably understand it. 
+  
+  - Disadvantages: file might be large, relies on ability to email file, won't be able to use this method if you post the question online, file contains extra rows/columns that aren't actually necessary to this problem and might therefore be confusing.
+  
+- Could create a new dataset from scratch. 
+  - Advantages
+  - Disadvantages
+  
+- Could take a minimal subset of the `control_spectab` data and use `dput` or similar to include it directly
+  - Advantages
+  - Disadvantages
+
+- Could use a built-in dataset from R
+  - Advantages
+  - Disadvantages
 :::
 ::::::::::::::::::::::::::::::::::::::::::: 
 
-_**Using a minimal dataset simplifies not just your data but also your code, because it lets you avoid including data wrangling steps in your reprex!**_
+You decide that the easiest way to approach this particular problem would be to simplify your existing dataset down to a really small subset, and include that directly in the script using `dput()`.
 
-### Step 4. Simplify
+Now, what would be a good way to simplify this data? Since your code calculates proportions of individuals caught, you'll probably want to include all of the data for an entire year, with both plot types for good measure.
+```{r}
+dim(control_spectab) # the original data has 6515 rows and 15 columns.
 
-We're almost done! Now we have code that runs because it includes the necessary `library()` calls and makes use of minimal datasets that still allow us to showcase the problem. Our script is almost ready to send to our helpers.
+# Let's take just 1977
+data_subset <- control_spectab %>%
+  filter(year == 1977)
+dim(data_subset) # 200 rows. That's a lot better!
 
-But reading someone else's code can be slow! We want to make it very, very easy for our helper to see which part of the code is important to focus on. Let's see if there are any places where we can trim code down even more to eliminate distractions.
+# Can we decrease the number of columns to make the dataset really minimal?
+# We see that the code mentions just three columns: year, plot_type, and species_id. What if we select only those three columns, giving us a dataset with dimensions 200x3? That's pretty minimal!
+
+data_subset <- control_spectab %>%
+  filter(year == 1977) %>%
+  select(year, plot_type, species_id)
+dim(data_subset) # (callout: 200 rows is still a little long. We could take a random sample to reduce it down to 100 rows, or 50, or something like that. But keeping all 200 means we'll be able to directly reproduce the proportion that we saw in the graph, which is an advantage for making sure that we're representing the problem correctly.)
+
+# Now, we can use the `dput` function to produce a data object that's easy to copy and paste directly into our reprex script.
+dput(data_subset) # This is slightly unwieldy, but it's not too bad!
+```
+
+We can go ahead and paste that into our reprex script. 
+
+```{r}
+# Provide a minimal dataset
+minimal_data <- structure(list(year = c(1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977), plot_type = c("Control", 
+"Spectab exclosure", "Spectab exclosure", "Control", "Control", 
+"Control", "Control", "Spectab exclosure", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Spectab exclosure", "Spectab exclosure", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Spectab exclosure", "Control", "Control", 
+"Spectab exclosure", "Spectab exclosure", "Control", "Spectab exclosure", 
+"Spectab exclosure", "Spectab exclosure", "Spectab exclosure", 
+"Spectab exclosure", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Spectab exclosure", "Spectab exclosure", 
+"Spectab exclosure", "Control", "Control", "Spectab exclosure", 
+"Spectab exclosure", "Spectab exclosure", "Spectab exclosure", 
+"Spectab exclosure", "Spectab exclosure", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Spectab exclosure", 
+"Control", "Spectab exclosure", "Spectab exclosure", "Control", 
+"Spectab exclosure", "Spectab exclosure", "Spectab exclosure", 
+"Spectab exclosure", "Control", "Spectab exclosure", "Spectab exclosure", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Spectab exclosure", "Control", "Control", 
+"Control", "Control", "Spectab exclosure", "Spectab exclosure", 
+"Spectab exclosure", "Control", "Control", "Spectab exclosure", 
+"Spectab exclosure", "Spectab exclosure", "Spectab exclosure", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control"), species_id = c("DM", "DM", "DM", "DM", "DM", "DS", 
+"DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", 
+"DS", "DM", "DM", "DO", "DM", "DS", "DS", "DM", "DS", "DM", "DM", 
+"DS", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", 
+"DS", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DS", 
+"DM", "DM", "DS", "DM", "DS", "DM", "DS", "DM", "DM", "DM", "DS", 
+"DM", "DM", "DM", "DM", "DM", "DS", "DM", "DM", "DS", "DS", "DS", 
+"DM", "DM", "DS", "DM", "DM", "DS", "DS", "DS", "DS", "DM", "DM", 
+"DS", "DM", "DM", "DM", "DM", "DM", "DS", "DM", "DS", "DM", "DM", 
+"DS", "DM", "DS", "DS", "DM", "DM", "DM", "DM", "DM", "DS", "DM", 
+"DM", "DS", "DS", "DM", "DS", "DS", "DS", "DM", "DO", "DM", "DM", 
+"DM", "DS", "DO", "DS", "DS", "DM", "DO", "DM", "DS", "DM", "DM", 
+"DM", "DM", "DM", "DM", "DO", "DS", "DM", "DS", "DM", "DM", "DM", 
+"DM", "DS", "DO", "DM", "DM", "DS", "DM", "DS", "DM", "DS", "DM", 
+"DS", "DS", "DS", "DM", "DM", "DS", "DM", "DM", "DS", "DM", "DS", 
+"DO", "DS", "DM", "DM", "DM", "DM", "DO", "DM", "DM", "DM", "DM", 
+"DO", "DS", "DM", "DM", "DS", "DM", "DM", "DS", "DS", "DO", "DM", 
+"DS", "DS", "DS", "DM", "DS", "DM", "DM", "DS", "DM", "DS", "DM", 
+"DM", "DM", "DS", "DS", "DS", "DM", "DS")), row.names = c(NA, 
+-200L), class = c("tbl_df", "tbl", "data.frame"))
+```
+
+And finally, let's change the code to refer to `control_spectab` instead of `minimal_data`. (While we're at it, let's remove the piece of code creating `control_spectab` from `krats`--including a minimal dataset directly means that we don't need that code.)
+
+
+```{r}
+# Calculate proportion of spectabilis caught
+head(minimal_data)
+prop_spectab <- minimal_data %>%
+  group_by(year, plot_type, species_id) %>%
+  summarize(total_count = n(), .groups = "drop") %>%
+  mutate(prop = total_count/sum(total_count)) %>%
+  dplyr::filter(species_id == "DS") # keep only spectabilis
+```
+
+Putting it all together, the script should look like this: 
+```{r}
+# This script will contain my minimal reproducible example.
+# Created by Mishka on 2024-12-17
+
+# Load packages needed for the analysis
+library(dplyr)
+
+# Provide a minimal dataset
+minimal_data <- structure(list(year = c(1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977), plot_type = c("Control", 
+"Spectab exclosure", "Spectab exclosure", "Control", "Control", 
+"Control", "Control", "Spectab exclosure", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Spectab exclosure", "Spectab exclosure", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Spectab exclosure", "Control", "Control", 
+"Spectab exclosure", "Spectab exclosure", "Control", "Spectab exclosure", 
+"Spectab exclosure", "Spectab exclosure", "Spectab exclosure", 
+"Spectab exclosure", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Spectab exclosure", "Spectab exclosure", 
+"Spectab exclosure", "Control", "Control", "Spectab exclosure", 
+"Spectab exclosure", "Spectab exclosure", "Spectab exclosure", 
+"Spectab exclosure", "Spectab exclosure", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Spectab exclosure", 
+"Control", "Spectab exclosure", "Spectab exclosure", "Control", 
+"Spectab exclosure", "Spectab exclosure", "Spectab exclosure", 
+"Spectab exclosure", "Control", "Spectab exclosure", "Spectab exclosure", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Spectab exclosure", "Control", "Control", 
+"Control", "Control", "Spectab exclosure", "Spectab exclosure", 
+"Spectab exclosure", "Control", "Control", "Spectab exclosure", 
+"Spectab exclosure", "Spectab exclosure", "Spectab exclosure", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control"), species_id = c("DM", "DM", "DM", "DM", "DM", "DS", 
+"DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", 
+"DS", "DM", "DM", "DO", "DM", "DS", "DS", "DM", "DS", "DM", "DM", 
+"DS", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", 
+"DS", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DS", 
+"DM", "DM", "DS", "DM", "DS", "DM", "DS", "DM", "DM", "DM", "DS", 
+"DM", "DM", "DM", "DM", "DM", "DS", "DM", "DM", "DS", "DS", "DS", 
+"DM", "DM", "DS", "DM", "DM", "DS", "DS", "DS", "DS", "DM", "DM", 
+"DS", "DM", "DM", "DM", "DM", "DM", "DS", "DM", "DS", "DM", "DM", 
+"DS", "DM", "DS", "DS", "DM", "DM", "DM", "DM", "DM", "DS", "DM", 
+"DM", "DS", "DS", "DM", "DS", "DS", "DS", "DM", "DO", "DM", "DM", 
+"DM", "DS", "DO", "DS", "DS", "DM", "DO", "DM", "DS", "DM", "DM", 
+"DM", "DM", "DM", "DM", "DO", "DS", "DM", "DS", "DM", "DM", "DM", 
+"DM", "DS", "DO", "DM", "DM", "DS", "DM", "DS", "DM", "DS", "DM", 
+"DS", "DS", "DS", "DM", "DM", "DS", "DM", "DM", "DS", "DM", "DS", 
+"DO", "DS", "DM", "DM", "DM", "DM", "DO", "DM", "DM", "DM", "DM", 
+"DO", "DS", "DM", "DM", "DS", "DM", "DM", "DS", "DS", "DO", "DM", 
+"DS", "DS", "DS", "DM", "DS", "DM", "DM", "DS", "DM", "DS", "DM", 
+"DM", "DM", "DS", "DS", "DS", "DM", "DS")), row.names = c(NA, 
+-200L), class = c("tbl_df", "tbl", "data.frame"))
+
+# Calculate proportion of spectabilis caught
+head(minimal_data)
+prop_spectab <- minimal_data %>%
+  group_by(year, plot_type, species_id) %>%
+  summarize(total_count = n(), .groups = "drop") %>%
+  mutate(prop = total_count/sum(total_count)) %>%
+  dplyr::filter(species_id == "DS") # keep only spectabilis
+```
+
+### Step 3. Simplify
+
+We're almost done! Now we have code that runs because it includes the necessary `library()` calls and makes use of a minimal dataset that still allows us to showcase the problem. Our script is almost ready to send to Jordan, and this time, it's definitely going to work. 
+
+One last thing we can check is whether there are any othere places where we can trim down the minimal example even more to eliminate distractions.
 
 Often, analysis code contains exploratory steps or other analyses that don't directly relate to the problem, such as calls to `head()`, `View()`, `str()`, or similar functions. (Exception: if you're using these directly to show things like dimension changes that help to illustrate the problem).
 
@@ -494,13 +708,11 @@ More on that soon. For now, let's review the road map that we just practiced.
 ### Step 1. Identify the problem area
   - Which part of the code is causing the problem? Move it over to the reprex script so we can focus on it.
   
-### Step 2. Give context: functions and packages
+### Step 2. Identify dependencies
   - Make sure that helpers have access to all the functions they'll need to run your code snippet.
-  
-### Step 3. Give context: variables and datasets
   - Make sure that helpers have access to all the variables they'll need to run your code snippet, or reasonable stand-ins.
   
-### Step 4. Simplify
+### Step 3. Simplify
   - Remove any extra code that isn't absolutely necessary to demonstrate your problem.
 
 :::::::::::::::::::::::::::::::::::::::::::challenge
@@ -516,6 +728,27 @@ This exercise should take about 5 minutes.
 ::::::::::::::::::::::::::::::::::::::::::: 
 
 
+# XXX this story should end with Mishka solving their own problem.
+
+
+### run an ANOVA or something
+XXX Note: There's more to the analysis, and I only managed to walk through one example of an error. Is this example juicy enough? Should we just discard the rest of the analysis?
+XXX Note: I actually think the analysis here is wrong and might need to be re-worked.
+
+#### MODELING ####
+counts_mod <- lm(count_per_day ~ plot_type + species_id, data = counts_per_day)
+summary(counts_mod)
+
+# with interaction term:
+counts_mod_interact <- lm(count_per_day ~ plot_type*species_id, data = counts_per_day)
+summary(counts_mod_interact)
+
+summary(counts_mod)
+summary(counts_mod_interact)
+
+
+
+
 
 
 
@@ -524,4 +757,15 @@ This exercise should take about 5 minutes.
 ## Stepping through code, line by line
 
 Placing your cursor on a line of code and using the keyboard shortcut Cmd + Enter (Mac) or Ctrl + Enter (Windows) will run that line of code *and* it will automatically advance your cursor to the next line. This makes it easy to "step through" your code without having to click or highlight.
+::::::::::::::::::::::::::::::::::::::::::: 
+
+
+::::::::::::::::::::::::::::::::::::::::::: callout
+## Computational reproducibility
+
+Every object should be able to map back to either a file, a built-in dataset in R, or another intermediate step. If you found any variables where you weren't able to answer the "Where did this come from?" question, then that's a problem! Did you build a script that mistakenly relied on an object that was in your environment but was never properly defined?
+
+Mapping exercises like this can be a great way to check whether entire script is reproducible. Reproducibility is important in more cases than just debugging! More and more journals are requiring full analysis code to be posted, and if that code isn't reproducible, it will severely hamper other researchers' efforts to confirm and expand on what you've done.
+
+Various packages can help you keep track of your code and make it more reproducible. Check out the [`{targets}`](https://books.ropensci.org/targets/) and [`{renv}`](https://rstudio.github.io/renv/articles/renv.html) packages in particular if you're interested in learning more.
 ::::::::::::::::::::::::::::::::::::::::::: 
