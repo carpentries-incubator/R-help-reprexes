@@ -307,14 +307,78 @@ The top of the help file says `sum {base}`, which means that `sum()` is a functi
 
 Let's confirm that we remembered correctly about `mutate()` and `filter()` by searching for the documentation on those as well.
 
-Searching for "mutate" quickly shows us the help file for `mutate {dplyr}`, but searching for "filter" gives a long list of 
+Searching for "mutate" quickly shows us the help file for `mutate {dplyr}`, but searching for "filter" gives a long list of possible functions, all called `filter`. You look around a little bit and realize that the `filter` function you're using is also from the `{dplyr}` package. It might be a good idea to explicitly declare that in your code, in case your helper already has one of these other packages loaded.
+
+::: callout
+Maybe something about functions masking other functions? Or is that too much?
+:::
+
+You can explicitly declare which package a function comes from using a double colon `::`--for example, `dplyr::filter()`. (Declaring the function with a double colon also allows you to use that function even if the package is not loaded, as long as it's installed.)
+
+Let's add that to our script, so that it's really clear which `filter()` we're using.
+
+```{r}
+# This script will contain my minimal reproducible example.
+# Created by Mishka on 2024-12-17
+
+# Load packages needed for the analysis
+library(dplyr)
+
+# Calculate proportion of spectabilis caught
+prop_spectab <- control_spectab %>%
+  group_by(year, plot_type, species_id) %>%
+  summarize(total_count = n(), .groups = "drop") %>%
+  mutate(prop = total_count/sum(total_count)) %>%
+  dplyr::filter(species_id == "DS") # keep only spectabilis
+```
+
+The last function we need to find a source for is `n()`. Searching that in the Help files shows that it also comes from `{dplyr}`. Great! We don't need to consider any other packages, and the `library(dplyr)` line in our reprex script will tell our helper that the `{dplyr}` package is necessary to run our code. 
+
+::::::::::::::::::::::::::::::::::::::::::: callout
+## Installing vs. loading packages
+
+But what if our helper doesn't have all of these packages installed? Won't the code not be reproducible?
+
+Typically, we don't include `install.packages()` in our code for each of the packages that we include in the `library()` calls, because `install.packages()` is a one-time piece of code that doesn't need to be repeated every time the script is run. We assume that our helper will see `library(specialpackage)` and know that they need to go install "specialpackage" on their own.
+
+Technically, this makes that part of the code not reproducible! But it's also much more "polite". Our helper might have their own way of managing package versions, and forcing them to install a package when they run our code risks messing up our workflow. It is a common convention to stick with `library()` and let them figure it out from there.
+:::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::: challenge
+## Which packages are essential?
+
+In each of the following code snippets, identify the necessary packages (or other code) to make the example reproducible.
+
+- [Example (including an ambiguous function: `dplyr::select()` is a good one because it masks `plyr::select()`)]
+- [Example where you have to look up which package a function comes from]
+- [Example with a user-defined function that doesn't exist in any package]
+
+This exercise should take about 10 minutes.
+:::solution
+FIXME
+:::
+:::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::: callout
+## Installing packages conditionally
+
+There is an alternative approach to installing packages [insert content/example of the if(require()) thing--but note that explaining this properly requires explaining why require() is different from library(), why it returns a logical, etc. and is kind of a rabbit hole that I don't want to go down here.]
+::::::::::::::::::::::::::::::::::::::::::: 
 
 
-# XXX START HERE
-Sometimes it can be hard to figure out where a function comes from. Especially if a function comes from a package you use frequently, you might not remember where it comes from!
 
-You can search for a function in the help docs with `??fun` (where "fun" is the name of the function). To explicitly declare which package a function comes from, you can use a double colon `::`--for example, `dplyr::select()`. Declaring the function with a double colon also allows you to use that function even if the package is not loaded, as long as it's installed.
 
+
+
+### Step 3. Give context: variables and datasets
+
+Isolating the problem area and loading the necessary packages and functions was an important step to making our example code self-contained. But we're still not done making the code minimal and reproducible. Almost certainly, our code snippet relies on variables, such as datasets, that our helper won't have access to.
+
+The piece of code that we copied over came from line [LINE NUMBER] of our analysis script. We had done a lot of analyses before then, including modifying datasets and creating intermediate objects/variables. 
+
+Our code snippet depends on all those previous steps, so when we isolate it in a new script, it might not be able to run anymore. More importantly, when a helper doesn't have access to the rest of our script, the code might not run for them either.
+
+To fix this, we need to provide some additional context around our reprex so that it runs. 
 
 
 
@@ -337,64 +401,6 @@ summary(counts_mod)
 summary(counts_mod_interact)
 
 
-
-::::::::::::::::::::::::::::::::::::::::::: callout
-## Finding functions
-
-Sometimes it can be hard to figure out where a function comes from. Especially if a function comes from a package you use frequently, you might not remember where it comes from!
-
-You can search for a function in the help docs with `??fun` (where "fun" is the name of the function). To explicitly declare which package a function comes from, you can use a double colon `::`--for example, `dplyr::select()`. Declaring the function with a double colon also allows you to use that function even if the package is not loaded, as long as it's installed.
-:::::::::::::::::::::::::::::::::::::::::::
-
-
-
-::::::::::::::::::::::::::::::::::::::::::: challenge
-## Which packages are essential?
-
-In each of the following code snippets, identify the necessary packages (or other code) to make the example reproducible.
-
-- [Example (including an ambiguous function: `dplyr::select()` is a good one because it masks `plyr::select()`)]
-- [Example where you have to look up which package a function comes from]
-- [Example with a user-defined function that doesn't exist in any package]
-
-This exercise should take about 5 minutes.
-:::solution
-FIXME
-:::
-:::::::::::::::::::::::::::::::::::::::::::
-
-Looking through the problem area that we isolated, we can see that we'll need to load the following packages: FIXME
-- `{package}`
-- `{package}`
-- `{package}`
-
-Let's go ahead and add those as `library()` calls to the top of our script.
-
-::::::::::::::::::::::::::::::::::::::::::: callout
-## Installing vs. loading packages
-
-But what if our helper doesn't have all of these packages installed? Won't the code not be reproducible?
-
-Typically, we don't include `install.packages()` in our code for each of the packages that we include in the `library()` calls, because `install.packages()` is a one-time piece of code that doesn't need to be repeated every time the script is run. We assume that our helper will see `library(specialpackage)` and know that they need to go install "specialpackage" on their own.
-
-Technically, this makes that part of the code not reproducible! But it's also much more "polite". Our helper might have their own way of managing package versions, and forcing them to install a package when they run our code risks messing up our workflow. It is a common convention to stick with `library()` and let them figure it out from there.
-:::::::::::::::::::::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::::::::: callout
-## Installing packages conditionally
-
-There is an alternative approach to installing packages [insert content/example of the if(require()) thing--but note that explaining this properly requires explaining why require() is different from library(), why it returns a logical, etc. and is kind of a rabbit hole that I don't want to go down here.]
-::::::::::::::::::::::::::::::::::::::::::: 
-
-### Step 3. Give context: variables and datasets
-
-Isolating the problem area and loading the necessary packages and functions was an important step to making our example code self-contained. But we're still not done making the code minimal and reproducible. Almost certainly, our code snippet relies on variables, such as datasets, that our helper won't have access to.
-
-The piece of code that we copied over came from line [LINE NUMBER] of our analysis script. We had done a lot of analyses before then, including modifying datasets and creating intermediate objects/variables. 
-
-Our code snippet depends on all those previous steps, so when we isolate it in a new script, it might not be able to run anymore. More importantly, when a helper doesn't have access to the rest of our script, the code might not run for them either.
-
-To fix this, we need to provide some additional context around our reprex so that it runs. 
 
 ::::::::::::::::::::::::::::::::::::::::::: challenge
 ## Identifying variables
