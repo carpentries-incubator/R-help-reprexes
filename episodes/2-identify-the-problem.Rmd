@@ -65,12 +65,52 @@ ggplot(aes(x = rodents$taxa)) + geom_bar()
  
  
  Whoops! Here we see another error message -- this time, R responds with a perhaps more-uninterpretable message.
+ 
+#### XOR EDIT - start
 
-Let's go over each part briefly. First, we see an error from a function called `fortify`, which we didn't even call! Then a much more helpful informational message: Did we accidentally pass `aes()` to the `data` argument? This does seem to relate to our function call, as we do pass `aes`, potentially where our data should go. A helpful starting place when attempting to decipher an error message is checking the documentation for the function which caused the error:
+This could be a place for an exercise (that in practice would be done together in the class). 
+
+::: challenge
+# Can you decipher the code? (2 minutes)
+Read through the error message. What conclusions can you draw? Can you find any useful hints on what is going wrong and how to fix it?
+:::
+
+#### XOR EDIT - end
+
+Let's go over each part briefly. First, we see an error from a function called `fortify`, which we didn't even call! Then a much more helpful informational message: Did we accidentally pass `aes()` to the `data` argument? This does seem to relate to our function call, as we do pass `aes`, potentially where our data should go. 
+
+**A helpful starting place when attempting to decipher an error message is checking the documentation for the function which caused the error:**
 
 ` ?ggplot`
 
-Here, a Help window pops up in RStudio which provides some more information. Skipping the general description at the top, we see ggplot takes positional arguments of `data`, **then** `mapping`, which uses the `aes` call. We can see in "Arguments" that the `aes(x = rodents$taxa)` object used in the plot is attempted by `fortify` to be converted to a data.frame: now the picture is clear! We accidentally passed our `mapping` argument (telling ggplot how to map variables to the plot) into the position it expected `data` in the form of a data frame. And if we scroll down to "Examples", to "Pattern 1", we can see exactly how ggplot expects these arguments in practice. Let's amend our result:
+#### XOR EDIT - start
+
+This could be a good place for an exercise! 
+
+::: challenge
+# Looking through the documnetation to trouble-shoot (5 minutes)
+Look at the help window that popped up. This is the documentation for the function `ggplot()` we were trying to use. Read through the various sections and see if you can figure out what went wrong in our previous code reproduced below:
+
+```{r, error=T}
+ggplot(aes(x = rodents$taxa)) + geom_bar()
+```
+
+Then answer the following questions:
+
+- Were you able to find what was generating the error? How?
+- Which section was most helpful in resolving the error?
+- What key words of phrases were you looking for?
+- Did you read the whole thing or did you focus on certain sections?
+
+(I don't know, something like that, which makes them reflect on their own about what you're about to tell them)
+
+:::
+
+#### XOR EDIT - end
+
+Here, a Help window pops up in RStudio which provides some more information. Skipping the general description at the top, we see ggplot takes positional arguments of `data`, **then** `mapping`, which uses the `aes` call. We can see in "Arguments" that the `aes(x = rodents$taxa)` object used in the plot is attempted by `fortify` to be converted to a data.frame: now the picture is clear! We accidentally passed our `mapping` argument (telling ggplot how to map variables to the plot) into the position it expected `data` in the form of a data frame. And if we scroll down to "Examples", to "Pattern 1", we can see exactly how ggplot expects these arguments in practice. **[XOR EDIT: my only thing here is that you can see this from the usage part]** 
+
+Let's amend our result:
 
 ```{r} 
 ggplot(rodents, aes(x = taxa)) + geom_bar()
@@ -93,6 +133,12 @@ In general, when encountering an error message for which a remedy is not immedia
 
 4. Copying and pasting the error message into a search engine for more interpretable explanations.
 
+#### XOR EDIT - start
+
+This last point was not discussed in the episode...
+
+#### XOR EDIT - end
+
 And, when all else fails, preparing our code into a reproducible example for expert help.
 
 
@@ -100,17 +146,33 @@ And, when all else fails, preparing our code into a reproducible example for exp
 
 Another type of 'error' which you may encounter is when your R code runs without errors, but does not produce the desired output. You may sometimes see these called "semantic errors" (as opposed to syntax errors, though these term themselves are vague within computer science and describe a variety of different scenarios). As with actual R errors, semantic errors may occur for a variety of non-intuitive reasons, and are often harder to solve as there is no description of the error -- you must work out where your code is defective yourself! 
 
+#### XOR EDIT - start
+
+Let's return to our small rodent researcher who has just noticed that their dataset contains several taxa and not just rodents! To get a clearer picture, they want to determine how many NAs and non-rodent taxa they would be excluding by only looking at rodents. They decide to create a table of all the taxa included in the dataset:
+
+#### XOR EDIT - end
+
 With our rodent analysis, the next step in the plan is to subset to just the `Rodent` taxa (as opposed to other taxa: Bird, Rabbit, Reptile or NA). Let's quickly check to see how much data we'd be throwing out by doing so:
 
 ```{r}
 table(rodents$taxa)
 ```
 
-We're interested in the Rodents, and thankfully it seems like a majority of our observations will be maintained when subsetting to rodents. Except wait. In our plot, we can clearly see the presence of NA values. Why are we not seeing them here? This is an example of a semantic error -- our command is executed correctly, but the output is not everything we intended. Having no error message to interpret, let's jump straight to the documentation:
+We're interested in the Rodents, and thankfully it seems like a majority of our observations will be maintained when subsetting to rodents. Except wait. In our plot, we can clearly see the presence of NA values. Why are we not seeing them here? This is an example of a **semantic error** -- our command is executed correctly, but the output is not everything we intended. Having no error message to interpret, let's jump straight to the documentation:
 
 ```{r}
 ?table
 ```
+
+#### XOR EDIT - start
+This could be another place for an exercise
+
+::: challenge
+# Fix the issue (2 mins)
+By reading the documentation, can you identify what went wrong? How can you fix the previous code so that NAs are also listed among the other taxa?
+:::
+#### XOR EDIT - end
+
 
 Here, the documentation provides some clues: there seems to be an argument called `useNA` that accepts "no", "ifany", and "always", but it's not immediately apparent which one we should use. As a second approach, let's go to `Examples` to see if we can find any quick fixes. Here we see a couple lines further down: 
 
@@ -169,6 +231,10 @@ facet_wrap(~species)
 
 Uh-oh. Another error here, this time in "combine_vars?" What is that? "Faceting variables must have at least one value": What does that mean?
 
+#### XOR EDIT - start
+Potential exercise--have them determine what is wrong using the steps previously outlined.
+#### XOR EDIT - end
+
 Well it may be clear enough that we seem to be missing "species" values where we intend. Maybe we can try to make a different graph looking at what species values are present? Or perhaps there's an error earlier -- our safest approach may actually be seeing what krats looks like:
 
 
@@ -176,6 +242,10 @@ Well it may be clear enough that we seem to be missing "species" values where we
 krats
 ```
 It's empty! What went wrong with our "Dipadomys" filter?
+
+#### XOR EDIT - start
+I now feel like we are missing the very important first step of "check for common errors: is there a typo? Did I close all my parentheses? Are all my commas in the right place?"
+#### XOR EDIT - end
 
 ```{r}
 rodents %>% count(genus)
@@ -193,7 +263,7 @@ facet_wrap(~species)
 ```
 
 
-Our improved code here looks good. A quick "dim" call confirms we now have all the Dipodomys observations, and our plot is looking better. In general, having a 'print' statement or some other output before plots or other major steps can be a good way to check your code is producing intermediate results consistent with your expectations. 
+Our improved code here looks good. A quick "dim" call confirms we now have all the Dipodomys observations, and our plot is looking better. In general, having a 'print' statement or some other output (**XOR: after manipulating the data**) before plots or other major steps can be a good way to check your code is producing intermediate results consistent with your expectations. 
 
 However, there's something funky happening here. The bins are definitely weirdly spaced -- we can see some bins are not filled with any observations, while those exactly containing one of the integer years happens to contain all the observations for that year. 
 
@@ -211,7 +281,13 @@ As a group, name some potential problems or undesired outcomes from this graph..
 
 ::::::::
 
-As we discussed in the challenge, there are some issues to visualizing our data this way. A solution here might be to tinker with the bin width in the histogram code, but let's step back a minute. Do we necessarily need to dive into the depths of tinkering with the plot? We can evalulate this problem not in terms of the plot having a problem, but with our data type having a problem. There's  an opportunity to encode the observation times outside of coarse, somewhat arbitrary year groupings with the real, interpretable date they were collected. Let's do that using the tidyverse's 'lubridate' package. The important details here are that we are creating a 'datetime'-type variable using the recorded years, months, and days, which are currently all encoded as numeric types.
+As we discussed in the challenge, there are some issues to visualizing our data this way.
+
+#### XOR EDIT - start
+You could have an exercise in which they need to figure out what the steps to take are and how to fix the issue. To be discussed in class. Then you can say that sometimes the solution isn't to fix the code, but to fix the data.
+#### XOR EDIT - end
+
+A solution here might be to tinker with the bin width in the histogram code, but let's step back a minute. Do we necessarily need to dive into the depths of tinkering with the plot? We can evalulate this problem not in terms of the plot having a problem, but with our data type having a problem. There's  an opportunity to encode the observation times outside of coarse, somewhat arbitrary year groupings with the real, interpretable date they were collected. Let's do that using the tidyverse's 'lubridate' package. The important details here are that we are creating a 'datetime'-type variable using the recorded years, months, and days, which are currently all encoded as numeric types.
 
 ```{r}
 krats <- rodents %>% filter(genus == "Dipodomys") #kangaroo rat genus
