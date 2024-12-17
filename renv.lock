@@ -903,10 +903,7 @@
       "Package": "stringi",
       "Version": "1.8.4",
       "Source": "Repository",
-      "Repository": "https://carpentries.r-universe.dev",
-      "RemoteUrl": "https://github.com/gagolews/stringi",
-      "RemoteRef": "v1.8.4",
-      "RemoteSha": "f5a91d1869ec4c757d37519f710ec1fa4f74a1c8",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "stats",
