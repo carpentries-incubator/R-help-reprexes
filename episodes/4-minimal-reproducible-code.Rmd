@@ -566,7 +566,6 @@ minimal_data <- structure(list(year = c(1977, 1977, 1977, 1977, 1977, 1977, 1977
 
 And finally, let's change the code to refer to `control_spectab` instead of `minimal_data`. (While we're at it, let's remove the piece of code creating `control_spectab` from `krats`--including a minimal dataset directly means that we don't need that code.)
 
-
 ```{r}
 # Calculate proportion of spectabilis caught
 head(minimal_data)
@@ -682,20 +681,124 @@ One last thing we can check is whether there are any othere places where we can 
 
 Often, analysis code contains exploratory steps or other analyses that don't directly relate to the problem, such as calls to `head()`, `View()`, `str()`, or similar functions. (Exception: if you're using these directly to show things like dimension changes that help to illustrate the problem).
 
-Some other common examples are exploratory analyses, extra formatting added to plots, and [ANOTHER EXAMPLE].
+Some other common examples are exploratory analyses, or extra formatting added to plots that doesn't change their interpretation.
 
-When cutting these things, we have to be careful not to remove anything that would cause the code to no longer reproduce our problem. In general, it's a good idea to comment out the line you think is extraneous, re-run the code, and check that the focal problem persists before removing it entirely.
-
-:::::::::::::::::::::::::::::::::::::::::::challenge
-## Trimming down the bells and whistles
-
-[Ex: removing various things, observing what happens, identifying whether or not we care about those things. (Need to include at least one that's tricky, like maybe it does change the actual values but it doesn't change their relationship to each other)]
-
-This exercise should take about 5 minutes.
-::: solution
-FIXME
+:::callout
+When cutting extra lines of code, we have to be careful not to remove anything that would cause the code to no longer reproduce our problem. In general, it's a good idea to comment out the line you think is extraneous, re-run the code, and check that the focal problem persists before removing it entirely.
 :::
-::::::::::::::::::::::::::::::::::::::::::: 
+
+Your code snippet is already pretty minimal, but you do notice that you have an extra `head()` function, left over from when you were looking at your data before summarizing it to create `prop_spectab`. Let's remove that line.
+
+```{r}
+# This script will contain my minimal reproducible example.
+# Created by Mishka on 2024-12-17
+
+# Load packages needed for the analysis
+library(dplyr)
+
+# Provide a minimal dataset
+minimal_data <- structure(list(year = c(1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
+1977, 1977, 1977, 1977, 1977, 1977), plot_type = c("Control", 
+"Spectab exclosure", "Spectab exclosure", "Control", "Control", 
+"Control", "Control", "Spectab exclosure", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Spectab exclosure", "Spectab exclosure", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Spectab exclosure", "Control", "Control", 
+"Spectab exclosure", "Spectab exclosure", "Control", "Spectab exclosure", 
+"Spectab exclosure", "Spectab exclosure", "Spectab exclosure", 
+"Spectab exclosure", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Spectab exclosure", "Spectab exclosure", 
+"Spectab exclosure", "Control", "Control", "Spectab exclosure", 
+"Spectab exclosure", "Spectab exclosure", "Spectab exclosure", 
+"Spectab exclosure", "Spectab exclosure", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Spectab exclosure", 
+"Control", "Spectab exclosure", "Spectab exclosure", "Control", 
+"Spectab exclosure", "Spectab exclosure", "Spectab exclosure", 
+"Spectab exclosure", "Control", "Spectab exclosure", "Spectab exclosure", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Spectab exclosure", "Control", "Control", 
+"Control", "Control", "Spectab exclosure", "Spectab exclosure", 
+"Spectab exclosure", "Control", "Control", "Spectab exclosure", 
+"Spectab exclosure", "Spectab exclosure", "Spectab exclosure", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control", "Control", "Control", "Control", "Control", "Control", 
+"Control"), species_id = c("DM", "DM", "DM", "DM", "DM", "DS", 
+"DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", 
+"DS", "DM", "DM", "DO", "DM", "DS", "DS", "DM", "DS", "DM", "DM", 
+"DS", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", 
+"DS", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DS", 
+"DM", "DM", "DS", "DM", "DS", "DM", "DS", "DM", "DM", "DM", "DS", 
+"DM", "DM", "DM", "DM", "DM", "DS", "DM", "DM", "DS", "DS", "DS", 
+"DM", "DM", "DS", "DM", "DM", "DS", "DS", "DS", "DS", "DM", "DM", 
+"DS", "DM", "DM", "DM", "DM", "DM", "DS", "DM", "DS", "DM", "DM", 
+"DS", "DM", "DS", "DS", "DM", "DM", "DM", "DM", "DM", "DS", "DM", 
+"DM", "DS", "DS", "DM", "DS", "DS", "DS", "DM", "DO", "DM", "DM", 
+"DM", "DS", "DO", "DS", "DS", "DM", "DO", "DM", "DS", "DM", "DM", 
+"DM", "DM", "DM", "DM", "DO", "DS", "DM", "DS", "DM", "DM", "DM", 
+"DM", "DS", "DO", "DM", "DM", "DS", "DM", "DS", "DM", "DS", "DM", 
+"DS", "DS", "DS", "DM", "DM", "DS", "DM", "DM", "DS", "DM", "DS", 
+"DO", "DS", "DM", "DM", "DM", "DM", "DO", "DM", "DM", "DM", "DM", 
+"DO", "DS", "DM", "DM", "DS", "DM", "DM", "DS", "DS", "DO", "DM", 
+"DS", "DS", "DS", "DM", "DS", "DM", "DM", "DS", "DM", "DS", "DM", 
+"DM", "DM", "DS", "DS", "DS", "DM", "DS")), row.names = c(NA, 
+-200L), class = c("tbl_df", "tbl", "data.frame"))
+
+# Calculate proportion of spectabilis caught
+# head(minimal_data)
+prop_spectab <- minimal_data %>%
+  group_by(year, plot_type, species_id) %>%
+  summarize(total_count = n(), .groups = "drop") %>%
+  mutate(prop = total_count/sum(total_count)) %>%
+  dplyr::filter(species_id == "DS") # keep only spectabilis
+```
+
+You are almost ready to send your example over to Jordan, but first you want to test it out to make sure that it actually reproduces the problem. You run the code and take a look at `prop_spectab` to see if the proportions look the same.
+
+```
+> prop_spectab
+# A tibble: 2 × 5
+   year plot_type         species_id total_count  prop
+  <dbl> <chr>             <chr>            <int> <dbl>
+1  1977 Control           DS                  47 0.235
+2  1977 Spectab exclosure DS                  17 0.085
+```
+
+XXX START HERE--uh oh, it doesn't reproduce the problem! Compare these proportions to the graph and we see that these are normal while the ones on the graph were bad. This is because the error actually had to do with grouping problems, including too many groups in the proportion calculation. That error inherently cannot be replicated using a small amount of data that only contains one group. *sigh* this is why this topic is so hard to teach!!! 
+
+
 
 Great work! We've created a minimal reproducible example. In the next episode, we'll learn about `{reprex}`, a package that can help us double-check that our example is reproducible by running it in a clean environment. (As an added bonus, `{reprex}` will format our example nicely so it's easy to post to places like Slack, GitHub, and StackOverflow.)
 
