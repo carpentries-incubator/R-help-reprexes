@@ -7,9 +7,10 @@ library(readr)
 library(dplyr)
 library(ggplot2)
 library(stringr)
+library(here)
 
 # Read in the data
-rodents <- read_csv("scripts/data/surveys_complete_77_89.csv")
+rodents <- read_csv(here("scripts/data/surveys_complete_77_89.csv"))
 
 ### DATA WRANGLING ####
 glimpse(rodents) # or click on the environment

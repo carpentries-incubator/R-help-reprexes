@@ -23,6 +23,14 @@ exercises: 35
 - Describe the {reprex} package and its uses
 :::
 
+```{r include = FALSE}
+library(tidyverse)
+library(ratdat)
+library(here)
+source(here("scripts/krat-analysis.R"))
+```
+
+
 You're happy with the progress you've made in exploring your data, and you're excited to move on to your second research question: Do the k-rat exclusion plots actually exclude k-rats?
 
 You start by making a couple predictions. 
@@ -144,9 +152,10 @@ To begin creating a simpler piece of code to show Jordan, let's create a separat
 
 Create and save a new, blank R script and give it a name, such as "reprex-script.R"
 
-```{r filename = "reprex-script.R"}
+```{r}
+# This script will contain my minimal reproducible example.
+# Created by Mishka on 2024-12-17
 ```
-
 
 :::::::::::::::::::::::::::::::::::::callout
 ## Creating a new R script
@@ -196,14 +205,12 @@ Aha! The `prop` column of `prop_spectab` shows very small values, and those valu
 
 So it looks like the problem is in the data, not in the plot code itself. The plot was just what allowed us to see the problem in our data. This is often the case. Visualizations are important!
 
-So instead of focusing on the plot, let's zoom in on the step right before the plot as our "problem area": the code that created the `prop_spectab` object. Let's copy and paste that section of code into the new, blank script that we just created.
-
-```{r filename = "reprex-script.R"}
-
-```
-
+So instead of focusing on the plot, let's zoom in on the step right before the plot as our "problem area": the code that created the `prop_spectab` object. Let's copy and paste that section of code into the new script that we just created.
 
 ```{r}
+# This script will contain my minimal reproducible example.
+# Created by Mishka on 2024-12-17
+
 # Calculate proportion of spectabilis caught
 prop_spectab <- control_spectab %>%
   group_by(year, plot_type, species_id) %>%
@@ -212,14 +219,101 @@ prop_spectab <- control_spectab %>%
   filter(species_id == "DS") # keep only spectabilis
 ```
 
+Now the code is much smaller and easier to dig through! You decide to send this updated script along to Jordan. 
 
-:::::::::::::::::::::::::::::::::::::callout
-## Stepping through code, line by line
+> Hi Jordan,
+> Sorry about that! You're right, that was a lot of code to dig through. I've narrowed it down now to just focus on the part of the code that was causing the problem. The proportions of k-rats in the prop_spectab data frame are too small to make sense. Can you help me figure out why the proportions are wrong?
+> Thank you,
+> Mishka
+> Attachment: reprex-script.R
 
-Placing your cursor on a line of code and using the keyboard shortcut Cmd + Enter (Mac) or Ctrl + Enter (Windows) will run that line of code *and* it will automatically advance your cursor to the next line. This makes it easy to "step through" your code without having to click or highlight.
-::::::::::::::::::::::::::::::::::::::::::: 
+Jordan gets your email and opens the script. They try to run your code, but they immediately run into some problems. They write back,
 
-Yay, we found the trouble spot! Let's go ahead and copy that line of code and paste it over into the empty script we created, "reprex-script.R".
+> Hey Mishka,
+> This is almost there, but I can't run your code because I don't have the objects and packages it relies on. Can you elaborate on your example to make it runnable?
+> Jordan
+
+### Step 2. Identify dependencies
+
+Jordan is right, of course--you gave them a minimal example of your code, but you didn't provide the context around that code to make it runnable for someone else. You need to provide the *dependencies* for your code, including the functions it uses and the datasets it relies on.
+
+R code consists primarily of **functions** and **variables**. Making sure that we give our helpers access to all the functions and variables we use in our minimal code will make our examples truly reproducible.
+
+Let's talk about **functions** first. When we code in R, we use a lot of different functions. Functions in R typically come from packages, and you get access to them by loading the package into your environment. (Some packages, such as `{base}` and `{stats}`, are loaded in R by default, so you might not have realized that a lot of functions, such as `dim`, `colSums`, `factor`, and `length` actually come from those packages!)
+
+::: callout
+You can see a complete list of the functions that come from the `{base}` and `{stats}` packages by running `library(help = "base")` or `library(help = "stats")`.
+:::
+
+To make sure that your helper has access to the functions necessary for your reprex, you can include a `library()` call in your reprex. 
+
+Let's do this for our own reprex. We can start by identifying all the functions used, and then we can figure out where each function comes from to make sure that we tell our helper to load the right packages.
+
+Here's what our script looks like so far.
+
+```{r}
+# This script will contain my minimal reproducible example.
+# Created by Mishka on 2024-12-17
+
+# Calculate proportion of spectabilis caught
+prop_spectab <- control_spectab %>%
+  group_by(year, plot_type, species_id) %>%
+  summarize(total_count = n(), .groups = "drop") %>%
+  mutate(prop = total_count/sum(total_count)) %>%
+  filter(species_id == "DS") # keep only spectabilis
+```
+
+You look through the script and list out the following functions:
+`%>%`
+`group_by()`
+`summarize()`
+`n()`
+`mutate()`
+`sum()`
+`filter()`
+
+:::callout
+`%>%` is technically an operator, not a function...
+:::
+
+You remember from your introductory R lesson that `group_by()` and `summarize()` are both functions that come from the `{dplyr}` package, so you can go ahead and add `library(dplyr)` to the top of your script.
+
+```{r}
+# This script will contain my minimal reproducible example.
+# Created by Mishka on 2024-12-17
+
+# Load packages needed for the analysis
+library(dplyr)
+
+# Calculate proportion of spectabilis caught
+prop_spectab <- control_spectab %>%
+  group_by(year, plot_type, species_id) %>%
+  summarize(total_count = n(), .groups = "drop") %>%
+  mutate(prop = total_count/sum(total_count)) %>%
+  filter(species_id == "DS") # keep only spectabilis
+```
+
+You're pretty sure that `mutate()` and `filter()` also come from `{dplyr}`, but you're not sure. And you don't know where `n()` and `sum()` come from at all!
+
+Some functions might be created, or "defined", in your code itself, instead of being contained in a package.  
+
+It's pretty common not to remember where functions come from, especially if they belong to packages you use regularly. Let's try searching for the `sum()` function in the documentation.
+
+In the "Help" tab of your RStudio window (which should be next to the "Packages" and "Viewer" tabs in the bottom right pane of RStudio if you have the default layout), search for "sum".
+
+[INCLUDE SCREENSHOT OF SUM HELP DOCS HERE]
+
+The top of the help file says `sum {base}`, which means that `sum()` is a function that comes from the `{base}` package. That's good for us--everyone has `{base}` loaded by default in R, so we don't need to tell our helper to load any additional packages in order to be able to access sum.
+
+Let's confirm that we remembered correctly about `mutate()` and `filter()` by searching for the documentation on those as well.
+
+Searching for "mutate" quickly shows us the help file for `mutate {dplyr}`, but searching for "filter" gives a long list of 
+
+
+# XXX START HERE
+Sometimes it can be hard to figure out where a function comes from. Especially if a function comes from a package you use frequently, you might not remember where it comes from!
+
+You can search for a function in the help docs with `??fun` (where "fun" is the name of the function). To explicitly declare which package a function comes from, you can use a double colon `::`--for example, `dplyr::select()`. Declaring the function with a double colon also allows you to use that function even if the package is not loaded, as long as it's installed.
 
 
 
@@ -244,46 +338,6 @@ summary(counts_mod_interact)
 
 
 
-
-### Step 1. Identify the problem area
-
-Now that we have a script, let's zero in on what's broken.
-
-First, we should use some of the techniques we learned in the "Identify the Problem" episode and see if they help us solve our error.
-
-[MORE CONTENT THAT CALLS BACK TO PL'S EPISODE HERE]
-
-In this particular case, though, we weren't able to completely resolve our error.
-
-[WHY? maybe because it's not an error but a case of "the plot isn't returning what we want"? Or maybe it's an extra difficult error message that we can't find an easy answer to?
-
-I need to figure out what error to introduce into the script in the first place... that will determine the justification to use here.]
-
-(*Using the plot example for now*)
-
-Okay, so we know that the plot doesn't look the way we want it to. Which part of the code created that plot? One way to figure this out if we're not sure is to step through the code line by line.
-
-
-
-### Step 2. Give context: functions and packages
-
-R code consists primarily of *variables* and *functions*. 
-
-::::::::::::::::::::::::::::::::::::::::::: challenge
-## Where do functions come from?
-
-When coding in R, we use a lot of different functions. Where do those functions come from? How can we make sure that our helpers have access to those sources? Take a moment to brainstorm.
-
-This exercise should take about 3 minutes.
-:::solution
-Functions in R typically come from packages. Some packages, such as `{base}` and `{stats}`, are loaded in R by default, so you might not have realized that they are packages too.
-
-You can see a complete list of functions in `{base}` and `{stats}` by running `library(help = "base")` or `library(help = "stats")`.
-
-Some functions might be user-defined. In that case, you'll need to make sure to include the function definition in your reprex.
-:::
-:::::::::::::::::::::::::::::::::::::::::::
-
 ::::::::::::::::::::::::::::::::::::::::::: callout
 ## Finding functions
 
@@ -292,7 +346,7 @@ Sometimes it can be hard to figure out where a function comes from. Especially i
 You can search for a function in the help docs with `??fun` (where "fun" is the name of the function). To explicitly declare which package a function comes from, you can use a double colon `::`--for example, `dplyr::select()`. Declaring the function with a double colon also allows you to use that function even if the package is not loaded, as long as it's installed.
 :::::::::::::::::::::::::::::::::::::::::::
 
-The quickest way to make sure others have access to the functions contained in packages is to include a `library()` call in your reprex, so they know to load the package too.
+
 
 ::::::::::::::::::::::::::::::::::::::::::: challenge
 ## Which packages are essential?
@@ -453,4 +507,15 @@ Let's take a moment to reflect on this process.
 - What is one thing you're still confused about? What questions do you have?
 
 This exercise should take about 5 minutes.
+::::::::::::::::::::::::::::::::::::::::::: 
+
+
+
+
+
+
+:::::::::::::::::::::::::::::::::::::callout
+## Stepping through code, line by line
+
+Placing your cursor on a line of code and using the keyboard shortcut Cmd + Enter (Mac) or Ctrl + Enter (Windows) will run that line of code *and* it will automatically advance your cursor to the next line. This makes it easy to "step through" your code without having to click or highlight.
 ::::::::::::::::::::::::::::::::::::::::::: 
