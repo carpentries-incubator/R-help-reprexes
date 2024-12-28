@@ -457,126 +457,78 @@ This exercise should take about 5 minutes.
 :::
 ::::::::::::::::::::::::::::::::::::::::::: 
 
-You decide that the easiest way to approach this particular problem would be to simplify your existing dataset down to a really small subset, and include that directly in the script using `dput()`.
+You decide that the easiest way to approach this particular problem would be to use a sample dataset to reproduce the problem.
 
-Now, what would be a good way to simplify this data? Since your code calculates proportions of individuals caught, you'll probably want to include all of the data for an entire year, with both plot types for good measure.
+Let's think about how to create a sample dataset that will accurately reproduce the problem.
+What columns are needed to create `prop_spectab`, and what do we know about those columns?
+
 ```{r}
-dim(control_spectab) # the original data has 6515 rows and 15 columns.
+head(control_spectab)
+length(unique(control_spectab$year)) # 13 years
+length(unique(control_spectab$species_id)) # three species
+length(unique(control_spectab$plot_type)) # two plot types
+```
 
-# Let's take just 1977
-data_subset <- control_spectab %>%
-  filter(year == 1977)
-dim(data_subset) # 200 rows. That's a lot better!
+Looks like we use `year`, which is numeric, and `plot_type` and `species_id`, which are both character types but have discrete levels like a factor. We have data from 13 years across two plot types, and there are three species that might occur.
 
-# Can we decrease the number of columns to make the dataset really minimal?
-# We see that the code mentions just three columns: year, plot_type, and species_id. What if we select only those three columns, giving us a dataset with dimensions 200x3? That's pretty minimal!
+Let's create some vectors. I'm only going to use four years here because 13 seems a little excessive.
 
-data_subset <- control_spectab %>%
-  filter(year == 1977) %>%
-  select(year, plot_type, species_id)
-dim(data_subset) # (callout: 200 rows is still a little long. We could take a random sample to reduce it down to 100 rows, or 50, or something like that. But keeping all 200 means we'll be able to directly reproduce the proportion that we saw in the graph, which is an advantage for making sure that we're representing the problem correctly.)
+I'm going to arbitrarily decide how many species records are present for each year, assign every other row to treatment or control, and randomly select species for each row.
+```{r}
+years <- 1:4
+species <- c("Species A", "Species B", "Species C")
+plots <- c("Control", "Treatment")
 
-# Now, we can use the `dput` function to produce a data object that's easy to copy and paste directly into our reprex script.
-dput(data_subset) # This is slightly unwieldy, but it's not too bad!
+total_records_per_year <- c(10, 12, 3, 30) # I chose these arbitrarily 
+total_rows <- sum(total_records_per_year) # how many total rows will we have?
+
+# Create the fake data using `rep()` and `sample()`.
+minimal_data <- data.frame(year = rep(years, times = total_records_per_year),
+                      plot_type = rep(plots, length.out = total_rows),
+                      species_id = sample(species, size = total_rows, replace = TRUE))
 ```
 
 We can go ahead and paste that into our reprex script. 
 
 ```{r}
 # Provide a minimal dataset
-minimal_data <- structure(list(year = c(1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977), plot_type = c("Control", 
-"Spectab exclosure", "Spectab exclosure", "Control", "Control", 
-"Control", "Control", "Spectab exclosure", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Spectab exclosure", "Spectab exclosure", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Spectab exclosure", "Control", "Control", 
-"Spectab exclosure", "Spectab exclosure", "Control", "Spectab exclosure", 
-"Spectab exclosure", "Spectab exclosure", "Spectab exclosure", 
-"Spectab exclosure", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Spectab exclosure", "Spectab exclosure", 
-"Spectab exclosure", "Control", "Control", "Spectab exclosure", 
-"Spectab exclosure", "Spectab exclosure", "Spectab exclosure", 
-"Spectab exclosure", "Spectab exclosure", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Spectab exclosure", 
-"Control", "Spectab exclosure", "Spectab exclosure", "Control", 
-"Spectab exclosure", "Spectab exclosure", "Spectab exclosure", 
-"Spectab exclosure", "Control", "Spectab exclosure", "Spectab exclosure", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Spectab exclosure", "Control", "Control", 
-"Control", "Control", "Spectab exclosure", "Spectab exclosure", 
-"Spectab exclosure", "Control", "Control", "Spectab exclosure", 
-"Spectab exclosure", "Spectab exclosure", "Spectab exclosure", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control"), species_id = c("DM", "DM", "DM", "DM", "DM", "DS", 
-"DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", 
-"DS", "DM", "DM", "DO", "DM", "DS", "DS", "DM", "DS", "DM", "DM", 
-"DS", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", 
-"DS", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DS", 
-"DM", "DM", "DS", "DM", "DS", "DM", "DS", "DM", "DM", "DM", "DS", 
-"DM", "DM", "DM", "DM", "DM", "DS", "DM", "DM", "DS", "DS", "DS", 
-"DM", "DM", "DS", "DM", "DM", "DS", "DS", "DS", "DS", "DM", "DM", 
-"DS", "DM", "DM", "DM", "DM", "DM", "DS", "DM", "DS", "DM", "DM", 
-"DS", "DM", "DS", "DS", "DM", "DM", "DM", "DM", "DM", "DS", "DM", 
-"DM", "DS", "DS", "DM", "DS", "DS", "DS", "DM", "DO", "DM", "DM", 
-"DM", "DS", "DO", "DS", "DS", "DM", "DO", "DM", "DS", "DM", "DM", 
-"DM", "DM", "DM", "DM", "DO", "DS", "DM", "DS", "DM", "DM", "DM", 
-"DM", "DS", "DO", "DM", "DM", "DS", "DM", "DS", "DM", "DS", "DM", 
-"DS", "DS", "DS", "DM", "DM", "DS", "DM", "DM", "DS", "DM", "DS", 
-"DO", "DS", "DM", "DM", "DM", "DM", "DO", "DM", "DM", "DM", "DM", 
-"DO", "DS", "DM", "DM", "DS", "DM", "DM", "DS", "DS", "DO", "DM", 
-"DS", "DS", "DS", "DM", "DS", "DM", "DM", "DS", "DM", "DS", "DM", 
-"DM", "DM", "DS", "DS", "DS", "DM", "DS")), row.names = c(NA, 
--200L), class = c("tbl_df", "tbl", "data.frame"))
+years <- 1:4
+species <- c("Species A", "Species B", "Species C")
+plots <- c("Control", "Treatment")
+
+total_records_per_year <- c(10, 12, 3, 30) # I chose these arbitrarily 
+total_rows <- sum(total_records_per_year) # how many total rows will we have?
+
+# Create the fake data using `rep()` and `sample()`.
+minimal_data <- data.frame(year = rep(years, times = total_records_per_year),
+                      plot_type = rep(plots, length.out = total_rows),
+                      species_id = sample(species, size = total_rows, replace = TRUE))
 ```
 
-And finally, let's change the code to refer to `control_spectab` instead of `minimal_data`. (While we're at it, let's remove the piece of code creating `control_spectab` from `krats`--including a minimal dataset directly means that we don't need that code.)
+And finally, let's change our code to use `minimal_data` instead of `control_spectab`. (While we're at it, let's remove the piece of code that creates `control_spectab`--including a minimal dataset directly means that we don't need that code.)
+
+Let's calculate the proportion of Species A caught, instead of spectabilis.
 
 ```{r}
-# Calculate proportion of spectabilis caught
+# Calculate proportion of Species A caught
 head(minimal_data)
-prop_spectab <- minimal_data %>%
+prop_speciesA <- minimal_data %>%
   group_by(year, plot_type, species_id) %>%
   summarize(total_count = n(), .groups = "drop") %>%
   mutate(prop = total_count/sum(total_count)) %>%
-  dplyr::filter(species_id == "DS") # keep only spectabilis
+  dplyr::filter(species_id == "Species A") # keep only Species A
 ```
 
-Putting it all together, the script should look like this: 
+And now let's check to make sure that the code actually reproduces our problem. Remember, the problem was that the proportions of Species A caught seemed to be way too low based on what we knew about the frequency of occurrence of each k-rat species.
+
+When we created our sample data, we randomly allocated species A, B, and C to each row. Even after accounting for the stratification of the years and plot types, we would expect the proportion of Species A caught to be somewhere vaguely around 0.33 in each plot type and year. If we've reproduced our problem correctly, we would see values much lower than 0.33.
+
+```{r}
+head(prop_speciesA)
+```
+
+Indeed, those proportions look way too low! 3%, 1%... that's an order of magnitude off from what we expect to see here. I think we have successfully reproduced the problem using a minimal dataset. To make things extra easy for Jordan, let's add some comments in the script to point out the problem.
+
 ```{r}
 # This script will contain my minimal reproducible example.
 # Created by Mishka on 2024-12-17
@@ -585,99 +537,34 @@ Putting it all together, the script should look like this:
 library(dplyr)
 
 # Provide a minimal dataset
-minimal_data <- structure(list(year = c(1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977), plot_type = c("Control", 
-"Spectab exclosure", "Spectab exclosure", "Control", "Control", 
-"Control", "Control", "Spectab exclosure", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Spectab exclosure", "Spectab exclosure", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Spectab exclosure", "Control", "Control", 
-"Spectab exclosure", "Spectab exclosure", "Control", "Spectab exclosure", 
-"Spectab exclosure", "Spectab exclosure", "Spectab exclosure", 
-"Spectab exclosure", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Spectab exclosure", "Spectab exclosure", 
-"Spectab exclosure", "Control", "Control", "Spectab exclosure", 
-"Spectab exclosure", "Spectab exclosure", "Spectab exclosure", 
-"Spectab exclosure", "Spectab exclosure", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Spectab exclosure", 
-"Control", "Spectab exclosure", "Spectab exclosure", "Control", 
-"Spectab exclosure", "Spectab exclosure", "Spectab exclosure", 
-"Spectab exclosure", "Control", "Spectab exclosure", "Spectab exclosure", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Spectab exclosure", "Control", "Control", 
-"Control", "Control", "Spectab exclosure", "Spectab exclosure", 
-"Spectab exclosure", "Control", "Control", "Spectab exclosure", 
-"Spectab exclosure", "Spectab exclosure", "Spectab exclosure", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control"), species_id = c("DM", "DM", "DM", "DM", "DM", "DS", 
-"DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", 
-"DS", "DM", "DM", "DO", "DM", "DS", "DS", "DM", "DS", "DM", "DM", 
-"DS", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", 
-"DS", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DS", 
-"DM", "DM", "DS", "DM", "DS", "DM", "DS", "DM", "DM", "DM", "DS", 
-"DM", "DM", "DM", "DM", "DM", "DS", "DM", "DM", "DS", "DS", "DS", 
-"DM", "DM", "DS", "DM", "DM", "DS", "DS", "DS", "DS", "DM", "DM", 
-"DS", "DM", "DM", "DM", "DM", "DM", "DS", "DM", "DS", "DM", "DM", 
-"DS", "DM", "DS", "DS", "DM", "DM", "DM", "DM", "DM", "DS", "DM", 
-"DM", "DS", "DS", "DM", "DS", "DS", "DS", "DM", "DO", "DM", "DM", 
-"DM", "DS", "DO", "DS", "DS", "DM", "DO", "DM", "DS", "DM", "DM", 
-"DM", "DM", "DM", "DM", "DO", "DS", "DM", "DS", "DM", "DM", "DM", 
-"DM", "DS", "DO", "DM", "DM", "DS", "DM", "DS", "DM", "DS", "DM", 
-"DS", "DS", "DS", "DM", "DM", "DS", "DM", "DM", "DS", "DM", "DS", 
-"DO", "DS", "DM", "DM", "DM", "DM", "DO", "DM", "DM", "DM", "DM", 
-"DO", "DS", "DM", "DM", "DS", "DM", "DM", "DS", "DS", "DO", "DM", 
-"DS", "DS", "DS", "DM", "DS", "DM", "DM", "DS", "DM", "DS", "DM", 
-"DM", "DM", "DS", "DS", "DS", "DM", "DS")), row.names = c(NA, 
--200L), class = c("tbl_df", "tbl", "data.frame"))
+years <- 1:4
+species <- c("Species A", "Species B", "Species C")
+plots <- c("Control", "Treatment")
 
-# Calculate proportion of spectabilis caught
+total_records_per_year <- c(10, 12, 3, 30) # I chose these arbitrarily 
+total_rows <- sum(total_records_per_year) # how many total rows will we have?
+
+# Create the fake data using `rep()` and `sample()`.
+minimal_data <- data.frame(year = rep(years, times = total_records_per_year),
+                      plot_type = rep(plots, length.out = total_rows),
+                      species_id = sample(species, size = total_rows, replace = TRUE)) # Because I assigned the species randomly, we should expect Species A to occur *roughly* 33% of the time.
+
+# Calculate proportion of Species A caught
 head(minimal_data)
-prop_spectab <- minimal_data %>%
+prop_speciesA <- minimal_data %>%
   group_by(year, plot_type, species_id) %>%
   summarize(total_count = n(), .groups = "drop") %>%
   mutate(prop = total_count/sum(total_count)) %>%
-  dplyr::filter(species_id == "DS") # keep only spectabilis
+  dplyr::filter(species_id == "Species A") # keep only Species A
+
+head(prop_speciesA) # Species A only occurs 1-3% of the time in each plot type in each year. Why is this off by an order of magnitude? (This is the same problem I was seeing in my real data--the occurrence proportions were way, way too small.)
 ```
 
 ### Step 3. Simplify
 
-We're almost done! Now we have code that runs because it includes the necessary `library()` calls and makes use of a minimal dataset that still allows us to showcase the problem. Our script is almost ready to send to Jordan, and this time, it's definitely going to work. 
+We're almost done! Now we have code that runs because it includes the necessary `library()` calls and makes use of a minimal dataset that still allows us to showcase the problem. Our script is almost ready to send to Jordan. 
 
-One last thing we can check is whether there are any othere places where we can trim down the minimal example even more to eliminate distractions.
+One last thing we can check is whether there are any other places where we can trim down the minimal example even more to eliminate distractions.
 
 Often, analysis code contains exploratory steps or other analyses that don't directly relate to the problem, such as calls to `head()`, `View()`, `str()`, or similar functions. (Exception: if you're using these directly to show things like dimension changes that help to illustrate the problem).
 
@@ -687,118 +574,11 @@ Some other common examples are exploratory analyses, or extra formatting added t
 When cutting extra lines of code, we have to be careful not to remove anything that would cause the code to no longer reproduce our problem. In general, it's a good idea to comment out the line you think is extraneous, re-run the code, and check that the focal problem persists before removing it entirely.
 :::
 
-Your code snippet is already pretty minimal, but you do notice that you have an extra `head()` function, left over from when you were looking at your data before summarizing it to create `prop_spectab`. Let's remove that line.
+In our case, the code looks pretty minimal. We do have a call to `head()` at the end, but that's being used to clearly demonstrate the problem, so it should be left in. Trimming down the minimal dataset any further, for example by removing `plot_type` or `year`, would involve changing the analysis code and possibly not reproducing the problem anymore.
 
-```{r}
-# This script will contain my minimal reproducible example.
-# Created by Mishka on 2024-12-17
-
-# Load packages needed for the analysis
-library(dplyr)
-
-# Provide a minimal dataset
-minimal_data <- structure(list(year = c(1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 
-1977, 1977, 1977, 1977, 1977, 1977), plot_type = c("Control", 
-"Spectab exclosure", "Spectab exclosure", "Control", "Control", 
-"Control", "Control", "Spectab exclosure", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Spectab exclosure", "Spectab exclosure", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Spectab exclosure", "Control", "Control", 
-"Spectab exclosure", "Spectab exclosure", "Control", "Spectab exclosure", 
-"Spectab exclosure", "Spectab exclosure", "Spectab exclosure", 
-"Spectab exclosure", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Spectab exclosure", "Spectab exclosure", 
-"Spectab exclosure", "Control", "Control", "Spectab exclosure", 
-"Spectab exclosure", "Spectab exclosure", "Spectab exclosure", 
-"Spectab exclosure", "Spectab exclosure", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Spectab exclosure", 
-"Control", "Spectab exclosure", "Spectab exclosure", "Control", 
-"Spectab exclosure", "Spectab exclosure", "Spectab exclosure", 
-"Spectab exclosure", "Control", "Spectab exclosure", "Spectab exclosure", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Spectab exclosure", "Control", "Control", 
-"Control", "Control", "Spectab exclosure", "Spectab exclosure", 
-"Spectab exclosure", "Control", "Control", "Spectab exclosure", 
-"Spectab exclosure", "Spectab exclosure", "Spectab exclosure", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control", "Control", "Control", "Control", "Control", "Control", 
-"Control"), species_id = c("DM", "DM", "DM", "DM", "DM", "DS", 
-"DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", 
-"DS", "DM", "DM", "DO", "DM", "DS", "DS", "DM", "DS", "DM", "DM", 
-"DS", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", 
-"DS", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DS", 
-"DM", "DM", "DS", "DM", "DS", "DM", "DS", "DM", "DM", "DM", "DS", 
-"DM", "DM", "DM", "DM", "DM", "DS", "DM", "DM", "DS", "DS", "DS", 
-"DM", "DM", "DS", "DM", "DM", "DS", "DS", "DS", "DS", "DM", "DM", 
-"DS", "DM", "DM", "DM", "DM", "DM", "DS", "DM", "DS", "DM", "DM", 
-"DS", "DM", "DS", "DS", "DM", "DM", "DM", "DM", "DM", "DS", "DM", 
-"DM", "DS", "DS", "DM", "DS", "DS", "DS", "DM", "DO", "DM", "DM", 
-"DM", "DS", "DO", "DS", "DS", "DM", "DO", "DM", "DS", "DM", "DM", 
-"DM", "DM", "DM", "DM", "DO", "DS", "DM", "DS", "DM", "DM", "DM", 
-"DM", "DS", "DO", "DM", "DM", "DS", "DM", "DS", "DM", "DS", "DM", 
-"DS", "DS", "DS", "DM", "DM", "DS", "DM", "DM", "DS", "DM", "DS", 
-"DO", "DS", "DM", "DM", "DM", "DM", "DO", "DM", "DM", "DM", "DM", 
-"DO", "DS", "DM", "DM", "DS", "DM", "DM", "DS", "DS", "DO", "DM", 
-"DS", "DS", "DS", "DM", "DS", "DM", "DM", "DS", "DM", "DS", "DM", 
-"DM", "DM", "DS", "DS", "DS", "DM", "DS")), row.names = c(NA, 
--200L), class = c("tbl_df", "tbl", "data.frame"))
-
-# Calculate proportion of spectabilis caught
-# head(minimal_data)
-prop_spectab <- minimal_data %>%
-  group_by(year, plot_type, species_id) %>%
-  summarize(total_count = n(), .groups = "drop") %>%
-  mutate(prop = total_count/sum(total_count)) %>%
-  dplyr::filter(species_id == "DS") # keep only spectabilis
-```
-
-You are almost ready to send your example over to Jordan, but first you want to test it out to make sure that it actually reproduces the problem. You run the code and take a look at `prop_spectab` to see if the proportions look the same.
-
-```
-> prop_spectab
-# A tibble: 2 × 5
-   year plot_type         species_id total_count  prop
-  <dbl> <chr>             <chr>            <int> <dbl>
-1  1977 Control           DS                  47 0.235
-2  1977 Spectab exclosure DS                  17 0.085
-```
-
-XXX START HERE--uh oh, it doesn't reproduce the problem! Compare these proportions to the graph and we see that these are normal while the ones on the graph were bad. This is because the error actually had to do with grouping problems, including too many groups in the proportion calculation. That error inherently cannot be replicated using a small amount of data that only contains one group. *sigh* this is why this topic is so hard to teach!!! 
-
-
+---
+XXX @XOR @PL: I wish I had picked an example that had some extraneous parts to take out, such as a ggplot call with really long code. Would love to include that. Since I didn't, I think I can take out this entire section of the roadmap, or add it as a bonus exercise that gives a completely different example with a lot of extraneous things to remove. Another option would be to add some fluff to the original code so that we can remove that fluff now. Thoughts/preferences?
+---
 
 Great work! We've created a minimal reproducible example. In the next episode, we'll learn about `{reprex}`, a package that can help us double-check that our example is reproducible by running it in a clean environment. (As an added bonus, `{reprex}` will format our example nicely so it's easy to post to places like Slack, GitHub, and StackOverflow.)
 
@@ -813,7 +593,7 @@ More on that soon. For now, let's review the road map that we just practiced.
   
 ### Step 2. Identify dependencies
   - Make sure that helpers have access to all the functions they'll need to run your code snippet.
-  - Make sure that helpers have access to all the variables they'll need to run your code snippet, or reasonable stand-ins.
+  - Make sure helpers can access the variables they'll need to run the code, or reasonable stand-ins.
   
 ### Step 3. Simplify
   - Remove any extra code that isn't absolutely necessary to demonstrate your problem.
@@ -831,12 +611,12 @@ This exercise should take about 5 minutes.
 ::::::::::::::::::::::::::::::::::::::::::: 
 
 
-# XXX this story should end with Mishka solving their own problem.
+# XXX maybe this story should end with Mishka solving their own problem.
 
 
 ### run an ANOVA or something
 XXX Note: There's more to the analysis, and I only managed to walk through one example of an error. Is this example juicy enough? Should we just discard the rest of the analysis?
-XXX Note: I actually think the analysis here is wrong and might need to be re-worked.
+XXX Note: I actually think the analysis here is wrong and might need to be re-worked--would need to do pairwise comparisons.
 
 #### MODELING ####
 counts_mod <- lm(count_per_day ~ plot_type + species_id, data = counts_per_day)
