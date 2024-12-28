@@ -35,37 +35,38 @@ You're happy with the progress you've made in exploring your data, and you're ex
 
 You start by making a couple predictions. 
 
-Prediction 1: If the k-rat plots work, then we would expect to see fewer k-rats overall in any of the exclusion plots than in the control, with the fewest k-rats in the long-term exclusion plot.
+Prediction 1: If the k-rat plots work, then we would expect to see fewer k-rats in the k-rat exclusion plots than in the control, with the fewest in the long-term k-rat exclosure plot.
 
-Second, if the k-rat plots work, then we would expect a lower proportion of *spectabilis* in the *spectabilis*-specific exclosure than in the control plot
+Second, if the k-rat plots work, then we would expect a lower proportion of *spectabilis* in the *spectabilis*-specific exclosure than in the control plot, regardless of the absolute number of k-rats caught.
 
-You start by computing summary counts of the number of k-rats per day in each type of plot, and then using boxplots to show the differences between daily counts in each plot type. 
+You start by computing summary counts of the number of k-rats per day in the control and the two k-rat exclosure plots, and then using boxplots to show the differences between daily counts in each plot type. 
 
 ```{r}
 # Prediction 1: expect fewer k-rats in exclusion plots than in control plot
 # Count number of k-rats per day, per plot type
 counts_per_day <- krats %>%
-  group_by(year, plot_id, plot_type, month, day, species_id) %>%
+  filter(plot_type %in% c("Control", "Long-term Krat Exclosure", "Short-term Krat Exclosure")) %>%
+  group_by(year, plot_id, plot_type, month, day) %>%
   summarize(count_per_day = n(), .groups = "drop")
 
 # Visualize
 counts_per_day %>%
-  ggplot(aes(x = plot_type, y = count_per_day, fill = species_id, group = interaction(plot_type, species_id)))+
+  ggplot(aes(x = plot_type, y = count_per_day, fill = plot_type))+
   geom_boxplot(outlier.size = 0.5)+
   theme_minimal()+
   labs(title = "Kangaroo rat captures, all years",
        x = "Plot type",
-       y = "Individuals per day",
-       fill = "Species")
+       y = "Individuals per day")+
+  theme(legend.position = "none")
 ```
 
-Interesting! You expected that there would be fewer k-rats caught per day in the control than in the exclosure plots, but that doesn't seem to be the pattern. It looks like the exclosures tend to have similar daily numbers of k-rats to the control. There might be more to investigate here, such as a day-by-day comparison, but for now you're feeling ready to take a first look at the *spectabilis*-specific exclosures.
+This is a coarse analysis that doesn't compare numbers on the same day against each other, but even so, our prediction is supported. The fewest k-rats are caught per day in the Long-term Krat Exclosure plots, followed by the Short-term Krat Exclosure. The Control plots have the largest number of Krats.
 
-You restrict the data to just the control and *spectabilis* exclosure plots. Then you calculate the number and proportion of each species of k-rat caught in each plot and visualize those proportions.
+Next, you decide to test the second prediction: that there will be proportionally fewer *spectabilis* caught in the *spectabilis* exclusion plots than in the control plot.
+
+You restrict the data to just the control and *spectabilis* exclosure plots. Then you calculate the number and proportion of each species of k-rat caught in each plot and visualize the proportions for *spectabilis.*
 
 ```{r}
-# Prediction 2: Expect fewer *spectabilis* in the *spectabilis* exclusion plots than in the control plot
-
 # Focus in on the control and spectab exclosure plots
 control_spectab <- krats %>%
   filter(plot_type %in% c("Control", "Spectab exclosure"))
@@ -84,7 +85,7 @@ prop_spectab %>%
   geom_point()+
   geom_line()+
   theme_minimal()+
-  labs(title = "Spectab exclosures did not reduce proportion of\nspectab captures",
+  labs(title = "Spectab exclosures reduced the proportion of spectab captures",
        y = "Spectabilis proportion",
        x = "Year",
        color = "Plot type")
