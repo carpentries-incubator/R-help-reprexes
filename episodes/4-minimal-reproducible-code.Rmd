@@ -119,7 +119,6 @@ Now, reflect on a time when you have had to look through and run someone else's 
 How do situations like this make you feel? Turn to the person next to you and discuss for a minute (or write some reflections on the Etherpad).
 
 This exercise should take about 3 minutes.
-
 :::solution
 FIXME: I think this is way too long and needs to be more targeted. We are trying to get them to realize that this is a frustrating/overwhelming/scary experience for the person in the helper role.
 
@@ -440,21 +439,21 @@ What are some ways that you could use a minimal dataset to make this reprex bett
 This exercise should take about 5 minutes.
 ::: solution
 - Could provide the `control_spectab` file directly to Jordan, e.g. via email attachment. 
-  - Advantages: less work, keeps the context, Jordan is a coworker so they probably understand it. 
+- Advantages: less work, keeps the context, Jordan is a coworker so they probably understand it. 
   
-  - Disadvantages: file might be large, relies on ability to email file, won't be able to use this method if you post the question online, file contains extra rows/columns that aren't actually necessary to this problem and might therefore be confusing.
+- Disadvantages: file might be large, relies on ability to email file, won't be able to use this method if you post the question online, file contains extra rows/columns that aren't actually necessary to this problem and might therefore be confusing.
   
 - Could create a new dataset from scratch. 
-  - Advantages
-  - Disadvantages
+- Advantages
+- Disadvantages
   
 - Could take a minimal subset of the `control_spectab` data and use `dput` or similar to include it directly
-  - Advantages
-  - Disadvantages
+- Advantages
+- Disadvantages
 
 - Could use a built-in dataset from R
-  - Advantages
-  - Disadvantages
+- Advantages
+- Disadvantages
 :::
 ::::::::::::::::::::::::::::::::::::::::::: 
 
