@@ -3,14 +3,16 @@ title: "Identify the problem and make a plan"
 teaching: 50
 exercises: 20
 ---
-  
-  ::: questions
+
+
+::: questions
 -   What do I do when I encounter an error?
-  -   What do I do when my code outputs something I don’t expect?
-  -   Why do errors and warnings appear in R?
-  -   How can I find which areas of code are responsible for errors?
-  -   How can I fix my code? What other options exist if I can't fix it?
+-   What do I do when my code outputs something I don’t expect?
+-   Why do errors and warnings appear in R?
+-   How can I find which areas of code are responsible for errors?
+-   How can I fix my code? What other options exist if I can't fix it?
 :::
+
 
 ::: objectives
 After completing this episode, participants should be able to...
@@ -46,7 +48,7 @@ Something that may go wrong is an error in your code. By this, we mean any code 
 
 The accompanying error message attempts to tell you exactly how your code failed. For example, consider the following error message that occurs when I run this command in the R console:
   
-  ```{r,error=T}
+```{r,error=T}
 ggplot(x = taxa) + geom_bar()
 ```
 
@@ -64,7 +66,7 @@ Let's go over each part briefly. First, we see an error from a function called `
 
 Here, a Help window pops up in RStudio which provides some more information. Skipping the general description at the top, we see ggplot takes positional arguments of `data`, **then** `mapping`, which uses the `aes` call. We can see in "Arguments" that the `aes(x = rodents$taxa)` object used in the plot is attempted by `fortify` to be converted to a data.frame: now the picture is clear! We accidentally passed our `mapping` argument (telling ggplot how to map variables to the plot) into the position it expected `data` in the form of a data frame. And if we scroll down to "Examples", to "Pattern 1", we can see exactly how ggplot expects these arguments in practice. Let's amend our result:
   
-  ```{r}
+```{r}
 ggplot(rodents, aes(x = taxa)) + geom_bar()
 ```
 
@@ -92,19 +94,19 @@ Another type of 'error' which you may encounter is when your R code runs without
   
   With our rodent analysis, the next step in the plan is to subset to just the `Rodent` taxa (as opposed to other taxa: Bird, Rabbit, Reptile or NA). Let's quickly check to see how much data we'd be throwing out by doing so:
   
-  ```{r}
+```{r}
 table(rodents$taxa)
 ```
 
 We're interested in the Rodents, and thankfully it seems like a majority of our observations will be maintained when subsetting to rodents. Except wait. In our plot, we can clearly see the presence of NA values. Why are we not seeing them here? This is an example of a semantic error -- our command is executed correctly, but the output is not everything we intended. Having no error message to interpret, let's jump straight to the documentation:
   
-  ```{r}
+```{r}
 ?table
 ```
 
 Here, the documentation provides some clues: there seems to be an argument called `useNA` that accepts "no", "ifany", and "always", but it's not immediately apparent which one we should use. As a second approach, let's go to `Examples` to see if we can find any quick fixes. Here we see a couple lines further down:
   
-  ``` r
+``` r
 table(a)                 # does not report NA's
 table(a, exclude = NULL) # reports NA's
 ```
@@ -125,7 +127,7 @@ rodents <- rodents %>% filter(taxa == "Rodent")
 
 In general, when encountering a semantic error for which a remedy is not immediately apparent, some steps to take include:
   
-  1.  Reading any warning or informational messages that may pop up when executing your code.
+1.  Reading any warning or informational messages that may pop up when executing your code.
 
 2.  Pulling up the R Documentation for that function (which may be specific to a package, such as with ggplot).
 
@@ -159,7 +161,7 @@ Uh-oh. Another error here, this time in "combine_vars?" What is that? "Faceting 
 
 Well it may be clear enough that we seem to be missing "species" values where we intend. Maybe we can try to make a different graph looking at what species values are present? Or perhaps there's an error earlier -- our safest approach may actually be seeing what krats looks like:
   
-  ```{r}
+```{r}
 krats
 ```
 
@@ -222,7 +224,7 @@ In general, we need to isolate the specific areas of code causing the bug or pro
 
 Let's add to our list of steps for identifying the problem:
   
-  0.  Identify the problem area -- add print statements immediately upstream or downstream of problem areas, check the desired output from functions, and see whether any intermediate output can be further isolated.
+0.  Identify the problem area -- add print statements immediately upstream or downstream of problem areas, check the desired output from functions, and see whether any intermediate output can be further isolated.
 
 1.  Read each part of the error or warning message (if applicable), to see if we can immediately interpret and act on any.
 
