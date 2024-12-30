@@ -1,27 +1,27 @@
 ---
-title: "Identify the problem and make a plan"
+  title: "Identify the problem and make a plan"
 teaching: 50
 exercises: 20
 ---
-
-::: questions
+  
+  ::: questions
 -   What do I do when I encounter an error?
--   What do I do when my code outputs something I don’t expect?
--   Why do errors and warnings appear in R?
--   Which areas of code are responsible for errors?
--   How can I fix my code? What other options exist if I can't fix it?
+  -   What do I do when my code outputs something I don’t expect?
+  -   Why do errors and warnings appear in R?
+  -   How can I find which areas of code are responsible for errors?
+  -   How can I fix my code? What other options exist if I can't fix it?
 :::
 
 ::: objectives
 After completing this episode, participants should be able to...
 
 -   Describe how the desired code output differs from the actual output
--   Describe a general category of error message (e.g. syntax error, semantic errors, package-specific errors, etc.)
+-   Categorize an error message (e.g. syntax error, semantic errors, package-specific errors, etc.)
 -   decode/describe what an error message is trying to communicate
 -   Identify specific lines and/or functions generating the error message
 -   Use R Documentation to look up function syntax and examples
 -   Quickly fix commonly-encountered R errors using the internet
--   Identify which problems are better suited for asking for further help, including online help and reprex
+-   Identify when a problem is better suited for asking for further help, including online help and reprex
 :::
 
 ```{r, echo=F}
@@ -35,15 +35,18 @@ rodents <- read_csv("data/surveys_complete_77_89.csv")
 
 ```
 
-The first step we'll cover is what to do when encountering an error or other undesired output from your code. It is our experience that many seemingly-impossible errors can be fixed on the route to create a reproducible example for an expert helper. With this episode, we hope to teach you the basics about identifying how your error might be occurring, and how to isolate the problem for others to look at.
+
+(initial intro -- edit upon looking at intro episode)
+
+The first step we'll cover is what to do when encountering an error or other undesired output from your code. With this episode, we hope to teach you the basics about identifying errors, rectifying them if possible, and if not, how to isolate the problem for others to look at. While the "RRRR I'm Stuck" lesson outlines a complete workflow on solving coding problems from errors to minimum reproducible examples, it is our experience that many seemingly-impossible errors can be understood and fixed without the full workflow. Here, we'll go over errors, including how to solve many by yourself.
 
 ## 3.1 What do I do when I encounter an error?
 
 Something that may go wrong is an error in your code. By this, we mean any code which generates an error message. This happens when R is unable to run your code, for a variety of reasons. While we can't review every type of reason your code generates an error, we will try to teach you some tools for you to interpret and figure out errors yourself.
 
-For example, the accompanying error message attempts to tell you exactly how your code failed. For example, consider the following error message that occurs when I run this command in the R console:
-
-```{r,error=T}
+The accompanying error message attempts to tell you exactly how your code failed. For example, consider the following error message that occurs when I run this command in the R console:
+  
+  ```{r,error=T}
 ggplot(x = taxa) + geom_bar()
 ```
 
@@ -60,8 +63,8 @@ Let's go over each part briefly. First, we see an error from a function called `
 `?ggplot`
 
 Here, a Help window pops up in RStudio which provides some more information. Skipping the general description at the top, we see ggplot takes positional arguments of `data`, **then** `mapping`, which uses the `aes` call. We can see in "Arguments" that the `aes(x = rodents$taxa)` object used in the plot is attempted by `fortify` to be converted to a data.frame: now the picture is clear! We accidentally passed our `mapping` argument (telling ggplot how to map variables to the plot) into the position it expected `data` in the form of a data frame. And if we scroll down to "Examples", to "Pattern 1", we can see exactly how ggplot expects these arguments in practice. Let's amend our result:
-
-```{r}
+  
+  ```{r}
 ggplot(rodents, aes(x = taxa)) + geom_bar()
 ```
 
@@ -86,22 +89,22 @@ And, when all else fails, preparing our code into a reproducible example for exp
 ## 3.2 What do I do when my code outputs something I don't expect
 
 Another type of 'error' which you may encounter is when your R code runs without errors, but does not produce the desired output. You may sometimes see these called "semantic errors" (as opposed to syntax errors, though these term themselves are vague within computer science and describe a variety of different scenarios). As with actual R errors, semantic errors may occur for a variety of non-intuitive reasons, and are often harder to solve as there is no description of the error -- you must work out where your code is defective yourself!
-
-With our rodent analysis, the next step in the plan is to subset to just the `Rodent` taxa (as opposed to other taxa: Bird, Rabbit, Reptile or NA). Let's quickly check to see how much data we'd be throwing out by doing so:
-
-```{r}
+  
+  With our rodent analysis, the next step in the plan is to subset to just the `Rodent` taxa (as opposed to other taxa: Bird, Rabbit, Reptile or NA). Let's quickly check to see how much data we'd be throwing out by doing so:
+  
+  ```{r}
 table(rodents$taxa)
 ```
 
 We're interested in the Rodents, and thankfully it seems like a majority of our observations will be maintained when subsetting to rodents. Except wait. In our plot, we can clearly see the presence of NA values. Why are we not seeing them here? This is an example of a semantic error -- our command is executed correctly, but the output is not everything we intended. Having no error message to interpret, let's jump straight to the documentation:
-
-```{r}
+  
+  ```{r}
 ?table
 ```
 
 Here, the documentation provides some clues: there seems to be an argument called `useNA` that accepts "no", "ifany", and "always", but it's not immediately apparent which one we should use. As a second approach, let's go to `Examples` to see if we can find any quick fixes. Here we see a couple lines further down:
-
-``` r
+  
+  ``` r
 table(a)                 # does not report NA's
 table(a, exclude = NULL) # reports NA's
 ```
@@ -121,14 +124,15 @@ rodents <- rodents %>% filter(taxa == "Rodent")
 ## Summary
 
 In general, when encountering a semantic error for which a remedy is not immediately apparent, some steps to take include:
+  
+  1.  Reading any warning or informational messages that may pop up when executing your code.
 
-1.  Reading any warning or informational messages that may pop up when executing your code.
+2.  Pulling up the R Documentation for that function (which may be specific to a package, such as with ggplot).
 
-2.  Changing the input to your function call to see if the behavior is ...
+3.  Reading through the documentation's Description, Usage, Arguments, Details and Examples entries for greater insight into our error.
 
-3.  Pulling up the R Documentation for that function (which may be specific to a package, such as with ggplot).
+4.  Changing the input to your function call to see if the output or semantic error can be made more apparent (maybe delete).
 
-4.  Reading through the documentation's Description, Usage, Arguments, Details and Examples entries for greater insight into our error.
 
 And, when all else fails, preparing our code into a reproducible example for expert help. Note, there are fewer options available with semantic errors as when an error message prevents your code from running. You may find yourself having to isolate or ask for help more often than with easily-solvable syntax errors.
 
@@ -140,7 +144,7 @@ Generally, the more your code deviates from just using base R functions, or the 
 
 Isolating your problem may not be as simple as assessing the output from a single function call on the line of code which produces your error. Often, it may be difficult to determine which line(s) in your code are producing the error.
 
-Consider the example below, where we now are attempting to see how which species of kangaroo rodents appear in different plot types over the years. To do so, we'll filter our dataset to just include the genus *Dipodomys*, and then plot a histogram of which how many observations are seen in each plot type over an x axis of years.
+Consider the example below, where we now are attempting to see how which species of kangaroo rodents appear in different plot types over the years. To do so, we'll filter our dataset to just include the genus *Dipodomys*. Then we'll plot a histogram of which how many observations are seen in each plot type over an x axis of years.
 
 ```{r, error=T}
 krats <- rodents %>% filter(genus == "Dipadomys") #kangaroo rat genus
@@ -154,8 +158,8 @@ facet_wrap(~species)
 Uh-oh. Another error here, this time in "combine_vars?" What is that? "Faceting variables must have at least one value": What does that mean?
 
 Well it may be clear enough that we seem to be missing "species" values where we intend. Maybe we can try to make a different graph looking at what species values are present? Or perhaps there's an error earlier -- our safest approach may actually be seeing what krats looks like:
-
-```{r}
+  
+  ```{r}
 krats
 ```
 
@@ -177,7 +181,7 @@ facet_wrap(~species)
 
 ```
 
-Our improved code here looks good. A quick "dim" call confirms we now have all the *Dipodomys* observations, and our plot is looking better. In general, having a 'print' statement or some other output before plots or other major steps can be a good way to check your code is producing intermediate results consistent with your expectations.
+Our improved code here looks good. Checking the dimensions of our subsetted data frame using the dim() function confirms we now have all the *Dipodomys* observations, and our plot is looking better. In general, having a 'print' statement or some other output before plots or other major steps can be a good way to check your code is producing intermediate results consistent with your expectations.
 
 
 
@@ -194,15 +198,17 @@ dim(krats)
 krats <- krats %>% mutate(date = lubridate::ymd(paste(year,month,day,sep='-')))
 
 ggplot(krats, aes(date, fill=plot_type)) + 
-geom_histogram() +
-facet_wrap(~species)
+  geom_histogram() +
+  facet_wrap(~species)
 
 ```
 
 This looks much better, and is easier to see the trends over time as well. Note our x axis still shows bins with year labelings, but the continuous spread of our data over these bins shows that dates are treated more continuously and fall more continuously within histogram bins.
 
 
-One aspect we can see with this exercise above is that sometimes the 'problem' we need to solve is not super intuitive or can be isolated to one line. By setting up a reproducible example, we can see the isolated problem with real data rather than simply asking a proximal problem online or to a friend (i.e. 'how can i change my plot to look like so'). This allows the community to assist in identifying the problem -- you don't always need to have it figured out before asking for help! 
+One aspect we can see with this exercise above is that sometimes the 'problem' we need to solve is not super intuitive or can be isolated to one line. Before attempting to hack a bespoke solution, sometimes it's helpful to consider whether this might be an often-encountered problem (even if you can't exactly articulate the problem yourself) or one where you have some intuition there is a simpler or more elegant solution. 
+
+By setting up a reproducible example, we can isolate the problem with real data rather than simply asking a proximal question online or to a friend (e.g. 'how can i change my plot to look like so'). This allows the community to assist in identifying the problem -- you don't always need to have it figured out before asking for help! 
 
 
 :::::: callout
@@ -215,8 +221,8 @@ Often, giving your expert helpers access to the entire problem, with a detailed 
 In general, we need to isolate the specific areas of code causing the bug or problem. There is no general rule of thumb as to how large this needs to be, but in general, think about what we would want to include in a reprex. Any early lines which we know run correctly and as intended may not need to be included, and we should seek to isolate the problem area as much as we can to make it understandable to others.
 
 Let's add to our list of steps for identifying the problem:
-
-0.  Identify the problem area -- add print statements immediately upstream or downstream of problem areas, check the desired output from functions, and see whether any intermediate output can be further isolated.
+  
+  0.  Identify the problem area -- add print statements immediately upstream or downstream of problem areas, check the desired output from functions, and see whether any intermediate output can be further isolated.
 
 1.  Read each part of the error or warning message (if applicable), to see if we can immediately interpret and act on any.
 
@@ -229,7 +235,7 @@ Let's add to our list of steps for identifying the problem:
 And, when all else fails, prepare our code into a reproducible example for expert help.
 
 
-While this is similar to our previous checklists, we can now understand these steps as a continuous cycle of isolating the problem into more and more discrete chunks for a reproducible example. Any step in the above that helps us identify the specific areas or aspects of our code that are failing in particular, we can zoom in on and restart the checklist. We can stop as soon as we don't understand anymore how our code fails, at which point we can excise that area for further help.
+While this is similar to our previous checklists, we can now understand these steps as a continuous cycle of isolating the problem into more and more discrete chunks for a reproducible example. Any step in the above that helps us identify the specific areas or aspects of our code that are failing in particular, we can zoom in on and restart the checklist. We can stop as soon as we don't understand anymore how our code fails. At this point, we can excise that area for further help using a reprex.
 
 Finally, let's make our plot publication-ready by changing some aesthetics. Let's also add a vertical line to show when the study design changed on the exclosures.
 
