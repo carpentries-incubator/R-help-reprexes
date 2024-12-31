@@ -1,7 +1,7 @@
 ---
 title: "Minimal Reproducible Data"
 teaching: 90
-excercises: 6
+exercises: 6
 ---
 
 ```{r setup, include=FALSE}

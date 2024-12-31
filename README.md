@@ -1,6 +1,6 @@
 # RRRRR, I'm stuck!
 [![DOI](https://img.shields.io/badge/DOI-10.17605%2FOSF.IO%2F37JPQ-blue?link=https%3A%2F%2Fosf.io%2F37jpq%2F)](https://osf.io/37jpq/) 
-[![Website](https://img.shields.io/badge/website-RRRRR..._I'm_stuck-B067B0?link=https%3A%2F%2Fcarpentries-incubator.github.io%2FR-help-reprexes%2F)](https://carpentries-incubator.github.io/R-help-reprexes/)
+[![Website](https://img.shields.io/badge/website-RRRRR,_I'm_stuck-B067B0?link=https%3A%2F%2Fcarpentries-incubator.github.io%2FR-help-reprexes%2F)](https://carpentries-incubator.github.io/R-help-reprexes/)
 [![License](https://img.shields.io/badge/license-CC_BY-green?link=https%3A%2F%2Fgithub.com%2Fkaijagahm%2FR-help-reprexes%2Fblob%2Fmain%2FLICENSE.md)](LICENSE.md)
 
 This is a lesson for beginner R coders in (ecological) data science. This lesson will teach how to identify and resolve problematic code by using minimal reproducible examples to ask for help from the community. While this lesson should be appropriate for all levels, it is merely a supplement and not a replacement for an intro to R lesson. As such, this lesson assumes a basic understanding of data structures, manipulation, and visualization in R. Familiarity with the `tidyverse` package is helpful but not required. An example of an introductory lesson that covers all pre-requisites is The Carpentries' [Data Analysis and Visualization in R for Ecologists](https://datacarpentry.org/R-ecology-lesson/).
