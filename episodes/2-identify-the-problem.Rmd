@@ -123,6 +123,50 @@ Now, we do see that by subsetting to the "Rodent" taxa, we are losing about 357 
 rodents <- rodents %>% filter(taxa == "Rodent")
 ```
 
+
+
+::::::: challenge 
+
+There are 3 lines of code below, and each attempts to create the same plot. Identify which produces a syntax error, which produces a semantic error, and which correctly creates the plot (hint: this may require you inferring what type of graph we're trying to create!)
+
+
+
+
+A.  `ggplot(rodents) + geom_bin_2d(aes(month, plot_type))`
+
+B.  `ggplot(rodents) + geom_tile(aes(month, plot_type), stat = "count")`
+
+C.  `ggplot(rodents) + geom_tile(aes(month, plot_type))`
+
+
+::::: solution
+
+In this case, A correctly creates the graph, plotting as colors in the tile the number of times an observation is seen. It essentially runs the following lines of code:
+
+```{r}
+rodents_summary <- rodents %>% group_by(plot_type, month) %>% summarize(count=n())
+ggplot(rodents_summary) + geom_tile(aes(month, plot_type, fill=count))
+```
+
+B is a syntax error, and will produce the following error: 
+
+```{r, error=T}
+ggplot(rodents) + geom_tile(aes(month, plot_type), stat = "count")
+```
+
+Finally, C is a semantic error. It produces a plot, which is rather meaningless:
+
+```{r}
+ggplot(rodents) + geom_tile(aes(month, plot_type))
+```
+
+:::::
+
+
+::::::: 
+
+
+
 ## Summary
 
 In general, when encountering a semantic error for which a remedy is not immediately apparent, some steps to take include:
