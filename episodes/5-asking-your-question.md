@@ -24,6 +24,6 @@ exercises: 2
 ::::::::::::::::::::::::::::::::::::: keypoints
 
 - The {reprex} package makes it easy to format and share your reproducible examples.
+- The {reprex} package helps you test whether your reprex is reproducible, and also helps you prepare the reprex to share with others.
 - Following a certain set of steps will make your questions clearer and likelier to get answered.
-
 ::::::::::::::::::::::::::::::::::::::::::::::::
