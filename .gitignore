@@ -36,3 +36,8 @@ docs/
 po/*~
 # renv detritus
 renv/sandbox/
+#apple architecture nonsense
+.DS_Store
+episodes/.DS_Store
+*/.DS_Store
+
