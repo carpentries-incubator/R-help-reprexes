@@ -185,6 +185,73 @@ Now, we do see that by subsetting to the "Rodent" taxa, we are losing about 357 
 rodents <- rodents %>% filter(taxa == "Rodent")
 ```
 
+
+
+::::::: challenge 
+
+There are 3 lines of code below, and each attempts to create the same plot. Identify which produces a syntax error, which produces a semantic error, and which correctly creates the plot (hint: this may require you inferring what type of graph we're trying to create!)
+
+
+
+
+A.  `ggplot(rodents) + geom_bin_2d(aes(month, plot_type))`
+
+B.  `ggplot(rodents) + geom_tile(aes(month, plot_type), stat = "count")`
+
+C.  `ggplot(rodents) + geom_tile(aes(month, plot_type))`
+
+
+::::: solution
+
+In this case, A correctly creates the graph, plotting as colors in the tile the number of times an observation is seen. It essentially runs the following lines of code:
+
+
+``` r
+rodents_summary <- rodents %>% group_by(plot_type, month) %>% summarize(count=n())
+```
+
+``` output
+`summarise()` has grouped output by 'plot_type'. You can override using the
+`.groups` argument.
+```
+
+``` r
+ggplot(rodents_summary) + geom_tile(aes(month, plot_type, fill=count))
+```
+
+<img src="fig/2-identify-the-problem-rendered-unnamed-chunk-9-1.png" style="display: block; margin: auto;" />
+
+B is a syntax error, and will produce the following error: 
+
+
+``` r
+ggplot(rodents) + geom_tile(aes(month, plot_type), stat = "count")
+```
+
+``` error
+Error in `geom_tile()`:
+! Problem while computing stat.
+ℹ Error occurred in the 1st layer.
+Caused by error in `setup_params()`:
+! `stat_count()` must only have an x or y aesthetic.
+```
+
+Finally, C is a semantic error. It produces a plot, which is rather meaningless:
+
+
+``` r
+ggplot(rodents) + geom_tile(aes(month, plot_type))
+```
+
+<img src="fig/2-identify-the-problem-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" />
+
+:::::
+
+
+::::::: 
+
+
+
 ## Summary
 
 In general, when encountering a semantic error for which a remedy is not immediately apparent, some steps to take include:
@@ -287,7 +354,7 @@ facet_wrap(~species)
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-<img src="fig/2-identify-the-problem-rendered-unnamed-chunk-12-1.png" style="display: block; margin: auto;" />
+<img src="fig/2-identify-the-problem-rendered-unnamed-chunk-15-1.png" style="display: block; margin: auto;" />
 
 Our improved code here looks good. Checking the dimensions of our subsetted data frame using the dim() function confirms we now have all the *Dipodomys* observations, and our plot is looking better. In general, having a 'print' statement or some other output before plots or other major steps can be a good way to check your code is producing intermediate results consistent with your expectations.
 
@@ -321,7 +388,7 @@ ggplot(krats, aes(date, fill=plot_type)) +
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-<img src="fig/2-identify-the-problem-rendered-unnamed-chunk-13-1.png" style="display: block; margin: auto;" />
+<img src="fig/2-identify-the-problem-rendered-unnamed-chunk-16-1.png" style="display: block; margin: auto;" />
 
 This looks much better, and is easier to see the trends over time as well. Note our x axis still shows bins with year labelings, but the continuous spread of our data over these bins shows that dates are treated more continuously and fall more continuously within histogram bins.
 
@@ -386,6 +453,6 @@ krats %>%
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-<img src="fig/2-identify-the-problem-rendered-unnamed-chunk-14-1.png" style="display: block; margin: auto;" />
+<img src="fig/2-identify-the-problem-rendered-unnamed-chunk-17-1.png" style="display: block; margin: auto;" />
 
 It looks like the study change helped to reduce *merriami* sightings in the Rodent and Short-term Krat exclosures.
