@@ -1,7 +1,7 @@
 ---
 title: "Minimal Reproducible Data"
 teaching: 90
-excercises: 6
+exercises: 6
 ---
 
 
@@ -236,7 +236,7 @@ x
 ```
 
 ``` output
- [1] 10  1  5  9  2  7  8  4  6  3
+ [1]  3 10  7  5  8  4  6  2  1  9
 ```
 
 Or you can randomly sample from a normal distribution
@@ -248,8 +248,8 @@ x
 ```
 
 ``` output
- [1] -0.98657300  1.10974854  0.93699581  1.24690724 -1.87082909  1.48664080
- [7] -0.01691745 -0.02549324  0.05642538 -0.95861351
+ [1]  0.1907835  1.9588443 -0.7589721 -0.2485772 -0.2695074  1.1330484
+ [7] -0.4387425 -1.0220218 -0.6056941 -1.1155357
 ```
 
 You can also use `letters` to create factors.
@@ -261,7 +261,7 @@ x
 ```
 
 ``` output
- [1] "c" "c" "d" "c" "c" "c" "c" "c" "d" "c" "b" "d" "a" "d" "b" "a" "c" "c" "b"
+ [1] "c" "d" "d" "c" "a" "c" "d" "c" "d" "c" "c" "d" "d" "c" "d" "d" "d" "d" "d"
 [20] "d"
 ```
 
@@ -276,12 +276,12 @@ head(data)
 
 ``` output
   x          y
-1 b -0.2619031
-2 a -0.5924968
-3 a  1.0555866
-4 b -1.2199813
-5 b -1.0856028
-6 c -0.7476225
+1 b  1.1803639
+2 a -0.7964599
+3 b -0.3271743
+4 b -1.4217263
+5 b  0.4900045
+6 b -1.7610704
 ```
 
 **However**, when sampling at random you must remember to `set.seed()` before sending it to someone to make sure you both get the same numbers!
@@ -388,26 +388,26 @@ sample_data
 
 ``` output
    Day Plot Species
-1    1   P1       C
-2    2   P2       D
+1    1   P1       A
+2    2   P1       D
 3    3   P1       A
-4    4   P1       C
-5    5   P1       D
-6    6   P2       B
-7    7   P1       A
-8    8   P2       D
-9    9   P1       C
-10  10   P2       A
-11   1   P1       C
-12   2   P2       A
-13   3   P1       D
-14   4   P2       A
-15   5   P2       B
-16   6   P1       A
+4    4   P2       A
+5    5   P2       A
+6    6   P1       B
+7    7   P1       B
+8    8   P2       A
+9    9   P1       D
+10  10   P2       D
+11   1   P2       A
+12   2   P1       A
+13   3   P1       A
+14   4   P1       B
+15   5   P2       C
+16   6   P2       D
 17   7   P2       D
-18   8   P2       C
-19   9   P1       B
-20  10   P1       C
+18   8   P2       B
+19   9   P2       D
+20  10   P2       A
 ```
 
 Great!
