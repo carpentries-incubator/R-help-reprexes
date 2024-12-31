@@ -242,12 +242,21 @@
 <div class="accordion accordion-flush" id="accordionFlushcurrent">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-headingcurrent">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
         5. Asking your question
         </span>
-      
+      </button>
     </div><!--/div.accordion-header-->
+
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+      <div class="accordion-body">
+        <ul><li><a href="#reproducibility">1. Reproducibility</a></li>
+<li><a href="#other-features-of-reprex">Other features of <code>{reprex}</code></a></li>
+<li><a href="#testing-it-out">Testing it out</a></li>
+        </ul></div><!--/div.accordion-body-->
+    </div><!--/div.accordion-collapse-->
 
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
@@ -343,12 +352,14 @@ helper, or online?</li>
 <div class="card-body">
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
-<ul><li>Use the reprex package to support making reproducible examples.</li>
+<ul><li>Use the reprex package to test whether an example is
+reproducible.</li>
 <li>Use the reprex package to format reprexes for posting online.</li>
 <li>Understand the benefits and drawbacks of different places to get
 help.</li>
 <li>Have a road map to follow when posting a question to make sure it’s
 a good question.</li>
+<li>Understand what the {reprex} package does and doesn’t do.</li>
 </ul></div>
 </div>
 </div>
@@ -371,14 +382,450 @@ and likelier to get answered.</li>
 </ul></div>
 </div>
 </div>
+<p>Congratulations on making it this far. Creating a good reproducible
+example is a lot of work! In this episode, we’ll talk about how to
+finish up your reprex, make sure it’s ready to send to your helper or
+post online, and make absolutely double sure that it actually runs.</p>
+<p>There are three principles to remember when you think about sharing
+your reprex with other people:</p>
+<ol style="list-style-type: decimal"><li>Reproducibility</li>
+<li>Formatting</li>
+<li>Context</li>
+</ol><section><h2 class="section-heading" id="reproducibility">1. Reproducibility<a class="anchor" aria-label="anchor" href="#reproducibility"></a></h2>
+<hr class="half-width"><p>You might be thinking, <em>Haven’t we already talked a lot about
+reproducibility?</em> We have! We discussed variables and packages,
+minimal datasets, and making sure that the problem is meaningfully
+reproduced by the data that you choose. But there are some reasons that
+a code snippet that appears reproducible in your own R session might not
+actually be runnable by someone else.</p>
+<p>Some possible reasons:</p>
+<ul><li><p>You forgot to account for the origins of some functions and/or
+variables. We went through our code methodically, but what if we missed
+something? It would be nice to confirm that the code is as
+self-contained as we thought it was.</p></li>
+<li><p>Your code accidentally relies on objects in your R environment
+that won’t exist for other people. For example, imagine you defined a
+function <code>my_awesome_custom_function()</code> in a project-specific
+<code>functions.R</code> script, and your code calls that
+function.</p></li>
+</ul><figure><img src="../fig/custom_function.png" alt='A function called "my_awesome_custom_function" is lurking in my R environment. I must have defined it a while ago and forgotten! Code that includes this function will not run for someone else unless the function definition is also included in the reprex.' class="figure mx-auto d-block"><div class="figcaption">A function called
+<code>"my_awesome_custom_function"</code> is lurking in my R
+environment. I must have defined it a while ago and forgotten! Code that
+includes this function will not run for someone else unless the function
+definition is also included in the reprex.</div>
+</figure><pre><code><span><span class="fu">my_awesome_custom_function</span><span class="op">(</span><span class="st">"rain"</span><span class="op">)</span></span>
+<span><span class="co"># [1] "rain is awesome!"</span></span></code></pre>
+<p>I might conclude that this code is reproducible–after all, it works
+when I run it! But unless I include the function defintion in the reprex
+itself, nobody who doesn’t already have that custom function defined in
+their R environment will be able to run the code.</p>
+<p>A corrected reprex would look like this:</p>
+<pre><code><span><span class="va">my_awesome_custom_function</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="fu">print</span><span class="op">(</span><span class="fu">paste0</span><span class="op">(</span><span class="va">x</span>, <span class="st">" is awesome!"</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span>
+<span><span class="fu">my_awesome_custom_function</span><span class="op">(</span><span class="st">"rain"</span><span class="op">)</span></span>
+<span><span class="co">#[1] "rain is awesome!"</span></span></code></pre>
+<p>Wouldn’t it be nice if we had a way to check whether any traps like
+this are lurking in our draft reprex?</p>
+<p>Luckily, there’s a package that can help you test out your reprexes
+in a clean, isolated environment to make sure they’re actually
+reproducible. Introducing <a href="https://reprex.tidyverse.org" class="external-link">reprex</a>!</p>
+<p>The most important function in the <a href="https://reprex.tidyverse.org" class="external-link">reprex</a> package is
+called <code>reprex()</code>. Here’s how to use it.</p>
+<p>First, install and load the <a href="https://reprex.tidyverse.org" class="external-link">reprex</a> package.</p>
+<pre><code><span><span class="co">#install.packages("reprex")</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">reprex</span><span class="op">)</span></span></code></pre>
+<p>Second, write some code. This is your reproducible example.</p>
+<pre><code><span><span class="op">(</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span>
+<span><span class="fu">mean</span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></code></pre>
+<p>Third, highlight that code and copy it to your clipboard
+(e.g. <code>Cmd + C</code> on Mac, or <code>Ctrl + C</code> on
+Windows).</p>
+<p>Finally, type <code>reprex()</code> into your console.</p>
+<pre><code><span><span class="co"># (with the target code snippet copied to your clipboard already...)</span></span>
+<span><span class="co"># In the console:</span></span>
+<span><span class="fu">reprex</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<p><a href="https://reprex.tidyverse.org" class="external-link">reprex</a> will grab the code that you copied to your
+clipboard and <em>run that code in an isolated environment</em>. It will
+return a nicely formatted reproducible example that includes your code
+and and any results, plots, warnings, or errors generated.</p>
+<p>The generated output will be on your clipboard by default, so all you
+have to do is paste it into GitHub, StackOverflow, Slack, or another
+venue.</p>
+<div id="callout1" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Callout</h3>
+<div class="callout-content">
+<p>This workflow is unusual and takes some getting used to! Instead of
+copying your code <em>into</em> the function, you simply copy it to the
+clipboard (a mysterious, invisible place to most of us) and then let the
+blank, empty <code>reprex()</code> function go over to the clipboard by
+itself and find it.</p>
+<p>And then the completed, rendered reprex replaces the original code on
+the clipboard and all you need to do is paste, not copy and paste.</p>
+<p>Try to practice this workflow a few times with very simple reprexes
+so you can get a sense for the steps.</p>
+</div>
+</div>
+</div>
+<p>Let’s practice this one more time. Here’s some very simple code:</p>
+<pre><code><span><span class="kw">library</span><span class="op">(</span><span class="va">ggplot2</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
+<span><span class="va">mpg</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">displ</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<p>Let’s highlight the code snippet, copy it to the clipboard, and then
+run <code>reprex()</code> in the console.</p>
+<pre><code><span><span class="co"># In the console:</span></span>
+<span><span class="fu">reprex</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<p>The result, which was automatically placed onto my clipboard and
+which I pasted here, looks like this:</p>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">ggplot2</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     filter, lag</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span>
+<span><span class="va">mpg</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">displ</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="https://i.imgur.com/bOA0BAS.png" class="figure mx-auto d-block"><!-- --></figure><p><sup>Created on 2024-12-29 with <a href="https://reprex.tidyverse.org" class="external-link">reprex v2.1.1</a></sup></p>
+<p>Nice and neat! It even includes the plot produced, so I don’t have to
+take screenshots and figure out how to attach them to an email or
+something.</p>
+<p>The formatting is great, but <a href="https://reprex.tidyverse.org" class="external-link">reprex</a> really shines when
+you treat it as a helpful collaborator in your process of building a
+reproducible example (including all dependencies, providing minimal
+data, etc.)</p>
+<p>Let’s see what happens if we forget to include
+<code><a href="https://ggplot2.tidyverse.org" class="external-link">library(ggplot2)</a></code> in our small reprex above.</p>
+<pre><code><span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
+<span><span class="va">mpg</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">displ</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<p>As before, let’s copy that code to the clipboard, run
+<code>reprex()</code> in the console, and paste the result here.</p>
+<pre><code><span><span class="co"># In the console:</span></span>
+<span><span class="fu">reprex</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     filter, lag</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span>
+<span><span class="va">mpg</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">displ</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error in ggplot(., aes(x = factor(cyl), y = displ)): could not find function "ggplot"</span></span></code></pre>
+</div>
+<p><sup>Created on 2024-12-29 with <a href="https://reprex.tidyverse.org" class="external-link">reprex v2.1.1</a></sup></p>
+<p>Now we get an error message indicating that R cannot find the
+function <code>ggplot</code>! That’s because we forgot to load the
+<code>ggplot2</code> package in the reprex.</p>
+<p>This happened even though we had <code>ggplot2</code> already loaded
+in our own current RStudio session. <a href="https://reprex.tidyverse.org" class="external-link">reprex</a> deliberately
+“plays dumb”, running the code in a clean, isolated R session that’s
+different from the R session we’ve been working in. This keeps us honest
+and makes sure we don’t forget any important packages or function
+definitions.</p>
+<p>Let’s return to our previous example with the custom function.</p>
+<pre><code><span><span class="fu">my_awesome_custom_function</span><span class="op">(</span><span class="st">"rain"</span><span class="op">)</span></span></code></pre>
+<pre><code><span><span class="co"># In the console:</span></span>
+<span><span class="fu">reprex</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<div class="codewrapper sourceCode" id="cb14">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">my_awesome_custom_function</span><span class="op">(</span><span class="st">"rain"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error in my_awesome_custom_function("rain"): could not find function "my_awesome_custom_function"</span></span></code></pre>
+</div>
+<p><sup>Created on 2024-12-29 with <a href="https://reprex.tidyverse.org" class="external-link">reprex v2.1.1</a></sup></p>
+<p>By contrast, if we include the function definition:</p>
+<pre><code><span><span class="va">my_awesome_custom_function</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="fu">print</span><span class="op">(</span><span class="fu">paste0</span><span class="op">(</span><span class="va">x</span>, <span class="st">" is awesome!"</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span>
+<span><span class="fu">my_awesome_custom_function</span><span class="op">(</span><span class="st">"rain"</span><span class="op">)</span></span></code></pre>
+<pre><code><span><span class="co"># In the console:</span></span>
+<span><span class="fu">reprex</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<div class="codewrapper sourceCode" id="cb17">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">my_awesome_custom_function</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="fu">print</span><span class="op">(</span><span class="fu">paste0</span><span class="op">(</span><span class="va">x</span>, <span class="st">" is awesome!"</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span>
+<span><span class="fu">my_awesome_custom_function</span><span class="op">(</span><span class="st">"rain"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "rain is awesome!"</span></span></code></pre>
+</div>
+<p><sup>Created on 2024-12-29 with <a href="https://reprex.tidyverse.org" class="external-link">reprex v2.1.1</a></sup></p>
+</section><section><h2 class="section-heading" id="other-features-of-reprex">Other features of <code>{reprex}</code>
+<a class="anchor" aria-label="anchor" href="#other-features-of-reprex"></a></h2>
+<hr class="half-width"><div class="section level3">
+<h3 id="session-info">Session Info<a class="anchor" aria-label="anchor" href="#session-info"></a></h3>
+<p>Another nice thing about <a href="https://reprex.tidyverse.org" class="external-link">reprex</a> is that you can choose
+to include information about your R session, in case your error has
+something to do with your R settings rather than the code itself. You
+can do that using the <code>session_info</code> argument to
+<code>reprex()</code>.</p>
+<p>For example:</p>
+<pre><code><span><span class="kw">library</span><span class="op">(</span><span class="va">ggplot2</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
+<span><span class="va">mpg</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">displ</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<pre><code><span><span class="co"># In the console:</span></span>
+<span><span class="fu">reprex</span><span class="op">(</span>session_info <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+<div class="codewrapper sourceCode" id="cb20">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">ggplot2</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     filter, lag</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span>
+<span><span class="va">mpg</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">displ</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="https://i.imgur.com/kHBf9Zr.png" class="figure mx-auto d-block"><!-- --></figure><p><sup>Created on 2024-12-29 with <a href="https://reprex.tidyverse.org" class="external-link">reprex v2.1.1</a></sup></p>
+<details style="margin-bottom:10px;"><summary>
+Session info
+</summary><div class="codewrapper sourceCode" id="cb21">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">sessioninfo</span><span class="fu">::</span><span class="fu">session_info</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ─ Session info ───────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt;  setting  value</span></span>
+<span><span class="co">#&gt;  version  R version 4.4.2 (2024-10-31)</span></span>
+<span><span class="co">#&gt;  os       macOS Monterey 12.7.6</span></span>
+<span><span class="co">#&gt;  system   aarch64, darwin20</span></span>
+<span><span class="co">#&gt;  ui       X11</span></span>
+<span><span class="co">#&gt;  language (EN)</span></span>
+<span><span class="co">#&gt;  collate  en_US.UTF-8</span></span>
+<span><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
+<span><span class="co">#&gt;  tz       America/New_York</span></span>
+<span><span class="co">#&gt;  date     2024-12-29</span></span>
+<span><span class="co">#&gt;  pandoc   3.2 @ /Applications/RStudio.app/Contents/Resources/app/quarto/bin/tools/aarch64/ (via rmarkdown)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ─ Packages ───────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt;  package     * version date (UTC) lib source</span></span>
+<span><span class="co">#&gt;  cli           3.6.3   2024-06-21 [1] CRAN (R 4.4.0)</span></span>
+<span><span class="co">#&gt;  colorspace    2.1-1   2024-07-26 [1] CRAN (R 4.4.0)</span></span>
+<span><span class="co">#&gt;  curl          6.0.1   2024-11-20 [1] https://jeroen.r-universe.dev (R 4.4.2)</span></span>
+<span><span class="co">#&gt;  digest        0.6.37  2024-08-19 [1] CRAN (R 4.4.1)</span></span>
+<span><span class="co">#&gt;  dplyr       * 1.1.4   2023-11-17 [1] CRAN (R 4.4.0)</span></span>
+<span><span class="co">#&gt;  evaluate      1.0.1   2024-10-10 [1] CRAN (R 4.4.1)</span></span>
+<span><span class="co">#&gt;  fansi         1.0.6   2023-12-08 [1] CRAN (R 4.4.0)</span></span>
+<span><span class="co">#&gt;  farver        2.1.2   2024-05-13 [1] CRAN (R 4.4.0)</span></span>
+<span><span class="co">#&gt;  fastmap       1.2.0   2024-05-15 [1] CRAN (R 4.4.0)</span></span>
+<span><span class="co">#&gt;  fs            1.6.5   2024-10-30 [1] CRAN (R 4.4.1)</span></span>
+<span><span class="co">#&gt;  generics      0.1.3   2022-07-05 [1] CRAN (R 4.4.0)</span></span>
+<span><span class="co">#&gt;  ggplot2     * 3.5.1   2024-04-23 [1] CRAN (R 4.4.0)</span></span>
+<span><span class="co">#&gt;  glue          1.8.0   2024-09-30 [1] CRAN (R 4.4.1)</span></span>
+<span><span class="co">#&gt;  gtable        0.3.6   2024-10-25 [1] CRAN (R 4.4.1)</span></span>
+<span><span class="co">#&gt;  htmltools     0.5.8.1 2024-04-04 [1] CRAN (R 4.4.0)</span></span>
+<span><span class="co">#&gt;  knitr         1.49    2024-11-08 [1] CRAN (R 4.4.1)</span></span>
+<span><span class="co">#&gt;  labeling      0.4.3   2023-08-29 [1] CRAN (R 4.4.0)</span></span>
+<span><span class="co">#&gt;  lifecycle     1.0.4   2023-11-07 [1] CRAN (R 4.4.0)</span></span>
+<span><span class="co">#&gt;  magrittr      2.0.3   2022-03-30 [1] CRAN (R 4.4.0)</span></span>
+<span><span class="co">#&gt;  munsell       0.5.1   2024-04-01 [1] CRAN (R 4.4.0)</span></span>
+<span><span class="co">#&gt;  pillar        1.9.0   2023-03-22 [1] CRAN (R 4.4.0)</span></span>
+<span><span class="co">#&gt;  pkgconfig     2.0.3   2019-09-22 [1] CRAN (R 4.4.0)</span></span>
+<span><span class="co">#&gt;  R6            2.5.1   2021-08-19 [1] CRAN (R 4.4.0)</span></span>
+<span><span class="co">#&gt;  reprex        2.1.1   2024-07-06 [1] CRAN (R 4.4.0)</span></span>
+<span><span class="co">#&gt;  rlang         1.1.4   2024-06-04 [1] CRAN (R 4.4.0)</span></span>
+<span><span class="co">#&gt;  rmarkdown     2.29    2024-11-04 [1] CRAN (R 4.4.1)</span></span>
+<span><span class="co">#&gt;  rstudioapi    0.17.1  2024-10-22 [1] CRAN (R 4.4.1)</span></span>
+<span><span class="co">#&gt;  scales        1.3.0   2023-11-28 [1] CRAN (R 4.4.0)</span></span>
+<span><span class="co">#&gt;  sessioninfo   1.2.2   2021-12-06 [1] CRAN (R 4.4.0)</span></span>
+<span><span class="co">#&gt;  tibble        3.2.1   2023-03-20 [1] CRAN (R 4.4.0)</span></span>
+<span><span class="co">#&gt;  tidyselect    1.2.1   2024-03-11 [1] CRAN (R 4.4.0)</span></span>
+<span><span class="co">#&gt;  utf8          1.2.4   2023-10-22 [1] CRAN (R 4.4.0)</span></span>
+<span><span class="co">#&gt;  vctrs         0.6.5   2023-12-01 [1] CRAN (R 4.4.0)</span></span>
+<span><span class="co">#&gt;  withr         3.0.2   2024-10-28 [1] CRAN (R 4.4.1)</span></span>
+<span><span class="co">#&gt;  xfun          0.49    2024-10-31 [1] CRAN (R 4.4.1)</span></span>
+<span><span class="co">#&gt;  xml2          1.3.6   2023-12-04 [1] CRAN (R 4.4.0)</span></span>
+<span><span class="co">#&gt;  yaml          2.3.10  2024-07-26 [1] CRAN (R 4.4.0)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  [1] /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ──────────────────────────────────────────────────────────────────────────────</span></span></code></pre>
+</div>
+</details></div>
+<div class="section level3">
+<h3 id="formatting">Formatting<a class="anchor" aria-label="anchor" href="#formatting"></a></h3>
+<p>The output of <code>reprex()</code> is markdown, which can easily be
+copied and pasted into many sites/apps. However, different places have
+slightly different formatting conventions for markdown.
+<a href="https://reprex.tidyverse.org" class="external-link">reprex</a> lets you customize the output of your reprex
+according to where you’re planning to post it.</p>
+<p>The default, <code>venue = "gh"</code>, gives you “<a href="https://github.github.com/gfm/" class="external-link">GitHub-Flavored Markdown</a>”.
+Another format you might want is “r”, which gives you a runnable R
+script, with commented output interleaved.</p>
+<p>Check out the formatting options in the help file with
+<code>?reprex</code>, and try out a few depending on the destination of
+your reprex!</p>
+<div id="reprex-cant-do-everything-for-you" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="reprex-cant-do-everything-for-you" class="callout-inner">
+<h3 class="callout-title">
+<code>{reprex}</code> can’t do everything for
+you!</h3>
+<div class="callout-content">
+<p>People often mention <a href="https://reprex.tidyverse.org" class="external-link">reprex</a> as a useful tool for
+creating reproducible examples, but it can’t do the work of crafting the
+example for you! The package doesn’t locate the problem, pare down the
+code, create a minimal dataset, or automatically include package
+dependencies.</p>
+<p>A better way to think of <a href="https://reprex.tidyverse.org" class="external-link">reprex</a> is as a tool to check
+your work as you go through the process of creating a reproducible
+example, and to help you polish up the result.</p>
+</div>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="testing-it-out">Testing it out<a class="anchor" aria-label="anchor" href="#testing-it-out"></a></h2>
+<hr class="half-width"><p>Now that we’ve met our new reprex-making collaborator, let’s use it
+to test out the reproducible example we created in the previous
+episode.</p>
+<p>Here’s the code we wrote:</p>
+<pre><code><span><span class="co"># This script will contain my minimal reproducible example.</span></span>
+<span><span class="co"># Created by Mishka on 2024-12-17</span></span>
+<span></span>
+<span><span class="co"># Load packages needed for the analysis</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Provide a minimal dataset</span></span>
+<span><span class="va">years</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span></span>
+<span><span class="va">species</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Species A"</span>, <span class="st">"Species B"</span>, <span class="st">"Species C"</span><span class="op">)</span></span>
+<span><span class="va">plots</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Control"</span>, <span class="st">"Treatment"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">total_records_per_year</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="fl">10</span>, <span class="fl">12</span>, <span class="fl">3</span>, <span class="fl">30</span><span class="op">)</span> <span class="co"># I chose these arbitrarily</span></span>
+<span><span class="va">total_rows</span> <span class="op">&lt;-</span> <span class="fu">sum</span><span class="op">(</span><span class="va">total_records_per_year</span><span class="op">)</span> <span class="co"># how many total rows will we have?</span></span>
+<span></span>
+<span><span class="co"># Create the fake data using `rep()` and `sample()`.</span></span>
+<span><span class="va">minimal_data</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span>year <span class="op">=</span> <span class="fu">rep</span><span class="op">(</span><span class="va">years</span>, times <span class="op">=</span> <span class="va">total_records_per_year</span><span class="op">)</span>,</span>
+<span>                      plot_type <span class="op">=</span> <span class="fu">rep</span><span class="op">(</span><span class="va">plots</span>, length.out <span class="op">=</span> <span class="va">total_rows</span><span class="op">)</span>,</span>
+<span>                      species_id <span class="op">=</span> <span class="fu">sample</span><span class="op">(</span><span class="va">species</span>, size <span class="op">=</span> <span class="va">total_rows</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="co"># Because I assigned the species randomly, we should expect Species A to occur *roughly* 33% of the time.</span></span>
+<span></span>
+<span><span class="co"># Calculate proportion of Species A caught</span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">minimal_data</span><span class="op">)</span></span>
+<span><span class="va">prop_speciesA</span> <span class="op">&lt;-</span> <span class="va">minimal_data</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">year</span>, <span class="va">plot_type</span>, <span class="va">species_id</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">summarize</span><span class="op">(</span>total_count <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>prop <span class="op">=</span> <span class="va">total_count</span><span class="op">/</span><span class="fu">sum</span><span class="op">(</span><span class="va">total_count</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu">filter</span><span class="op">(</span><span class="va">species_id</span> <span class="op">==</span> <span class="st">"Species A"</span><span class="op">)</span> <span class="co"># keep only Species A</span></span>
+<span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">prop_speciesA</span><span class="op">)</span> <span class="co"># Species A only occurs 1-3% of the time in each plot type in each year. Why is this off by an order of magnitude? (This is the same problem I was seeing in my real data--the occurrence proportions were way, way too small.)</span></span></code></pre>
+<p>Time to find out if our example is actually reproducible! Let’s copy
+it to the clipboard and run <code>reprex()</code>. Since we want to give
+Jordan a runnable R script, we can use <code>venue = "r"</code>.</p>
+<pre><code><span><span class="co"># In the console:</span></span>
+<span><span class="fu">reprex</span><span class="op">(</span>venue <span class="op">=</span> <span class="st">"r"</span><span class="op">)</span></span></code></pre>
+<p>It worked!</p>
+<pre><code><span><span class="co"># This script will contain my minimal reproducible example.</span></span>
+<span><span class="co"># Created by Mishka on 2024-12-17</span></span>
+<span></span>
+<span><span class="co"># Load packages needed for the analysis</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
+<span><span class="co">#&gt;</span></span>
+<span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
+<span><span class="co">#&gt;</span></span>
+<span><span class="co">#&gt;     filter, lag</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt;</span></span>
+<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span>
+<span></span>
+<span><span class="co"># Provide a minimal dataset</span></span>
+<span><span class="va">years</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span></span>
+<span><span class="va">species</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Species A"</span>, <span class="st">"Species B"</span>, <span class="st">"Species C"</span><span class="op">)</span></span>
+<span><span class="va">plots</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Control"</span>, <span class="st">"Treatment"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">total_records_per_year</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="fl">10</span>, <span class="fl">12</span>, <span class="fl">3</span>, <span class="fl">30</span><span class="op">)</span> <span class="co"># I chose these arbitrarily</span></span>
+<span><span class="va">total_rows</span> <span class="op">&lt;-</span> <span class="fu">sum</span><span class="op">(</span><span class="va">total_records_per_year</span><span class="op">)</span> <span class="co"># how many total rows will we have?</span></span>
+<span></span>
+<span><span class="co"># Create the fake data using `rep()` and `sample()`.</span></span>
+<span><span class="va">minimal_data</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span>year <span class="op">=</span> <span class="fu">rep</span><span class="op">(</span><span class="va">years</span>, times <span class="op">=</span> <span class="va">total_records_per_year</span><span class="op">)</span>,</span>
+<span>                      plot_type <span class="op">=</span> <span class="fu">rep</span><span class="op">(</span><span class="va">plots</span>, length.out <span class="op">=</span> <span class="va">total_rows</span><span class="op">)</span>,</span>
+<span>                      species_id <span class="op">=</span> <span class="fu">sample</span><span class="op">(</span><span class="va">species</span>, size <span class="op">=</span> <span class="va">total_rows</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="co"># Because I assigned the species randomly, we should expect Species A to occur *roughly* 33% of the time.</span></span>
+<span></span>
+<span><span class="co"># Calculate proportion of Species A caught</span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">minimal_data</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   year plot_type species_id</span></span>
+<span><span class="co">#&gt; 1    1   Control  Species A</span></span>
+<span><span class="co">#&gt; 2    1 Treatment  Species A</span></span>
+<span><span class="co">#&gt; 3    1   Control  Species A</span></span>
+<span><span class="co">#&gt; 4    1 Treatment  Species B</span></span>
+<span><span class="co">#&gt; 5    1   Control  Species C</span></span>
+<span><span class="co">#&gt; 6    1 Treatment  Species A</span></span>
+<span><span class="va">prop_speciesA</span> <span class="op">&lt;-</span> <span class="va">minimal_data</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">year</span>, <span class="va">plot_type</span>, <span class="va">species_id</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">summarize</span><span class="op">(</span>total_count <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>prop <span class="op">=</span> <span class="va">total_count</span><span class="op">/</span><span class="fu">sum</span><span class="op">(</span><span class="va">total_count</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu">filter</span><span class="op">(</span><span class="va">species_id</span> <span class="op">==</span> <span class="st">"Species A"</span><span class="op">)</span> <span class="co"># keep only Species A</span></span>
+<span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">prop_speciesA</span><span class="op">)</span> <span class="co"># Species A only occurs 1-3% of the time in each plot type in each year. Why is this off by an order of magnitude? (This is the same problem I was seeing in my real data--the occurrence proportions were way, way too small.)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
+<span><span class="co">#&gt;    year plot_type species_id total_count   prop</span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;            &lt;int&gt;  &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1     1 Control   Species A            2 0.0364</span></span>
+<span><span class="co">#&gt; 2     1 Treatment Species A            2 0.0364</span></span>
+<span><span class="co">#&gt; 3     2 Control   Species A            1 0.0182</span></span>
+<span><span class="co">#&gt; 4     2 Treatment Species A            1 0.0182</span></span>
+<span><span class="co">#&gt; 5     3 Control   Species A            2 0.0364</span></span>
+<span><span class="co">#&gt; 6     4 Control   Species A            4 0.0727</span></span></code></pre>
+<p>Now we have a beautifully-formatted reprex that includes runnable
+code and all the context needed to reproduce the problem.</p>
+<p>It’s time to send another email to Jordan to finally get help with
+our problem. It’s important to include a brief description of the
+problem, including what we were hoping to achieve and what the problem
+seems to be.</p>
+<blockquote>
+<p>Hi Jordan, I took some time to learn how to write reproducible
+examples. I’ve simplified my problem down to a “reprex” and formatted it
+with the <a href="https://reprex.tidyverse.org" class="external-link">reprex</a> package (attached). I’m using a
+simplified dataset here, but hopefully it illustrates the problem.
+Basically, my data has three species, and I’m trying to calculate the
+proportion of each species that was caught in each plot type in each of
+several years. In the example, I would expect each species to come up
+approximately one third of the time, but instead I’m seeing really tiny
+proportions, like 1-3%. My real data shows a similar pattern. I think
+something must be wrong with how I’m calculating the proportions, but I
+can’t quite figure it out. Can you shed some light on what might be
+going on? Thanks so much! Mishka Attachment: reprex-script.R</p>
+</blockquote>
+<p>XXX how should this end? Some possibilities: - no solution! The point
+wasn’t to find the solution, it was to create a reprex. - Jordan writes
+back and solves the problem - Mishka figures out what was wrong in the
+process of drafting the email - Something else?</p>
 <!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
-
-
-
-      </div> <!-- / div.lesson-content -->
+</section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="../instructor/4-minimal-reproducible-code.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="../instructor/index.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
