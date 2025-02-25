@@ -40,9 +40,7 @@ The following people aided the development of this curriculum, by providing trai
 Our trainers:
 
 * [Toby Hodges](https://github.com/tobyhodges)
-  
 * [Sarah Stevens](https://github.com/sstevens2)
-  
 * [Erin Becker](https://github.com/erinbecker)
 
 
@@ -53,6 +51,18 @@ Our first demo/focus group:
 * [Mariana Harris](https://github.com/mariharris)
 * Garrett Lawson
 * Maddie Zuercher
+
+Members of the R-Ladies and DSLC Slack groups:
+* [Cath Blatter](https://github.com/cathblatter)
+* [Alison Lanski](https://github.com/AlisonLanski)
+* [Alice Walsh](https://github.com/awalsh17)
+* [June Choe](https://github.com/yjunechoe)
+* [Tan Ho](https://github.com/tanho63)
+* [Jon Harmon](https://github.com/jonthegeek)
+* Arham Choudhury
+* [Olivier Leroy](https://github.com/defuneste)
+* [Gus Lipkin](https://github.com/guslipkin)
+* [Jannik Buhr](https://github.com/jmbuhr)
 
 ## Cite this content
 See [CITATION.cff](CITATION.cff) for citation information, including a list of authors.
