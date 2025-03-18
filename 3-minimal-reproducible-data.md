@@ -236,7 +236,7 @@ x
 ```
 
 ``` output
- [1]  6  5  1  4  9 10  2  7  8  3
+ [1]  2  5  8  1  3 10  9  4  6  7
 ```
 
 Or you can randomly sample from a normal distribution
@@ -248,8 +248,8 @@ x
 ```
 
 ``` output
- [1] -1.64380260  0.09222735  0.75798774  0.18551416 -0.94977626  0.27529809
- [7]  0.70572804 -0.37944149 -1.10376111  0.59814974
+ [1] -1.13362174  0.11590895 -0.34245871 -0.34937336 -0.85485353 -0.01431147
+ [7]  0.41686655 -0.38394350 -0.99025665 -0.63830468
 ```
 
 You can also use `letters` to create factors.
@@ -261,7 +261,7 @@ x
 ```
 
 ``` output
- [1] "d" "a" "b" "b" "c" "a" "c" "c" "c" "b" "d" "b" "b" "a" "d" "c" "a" "d" "c"
+ [1] "d" "c" "c" "c" "a" "d" "c" "b" "b" "b" "c" "c" "b" "b" "b" "d" "a" "b" "a"
 [20] "c"
 ```
 
@@ -275,13 +275,13 @@ head(data)
 ```
 
 ``` output
-  x           y
-1 a  1.17231973
-2 b -1.51949185
-3 a -0.32216084
-4 b -0.26189793
-5 b -1.72845686
-6 b -0.01534234
+  x          y
+1 b -1.2987210
+2 c -0.3850092
+3 b  2.1316224
+4 c  1.3237029
+5 c -0.5097331
+6 b -0.3480760
 ```
 
 **However**, when sampling at random you must remember to `set.seed()` before sending it to someone to make sure you both get the same numbers!
@@ -388,26 +388,26 @@ sample_data
 
 ``` output
    Day Plot Species
-1    1   P2       A
-2    2   P2       A
+1    1   P1       C
+2    2   P1       A
 3    3   P2       C
-4    4   P2       C
-5    5   P2       A
-6    6   P2       A
+4    4   P1       B
+5    5   P2       C
+6    6   P1       C
 7    7   P1       D
-8    8   P2       B
-9    9   P1       C
-10  10   P2       D
-11   1   P1       C
-12   2   P1       A
-13   3   P2       A
-14   4   P1       A
-15   5   P1       B
-16   6   P1       C
-17   7   P2       C
-18   8   P2       C
-19   9   P1       B
-20  10   P2       B
+8    8   P1       D
+9    9   P2       C
+10  10   P1       A
+11   1   P2       C
+12   2   P1       D
+13   3   P1       A
+14   4   P1       B
+15   5   P1       A
+16   6   P1       A
+17   7   P2       A
+18   8   P2       D
+19   9   P2       C
+20  10   P1       B
 ```
 
 Great!
