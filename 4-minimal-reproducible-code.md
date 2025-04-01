@@ -709,11 +709,11 @@ head(minimal_data)
 
 ``` output
   year plot_type species_id
-1    1   Control  Species A
-2    1 Treatment  Species C
-3    1   Control  Species B
-4    1 Treatment  Species A
-5    1   Control  Species B
+1    1   Control  Species B
+2    1 Treatment  Species B
+3    1   Control  Species A
+4    1 Treatment  Species C
+5    1   Control  Species A
 6    1 Treatment  Species C
 ```
 
@@ -735,15 +735,14 @@ head(prop_speciesA)
 ```
 
 ``` output
-# A tibble: 6 × 5
+# A tibble: 5 × 5
    year plot_type species_id total_count   prop
   <int> <chr>     <chr>            <int>  <dbl>
-1     1 Control   Species A            1 0.0182
-2     1 Treatment Species A            1 0.0182
-3     2 Control   Species A            2 0.0364
-4     2 Treatment Species A            2 0.0364
-5     3 Control   Species A            1 0.0182
-6     4 Control   Species A            3 0.0545
+1     1 Control   Species A            2 0.0364
+2     2 Control   Species A            1 0.0182
+3     2 Treatment Species A            1 0.0182
+4     4 Control   Species A            9 0.164 
+5     4 Treatment Species A            4 0.0727
 ```
 
 Indeed, those proportions look way too low! 3%, 1%... that's an order of magnitude off from what we expect to see here. I think we have successfully reproduced the problem using a minimal dataset. To make things extra easy for Jordan, let's add some comments in the script to point out the problem.
@@ -775,11 +774,11 @@ head(minimal_data)
 
 ``` output
   year plot_type species_id
-1    1   Control  Species A
+1    1   Control  Species B
 2    1 Treatment  Species A
-3    1   Control  Species C
-4    1 Treatment  Species A
-5    1   Control  Species C
+3    1   Control  Species B
+4    1 Treatment  Species B
+5    1   Control  Species A
 6    1 Treatment  Species A
 ```
 
@@ -798,11 +797,11 @@ head(prop_speciesA) # Species A only occurs 1-3% of the time in each plot type i
    year plot_type species_id total_count   prop
   <int> <chr>     <chr>            <int>  <dbl>
 1     1 Control   Species A            2 0.0364
-2     1 Treatment Species A            4 0.0727
-3     2 Control   Species A            1 0.0182
-4     2 Treatment Species A            3 0.0545
-5     3 Treatment Species A            1 0.0182
-6     4 Control   Species A            6 0.109 
+2     1 Treatment Species A            2 0.0364
+3     2 Control   Species A            2 0.0364
+4     3 Treatment Species A            1 0.0182
+5     4 Control   Species A            6 0.109 
+6     4 Treatment Species A            4 0.0727
 ```
 
 ### Step 3. Simplify

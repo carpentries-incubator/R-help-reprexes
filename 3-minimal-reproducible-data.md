@@ -236,7 +236,7 @@ x
 ```
 
 ``` output
- [1]  2  5  8  1  3 10  9  4  6  7
+ [1]  1  9  3  7  2  4  6 10  8  5
 ```
 
 Or you can randomly sample from a normal distribution
@@ -248,8 +248,8 @@ x
 ```
 
 ``` output
- [1] -1.13362174  0.11590895 -0.34245871 -0.34937336 -0.85485353 -0.01431147
- [7]  0.41686655 -0.38394350 -0.99025665 -0.63830468
+ [1] -1.3299241  0.0439957 -0.3307973 -1.6660921  0.5658399 -0.2981633
+ [7] -2.0316370  0.1866825 -0.4007405  0.6218775
 ```
 
 You can also use `letters` to create factors.
@@ -261,8 +261,8 @@ x
 ```
 
 ``` output
- [1] "d" "c" "c" "c" "a" "d" "c" "b" "b" "b" "c" "c" "b" "b" "b" "d" "a" "b" "a"
-[20] "c"
+ [1] "a" "a" "c" "c" "c" "c" "b" "d" "b" "c" "d" "c" "c" "a" "b" "d" "d" "d" "a"
+[20] "b"
 ```
 
 Remember that a data frame is just a collection of vectors. You can create a data frame using `data.frame` (or `tibble` in the `dplyr` package). You can then create a vector for each variable. 
@@ -276,12 +276,12 @@ head(data)
 
 ``` output
   x          y
-1 b -1.2987210
-2 c -0.3850092
-3 b  2.1316224
-4 c  1.3237029
-5 c -0.5097331
-6 b -0.3480760
+1 c  0.7197033
+2 a  0.6745145
+3 b  0.5423145
+4 b  0.5771090
+5 c  1.6881835
+6 c -0.9820219
 ```
 
 **However**, when sampling at random you must remember to `set.seed()` before sending it to someone to make sure you both get the same numbers!
@@ -388,26 +388,26 @@ sample_data
 
 ``` output
    Day Plot Species
-1    1   P1       C
-2    2   P1       A
-3    3   P2       C
-4    4   P1       B
-5    5   P2       C
-6    6   P1       C
-7    7   P1       D
-8    8   P1       D
-9    9   P2       C
-10  10   P1       A
-11   1   P2       C
-12   2   P1       D
-13   3   P1       A
-14   4   P1       B
-15   5   P1       A
-16   6   P1       A
-17   7   P2       A
-18   8   P2       D
-19   9   P2       C
-20  10   P1       B
+1    1   P1       B
+2    2   P2       C
+3    3   P2       A
+4    4   P1       A
+5    5   P2       A
+6    6   P2       B
+7    7   P1       C
+8    8   P1       C
+9    9   P1       C
+10  10   P2       C
+11   1   P2       B
+12   2   P1       C
+13   3   P1       C
+14   4   P2       B
+15   5   P2       A
+16   6   P2       B
+17   7   P1       D
+18   8   P2       A
+19   9   P1       D
+20  10   P2       D
 ```
 
 Great!
