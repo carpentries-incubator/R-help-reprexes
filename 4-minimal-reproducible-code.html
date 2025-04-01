@@ -310,7 +310,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Minimal Reproducible Code</h1>
-        <p>Last updated on 2025-03-18 |
+        <p>Last updated on 2025-04-01 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/4-minimal-reproducible-code.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -1331,11 +1331,11 @@ spectabilis.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>  year plot_type species_id
-1    1   Control  Species A
-2    1 Treatment  Species C
-3    1   Control  Species B
-4    1 Treatment  Species A
-5    1   Control  Species B
+1    1   Control  Species B
+2    1 Treatment  Species B
+3    1   Control  Species A
+4    1 Treatment  Species C
+5    1   Control  Species A
 6    1 Treatment  Species C</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb65">
@@ -1367,15 +1367,14 @@ reproduced our problem correctly, we would see values much lower than
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code># A tibble: 6 × 5
+<pre class="output" tabindex="0"><code># A tibble: 5 × 5
    year plot_type species_id total_count   prop
   &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;            &lt;int&gt;  &lt;dbl&gt;
-1     1 Control   Species A            1 0.0182
-2     1 Treatment Species A            1 0.0182
-3     2 Control   Species A            2 0.0364
-4     2 Treatment Species A            2 0.0364
-5     3 Control   Species A            1 0.0182
-6     4 Control   Species A            3 0.0545</code></pre>
+1     1 Control   Species A            2 0.0364
+2     2 Control   Species A            1 0.0182
+3     2 Treatment Species A            1 0.0182
+4     4 Control   Species A            9 0.164
+5     4 Treatment Species A            4 0.0727</code></pre>
 </div>
 <p>Indeed, those proportions look way too low! 3%, 1%… that’s an order
 of magnitude off from what we expect to see here. I think we have
@@ -1412,11 +1411,11 @@ point out the problem.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>  year plot_type species_id
-1    1   Control  Species A
+1    1   Control  Species B
 2    1 Treatment  Species A
-3    1   Control  Species C
-4    1 Treatment  Species A
-5    1   Control  Species C
+3    1   Control  Species B
+4    1 Treatment  Species B
+5    1   Control  Species A
 6    1 Treatment  Species A</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb70">
@@ -1438,11 +1437,11 @@ point out the problem.</p>
    year plot_type species_id total_count   prop
   &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;            &lt;int&gt;  &lt;dbl&gt;
 1     1 Control   Species A            2 0.0364
-2     1 Treatment Species A            4 0.0727
-3     2 Control   Species A            1 0.0182
-4     2 Treatment Species A            3 0.0545
-5     3 Treatment Species A            1 0.0182
-6     4 Control   Species A            6 0.109 </code></pre>
+2     1 Treatment Species A            2 0.0364
+3     2 Control   Species A            2 0.0364
+4     3 Treatment Species A            1 0.0182
+5     4 Control   Species A            6 0.109
+6     4 Treatment Species A            4 0.0727</code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -1663,8 +1662,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/R-help-reprexes/4-minimal-reproducible-code.html",
   "identifier": "https://carpentries-incubator.github.io/R-help-reprexes/4-minimal-reproducible-code.html",
   "dateCreated": "2024-05-14",
-  "dateModified": "2025-03-18",
-  "datePublished": "2025-03-25"
+  "dateModified": "2025-04-01",
+  "datePublished": "2025-04-01"
 }
 
   </script><script>
