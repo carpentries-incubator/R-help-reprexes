@@ -356,7 +356,7 @@
         
 <section id="aio-1-intro-reproducible-examples"><p>Content from <a href="1-intro-reproducible-examples.html">What is a reprex and why is it useful?</a></p>
 <hr>
-<p>Last updated on 2025-04-01 |
+<p>Last updated on 2025-04-04 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/1-intro-reproducible-examples.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -572,7 +572,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-2-identify-the-problem"><p>Content from <a href="2-identify-the-problem.html">Identify the problem and make a plan</a></p>
 <hr>
-<p>Last updated on 2025-04-01 |
+<p>Last updated on 2025-04-04 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/2-identify-the-problem.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1225,7 +1225,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-3-minimal-reproducible-data"><p>Content from <a href="3-minimal-reproducible-data.html">Minimal Reproducible Data</a></p>
 <hr>
-<p>Last updated on 2025-04-01 |
+<p>Last updated on 2025-04-04 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/3-minimal-reproducible-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1301,7 +1301,7 @@ the screen, and click around.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Another example: </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>You’re knitting a sweater and one of the sleeves looks wonky. You
 call a friend and ask why it’s messed up. They can’t possibly help
@@ -1454,7 +1454,7 @@ work? What happened? Explain.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: upper-alpha">
 <li>Not reproducible because it is a screenshot.</li>
@@ -1510,7 +1510,7 @@ this code? Can you describe why the other ones are not?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>The correct answer is C!</p>
 <ol style="list-style-type: upper-alpha">
@@ -1583,7 +1583,7 @@ need to know which elements of our dataset are necessary:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1]  1  9  3  7  2  4  6 10  8  5</code></pre>
+<pre class="output" tabindex="0"><code> [1]  2  3  6 10  8  5  9  7  4  1</code></pre>
 </div>
 <p>Or you can randomly sample from a normal distribution</p>
 <div class="codewrapper sourceCode" id="cb10">
@@ -1596,8 +1596,8 @@ need to know which elements of our dataset are necessary:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1] -1.3299241  0.0439957 -0.3307973 -1.6660921  0.5658399 -0.2981633
- [7] -2.0316370  0.1866825 -0.4007405  0.6218775</code></pre>
+<pre class="output" tabindex="0"><code> [1]  0.1515641 -0.2167600  0.5375270  2.2339077 -2.9803376 -1.4370839
+ [7] -1.4883670 -0.1575095 -0.5786878  2.0747841</code></pre>
 </div>
 <p>You can also use <code>letters</code> to create factors.</p>
 <div class="codewrapper sourceCode" id="cb12">
@@ -1610,8 +1610,8 @@ need to know which elements of our dataset are necessary:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1] "a" "a" "c" "c" "c" "c" "b" "d" "b" "c" "d" "c" "c" "a" "b" "d" "d" "d" "a"
-[20] "b"</code></pre>
+<pre class="output" tabindex="0"><code> [1] "c" "d" "c" "c" "b" "d" "a" "a" "b" "a" "a" "c" "a" "b" "b" "d" "a" "d" "c"
+[20] "a"</code></pre>
 </div>
 <p>Remember that a data frame is just a collection of vectors. You can
 create a data frame using <code>data.frame</code> (or
@@ -1628,13 +1628,13 @@ create a vector for each variable.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>  x          y
-1 c  0.7197033
-2 a  0.6745145
-3 b  0.5423145
-4 b  0.5771090
-5 c  1.6881835
-6 c -0.9820219</code></pre>
+<pre class="output" tabindex="0"><code>  x           y
+1 a  0.19269011
+2 b  0.26587014
+3 a  0.10455982
+4 c -0.01486471
+5 b  1.24688732
+6 a -1.43767691</code></pre>
 </div>
 <p><strong>However</strong>, when sampling at random you must remember
 to <code>set.seed()</code> before sending it to someone to make sure you
@@ -1702,7 +1702,7 @@ dataset:</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>We will need 3 variables to represent species, plot type, and
@@ -1788,26 +1788,26 @@ also set replace to T.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>   Day Plot Species
-1    1   P1       B
-2    2   P2       C
-3    3   P2       A
-4    4   P1       A
-5    5   P2       A
-6    6   P2       B
-7    7   P1       C
-8    8   P1       C
-9    9   P1       C
-10  10   P2       C
-11   1   P2       B
-12   2   P1       C
-13   3   P1       C
-14   4   P2       B
+1    1   P2       D
+2    2   P2       D
+3    3   P2       C
+4    4   P2       A
+5    5   P1       D
+6    6   P2       C
+7    7   P2       D
+8    8   P2       D
+9    9   P2       B
+10  10   P2       A
+11   1   P1       A
+12   2   P1       D
+13   3   P1       A
+14   4   P1       C
 15   5   P2       A
-16   6   P2       B
-17   7   P1       D
-18   8   P2       A
+16   6   P2       D
+17   7   P2       B
+18   8   P1       B
 19   9   P1       D
-20  10   P2       D</code></pre>
+20  10   P1       C</code></pre>
 </div>
 <p>Great! Now we have a sample data set that is minimal, but is is
 reproducible?</p>
@@ -2129,7 +2129,7 @@ catch per day.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
   <h4 class="accordion-header" id="headingSolution5"> Show me the solution </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
 <div class="accordion-body">
 <p>Substitute krats with cars, species with class, date with year. The
 question becomes, how many cars of each class are produced per year?</p>
@@ -2334,7 +2334,7 @@ logical: returning NA</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution6" aria-expanded="false" aria-controls="collapseSolution6">
   <h4 class="accordion-header" id="headingSolution6"> Show me the solution </h4>
 </button>
-<div id="collapseSolution6" class="accordion-collapse collapse" aria-labelledby="headingSolution6" data-bs-parent="#accordionSolution6">
+<div id="collapseSolution6" class="accordion-collapse collapse" data-bs-parent="#accordionSolution6" aria-labelledby="headingSolution6">
 <div class="accordion-body">
 <ol style="list-style-type: upper-alpha">
 <li>“fruit” needs to be a factor and the order of the levels must be
@@ -2378,7 +2378,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-4-minimal-reproducible-code"><p>Content from <a href="4-minimal-reproducible-code.html">Minimal Reproducible Code</a></p>
 <hr>
-<p>Last updated on 2025-04-01 |
+<p>Last updated on 2025-04-04 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/4-minimal-reproducible-code.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -2435,8 +2435,8 @@ not, identify what is missing.</li>
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
 ✔ forcats   1.0.0     ✔ stringr   1.5.1
 ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-✔ purrr     1.0.2
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.4
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
@@ -3407,12 +3407,12 @@ spectabilis.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>  year plot_type species_id
-1    1   Control  Species B
-2    1 Treatment  Species B
-3    1   Control  Species A
+1    1   Control  Species A
+2    1 Treatment  Species A
+3    1   Control  Species C
 4    1 Treatment  Species C
-5    1   Control  Species A
-6    1 Treatment  Species C</code></pre>
+5    1   Control  Species B
+6    1 Treatment  Species A</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb65">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3446,11 +3446,11 @@ reproduced our problem correctly, we would see values much lower than
 <pre class="output" tabindex="0"><code># A tibble: 5 × 5
    year plot_type species_id total_count   prop
   &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;            &lt;int&gt;  &lt;dbl&gt;
-1     1 Control   Species A            2 0.0364
-2     2 Control   Species A            1 0.0182
-3     2 Treatment Species A            1 0.0182
-4     4 Control   Species A            9 0.164
-5     4 Treatment Species A            4 0.0727</code></pre>
+1     1 Control   Species A            3 0.0545
+2     1 Treatment Species A            2 0.0364
+3     2 Control   Species A            2 0.0364
+4     4 Control   Species A            7 0.127
+5     4 Treatment Species A            5 0.0909</code></pre>
 </div>
 <p>Indeed, those proportions look way too low! 3%, 1%… that’s an order
 of magnitude off from what we expect to see here. I think we have
@@ -3487,12 +3487,12 @@ point out the problem.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>  year plot_type species_id
-1    1   Control  Species B
-2    1 Treatment  Species A
-3    1   Control  Species B
+1    1   Control  Species A
+2    1 Treatment  Species B
+3    1   Control  Species C
 4    1 Treatment  Species B
 5    1   Control  Species A
-6    1 Treatment  Species A</code></pre>
+6    1 Treatment  Species C</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb70">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3512,12 +3512,12 @@ point out the problem.</p>
 <pre class="output" tabindex="0"><code># A tibble: 6 × 5
    year plot_type species_id total_count   prop
   &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;            &lt;int&gt;  &lt;dbl&gt;
-1     1 Control   Species A            2 0.0364
-2     1 Treatment Species A            2 0.0364
-3     2 Control   Species A            2 0.0364
-4     3 Treatment Species A            1 0.0182
-5     4 Control   Species A            6 0.109
-6     4 Treatment Species A            4 0.0727</code></pre>
+1     1 Control   Species A            3 0.0545
+2     2 Control   Species A            2 0.0364
+3     2 Treatment Species A            3 0.0545
+4     3 Control   Species A            1 0.0182
+5     4 Control   Species A            5 0.0909
+6     4 Treatment Species A            8 0.145 </code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -3698,7 +3698,7 @@ any links that you are not going to use.
  -->
 </div></section><section id="aio-5-asking-your-question"><p>Content from <a href="5-asking-your-question.html">Asking your question</a></p>
 <hr>
-<p>Last updated on 2025-04-01 |
+<p>Last updated on 2025-04-04 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/5-asking-your-question.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
