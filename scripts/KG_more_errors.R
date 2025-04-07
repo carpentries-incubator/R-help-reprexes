@@ -6,14 +6,14 @@ library(ggplot2)
 # Read in the data
 rodents <- read_csv("scripts/data/surveys_complete_77_89.csv")
 
-data(rodents)
+data(rodents) # XXX
 View(rodents)
 
 head(rodents)
 summary(rodents)
-hist(rodents$weight, col=rodents$species)
-boxplot(rodents$weight, rodents$species)
-boxplot(weight~species, data=species)
+hist(rodents$weight, col=rodents$species) # XXX
+boxplot(rodents$weight, rodents$species) # XXX
+boxplot(weight~species, data=species) # XXX
 boxplot(weight~species, data=rodents)
 
 plot(rodents$record_id, rodents$weight)
@@ -24,34 +24,34 @@ KRat <- subset(rodents, genus=="Dipodomys")
 plot(KRat$record_id, KRat$weight)
 boxplot(weight~species, data=KRat)
 
-head(KRAT)
-head(Krat)
+head(KRAT) # XXX
+head(Krat) # XXX
 head(KRat)
 WeightMod <-lm(weight~species+sex+hindfoot_length, data=KRat)
 summary(WeightMod)
 
 NewDF <- data.frame(species=unique(Krat$species), CommonName = c("Merriam's", "Ord's", "Banner-Tailed"))
-NewDF <- data.frame(species=unique(KRat$species), CommonName = c("Merriam's", "Ord's", "Banner-Tailed"))
+NewDF <- data.frame(species=unique(KRat$species), CommonName = c("Merriam's", "Ord's", "Banner-Tailed")) # XXX
 NewDF
 unique(KRat$species)
 #we didn't notice the "sp." species in the boxplot, probably because those ones didn't have weights, either
 NewDF <- data.frame(species=unique(KRat$species), CommonName = c("Merriam's", "Ord's", "Banner-Tailed", "Unknown/Other"))
-NewDF
+NewDF # XXX
 #we gotta reorder!
 NewDF <- data.frame(species=sort(unique(KRat$species)), CommonName = c("Merriam's", "Ord's", "Unknown/Other", "Banner-Tailed"))
 NewDF
 
-DFplusCommonName <-left_join(x=KRats, y=NewDF, by="species")
+DFplusCommonName <-left_join(x=KRats, y=NewDF, by="species") # XXX spelling
 DFplusCommonName <-left_join(x=KRat, y=NewDF, by="species")
 dim(KRat)
 dim(DFplusCommonName)
 
-# Alternative idea: if the join fails
+# Alternative idea: join failing because wrong column name
 dummy <- data.frame(Species=sort(unique(KRat$species)), CommonName = c("Merriam's", "Ord's", "Unknown/Other", "Banner-Tailed"))
 dummy
 
-test <-left_join(x=KRat, y=dummy, by="species") # this is helpful
-test <- left_join(x = KRat, y = dummy) # this is another error
+test <-left_join(x=KRat, y=dummy, by="species") # this is helpful # XXX
+test <- left_join(x = KRat, y = dummy) # this is another error # XXX
 
 # back to our regularly scheduled programming (hah)
 
