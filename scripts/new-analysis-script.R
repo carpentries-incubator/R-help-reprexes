@@ -1,4 +1,3 @@
-
 # New script with lesson flow, created after April 11 meeting
 # Kaija Gahm
 
