@@ -6,7 +6,7 @@ library(reprex)
 library(tidyverse) # changed from individual packages
 
 # Load in the data # XXX not actually currently included in our website render!
-rodents <- read.csv("scripts/data/surveys_complete_77_89.csv")
+rodents <- read.csv("data/surveys_complete_77_89.csv") # NOTE: we will have to include this code or similar to download and read in the csv in the intro for them to follow, but then also will have to include code chunks (hidden) that include reading in the data for subsequent episodes, otherwise things will not run.
 
 # explaining the columns that we'll be using
 
@@ -28,32 +28,36 @@ table(rodents$taxa, exclude = NULL)
 # filter to taxa == "Rodent" to include only the rodents
 rodents <- rodents %>% filter(taxa == "Rodent")
 
-# filter to k-rats only (genus == "Dipodomys")
-krats <- rodents %>% filter(genus == "Dipydomis")
-head(krats) # notice that this has 0 rows--we misspelled Dipodomys
-krats <- rodents %>% filter(genus == "Dipodomys")
-head(krats) # that's better
-dim(krats)
+# # filter to k-rats only (genus == "Dipodomys")
+# krats <- rodents %>% filter(genus == "Dipydomis")
+# head(krats) # notice that this has 0 rows--we misspelled Dipodomys
+# krats <- rodents %>% filter(genus == "Dipodomys")
+# head(krats) # that's better
+# dim(krats)
+# XXX can't use krats because it has an odd number of rows--need to use rodents so that the error won't trigger a warning message.
 
 # Can add or change any of these examples as needed for PL's lesson.
 
 # Investigating by species and sex ----------------------------------------
 # look at the distribution of observations by species and sex
-krats %>% # option 1: stacked
+rodents %>% # option 1: stacked
   ggplot(aes(x = species, fill = sex))+
   geom_bar()
 
-krats %>% # option 2: dodged
+rodents %>% # option 2: dodged
   ggplot(aes(x = species, fill = sex))+
   geom_bar(position = position_dodge())
 
-# Ok, we have data for three k-rat species, and we're only interested in two of them. We also notice that we have NAs for both species and sex.
+# Whoa, this is really overwhelming, we only want to focus on two species of kangaroo rats, called Dipodomys ordii and Dipodomys spectabilis. We also notice that we have some NA values for sex, so we would like to only include females and males.
 # Let's filter the data down to focus only on the species we care about and only on the sexes "M" and "F.
-krats_subset <- krats %>%
+rodents_subset <- rodents %>%
   filter(species == c("ordii", "spectabilis"),
-         sex == c("F", "M")) # XXX how do we deal with the fact that we get a warning message here? Need to bypass it somehow. Maybe even something like "you notice there's a warning, but someone told you that warnings aren't very important, so you move on."
+         sex == c("F", "M")) # does not give us a warning--important to use rodents here rather than krats bc rodents has an even number of rows
 
-# Another thing we noticed was that the species names are the latin names, and we would really like to provide some common names.
+dim(rodents)
+dim(rodents_subset) # good, it looks like we removed a lot of other species, yay!
+
+# It was really annoying typing all those latin names, so let's add common names to our dataset for the future.
 # We do some research, and we learn that the common name for ordii is "Ord's" and the common name for spectabilis is "Banner-Tailed" kangaroo rat.
 common_names <- data.frame(species = unique(krats_subset$species), common_name = c("Ord's", "Banner-Tailed"))
 common_names # oops, semantic error! these are in the wrong order.
