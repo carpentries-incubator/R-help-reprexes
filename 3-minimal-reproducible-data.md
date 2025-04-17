@@ -236,7 +236,7 @@ x
 ```
 
 ``` output
- [1]  6  4  8  9  7  2  3  5 10  1
+ [1] 10  3  6  9  4  7  8  1  2  5
 ```
 
 Or you can randomly sample from a normal distribution
@@ -248,8 +248,8 @@ x
 ```
 
 ``` output
- [1]  0.9170132 -0.5427664  1.0052361 -1.8402498  1.2693576  0.7330269
- [7] -1.0101440 -0.3046493 -1.3894007  0.2859859
+ [1] -0.3369443  0.1138288 -0.7220606 -1.7618647  1.1104412  1.6136181
+ [7] -0.5324768 -0.7214875  0.7231300 -0.4507871
 ```
 
 You can also use `letters` to create factors.
@@ -261,7 +261,7 @@ x
 ```
 
 ``` output
- [1] "d" "d" "a" "d" "a" "b" "b" "d" "a" "a" "a" "d" "d" "b" "a" "b" "b" "a" "d"
+ [1] "d" "a" "c" "a" "b" "c" "b" "d" "a" "d" "c" "b" "d" "d" "b" "d" "b" "b" "c"
 [20] "d"
 ```
 
@@ -275,13 +275,13 @@ head(data)
 ```
 
 ``` output
-  x            y
-1 a  1.969801596
-2 b  0.695350211
-3 b  0.886269729
-4 a  0.008029871
-5 c  0.524646809
-6 a -1.255880074
+  x           y
+1 b -0.08881064
+2 a  0.68567537
+3 c -0.72298977
+4 b -0.65579221
+5 b  0.26766092
+6 b -1.32184312
 ```
 
 **However**, when sampling at random you must remember to `set.seed()` before sending it to someone to make sure you both get the same numbers!
@@ -388,26 +388,26 @@ sample_data
 
 ``` output
    Day Plot Species
-1    1   P2       D
-2    2   P2       C
-3    3   P1       A
-4    4   P2       A
-5    5   P1       B
-6    6   P2       C
-7    7   P1       A
+1    1   P1       C
+2    2   P1       D
+3    3   P2       C
+4    4   P2       D
+5    5   P2       C
+6    6   P1       D
+7    7   P1       C
 8    8   P1       B
-9    9   P2       A
-10  10   P2       D
-11   1   P2       D
-12   2   P1       C
-13   3   P2       C
-14   4   P2       B
-15   5   P1       D
-16   6   P2       C
-17   7   P2       B
-18   8   P1       D
-19   9   P2       C
-20  10   P2       D
+9    9   P1       A
+10  10   P2       C
+11   1   P1       A
+12   2   P1       D
+13   3   P1       A
+14   4   P2       C
+15   5   P2       C
+16   6   P2       A
+17   7   P1       B
+18   8   P1       A
+19   9   P2       A
+20  10   P2       B
 ```
 
 Great!
