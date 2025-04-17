@@ -151,8 +151,8 @@ We're interested in the Rodents, and thankfully it seems like a majority of our 
 Help on topic 'table' was found in the following packages:
 
   Package               Library
-  vctrs                 /home/runner/.local/share/renv/cache/v5/linux-ubuntu-jammy/R-4.4/x86_64-pc-linux-gnu/vctrs/0.6.5/c03fa420630029418f7e6da3667aac4a
-  base                  /home/runner/.cache/R/renv/sandbox/linux-ubuntu-jammy/R-4.4/x86_64-pc-linux-gnu/9a444a72
+  vctrs                 /home/runner/.local/share/renv/cache/v5/linux-ubuntu-jammy/R-4.5/x86_64-pc-linux-gnu/vctrs/0.6.5/c03fa420630029418f7e6da3667aac4a
+  base                  /home/runner/.cache/R/renv/sandbox/linux-ubuntu-jammy/R-4.5/x86_64-pc-linux-gnu/9a444a72
 
 
 Using the first match ...

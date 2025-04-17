@@ -236,7 +236,7 @@ x
 ```
 
 ``` output
- [1]  6  4  8  9  7  2  3  5 10  1
+ [1]  2  6  8  4  7  5  1  3  9 10
 ```
 
 Or you can randomly sample from a normal distribution
@@ -248,8 +248,8 @@ x
 ```
 
 ``` output
- [1]  0.9170132 -0.5427664  1.0052361 -1.8402498  1.2693576  0.7330269
- [7] -1.0101440 -0.3046493 -1.3894007  0.2859859
+ [1] -1.33234211 -1.74196499  0.90666736 -0.02018667 -0.30038805  1.77679245
+ [7] -0.06506932 -0.30630120  0.31543139 -0.34482904
 ```
 
 You can also use `letters` to create factors.
@@ -261,7 +261,7 @@ x
 ```
 
 ``` output
- [1] "d" "d" "a" "d" "a" "b" "b" "d" "a" "a" "a" "d" "d" "b" "a" "b" "b" "a" "d"
+ [1] "b" "c" "c" "a" "b" "b" "a" "b" "d" "d" "b" "c" "d" "c" "c" "a" "b" "a" "a"
 [20] "d"
 ```
 
@@ -275,13 +275,13 @@ head(data)
 ```
 
 ``` output
-  x            y
-1 a  1.969801596
-2 b  0.695350211
-3 b  0.886269729
-4 a  0.008029871
-5 c  0.524646809
-6 a -1.255880074
+  x          y
+1 a  0.2680930
+2 b  0.5551972
+3 a  0.2290659
+4 c  0.6787927
+5 a  0.4920262
+6 c -1.4092867
 ```
 
 **However**, when sampling at random you must remember to `set.seed()` before sending it to someone to make sure you both get the same numbers!
@@ -388,25 +388,25 @@ sample_data
 
 ``` output
    Day Plot Species
-1    1   P2       D
-2    2   P2       C
+1    1   P2       C
+2    2   P1       D
 3    3   P1       A
-4    4   P2       A
-5    5   P1       B
+4    4   P1       A
+5    5   P1       C
 6    6   P2       C
-7    7   P1       A
-8    8   P1       B
-9    9   P2       A
-10  10   P2       D
-11   1   P2       D
-12   2   P1       C
-13   3   P2       C
-14   4   P2       B
-15   5   P1       D
-16   6   P2       C
-17   7   P2       B
-18   8   P1       D
-19   9   P2       C
+7    7   P2       A
+8    8   P1       D
+9    9   P1       C
+10  10   P1       B
+11   1   P2       C
+12   2   P1       D
+13   3   P1       C
+14   4   P1       B
+15   5   P2       B
+16   6   P1       A
+17   7   P1       A
+18   8   P2       D
+19   9   P2       D
 20  10   P2       D
 ```
 
