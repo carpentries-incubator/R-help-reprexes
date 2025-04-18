@@ -11,16 +11,27 @@ knitr::opts_chunk$set(dpi = 200, out.height = 600, out.width = 600, R.options = 
 
 ```{r packages and data, include=FALSE, echo=FALSE}
 # Hidden chunk
-library(readr)
+library(ratdat)
+library(reprex)
 library(dplyr)
 library(ggplot2)
-library(stringr)
-library(ratdat)
 
-rodents<-read_csv('data/surveys_complete_77_89.csv')
+rodents<-read.csv('data/surveys_complete_77_89.csv')
+rodents <- rodents %>% filter(taxa == "Rodent")
 krats <- rodents %>%
-  filter(genus == "Dipodomys")%>%
+  filter(genus == "Dipodomys")
+# %>% mutate(date = lubridate::ymd(paste(year, month, day, sep = "-")))
+
+krats_subset <- krats %>%
+  filter(species == c("ordii", "spectabilis"),
+         sex == c("F", "M")) %>% 
   mutate(date = lubridate::ymd(paste(year, month, day, sep = "-")))
+
+common_names <- data.frame(species = sort(unique(krats_subset$species)), common_name = c("Ord's", "Banner-Tailed"))
+
+krats_subset <- left_join(krats_subset, common_names)
+
+weight_model <- lm(weight ~ species + sex, data = krats_subset)
 ```
 
 
@@ -28,84 +39,44 @@ krats <- rodents %>%
 
 -   What is a minimal reproducible dataset, and why do I need it?
 -   What do I need to include in a minimal reproducible dataset?
+-   Can I just use my own data?
 -   How do I create a minimal reproducible dataset?
--   How do I make my own dataset reproducible?
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
 -   Describe a minimal reproducible dataset
--   List the requirements for a minimal reproducible dataset
--   Identify the important aspects of the data that are necessary to reproduce your coding problem
+-   Identify the necessary or relevant aspects of the data to replicate your issue
+-   Share your own dataset in a way that is minimal, accessible, and reproducible
 -   Create a dataset from scratch to reproduce a given example
 -   Subset an existing dataset to reproduce a given example
--   Share your own dataset in a way that is accessible and reproducible
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-## 4.1 What is a minimal reproducible dataset and why do I need it?
+## 3.1 What is a minimal reproducible dataset and why do I need it?
 
-Now that we understand some basic errors and how to fix them, let’s look at what to do when we can’t figure out a solution to our coding problem.
-
-This is when you really need to know how to create a minimal reproducible example (MRE) as we talked about in episode 1.
-
-In general, an MRE will need:   
-
-- A **minimal dataset** that can reproduce the error (or access to a such a dataset) 
-- **Minimal runnable code** that can reproduce the error using the minimal dataset 
-- **Basic information** about the system, R version, and packages being used 
-- In case of random functions (e.g., `sample()`), a seed that will produce the same results each time (e.g., use `set.seed()`)
-
-The first step in creating an MRE is to create a shareable dataset **that your helper can manipulate and use to reproduce your error and fix your issue.**
-
-Why?
-Remember our IT problem?
-It would be a lot easier for the IT support person to fix your computer if they could actually touch it, see the screen, and click around.
+Now that you have narrowed down your problem area and stripped down your code to make it minimal we need to ensure it is reproducible; this means it needs to be accessible and runnable such that anyone else can copy-paste it into their system, run the code, and replicate your issue. Importantly, an **example code will always require example data** in order to run! Therefore, **every reprex requires you to provide a minimal reproducible dataset to use with the code**. 
 
 ::: instructor
-You can use the next example as well if you choose.
+Development note: Sections above should talk about making the code minimal and introduce the need for it to be reproducible. This data episode is part of being reproducible and should perhaps be followed-up with more details on reproducibility (e.g., reprex needs minimal code - check - dependencies, which include minimal data - check - and other basic information like your system and R version as well as contextual information on your data?).
 :::
 
-::: solution
-## Another example: 
-You're knitting a sweater and one of the sleeves looks wonky. You call a friend and ask why it's messed up. They can't possibly help without being able to hold the sweater and look at the stitches themselves.
-:::
+Furthermore, as we have seen previously, sometimes the source of the problem isn't actually your code, but rather your data! By providing an example dataset that, when used in your example code, still replicates your issue, you also **give your helper the opportunity to better investigate and manipulate that data** to fix your issue. It would be great if we could give the helper our entire computer so they could just take over where we left off, but usually we can't.
 
-It would be great if we could give the helper our entire computer so they could just take over where we left off, but usually we can't.
+Just as we did with our code, when providing such an example dataset we also want to make sure we keep it minimal--free of unnecessary data. This will allow your helper to more clearly see what the data looks like and what the source of your issue may be. Furthermore, it will allow you to not only better understand your data but also potentially work out the source of your issue. When extraneous information is removed and only the parts that replicate the issue are kept, we can begin to see where the issues arise. 
 
-::: callout
-There are several reasons why you might need to create a separate dataset that is minimal and reproducible instead of trying to use your actual dataset.
-The original dataset may be:
+In short, a minimal reproducible dataset must be:
 
--   too large - the Portal dataset is \~35,000 rows with 13 columns and contains data for decades. That's a lot!
--   private - your dataset might not be published yet, or maybe you're studying an endangered species whose locations can't easily be shared. Another example: many medical datasets cannot be shared publically.
--   hard to send - on most online forums, you can't attach supplemental files (more on this later). Even if you are just sending data to a colleague, file paths can get complicated, the data might be too large to attach, etc.
--   complicated - it would be hard to locate the relevant information. One example to steer away from are needing a 'data dictionary' to understand all the meanings of the columns (e.g. what is "plot type" in `ratdat`?) We don't our helper to waste valuable time to figure out what everything means.
--   highly derived/modified from the original file. As an example, you may have already done a bunch of preliminary data wrangling and you don't want to include all that code when you send the example (see later: the minimal code section), so you need to provide the intermediate dataset directly to your helper.
-:::
-
-It's useful to strip the dataset to its essential parts to identify where exactly the problem area is. A minimal dataset is a dataset that includes the information necessary to run the code, but removes all other unnecessary parts (extra columns/rows, extra context, etc.)
-
-We need minimal reproducible datasets to make it easy/simple/fast for the helper to focus in on the problem at hand and "get their hands dirty" tinkering with the dataset.
-
-## 4.2 What do I need to include in a minimal reproducible dataset?
-
-::: instructor
-Ask the audience, wait for them to respond
-:::
-
-It's actually all in the name:
-
--   it needs to be **minimal**, which means it only contains the necessary information to run the piece of code with which you are struggling. You can also think of this as being **relevant** to the problem. Only keep the necessary elements/variables. 
--   it needs to be **reproducible**. The data you provide must consistently reproduce the output or error with which you are struggling.
--   For it to truly be reproducible, it also needs to be **complete**, meaning there are no dependencies that have been omitted, and **accessible**, which means the helper must have access to the relevant data and code (more on this later).
+-   **minimal**: it only contains the necessary information to run your minimal code. You can also think of this as being **relevant** to the problem: keep only what is necessary. 
+-   **reproducible**: it must be **accessible** to someone without your computer, and it must consistently replicate your output/issue. This means it also needs to be **complete**,  meaning there are no dependencies that have been omitted.
 
 ::: callout
 ### Remember: your helper may not be in the room with you or have access to your computer and the files that are on it! 
 
 You might be used to always uploading data from separate files, but helpers can't access those files. Even if you sent someone a file, they would need to put it in the right directory, make sure to load it in exactly the same way, make sure their computer can open it, etc. Since the goal is to make everyone's lives as easy as possible, we need to think about our data in a different way--as a dummy object created in the script itself.
-:::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::: callout
 ### Pro-tip
@@ -127,7 +98,7 @@ c(xm, mean(x, trim = 0.10))
 ```
 
 In this case, x is the dummy dataset consisting of just 1 variable. Notice how it was created as part of the example.
-:::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::: challenge
 ### Exercise 1
@@ -150,8 +121,8 @@ A)  Not reproducible because it is a screenshot.
 B)  Not reproducible because it is a path to a file that only exists on someone else’s computer and therefore you do not have access to it using that path.
 C)  Not minimal, it has far too many columns and probably too many rows. It is also not reproducible because we were not given the source for `complete_old`.
 D)  Not reproducible because we are not given the source for `species_vector`.
-:::
-::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::: challenge
 
@@ -185,45 +156,65 @@ B)  does not produce the same problem (NA result with a warning message)--the co
 C)  minimal and reproducible.
 D)  is not reproducible. Sample randomly samples 10 items; sometimes it may include NAs, sometime it may not (not guaranteed to reproduce the error). It can be used if a seed is set (see next section for more info).
 E)  uses a dataset that isn't accessible without previous data wrangling code–the object rodents_modified doesn't exist.
-:::
-::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
-## 4.3 How do I create a minimal reproducible dataset?
+## 3.2 Can I just use my own data?
 
-This is where many often get stuck: how do I recreate the key elements of my dataset in order to reproduce my error?
-That seems really hard!
-If you also find this initially overwhelming, don’t worry.
-We will break it down into smaller steps.
-
-First, there are three approaches to providing a dataset.
-You can (1) create one from scratch, (2) use a dataset that is already available, (3) copy/recreate your actual dataset in a way that is minimal and reproducible. The approach you choose to take will depend largely on the nature and source of the problem as well as the complexity of your original dataset. Therefore, no matter which approach we take we first need to know which elements of our dataset are necessary:
-
-- How many variables do we need?
-- What data type is each variable?
-- How many levels and/or observations are necessary?
-- How many of the values need to be the same/different?
-- Are there any NAs that could be relevant?
-
-Keep these questions in mind as we move through our examples.
+At this point you may still be wondering why you need a separate dataset, can't you just use your own data if you made sure your helper could access it?
 
 ::: instructor
-OR should we start with an example right here where they need to answer those questions?
-:::
+Here you can ask the class if they can think of any reasons why using your own data may not be possible or, altough possible, not a good idea.
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
-Let's start from scratch.
+::: callout
+There are several reasons why you might need to create a separate dataset that is minimal and reproducible instead of trying to use your actual dataset.
+The original dataset may be:
 
-### 4.3.1 Create a dummy dataset from scratch
+-   too large - the Portal dataset is \~35,000 rows with 13 columns and contains data for decades. That's a lot!
+-   private - your dataset might not be published yet, or maybe you're studying an endangered species whose locations can't easily be shared. Another example: many medical datasets cannot be shared publically.
+-   hard to send - on most online forums, you can't attach supplemental files (more on this later). Even if you are just sending data to a colleague, file paths can get complicated, the data might be too large to attach, etc.
+-   complicated - it would be hard to locate the relevant information. One example to steer away from are needing a 'data dictionary' to understand all the meanings of the columns (e.g. what is "plot type" in `ratdat`?) We don't our helper to waste valuable time to figure out what everything means.
+-   highly derived/modified from the original file. You may have already done a bunch of preliminary data wrangling you don't want to include when you send the example, so you would need to provide the intermediate dataset directly to your helper.
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
-There are many ways one can create a dummy dataset from scratch.
+If so, you wouldn't be entirely wrong. While there could be several ways in which your original data may be inaccessible or hard to derive or subset, there are likely just as many ways you could make it minimal and reproducible. Nevertheless, this does not mean making your own original data minimal and reproducible will necessarily be easier than creating a new dataset from scratch. If the mere thought of any of this sounds daunting, don't worry, we will break it down into smaller steps.  
 
-You can create vectors using `c()`
+## 3.3 How do I create a minimal reproducible dataset?
+
+In general, there are 3 common ways to provide minimal reproducible data for a reprex. 
+
+- You can write a script that creates a new "dummy" dataset with the same key characteristics as your original data.
+
+- You can use a dataset that is already embedded in R and is therefore already accessible.
+
+- You can make your own data minimal and reproducible.
+
+For the purpose of this lesson, we believe each coder is entitled to all the options, therefore we will walk you through how to provide a minimal reproducible dataset using each of these 3 methods. However, opinions generally differ on which method is best for which situations. Below we compiles a summary table of advantages and disadvantages of each method based on many conversations with several groups.
+
+[ INSERT TABLE]
+
+### 3.3.1 Creating a "dummy" dataset from scratch
+
+While this might be the most daunting option for novices, it tends to be the preferred methods for experts. That's probably because, once you really understand the basic building blocks, it becomes the most straight-forward method of creating a minimal reproducible dataset. This is also the method that makes most sense when doing other activities that also require a reprex (e.g., teaching, collaborating, developing). Lastly, in this lesson we believe there are greater problem-solving insights to be gained by creating a new "dummy" dataset. So let's start by making this scary process more easily digestible!
+
+Usually, at this stage, you would have 2 pressing quesions:
+
+1. How do I create a dataset?
+2. How do I recreate the key elements of my data that replicate my issue?
+
+Let's start with the first.
+
+There are many ways one can create a dataset in R.
+
+You can start by creating vectors using `c()`
 
 ```{r}
 vector <- c(1,2,3,4) 
 vector
 ```
 
-You can add some randomness by sampling from a vector using `sample()`.
+You can also add some randomness by sampling from a vector using `sample()`.
 
 For example you can sample numbers 1 through 10 in a random order
 
@@ -260,94 +251,156 @@ head(data)
 For more handy functions for creating data frames and variables, see the cheatsheet.
 For some questions, specific formats can be needed.
 For these, one can use any of the provided as.someType functions: `as.factor`, `as.integer`, `as.numeric`, `as.character`, `as.Date`, `as.xts`.
-:::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
-Let's come back to our kangaroo rats example.
+::: instructor
+You can skip the challenge below or you can run through it together to illustrate the above.
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
-Since we will be working with the same dataset this year, we want to know how many kangaroo rats of each species were found in each plot type in past years so that we can better estimate what sample size we can expect.
+:::: challenge
+### Now Practice! (Optional)
+Create a data frame with:
 
-Here is the code we use:
+A. One categorical variable with 2 levels and one continuous variable.
+B. One continuous variable that is normally distributed. 
+C. Name, sex, age, and treatment type.
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
-```{r message=FALSE}
-krats %>%
-  ggplot(aes(x = date, fill = plot_type)) +
-  geom_histogram(alpha=0.6)+
-  facet_wrap(~species)+ 
-  theme_bw()+
-  scale_fill_viridis_d(option = "plasma")+
-  geom_vline(aes(xintercept = lubridate::ymd("1988-01-01")), col = "red")
+### 3.3.2 Identifying the key elements of your data
+
+No matter which approach we take for providing a dataset, we need to identify which elements of our original data are necessary. To do so, we propose starting a few simple questions to investigate your data:
+
+- How many variables do we need?
+- What data type (discrete or continuous) is each variable?
+- How many levels and/or observations are necessary?
+- Should the values be distributed in a specific way?
+- Are there any NAs that could be relevant?
+
+Let's come back to our kangaroo rats example. Here is the minimal code we settled on:
+
+```{r}
+# Minimal code[Or whatever we end up with]
+krats_subset <- rodents %>%
+  filter(species == c("ordii", "spectabilis"),
+         sex == c("F", "M"))
+
+table(krats_subset$sex, krats_subset$species)
 ```
 
-Now let's say we saw this and decided we wanted to get rid of "sp." but didn't know how.
-We want to ask someone online but we first need to create a minimal reproducible example. Remember our questions from earlier...
+So we want to create a minimal reproducible 'dummy' version of `krats_subet`. Let's start by taking a quick look, then aswering the questions.
+
+```{r}
+head(krats_subset)
+```
 
 :::: challenge
 ### Excercise 3 
-Try to answer the following questions oon your own and see if you can determine what we need to include in our minimal reproducible dataset:
+Try to answer the following questions on your own to determine what we need to include in our minimal reproducible dataset:
 
 1. How many variables do we need? 
-1. What data type is each variable?
+1. What data type (discrete or continuous) is each variable?
 1. How many levels and/or observations are necessary?
-1. How many of the values need to be the same/different?
+1. Should the values be distributed in a specific way?
 1. Are there any NAs that could be relevant?
-
-::: solution
-1. We will need 3 variables to represent species, plot type, and date.
-1. Two of our variables will need to be categorical (factors) and one of them continuous.
-1. To reproduce the figure, we can use 2-4 levels for one factors (species), and maybe 2 levels for the other factor (plot type) to keep it minimal. Our continuous variable could range 1 to 10 (date). We don't need too many observations, but we do have 2 categories, one with 4 levels. Let's make it an even 100.
-1. NAs are not relevant to our problem
-:::
-::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::: instructor
-Maybe we don't need to include the solution and we just walk through it in the following section.
-:::
+After giving them some time to think it through on their own, work together through the answers
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
-1. What variables would we need to reproduce this figure?
+Let's go over the answers together and build a dataset as we go along!
 
-We will need 3 variables to represent species, plot type, and date. 
+1. How many variables do we need? 
 
-2. What data type is each variable?
+We need species, sex, and maybe a third identifier like record_id. This means we potentially need 3 vector (remember, each column in a dataframe is essentially just a vector).
 
-Two of our variables (species and plot type) will need to be categorical (factors) and one of them continuous (date).
+1. What data type (discrete or continuous) is each variable?
 
-3. How many levels and/or observations are necessary?
+Species and sex are both discrete (categorical) variables, while record ID would be more continuous.
 
-For species, our original figure has 4 levels. We could reduce this to 2, but let's keep it at 4. Let's call these species A, B, C, and D.
+1. How many levels and/or observations are necessary?
 
-```{r}
-species <- c('A','B','C','D')
-```
+Since we are filtering our dataset down to 2 categories for both species and sex, that means we need at least 3 levels in each to start with. In terms of number of observations there don't seem to be specific restrictions other than we probably want at least 1 observations per original category, so 2*3=6, or we can just pick another typical nice number like 10.
 
-For plot type, our original figure has 5 levles, but we could cut it down to 2. Let's call them P1 and P2.
-In reality, we probably don't even need this for this question, but for the sake of practicing let's add it in.
+1. Should the values be distributed in a specific way?
 
-```{r}
-plot.type <- c('P1','P2')
-```
+Since question probably isn't going to be relevant most of the time, but certainly worth considering. If we needed a longer dataset of measurements we may have wanted to make sure it was normally distributed. If we needed a longer dataset of counts we may have wanted to make sure it was Poisson distributed. Or maybe we had bimodal data. But in this case, we had a short dataset and I don't think it matters. We can always come back to this if we are unable to replicate our issue (hint: in which case the distribution may be related to the issue).
 
-Lastly, date is our continuous variable. To mimic our original figure, we probably want it long enough to show multiple bars along the x axis, but we still want to keep it minimal.
-Let's just call it days and make it 1-10.
+1. Are there any NAs that could be relevant?
+
+We don't have any NAs but we do have a blank category under sex. For all we know that could be important, so maybe we want to also make one of our categories blank.
 
 ```{r}
-days <- c(1:10)
-```
+# We need 3 variables: species, sex, and record_id
+# species and sex are categorical with at least 3 levels, one of which is blank for sex
+species <- sample(letters, 3, replace=F)
+print(species)
+sex <- c('M','F','')
+print(sex)
 
-Great!
-Now we have all of our variables, we need to go sampling. How many observations do we need? Again, we want enough to show a similar graph, but also keep it minimal. We need to sample each plot for 10 days, and each plot should give us a varying number of species, of which we have 4. Let's say we find 20 individuals.
+# record_id is continuous 
+record_id <- 1:10
+print(record_id)
 
-We can simulate the data collected each day by using `sample()` and specifying our number of observations (we need to sample 20 times). Since we want species and plots to repeat, we will also set replace to T.
-
-All together we get:
-
-```{r}
-sample_data <- data.frame(
-  Day = days,
-  Plot = sample(plot.type, 20, replace=T),
-  Species = sample(species, 20, replace=T)
+# Now let's go sampling and put it all together
+sample <- data.frame(
+  record_id = record_id,
+  species = sample(species, 10, replace=T),
+  sex = sample(sex, 10, replace=T)
 )
-sample_data
+print(sample)
 ```
+
+And just like that we created a 'dummy' dataset from scratch! Notice that we could also have compiled the same type of dataset in a single line by creating each vector already within the `data.frame()`
+
+```{r}
+sample2 <- data.frame(
+  record_id = 1:10,
+  species = sample(letters[1:3], 10, replace=T),
+  sex = sample(c('M','F',''), 10, replace=T)
+)
+print(sample2)
+```
+
+**Note**: if you want the outputs to be EXACTLY the same each time, but you are using `sample()` which is an inherently random process, you must first use `set.seed()` and share that with your helper too.
+
+```{r}
+set.seed(1) # set seed before recreating the sample
+sample <- data.frame(
+  record_id = 1:10,
+  species = sample(letters[1:3], 10, replace=T),
+  sex = sample(c('M','F',''), 10, replace=T)
+)
+print(sample)
+```
+
+Great! Now we need to check whether it works within our code and whether it reproduces our issue
+
+```{r}
+# Minimal code [or whatever we end up with] 
+sample_subset <- sample %>% # replace rodents with our sample dataset
+  filter(species == c("a", "b"), # replace species with those from our sample dataset
+         sex == c("F", "M")) # this can stay the same because we recreated it the same
+
+table(sample_subset$sex, sample_subset$species)
+```
+Oh, oh! It seems that in the process of recreating our issue we have stumbled upon another one!
+
+Is the problem in our "new" code with replaced variables or in the sample dataset we created? To find out let's try using the other sample dataset we created before we used `set.seed()`
+
+```{r}
+sample2_subset <- sample2 %>% # replace rodents with our sample dataset
+  filter(species == c("a", "b"), # replace species with those from our sample dataset
+         sex == c("F", "M")) # this can stay the same because we recreated it the same
+
+table(sample2_subset$sex, sample2_subset$species)
+```
+
+Ok! We do get our same issue this time (maybe, maybe you didn't given that the seed isn't the same)
+
+
+
+#### OLD PARTS #####
 
 Great!
 Now we have a sample data set that is minimal, but is is reproducible?
@@ -406,16 +459,7 @@ sample_data2 %>%
 ```
 which is even more simplistic than the one before but still contains the elements we are interested in--we have a set of "species" separated into facets and we want to get rid of one of them. In reality, had we realized that we needed to get rid of the rows with "sp." in them, we could have ignored the figure entirely and posed the question about the data alone. E.g., "how do I remove rows that contain a specific name?" Then give just the example dataset we created.
 
-:::: challenge
 
-### Exercise 4 (10 minutes) -- optional?
-Now practice doing it yourself.
-Create a data frame with:
-
-A. One categorical variable with 2 levels and one continuous variable.
-B. One continuous variable that is normally distributed. 
-C. Name, sex, age, and treatment type.
-:::
 
 ### 4.3.2 Create a dataset using an existing dataset
 
