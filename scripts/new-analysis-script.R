@@ -3,11 +3,12 @@
 
 library(ratdat)
 library(reprex)
-library(dplyr)
-library(ggplot2)
+library(tidyverse) # changed from individual packages
 
 # Load in the data # XXX not actually currently included in our website render!
 rodents <- read.csv("scripts/data/surveys_complete_77_89.csv")
+
+# explaining the columns that we'll be using
 
 # Exploring data (visually) -----------------------------------------------
 

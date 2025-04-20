@@ -5,9 +5,17 @@ exercises: 10
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
+- What steps can you take to solve problems in your code?
+- What is a minimal reproducible example?
+- Why are minimal reproducible examples important?
+- What variables are included in the Portal Project dataset?
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
+- Understand the high-level process for getting unstuck in R.
+- Define each key characteristic of a minimal reproducible example.
+- Explain why minimal reproducible examples are central to getting help from others.
+- Load in the rodent survey data and briefly explain its contents.
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 Mickey is an ecologist working with data from The Portal Project, a long-term research study of rodents in Portal, Arizona. Mickey has just started in a new lab at their university. They are interested in learning about rodent morphology. For now, they are learning about the dataset by doing some descriptive analyses and visualizations of the data. 
@@ -58,7 +66,7 @@ Think about a time that you helped someone else with their code. What informatio
 
 To help Mickey get more comfortable troubleshooting their own code, Remy suggests some steps to follow the next time they get stuck. Remy calls this the "Road Map to Getting Unstuck in R."
 
-INSERT ROAD MAP VISUALIZATION HERE!
+![](fig/roadmap.png)
 
 Remy explains that the road map includes two main phases. First, there is guidance about "code first aid." This includes understanding types of errors, reading function documentation, investigating error messages, and running through code line by line to diagnose problems.
 
@@ -66,43 +74,58 @@ Sometimes, these first aid steps are not enough to solve your problem. One of th
 
 A minimal reproducible example is a piece of code that demonstrates the problem you are facing, includes all necessary information to show the problem but nothing extra, and will run easily on someone else's computer.
 
-!["fig/MinimalReproducibleExample.png"]()
+![](fig/MinimalReproducibleExample.png)
 
-As the name suggests, a reprex should be:
+Minimal reproducible examples are very important tools to get help when you're stuck on a coding problem.
 
-1. Minimal. It's important to strip the code and data down to their simplest parts and remove anything that is not directly relevant to the problem. This makes it easy for a helper to zero in on what might be going wrong. It also makes the helping process simpler for the helper, making them more likely to take the time to work on your problem. 
+- Stripping the code and data down to their simplest (*minimal*) parts makes it easy for a helper to zero in on what might be going wrong.
 
-2. Reproducible. The reprex should recreate the problem you're encountering, and it needs to be runnable by someone other than you, on a different computer.
+- Making your example *reproducible* allows a helper to run your code on their own computer so they can "feel your pain" and understand what's going wrong. Even experts often have to "tinker" with code in order to fix it. Providing a reprex makes that "tinkering" easy, which makes it more likely that a helper will take the time to assist you.
 
-Why is reproducibility important? In many disciplines, experts can give helpful abstract advice about problems. Coding is very hands-on. Even experts usually have to "tinker" with a problem before they can determine what is happening. Without the ability to "tinker", debugging is both difficult and frustrating, which means that you are less likely to get help.
-
-The Tidyverse documentation puts it simply:
-
->"The goal of a reprex is to package your problematic code in such a way that other people can run it and feel your pain. Then, hopefully, they can provide a solution and put you out of your misery." - [Get help! (Tidyverse)](https://www.tidyverse.org/help/)
+- The process of making a minimal reproducible example often gives you insight into your own code. Often, you might end up solving the problem yourself, without even needing to ask for help.
 
 ::: callout
-## The wrong ways to ask questions
-- Screenshots
-- Descriptions of the data
-- "It doesn't work"
-XXX expand on this--not sure about the best way/time to introduce these "don't"s. Maybe not at all?
+The phenomenon of solving one’s own problem during the process of trying to explain it to someone else is often called “rubber duck debugging.” This is a reference to a story about programmers who would keep rubber ducks on their desks to explain coding problems to. Jenny Bryan refers to reprexes as “basically the rubber duck in disguise,” because they force you to explain your problem to someone else, often solving it in the process.
+
+Jenny Bryan shares many other insights about reprexes in her 2018 talk ["Help me help you: creating reproducible examples."](https://www.youtube.com/watch?v=5gqksthQ0cM)
 :::
 
-As an added bonus, the process of simplifying your problem and creating a reprex often leads to a better understanding of your own code!
+![](fig/jennybryan.png)
 
-![A tweet from Dr. Sam Tyner-Monroe, describing her experience solving her own problem through the process of making a reprex (December 12, 2019)](fig/samtynermonroe.png)
+:::callout
+## Helpers
 
-In fact, the phenomenon of solving one's own problem during the process of trying to explain it clearly to someone else is well known--it's often called "[rubber duck debugging](https://en.wikipedia.org/wiki/Rubber_duck_debugging)". Jenny Bryan, who created a great video about reprexes called "[Help me help you](https://www.youtube.com/watch?v=5gqksthQ0cM&ab_channel=PositPBC)", called reprexes "basically the rubber duck in disguise".
+There are lots of people who might help you with your code: friends, colleagues, mentors, or total strangers online. In this lesson, we will use the term "helper" to refer to the person who is helping you to debug your code. Helpers are the target audience for your minimal reproducible example.
+:::
 
-![A tweet from Jenny Bryan comparing reprexes to rubber duck debugging (January 4, 2018)](fig/jennybryan.png)
+Jordan emphasizes to Mickey that they are still happy to be a helper, but that since they won't have as much time to devote to debugging in the future, following this road map first will make the helping process more efficient. Hopefully, it will also make Mickey into a more confident coder! 
 
-Making a reprex might seem simple in theory, but it can be challenging to put into practice. In this lesson, we will walk through the process of creating a minimal reproducible example. We'll talk about each of the steps and provide a workflow that you can follow when you get stuck in the future. At the end, we'll introduce you to the `{reprex}` package, a useful tool for creating good minimal reproducible examples.
+Before heading off to their own work, Jordan also introduces Mickey to the dataset they've just loaded in.
 
-## Overview of this lesson
-[XXX visual for the roadmap? or just an outline?]
+```{r}
+glimpse(surveys)
+min(surveys$year)
+max(surveys$year)
+```
+
+Jordan explains that the dataset is made up of many individual rodent records (`record_id`). The date of each record is given by the `month`, `day`, and `year` columns. 
+
+The dataset includes data from a number of different study plots that had different treatments applied: plot IDs are given by the `plot_id` column, and the type of treatment is specified in `plot_type`. 
+
+There is information about the `genus` and `species` of each individual caught, as well as higher-level `taxa` information and a short-form `species_id` code. 
+
+For each individual caught, the field crew took `weight`, `sex` and `hindfoot_length` measurements, although those measurements are sometimes missing.
+
+The dataset contains 16,878 rodent observations ranging across years from 1977 through 1989. 
+
+:::callout
+More information about the Portal Project and the surveys dataset is available at [LINK].
+:::
+
+With an introduction to the dataset and a road map to guide them if they get stuck, Mickey feels ready to start coding!
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
-- A helper usually needs to run your code in order to debug it.
-- Minimal reproducible examples make it possible for helpers to run your code, which lets them "feel your pain" and figure out what's wrong.
-- Making a minimal reproducible example helps you understand your own problem and often leads to finding the answer yourself!
+- kp1
+- kp2
+- kp3
 ::::::::::::::::::::::::::::::::::::::::::::::::
