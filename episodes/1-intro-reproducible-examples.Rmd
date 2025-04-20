@@ -23,13 +23,20 @@ Mickey is an ecologist working with data from The Portal Project, a long-term re
 Mickey starts by loading the data so they can begin to explore it. They also load the {tidyverse}, a set of packages that will be useful for wrangling and visualizing the data.
 
 ::: instructor note
-Loading the entire {tidyverse} here, rather than a few component packages, is an intentional over-complication so that we can teach learners to simplify their packages later. Learners should have {tidyverse} installed, as per the setup instructions.
+The first chunk here is what will show up in the lesson (loading `{tidyverse}`), but this is set to `eval = F` because otherwise the website build takes forever.
 
-Would it be better to have the surveys dataset as a downloaded file for them to load in, or does loading it from a url make sense?
+The second chunk is what will actually run behind the scenes of the lesson (loading only `{dplyr}` and `{readr}`).
 :::
 
-```{r}
+```{r eval = F}
 library(tidyverse)
+
+surveys <- read_csv("https://raw.githubusercontent.com/carpentries-incubator/R-help-reprexes/refs/heads/main/episodes/data/surveys_complete_77_89.csv") 
+```
+
+```{r eval = T, echo = F, message = F}
+library(readr)
+library(dplyr)
 
 surveys <- read_csv("https://raw.githubusercontent.com/carpentries-incubator/R-help-reprexes/refs/heads/main/episodes/data/surveys_complete_77_89.csv") 
 ```
@@ -119,13 +126,15 @@ For each individual caught, the field crew took `weight`, `sex` and `hindfoot_le
 The dataset contains 16,878 rodent observations ranging across years from 1977 through 1989. 
 
 :::callout
-More information about the Portal Project and the surveys dataset is available at [LINK].
+More information about the Portal Project and the surveys dataset is available at [https://portal.weecology.org/](https://portal.weecology.org/).
 :::
 
 With an introduction to the dataset and a road map to guide them if they get stuck, Mickey feels ready to start coding!
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
-- kp1
-- kp2
-- kp3
+- Applying some "code first aid" can help address problems in your code.
+- Helpers can more easily debug your code if you provide them with a small example of the problem (a "reprex") that they can tinker with themselves.
+- In the process of building a reprex, you may find the solution yourself.
+- In the rest of this lesson, we will be working through a "road map" to getting unstuck that includes code first aid and the process of making a reprex.
+- The `surveys` dataset includes records of rodents captured in a variety of experimental plots over a 12-year period, including some data about each rodent's sex and morphology.
 ::::::::::::::::::::::::::::::::::::::::::::::::
