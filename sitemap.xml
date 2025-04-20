@@ -28,6 +28,12 @@
     <loc>https://carpentries-incubator.github.io/R-help-reprexes/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/R-help-reprexes/aio.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/R-help-reprexes/images.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/R-help-reprexes/index.html</loc>
   </url>
   <url>
@@ -58,13 +64,31 @@
     <loc>https://carpentries-incubator.github.io/R-help-reprexes/instructor/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/R-help-reprexes/instructor/aio.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/R-help-reprexes/instructor/images.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/R-help-reprexes/instructor/index.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/R-help-reprexes/instructor/instructor-notes.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/R-help-reprexes/instructor/key-points.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/R-help-reprexes/instructor/profiles.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/R-help-reprexes/instructor/reference.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/R-help-reprexes/instructor-notes.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/R-help-reprexes/key-points.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/R-help-reprexes/profiles.html</loc>
