@@ -26,7 +26,8 @@ After completing this episode, participants should be able to...
 -   Identify when a problem is better suited for asking for further help, including online help and reprex
 :::
 
-```{r, echo=F}
+
+```{r, echo=F, message=FALSE}
 library(readr)
 library(dplyr)
 library(ggplot2)
@@ -40,11 +41,11 @@ rodents <- read_csv("data/surveys_complete_77_89.csv")
 
 (initial intro -- edit upon looking at intro episode)
 
-The first step we'll cover is what to do when encountering an error or other undesired output from your code. With this episode, we hope to teach you the basics about identifying errors, rectifying them if possible, and if not, how to isolate the problem for others to look at. While the "RRRR I'm Stuck" lesson outlines a complete workflow on solving coding problems from errors to minimum reproducible examples, it is our experience that many seemingly-impossible errors can be understood and fixed without the full workflow. Here, we'll go over errors, including how to solve many by yourself.
+The first step we'll cover is what to do when encountering an error or other undesired output from your code. With this episode, we hope to teach you the basics about identifying errors, rectifying them if possible, and if not, how to isolate the problem for others to look at. This is the first step in our "roadmap" of how to solve coding problems -- recognizing when something is happening that you don't intend with your code, and then identifying the problem (to a lesser or greater degree) in order to solve it yourself or be able to succintely describe it to a helper. 
 
-## 3.1 What do I do when I encounter an error?
+## 3.1 What do I do when I encounter an error message?
 
-Something that may go wrong is an error in your code. By this, we mean any code which generates an error message. This happens when R is unable to run your code, for a variety of reasons. While we can't review every type of reason your code generates an error, we will try to teach you some tools for you to interpret and figure out errors yourself.
+While sometimes frusturating to read, R will often let us know when a problem occurs by generating an error message that is meant to tell us why R was unable to run our code. This type of ‘error’ is often referred to as a **syntax** error. When R is unable to run your code, it will return this type of error message, and stop the program (as opposed to a **warning** or attempting to run further lines despite the error). Error messages may happen for many reasons. However, deciphering the meaning of such error messages is not always as easy as we might hope. While we can't review every type of reason your code generates an error, we will try to teach you some tools for you to interpret and figure out syntax errors for yourself.
 
 The accompanying error message attempts to tell you exactly how your code failed. For example, consider the following error message that occurs when I run this command in the R console:
   
@@ -52,7 +53,7 @@ The accompanying error message attempts to tell you exactly how your code failed
 ggplot(x = taxa) + geom_bar()
 ```
 
-Though we know somewhere there is an object called `taxa` (it is actually a column of the dataset `rodents`), R is trying to communicate that it cannot find any such object in the local environment. Let's try again, appropriately pointing ggplot to the `rodents` dataset and `taxa` column using the `$` operator.
+Though we know somewhere there is an object called `taxa` (it is actually a column of the dataset `rodents`), R is trying to communicate that it cannot find any such object in the local environment. Let's try again, appropriately pointing ggplot to the `rodents` dataset and `taxa` column using the `$` operator. For the sake of argument, let's say we also remember that `geom_bar` expects an aesthetic (`aes`).
 
 ```{r, error=T}
 ggplot(aes(x = rodents$taxa)) + geom_bar()
@@ -60,11 +61,13 @@ ggplot(aes(x = rodents$taxa)) + geom_bar()
 
 Whoops! Here we see another error message -- this time, R responds with a perhaps more-uninterpretable message.
 
-Let's go over each part briefly. First, we see an error from a function called `fortify`, which we didn't even call! Then a much more helpful informational message: Did we accidentally pass `aes()` to the `data` argument? This does seem to relate to our function call, as we do pass `aes`, potentially where our data should go. A helpful starting place when attempting to decipher an error message is checking the documentation for the function which caused the error:
+
+
+Let's go over each part briefly. First, we see an error from a function called `fortify`, which we didn't even call! Then, there's a more helpful informational message: Did we accidentally pass `aes()` to the `data` argument? This does seem to relate to our function call, as we do pass `aes` into the `ggplot` function. But what is this “`data` argument?" A helpful starting place when attempting to decipher an error message is checking the documentation for the function which caused the error:
 
 `?ggplot`
 
-Here, a Help window pops up in RStudio which provides some more information. Skipping the general description at the top, we see ggplot takes positional arguments of `data`, **then** `mapping`, which uses the `aes` call. We can see in "Arguments" that the `aes(x = rodents$taxa)` object used in the plot is attempted by `fortify` to be converted to a data.frame: now the picture is clear! We accidentally passed our `mapping` argument (telling ggplot how to map variables to the plot) into the position it expected `data` in the form of a data frame. And if we scroll down to "Examples", to "Pattern 1", we can see exactly how ggplot expects these arguments in practice. Let's amend our result:
+Here, a Help window pops up in RStudio which provides some more information. Skipping the general description at the top, we see ggplot takes positional arguments of `data`, *then* `mapping`, which uses the `aes` call. We can see in "Arguments" that the `aes(x = rodents$taxa)` object used in the plot is attempted by `fortify` to be converted to a data.frame: now the picture is clear! We accidentally passed our `mapping` argument (telling ggplot how to map variables to the plot) into the position it expected `data` in the form of a data frame. And if we scroll down to "Examples", to "Pattern 1", we can see exactly how ggplot expects these arguments in practice. Let's amend our result:
   
 ```{r}
 ggplot(rodents, aes(x = taxa)) + geom_bar()
@@ -72,39 +75,46 @@ ggplot(rodents, aes(x = taxa)) + geom_bar()
 
 Here we see our desired plot.
 
-Some common errors you might run into include R expecting different input types for a function than those given, being unable to process data in the way the code is written (e.g. divide by zero errors), or being unable to find a variable or function you've specified.
+## Stop no. 1 on our roadmap: Identifying the problem 
 
-## Summary
+Let's pause here to highlight some patterns we're starting to see in the course of fixing our code: 
 
-In general, when encountering an error message for which a remedy is not immediately apparent, some steps to take include:
+1. Seeing a problem arise in our code (in this case, R is explicitly telling us it has a problem running it).
 
-1.  Reading each part of the error message, to see if we can interpret and act on any.
+1. Reading and interpreting the error message R gives us. 
 
-2.  Pulling up the R Documentation for that function (which may be specific to a package, such as with ggplot).
+Other steps we might take then include: 
 
-3.  Reading through the documentation's Description, Usage, Arguments, Details and Examples entries for greater insight into our error.
+3. Acting on parts of the error we can understand, such as changing input to a function. 
 
-4.  Copying and pasting the error message into a search engine for more interpretable explanations.
+3. Pulling up the R Documentation for that function, and reading the documentation's Description, Usage, Arguments, Details and Examples entries for greater insight into our error.
 
-And, when all else fails, preparing our code into a reproducible example for expert help.
+3. Copying and pasting the error message into a search engine / generative LLM for more interpretable explanations.
+
+And, when all else fails, we can prepare our code into a reproducible example for expert help.
+
+While the above steps may be new or seem familiar, we formalize this a little bit to explicitly address the first two points: recognizing when a problem arises and attempting to interpret *what* is going wrong is essential to fixing it. This is true whether you fix the problem on your own, or by effectively communicating it to an expert. The latter steps one might attempt to immediately address the problem we'll call **code first aid** -- these steps might fix the problem, give you greater insight into what the problem is (and how R is interpreting your code), or not be helpful at all. 
+
+In any case, we want to emphasize the first skills are essential to being a practiced coder able to effectively seek help. While they may seem trivial, we will see below examples of problems that are trickier to both recognize and interpret. 
+
 
 ## 3.2 What do I do when my code outputs something I don't expect
 
-Another type of 'error' which you may encounter is when your R code runs without errors, but does not produce the desired output. You may sometimes see these called "semantic errors" (as opposed to syntax errors, though these term themselves are vague within computer science and describe a variety of different scenarios). As with actual R errors, semantic errors may occur for a variety of non-intuitive reasons, and are often harder to solve as there is no description of the error -- you must work out where your code is defective yourself!
+Another type of problem you may encounter is when your R code runs without errors, but does not produce the desired output. You may sometimes see these called **semantic errors**. As with syntax errors, semantic errors may occur for a variety of non-intuitive reasons, and are often harder to solve as there is no description of the error -- you must work out where your code is defective yourself!
   
-  With our rodent analysis, the next step in the plan is to subset to just the `Rodent` taxa (as opposed to other taxa: Bird, Rabbit, Reptile or NA). Let's quickly check to see how much data we'd be throwing out by doing so:
+Let's go back to our rodent analysis. The next step in the plan is to subset to just the `Rodent` taxa (as opposed to other taxa: Bird, Rabbit, Reptile or NA). Let's quickly check to see how much data we'd be throwing out by doing so:
   
 ```{r}
 table(rodents$taxa)
 ```
 
-We're interested in the Rodents, and thankfully it seems like a majority of our observations will be maintained when subsetting to rodents. Except wait. In our plot, we can clearly see the presence of NA values. Why are we not seeing them here? This is an example of a semantic error -- our command is executed correctly, but the output is not everything we intended. Having no error message to interpret, let's jump straight to the documentation:
+We're interested in the Rodents, and thankfully it seems like a majority of our observations will be maintained when subsetting to rodents. But wait. In our plot above, we can clearly see the presence of NA values. Why are we not seeing them here? This is an example of a semantic error -- our command is executed correctly, but the output is not everything we intended. Having no error message to interpret, let's jump straight to the function documentation:
   
 ```{r}
 ?table
 ```
 
-Here, the documentation provides some clues: there seems to be an argument called `useNA` that accepts "no", "ifany", and "always", but it's not immediately apparent which one we should use. As a second approach, let's go to `Examples` to see if we can find any quick fixes. Here we see a couple lines further down:
+Here, the documentation provides some clues: `table` takes an argument called `useNA` that accepts "no", "ifany", and "always", but it's not immediately apparent which one we should use to show our NA values. As a second approach, let's go to `Examples` to see if we can find any quick fixes. Here we see a couple lines further down:
   
 ``` r
 table(a)                 # does not report NA's
@@ -169,7 +179,27 @@ ggplot(rodents) + geom_tile(aes(month, plot_type))
 
 ## Summary
 
-In general, when encountering a semantic error for which a remedy is not immediately apparent, some steps to take include:
+In general, encountering semantic errors can make our job more difficult, but the roadmap remains the same: 
+
+
+1. Seeing a problem arise in our code.
+
+1. Interpreting the problem.  
+
+Other steps we might take then include: 
+
+3. Acting on parts of the error we can understand, such as changing input to a function. 
+
+3. Pulling up the R Documentation for that function, and reading the documentation's Description, Usage, Arguments, Details and Examples entries for greater insight into our error.
+
+3. Describing our problem into a search engine / generative LLM for more interpretable explanations.
+
+And, when all else fails, we can prepare our code into a reproducible example for expert help.
+
+The steps to identifying the problem and in *code first aid* matches much of what we've seen above. However, here seeing the problem arise in our code may be much more subtle, and comes from us recognizing output we don't expect or know to be wrong. Even if the code is run, R may give us *warning* or informational messages which pop up when executing your code. Most of the time, however, it's up to the coder to be vigilant and be sure steps are running as they should. Interpreting the problem may also be more difficult as R gives us little or no indication about how it's misinterpreting our intent. 
+
+
+identifying problems more difficult, as R will not explicitly tell you there's a problem. Interpreting the problem  for which a remedy is not immediately apparent, some steps to take include:
   
 1.  Reading any warning or informational messages that may pop up when executing your code.
 
@@ -303,3 +333,9 @@ krats %>%
 ```
 
 It looks like the study change helped to reduce *merriami* sightings in the Rodent and Short-term Krat exclosures.
+
+
+
+
+While it is common practice in intro coding courses to call over the instructor with a raised hand and a statement such as "I don't know what's wrong," in reality people have limited time, bandwidth, or requisite knowledge to be able to help out with any problem that might arise. Even if they can't figure out a bug on their own, the practiced coder can identify and articulate the problem effectively such that someone with available time and expertise can help out 
+
