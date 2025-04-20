@@ -5,36 +5,83 @@ exercises: 10
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
-- How is the process of getting help in R different from getting help with other things?
-- Why is a minimal reproducible example an important tool for getting help in R?
-- What will we be learning in the rest of the course?
+- What steps can you take to solve problems in your code?
+- What is a minimal reproducible example?
+- Why are minimal reproducible examples important?
+- What variables are included in the Portal Project dataset?
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
-
-- Recognize what it takes to debug someone else's code.
-- Define a minimal reproducible example.
-- Describe the general workflow that we will cover in the rest of this lesson.
-
+- Understand the high-level process for getting unstuck in R.
+- Define each key characteristic of a minimal reproducible example.
+- Explain why minimal reproducible examples are central to getting help from others.
+- Load in the rodent survey data and briefly explain its contents.
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-#### Welcome and introductions
-- Welcome to "RRRR, I'm Stuck!" We're glad you're here! Let's first take care of a few setup steps. You should have all followed the setup instructions on the [workshop website](https://carpentries-incubator.github.io/R-help-reprexes/), and you should have both R and RStudio installed.
- 
-- You should also have the following packages installed: {**reprex**}, {**ratdat**}, {**dplyr**}, and {**ggplot2**}.
+Mickey is an ecologist working with data from The Portal Project, a long-term research study of rodents in Portal, Arizona. Mickey has just started in a new lab at their university. They are interested in learning about rodent morphology. For now, they are learning about the dataset by doing some descriptive analyses and visualizations of the data. 
 
-- We have a range of levels of experience here. This workshop assumes that you are researcher in ecology or biology who has some prior experience working with R in RStudio.
+Mickey starts by loading the data so they can begin to explore it. They also load the {tidyverse}, a set of packages that will be useful for wrangling and visualizing the data.
 
-- The examples in this lesson follow an example data wrangling, visualization, and analysis workflow similar to one that might be used by an ecology researcher. We will not spend much time discussing the code itself. [Reference guide?]
+::: instructor note
+Loading the entire {tidyverse} here, rather than a few component packages, is an intentional over-complication so that we can teach learners to simplify their packages later. Learners should have {tidyverse} installed, as per the setup instructions.
 
-- It's okay if you're not an R expert--but even more experienced R coders might be less familiar with how to get unstuck, so we hope this workshop will be useful to many levels of coding background.
+Would it be better to have the surveys dataset as a downloaded file for them to load in, or does loading it from a url make sense?
+:::
+
+
+``` r
+library(tidyverse)
+```
+
+``` output
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.4     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+```
+
+``` r
+surveys <- read_csv("https://raw.githubusercontent.com/carpentries-incubator/R-help-reprexes/refs/heads/main/episodes/data/surveys_complete_77_89.csv") 
+```
+
+``` output
+Rows: 16878 Columns: 13
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (6): species_id, sex, genus, species, taxa, plot_type
+dbl (7): record_id, month, day, year, plot_id, hindfoot_length, weight
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+```
+
+Mickey has some past experience in R, but this project will require more data analysis than they have done before. Mickey attended a Carpentries workshop, "Data Analysis and Visualization in R for Ecologists," and they feel comfortable with the fundamentals of coding in R. Still, they are a little nervous about starting this project. 
+
+:::::::::::::::::::::::::::::::::::::: callout 
+## Prerequisites and target audience
+
+This workshop assumes some prior experience with working in R and RStudio. We will assume you've taken the equivalent of the Data Analysis and Visualization in R for Ecologists workshop and are comfortable with basic commands, and we won't necessarily explain every line of code in detail.
+
+If you're much more experienced in R, this workshop is still for you! Even expert coders may not always know how to get unstuck. We hope this workshop will be useful to people with a variety of coding backgrounds.
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+Sometimes, Mickey's code doesn't work as expected and they go to their colleague, Remy, for help. Remy has spent many hours sitting with Mickey, helping to work through various errors. But soon, Remy will be starting a big project, and they won't have as much time to help with debugging. 
+
+::: instructor note
+The following exercises are optional, but they can are useful for getting learners settled in.
+:::
 
 :::::::::::::::::::::::::::::::::::::: challenge 
 ## Think, pair, share: When you get stuck
 
 When you're coding in R and you get stuck, what are some things that you do to get help or get unstuck?
 ::::::::::::::::::::::::::::::::::::::::::::::::
-
 
 :::::::::::::::::::::::::::::::::::::: challenge 
 ## Think, pair, share: Helping someone else
@@ -43,54 +90,102 @@ Think about a time that you helped someone else with their code. What informatio
 (If you have never helped someone else with their code, think about a time that someone helped you--what information did they need to know in order to help?)
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-Fixing problems can be one of the most challenging parts of learning to code. Luckily, there are many people in the R and data science communities that will be able to help when you get stuck. However, learners and potential helpers alike often run into trouble when they try to communicate about broken code. Helping someone to fix their code can feel impossible when they don't give you enough information to replicate the problem. But as a novice, figuring out how to ask a good question can feel even harder than the original problem that got you stuck in the first place!
 
-When you get stuck, often the first step is to try some strategies on your own to fix your code. This might include reading help resources, investigating error messages, and methodically walking through each line of your code to figure out what might have gone wrong. But it's also very common to ask for help from someone else, such as a colleague or strangers online.
+To help Mickey get more comfortable troubleshooting their own code, Remy suggests some steps to follow the next time they get stuck. Remy calls this the "Road Map to Getting Unstuck in R."
 
-Asking for help with your code is a little different than asking for help with many other things. That's because it is usually not enough to describe the problem in general or theoretical terms. Most help forums (StackOverflow, the Posit Community, and the R for Data Science Slack workspace are common places to ask for help with R code!) require users to post a description of their problem along with a minimal reproducible example, or "**reprex**", of their code to make it easier for helpers to figure out what the problem is.
+![](fig/roadmap.png)
 
-::: callout
-A **minimal reproducible example** (MRE) is also sometimes called a **minimal working example** (MWE), or a **reprex** (which is short for "reproducible example"). We will mostly use the term **reprex** in this lesson.
+Remy explains that the road map includes two main phases. First, there is guidance about "code first aid." This includes understanding types of errors, reading function documentation, investigating error messages, and running through code line by line to diagnose problems.
 
-The term **reprex** was coined by Romain François in a 2014 tweet:
-![The origin of the term "reprex", as a word smash of "reproducible" and "example".](fig/romainfrancois.png)
-:::
+Sometimes, these first aid steps are not enough to solve your problem. One of the most frustrating parts of learning to code is getting stuck and not knowing what to do! Luckily, there are many people in the R and data science communities who are happy to help, as long as you give them the right information. But figuring out how to ask a good question can feel even harder than the original problem that got you stuck in the first place. That's why the second part of Jordan's road map includes guidance on how to create a *minimal reproducible example* (also known as a "*reprex*"). 
 
-As the name suggests, a reprex should be:
+A minimal reproducible example is a piece of code that demonstrates the problem you are facing, includes all necessary information to show the problem but nothing extra, and will run easily on someone else's computer.
 
-1. Minimal. It's important to strip the code and data down to their simplest parts and remove anything that is not directly relevant to the problem. This makes it easy for a helper to zero in on what might be going wrong. It also makes the helping process simpler for the helper, making them more likely to take the time to work on your problem. 
+![](fig/MinimalReproducibleExample.png)
 
-2. Reproducible. The reprex should recreate the problem you're encountering, and it needs to be runnable by someone other than you, on a different computer.
+Minimal reproducible examples are very important tools to get help when you're stuck on a coding problem.
 
-Why is reproducibility important? In many disciplines, experts can give helpful abstract advice about problems. Coding is very hands-on. Even experts usually have to "tinker" with a problem before they can determine what is happening. Without the ability to "tinker", debugging is both difficult and frustrating, which means that you are less likely to get help.
+- Stripping the code and data down to their simplest (*minimal*) parts makes it easy for a helper to zero in on what might be going wrong.
 
-The Tidyverse documentation puts it simply:
+- Making your example *reproducible* allows a helper to run your code on their own computer so they can "feel your pain" and understand what's going wrong. Even experts often have to "tinker" with code in order to fix it. Providing a reprex makes that "tinkering" easy, which makes it more likely that a helper will take the time to assist you.
 
->"The goal of a reprex is to package your problematic code in such a way that other people can run it and feel your pain. Then, hopefully, they can provide a solution and put you out of your misery." - [Get help! (Tidyverse)](https://www.tidyverse.org/help/)
+- The process of making a minimal reproducible example often gives you insight into your own code. Often, you might end up solving the problem yourself, without even needing to ask for help.
 
 ::: callout
-## The wrong ways to ask questions
-- Screenshots
-- Descriptions of the data
-- "It doesn't work"
-XXX expand on this--not sure about the best way/time to introduce these "don't"s. Maybe not at all?
+The phenomenon of solving one’s own problem during the process of trying to explain it to someone else is often called “rubber duck debugging.” This is a reference to a story about programmers who would keep rubber ducks on their desks to explain coding problems to. Jenny Bryan refers to reprexes as “basically the rubber duck in disguise,” because they force you to explain your problem to someone else, often solving it in the process.
+
+Jenny Bryan shares many other insights about reprexes in her 2018 talk ["Help me help you: creating reproducible examples."](https://www.youtube.com/watch?v=5gqksthQ0cM)
 :::
 
-As an added bonus, the process of simplifying your problem and creating a reprex often leads to a better understanding of your own code!
+![](fig/jennybryan.png)
 
-![A tweet from Dr. Sam Tyner-Monroe, describing her experience solving her own problem through the process of making a reprex (December 12, 2019)](fig/samtynermonroe.png)
+:::callout
+## Helpers
 
-In fact, the phenomenon of solving one's own problem during the process of trying to explain it clearly to someone else is well known--it's often called "[rubber duck debugging](https://en.wikipedia.org/wiki/Rubber_duck_debugging)". Jenny Bryan, who created a great video about reprexes called "[Help me help you](https://www.youtube.com/watch?v=5gqksthQ0cM&ab_channel=PositPBC)", called reprexes "basically the rubber duck in disguise".
+There are lots of people who might help you with your code: friends, colleagues, mentors, or total strangers online. In this lesson, we will use the term "helper" to refer to the person who is helping you to debug your code. Helpers are the target audience for your minimal reproducible example.
+:::
 
-![A tweet from Jenny Bryan comparing reprexes to rubber duck debugging (January 4, 2018)](fig/jennybryan.png)
+Jordan emphasizes to Mickey that they are still happy to be a helper, but that since they won't have as much time to devote to debugging in the future, following this road map first will make the helping process more efficient. Hopefully, it will also make Mickey into a more confident coder! 
 
-Making a reprex might seem simple in theory, but it can be challenging to put into practice. In this lesson, we will walk through the process of creating a minimal reproducible example. We'll talk about each of the steps and provide a workflow that you can follow when you get stuck in the future. At the end, we'll introduce you to the `{reprex}` package, a useful tool for creating good minimal reproducible examples.
+Before heading off to their own work, Jordan also introduces Mickey to the dataset they've just loaded in.
 
-## Overview of this lesson
-[XXX visual for the roadmap? or just an outline?]
+
+``` r
+glimpse(surveys)
+```
+
+``` output
+Rows: 16,878
+Columns: 13
+$ record_id       <dbl> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,…
+$ month           <dbl> 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, …
+$ day             <dbl> 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16…
+$ year            <dbl> 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, …
+$ plot_id         <dbl> 2, 3, 2, 7, 3, 1, 2, 1, 1, 6, 5, 7, 3, 8, 6, 4, 3, 2, …
+$ species_id      <chr> "NL", "NL", "DM", "DM", "DM", "PF", "PE", "DM", "DM", …
+$ sex             <chr> "M", "M", "F", "M", "M", "M", "F", "M", "F", "F", "F",…
+$ hindfoot_length <dbl> 32, 33, 37, 36, 35, 14, NA, 37, 34, 20, 53, 38, 35, NA…
+$ weight          <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ genus           <chr> "Neotoma", "Neotoma", "Dipodomys", "Dipodomys", "Dipod…
+$ species         <chr> "albigula", "albigula", "merriami", "merriami", "merri…
+$ taxa            <chr> "Rodent", "Rodent", "Rodent", "Rodent", "Rodent", "Rod…
+$ plot_type       <chr> "Control", "Long-term Krat Exclosure", "Control", "Rod…
+```
+
+``` r
+min(surveys$year)
+```
+
+``` output
+[1] 1977
+```
+
+``` r
+max(surveys$year)
+```
+
+``` output
+[1] 1989
+```
+
+Jordan explains that the dataset is made up of many individual rodent records (`record_id`). The date of each record is given by the `month`, `day`, and `year` columns. 
+
+The dataset includes data from a number of different study plots that had different treatments applied: plot IDs are given by the `plot_id` column, and the type of treatment is specified in `plot_type`. 
+
+There is information about the `genus` and `species` of each individual caught, as well as higher-level `taxa` information and a short-form `species_id` code. 
+
+For each individual caught, the field crew took `weight`, `sex` and `hindfoot_length` measurements, although those measurements are sometimes missing.
+
+The dataset contains 16,878 rodent observations ranging across years from 1977 through 1989. 
+
+:::callout
+More information about the Portal Project and the surveys dataset is available at [LINK].
+:::
+
+With an introduction to the dataset and a road map to guide them if they get stuck, Mickey feels ready to start coding!
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
-- A helper usually needs to run your code in order to debug it.
-- Minimal reproducible examples make it possible for helpers to run your code, which lets them "feel your pain" and figure out what's wrong.
-- Making a minimal reproducible example helps you understand your own problem and often leads to finding the answer yourself!
+- kp1
+- kp2
+- kp3
 ::::::::::::::::::::::::::::::::::::::::::::::::
