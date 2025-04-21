@@ -5,6 +5,7 @@ exercises: 35
 ---
 
 ::: questions
+- # XXX updateme
 - Why is it important to make a minimal code example?
 - Which part of my code is causing the problem?
 - Which parts of my code should I include in a minimal example?
@@ -13,6 +14,7 @@ exercises: 35
 :::
 
 ::: objectives
+- # XXX updateme
 - Explain the value of a minimal code snippet.
 - Identify the problem area of a script.
 - Identify supporting parts of the code that are essential to include.
@@ -23,117 +25,140 @@ exercises: 35
 - Describe the {reprex} package and its uses
 :::
 
-```{r}
-library(tidyverse)
-library(ratdat)
-library(here)
-source(here("scripts/krat-analysis.R"))
+```{r echo = FALSE}
+library(ggplot2)
+library(dplyr)
+rodents <- read.csv("data/surveys_complete_77_89.csv")
+rodents <- rodents %>% filter(taxa == "Rodent")
 ```
 
-
-You're happy with the progress you've made in exploring your data, and you're excited to move on to your second research question: Do the k-rat exclusion plots actually exclude k-rats?
-
-You start by making a couple predictions. 
-
-Prediction 1: If the k-rat plots work, then we would expect to see fewer k-rats in the k-rat exclusion plots than in the control, with the fewest in the long-term k-rat exclosure plot.
-
-Second, if the k-rat plots work, then we would expect a lower proportion of *spectabilis* in the *spectabilis*-specific exclosure than in the control plot, regardless of the absolute number of k-rats caught.
-
-You start by computing summary counts of the number of k-rats per day in the control and the two k-rat exclosure plots, and then using boxplots to show the differences between daily counts in each plot type. 
+Mickey is interested in understanding how kangaroo rat weights differ across species and sexes, so they create a quick visualization.
 
 ```{r}
-# Prediction 1: expect fewer k-rats in exclusion plots than in control plot
-# Count number of k-rats per day, per plot type
-counts_per_day <- krats %>%
-  filter(plot_type %in% c("Control", "Long-term Krat Exclosure", "Short-term Krat Exclosure")) %>%
-  group_by(year, plot_id, plot_type, month, day) %>%
-  summarize(count_per_day = n(), .groups = "drop")
-
-# Visualize
-counts_per_day %>%
-  ggplot(aes(x = plot_type, y = count_per_day, fill = plot_type))+
-  geom_boxplot(outlier.size = 0.5)+
-  theme_minimal()+
-  labs(title = "Kangaroo rat captures, all years",
-       x = "Plot type",
-       y = "Individuals per day")+
-  theme(legend.position = "none")
+ggplot(rodents, aes(x = species, fill = sex))+
+  geom_bar()
 ```
+Whoa, this is really overwhelming! Mickey forgot that the dataset includes data for a lot of different rodent species, not just kangaroo rats. Mickey is only interested in two kangaroo rat species: _Dipodomys ordii_ (Ord's kangaroo rat) and _Dipodomys spectabilis_ (Banner-tailed kangaroo rat). 
 
-This is a coarse analysis that doesn't compare numbers on the same day against each other, but even so, our prediction is supported. The fewest k-rats are caught per day in the Long-term Krat Exclosure plots, followed by the Short-term Krat Exclosure. The Control plots have the largest number of Krats.
+Mickey also notices that there are three categories for sex: F, M, and what looks like a blank field when there is no sex information available. For the purposes of comparing weights, Mickey wants to focus only rodents of known sex.
 
-Next, you decide to test the second prediction: that there will be proportionally fewer *spectabilis* caught in the *spectabilis* exclusion plots than in the control plot.
-
-You restrict the data to just the control and *spectabilis* exclosure plots. Then you calculate the number and proportion of each species of k-rat caught in each plot and visualize the proportions for *spectabilis.*
+Mickey filters the data to include only the two focal species and only rodents whose sex is F or M.
 
 ```{r}
-# Focus in on the control and spectab exclosure plots
-control_spectab <- krats %>%
-  filter(plot_type %in% c("Control", "Spectab exclosure"))
-
-# Calculate proportion of spectabilis caught
-head(control_spectab)
-prop_spectab <- control_spectab %>%
-  group_by(year, plot_type, species_id) %>%
-  summarize(total_count = n(), .groups = "drop") %>%
-  mutate(prop = total_count/sum(total_count)) %>%
-  filter(species_id == "DS") # keep only spectabilis
-
-# Visualize proportions
-prop_spectab %>%
-  ggplot(aes(x = year, y = prop, col = plot_type))+
-  geom_point()+
-  geom_line()+
-  theme_minimal()+
-  labs(title = "Spectab exclosures reduced the proportion of spectab captures",
-       y = "Spectabilis proportion",
-       x = "Year",
-       color = "Plot type")
+rodents_subset <- rodents %>%
+  filter(species == c("ordii", "spectabilis"),
+         sex == c("F", "M"))
 ```
 
-Interesting! In this analysis, we do see, as expected, that the *spectabilis* exclosure seems to have a consistently lower proportion of *spectabilis* than we see in the control plots. This supports our second prediction, and it also does a better job of getting at our research question because it's looking at proportions, not raw numbers.
+Because these scientific names are long, Mickey also decides to add common names to the dataset. They start by creating a data frame with the common names, which they will then join to the `rodents_subset` dataset:
 
-But speaking of proportions... looking closer at the y-axis, we can see that something looks wrong. You remember from the previous plot that *merriami* was generally more common than the other two species, but you don't remember that *spectabilis* was quite this rare! Could it really be true that only 3% of the k-rats caught were *spectabilis* at the absolute highest? 
+```{r}
+common_names <- data.frame(species = unique(rodents_subset$species), common_name = c("Ord's", "Banner-tailed"))
+common_names
+```
 
-# XXX FIXME:
-Here, I've presented this as though part of the mystery is figuring out whether there's something wrong with the data. That type of data sleuthing (is my code bad, or is my data bad??) is a really important skill, but I think it might be a bit tangential for us to focus on here. The easy way to have this stick to the LOs would be to have some ground truth that shows us for absolutely sure that <3% is wrong, which means it's the code that's bad, not the original data.
+But looking at the `common names` dataset reveals a problem!
 
-This seems wrong. But your code is running fine, so you're not really sure where your error is or how to start fixing it.
+:::challenge
+## Applying code first aid
 
-You're feeling overwhelmed, so you decide to ask your labmate, Jordan, for help. 
-> Hi Jordan,
-> I ran into a problem with my code today, and I'm wondering if you can help. I made this plot about kangaroo rat abundance in different plot types, but the proportions look weirdly low. I don't know what's wrong--can you help me figure it out? I'm attaching my script to this email.
-> Thanks,
-> Mishka
-> Attachment: krat-analysis.R
-
-You know that Jordan is a very experienced coder. If they look through your script, surely they'll be able to figure out what's going on much more quickly than you can!
-
-::::::::::::::::::::::::::::::::::::::::::: challenge
-## Making sense of someone else's code
-
-Imagine you are Jordan, and you've in the middle of your own analysis when you receive this email. What reaction do you have? How do you feel about helping your lab mate? How would you feel if it were a complete stranger asking you for help instead?
-
-Now, reflect on a time when you have had to look through and run someone else's code, or a time when you've opened your own coding project after a long time away from it. (If you have easy access to one of your past projects, maybe try opening it now and taking a look through it right now!)
-
-How do situations like this make you feel? Turn to the person next to you and discuss for a minute (or write some reflections on the Etherpad).
-
-This exercise should take about 3 minutes.
-:::solution
-FIXME: I think this is way too long and needs to be more targeted. We are trying to get them to realize that this is a frustrating/overwhelming/scary experience for the person in the helper role.
-
-I am worried that people are going to use this time to start reflecting on the substance of the actual error. Maybe that's a reason to just focus it on a general time you've dealt with someone else's code, instead of "put yourself in Jordan's shoes"? I feel like I need to demo it with people to find out, though.
-
-Suggestions for revising this challenge are welcome!
+1. Is this a syntax error or a semantic error? Explain why.
+2. What "code first aid" steps might be appropriate here? Which ones are not helpful?
 :::
-:::::::::::::::::::::::::::::::::::::::::::
 
-Jordan wants to help their labmate, but they are really busy. They've looked through enough code in the past to know that it will take a long time to make sense of yours. They email you back:
+Mickey realizes they need to re-order the names, so they try the code again. This time, it works and they join the common names to `rodents_subset`.
 
-> Hi Mishka,
-> I'd be happy to help, but this is a lot of code to go through without much context. Could you just show me the part that's most relevant? Maybe make a minimal example?
-> Thanks,
-> Jordan
+```{r}
+common_names <- data.frame(species = sort(unique(rodents_subset$species)), common_name = c("Ord's", "Banner-Tailed"))
+common_names
+rodents_subset <- left_join(rodents_subset, common_names)
+```
+
+Before moving on to answering their research question about kangaroo rat weights, Mickey also wants to create a date column, since they realized that having the dates stored in three separate columns (`month`, `day`, and `year`) might be hard for future analysis. They want to use `{lubridate}` to parse the dates. But here, too, they run into trouble.
+
+```{r error = T}
+rodents_subset <- rodents_subset %>%
+  mutate(date = lubridate(paste(year, month, day, sep = "-")))
+```
+
+:::instructor note
+Because these are fairly simple errors, some learners (especially more advanced coders) may quickly "see" the solution and may need to be reminded to think through the exercise step by step and consider what steps could be helpful. Optionally, they can also be assigned the extra challenge exercise
+:::
+
+:::challenge
+## Applying code first aid, part 2
+
+1. Is this a syntax error or a semantic error? Explain why.
+2. What "code first aid" steps might be appropriate here? 
+3. What would be your next step to fix this error, if you were Mickey?
+:::
+
+:::challenge
+## Applying code first aid, part 2 (extra challenge)
+
+Mickey tried several methods to create a date column. Here's one of them.
+```{r error = T}
+test <- rodents_subset %>%
+  mutate(date = lubridate::as_date(paste(day, month, year)))
+```
+
+1. What type of error is this?
+2. What do you learn from the warning message? Why do you think this code causes a warning message, rather than an error message?
+3. Try some code first aid steps. What do you think happened here? How did you figure it out?
+:::
+
+Mickey reads some of the `{lubridate}` documentation and corrects their code so that the `date` column is created correctly.
+
+```{r}
+rodents_subset <- rodents_subset %>%
+  mutate(date = lubridate::ymd(paste(year, month, day, sep = "-")))
+```
+
+Now that the dataset is cleaned, Mickey is ready to start learning about kangaroo rat weights!
+
+They start by running a quick linear regression to predict `weight` based on `species` and `sex`.
+
+```{r}
+weight_model <- lm(weight ~ common_name + sex, data = rodents_subset)
+summary(weight_model) 
+```
+
+The negative coefficient for `common_nameOrd's` tells Mickey that Ord's kangaroo rats are significantly less heavy than Banner-tailed kangaroo rats.
+
+But something looks wrong with the coefficients for sex! Why is everything NA for `sexM`?
+
+Mickey realizes that before creating a model, they should have re-visualized the dataset to make sure everything looked correct. They make a boxplot of kangaroo rat weights by species and sex, putting the species common names on the x axis and coloring by sex. They expect to see one box for each species-sex combination.
+
+```{r}
+rodents_subset %>%
+  ggplot(aes(y = weight, x = common_name, fill = sex)) +
+  geom_boxplot()
+```
+
+As the model made clear, Ord's kangaroo rats are significantly smaller than Banner-tailed kangaroo rats. But something is definitely wrong! The boxes are colored by sex, and it looks like all of the Banner-tailed kangaroo rats are male and all of the Ord's kangaroo rats are female. That can't be right! What are the chances of catching all one sex for two different species?
+
+Mickey creates a two-way frequency table to see the raw numbers, and sure enough, there is only one sex for each species.
+```{r}
+table(rodents_subset$sex, rodents_subset$species)
+```
+
+What did the species-sex breakdown look like for the original dataset, before we subsetted it to just these two species?
+
+```{r}
+table(rodents$sex, rodents$species)
+```
+
+Not only were there originally males and females present from both _ordii_ and _spectabilis_, but the original numbers were way, way higher! It looks like somewhere along the way, Mickey lost a lot of observations.
+
+[WORKING THROUGH CODE FIRST AID STEPS HERE]
+Mickey is feeling overwhelmed and not sure where their code went wrong. They were able to fix the errors and warning messages that they encountered so far, but this one seems more complicated, and there has been no clear indication of what went wrong. They work their way through the code first aid steps
+
+They decide to consult Remy's road map to figure out what to do next.
+
+![](fig/roadmap.png)
+
+Since code first aid was not enough to solve this problem, it looks like it's time to ask for help using a *reprex*.
+
 
 ## Why is it important to simplify code?
 

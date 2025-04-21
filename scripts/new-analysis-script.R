@@ -3,7 +3,8 @@
 
 library(ratdat)
 library(reprex)
-library(tidyverse) # changed from individual packages
+library(dplyr)
+library(ggplot2)
 
 # Load in the data # XXX not actually currently included in our website render!
 rodents <- read.csv("scripts/data/surveys_complete_77_89.csv")
@@ -89,5 +90,3 @@ nrow(krats)
 nrow(krats_subset) # we decreased our dataset by waaaaaay too much. Removed far too many rows.
 
 # Here we move on to simplifying the data and the rest of the less --------
-
-
