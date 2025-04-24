@@ -53,6 +53,7 @@ rodents_subset <- rodents %>%
 Because these scientific names are long, Mickey also decides to add common names to the dataset. They start by creating a data frame with the common names, which they will then join to the `rodents_subset` dataset:
 
 ```{r}
+## Adding common names
 common_names <- data.frame(species = unique(rodents_subset$species), common_name = c("Ord's", "Banner-tailed"))
 common_names
 ```
@@ -82,7 +83,7 @@ rodents_subset <- rodents_subset %>%
 ```
 
 :::instructor note
-Because these are fairly simple errors, some learners (especially more advanced coders) may quickly "see" the solution and may need to be reminded to think through the exercise step by step and consider what steps could be helpful. Optionally, they can also be assigned the extra challenge exercise
+Because these are fairly simple errors, some learners (especially more advanced coders) may quickly "see" the solution and may need to be reminded to think through the exercise step by step and consider what steps could be helpful. Optionally, they can also be assigned the extra challenge exercise.
 :::
 
 :::challenge
@@ -159,29 +160,71 @@ They decide to consult Remy's road map to figure out what to do next.
 
 Since code first aid was not enough to solve this problem, it looks like it's time to ask for help using a *reprex*.
 
+# Making a reprex
 
-## Why is it important to simplify code?
+## Simplify the code
 
-In order to get help from Jordan, we're going to need to do some work up front to make things easier for them. In general, learning how to simplify your code is one of the most important parts of making a minimal reproducible example, asking others for help, and helping yourself.
+When asking someone else for help, it is important to simplify your code as much as possible to make it easier for the helper to understand what is wrong. Simplifying code helps to reduce frustration and overwhelm when debugging an error in a complicated script. The more that we can make the process of helping easy and painless for the helper, the more likely that they will take the time to help.
 
-Debugging is a time when it's common to have to read through long and complex code (either your own or someone else's). The more we can reduce their frustration and overwhelm and make the experience of solving errors easy and painless, the more likely that others will want to take the time to help us. Helpers are doing us a favor--why put barriers in their way?
+Let's look at all the code that Mickey has written so far.
 
-## A road map for simplifying your code
+:::callout
+Depending on how closely you have been following the lesson and which challenges you have attempted, your script may not look exactly like Mickey's. That's okay!
+:::
 
-Sometimes, it can be challenging to know where to start simplifying your code. In this episode, we're going to walk through a road map for breaking your code down to its simplest form while making sure that 1) it still runs, and 2) it reproduces the problem you care about solving.
+```{r eval = F}
+# Load packages and data
+library(ggplot2)
+library(dplyr)
+rodents <- read.csv("data/surveys_complete_77_89.csv")
 
-For now, we'll go through this road map step by step. At the end, we'll review the whole thing. One takeaway from this lesson is that there is a step by step process to follow, and you can refer back to it if you feel lost in the future.
+# XXX ADD PETER'S EPISODE CODE HERE
 
-### Step 0. Create a separate script
+## Filter to only rodents
+rodents <- rodents %>% filter(taxa == "Rodent")
 
-To begin creating a simpler piece of code to show Jordan, let's create a separate script. We can separate out small pieces of the code and craft the perfect minimal example while still keeping the original analysis intact.
+# Visualize sex by species
+ggplot(rodents, aes(x = species, fill = sex))+
+  geom_bar()
 
-Create and save a new, blank R script and give it a name, such as "reprex-script.R"
+# Subset to species and sexes of interest
+rodents_subset <- rodents %>%
+  filter(species == c("ordii", "spectabilis"),
+         sex == c("F", "M"))
 
-```{r}
-# This script will contain my minimal reproducible example.
-# Created by Mishka on 2024-12-17
+# Add common names
+# common_names <- data.frame(species = unique(rodents_subset$species), common_name = c("Ord's", "Banner-tailed"))
+# common_names # oops, this looks wrong!
+common_names <- data.frame(species = sort(unique(rodents_subset$species)), common_name = c("Ord's", "Banner-Tailed"))
+common_names
+rodents_subset <- left_join(rodents_subset, common_names)
+
+# Add a date column
+# rodents_subset <- rodents_subset %>%
+#   mutate(date = lubridate(paste(year, month, day, sep = "-"))) # that didn't work!
+
+rodents_subset <- rodents_subset %>%
+  mutate(date = lubridate::ymd(paste(year, month, day, sep = "-")))
+
+# Predict weight by species and sex, and make a plot
+weight_model <- lm(weight ~ common_name + sex, data = rodents_subset)
+summary(weight_model) 
+rodents_subset %>%
+  ggplot(aes(y = weight, x = common_name, fill = sex)) +
+  geom_boxplot() # wait, why does this look weird?
+
+# Investigate
+table(rodents_subset$sex, rodents_subset$species)
+table(rodents$sex, rodents$species)
 ```
+
+Wow, that's a lot! Mickey's code also contains explanatory comments (which are great, but they may or may not be relevant to the problem at hand), and where their code threw errors, they sometimes kept the old code, commented out, for future reference.
+
+### Create a new script
+
+To make the task of simplifying the code less overwhelming, let's create a separate script for our reprex. This will allow us to separate out small pieces of code and craft the perfect minimal example while still keeping the original analysis intact.
+
+Let's created and save a new, blank R script and give it a name, such as "reprex-script.R"
 
 :::::::::::::::::::::::::::::::::::::callout
 ## Creating a new R script
@@ -191,179 +234,81 @@ There are several ways to make an R script
 - Use a keyboard shortcut: Cmd + Shift + N (on a Mac) or Ctrl + Shift + N (on Windows)
 ::::::::::::::::::::::::::::::::::::::::::: 
 
-### Step 1. Identify the problem area
+```{r eval = F}
+# Minimal reproducible example script
+# Created by Mickey on YYYY-MM-DD
+```
+
+### Identify the problem area
 
 Now that we have a script, let's zero in on what's broken.
 
-First, we should use some of the techniques we learned in the "Identify the Problem" episode and see if they help us solve our error.
+First, we can identify which pieces of code *showed us that there was a problem*. We noticed that a lot of rows were missing by looking at the boxplot, and we confirmed the problem by creating tables of the original data and the subsetted data, so that would be a good place to start. Let's put that code into our reprex script.
 
-XXX FIXME: Peter, let's make sure this follows nicely from your lesson. 
-- Look for error messages or warnings --> there aren't any
-- Google it --> not really informative
+```{r eval = F}
+# Mickey's reprex script
 
-In this case, the debugging tips we learned weren't enough to help us figure out what was wrong with our code.
+rodents_subset %>%
+  ggplot(aes(y = weight, x = common_name, fill = sex)) +
+  geom_boxplot() # wait, why does this look weird?
 
-This is quite common, especially when you're faced with a **semantic error** (your code runs, but it doesn't produce the correct result).
-
-In this case, we can start by identifying the piece of code that *showed us there was a problem*. We noticed the problem by looking at the plot, so that would be an obvious place to start. But is the plot code really the problem area? Maybe, or maybe not. We know that some weird values are showing up on the plot. That means that either there are weird values in the data that created the plot, or the values in the data looked okay and something happened when we created the plot.
-
-To distinguish between those possibilities, let's take a look at the plot again:
-
-```{r}
-# Visualize proportions
-prop_spectab %>%
-  ggplot(aes(x = year, y = prop, col = plot_type))+
-  geom_point()+
-  geom_line()+
-  theme_minimal()+
-  labs(title = "Spectab exclosures did not reduce proportion of\nspectab captures",
-       y = "Spectabilis proportion",
-       x = "Year",
-       color = "Plot type")
+# Investigate
+table(rodents_subset$sex, rodents_subset$species)
+table(rodents$sex, rodents$species)
 ```
 
-...and then at the data used to generate that plot
-```{r filename = "Console"}
-head(prop_spectab)
-```
+This looks much more manageable! It's only a few lines, instead of a big long script. It will be much easier for the helper to identify what the problem is.
 
-Aha! The `prop` column of `prop_spectab` shows very small values, and those values correspond to the plot we created.
+However, we're not done yet. 
 
-So it looks like the problem is in the data, not in the plot code itself. The plot was just what allowed us to see the problem in our data. This is often the case. Visualizations are important!
+:::challenge
+## The problem area is not enough
 
-So instead of focusing on the plot, let's zoom in on the step right before the plot as our "problem area": the code that created the `prop_spectab` object. Let's copy and paste that section of code into the new script that we just created.
+Let's suppose that Mickey has created the minimal problem area script shown above. They email this script to Remy so that Remy can help them debug the code.
 
-```{r}
-# This script will contain my minimal reproducible example.
-# Created by Mishka on 2024-12-17
+Remy opens up the script and tries to run it on their computer, but it doesn't work.
+- What do you think will happen when Remy tries to run the code from this reprex script?
+- What do you think Mickey should do next to improve the minimal reproducible example?
+:::
 
-# Calculate proportion of spectabilis caught
-head(control_spectab)
-prop_spectab <- control_spectab %>%
-  group_by(year, plot_type, species_id) %>%
-  summarize(total_count = n(), .groups = "drop") %>%
-  mutate(prop = total_count/sum(total_count)) %>%
-  filter(species_id == "DS") # keep only spectabilis
-```
+We haven't yet included enough code to allow a helper, such as Remy, to run the code on their own computer. If Remy tries to run the reprex script in its current state, they will encounter errors because they don't have access to the same R environment that Mickey does. 
 
-Now the code is much smaller and easier to dig through! You decide to send this updated script along to Jordan. 
+### Include dependencies
 
-> Hi Jordan,
-> Sorry about that! You're right, that was a lot of code to dig through. I've narrowed it down now to just focus on the part of the code that was causing the problem. The proportions of k-rats in the prop_spectab data frame are too small to make sense. Can you help me figure out why the proportions are wrong?
-> Thank you,
-> Mishka
-> Attachment: reprex-script.R
+R code consists primarily of **functions** and **variables**. In order to make our minimal examples truly _reproducible_, we have to give our helpers access to all the functions and variables that are necessary to run our code.
 
-Jordan gets your email and opens the script. They try to run your code, but they immediately run into some problems. They write back,
+First, let's talk about **functions**. Functions in R typically come from packages. You can access them by loading the package into your environment. 
 
-> Hey Mishka,
-> This is almost there, but I can't run your code because I don't have the objects and packages it relies on. Can you elaborate on your example to make it runnable?
-> Jordan
-
-### Step 2. Identify dependencies
-
-Jordan is right, of course--you gave them a minimal example of your code, but you didn't provide the context around that code to make it runnable for someone else. You need to provide the *dependencies* for your code, including the functions it uses and the datasets it relies on.
-
-R code consists primarily of **functions** and **variables**. Making sure that we give our helpers access to all the functions and variables we use in our minimal code will make our examples truly reproducible.
-
-Let's talk about **functions** first. When we code in R, we use a lot of different functions. Functions in R typically come from packages, and you get access to them by loading the package into your environment. (Some packages, such as `{base}` and `{stats}`, are loaded in R by default, so you might not have realized that a lot of functions, such as `dim`, `colSums`, `factor`, and `length` actually come from those packages!)
+To make sure that your helper has access to the packages necessary to run your reprex, you will need to include calls to `library()` for whichever packages are used in the code. For example, if your code uses the function `lmer` from the `{lme4}` package, you would have to include `library(lme4)` at the top of your reprex script to make sure your helper has the `{lme4}` package loaded and can run your code.
 
 ::: callout
+Some packages, such as `{base}` and `{stats}`, are loaded in R by default, so you might not have realized that a lot of functions, such as `dim`, `colSums`, `factor`, and `length` actually come from those packages!
+
 You can see a complete list of the functions that come from the `{base}` and `{stats}` packages by running `library(help = "base")` or `library(help = "stats")`.
 :::
 
-To make sure that your helper has access to the functions necessary for your reprex, you can include a `library()` call in your reprex. 
-
 Let's do this for our own reprex. We can start by identifying all the functions used, and then we can figure out where each function comes from to make sure that we tell our helper to load the right packages.
 
-Here's what our script looks like so far.
+The first function used in our example is `ggplot()`, which comes from the package `{ggplot2}`. Therefore, we know we will need to add `library(ggplot2)` at the top of our script.
+
+The function `geom_boxplot()` also comes from `{ggplot2}`. We also used the function `table()`. Running `?table` tells us that the `table` function comes from the package `{base}`, which is automatically installed and loaded when you use R--that means we don't need to include `library(base)` in our script.
+
+Our reprex script now looks like this:
 
 ```{r}
-# This script will contain my minimal reproducible example.
-# Created by Mishka on 2024-12-17
+# Mickey's reprex script
 
-# Calculate proportion of spectabilis caught
-head(control_spectab)
-prop_spectab <- control_spectab %>%
-  group_by(year, plot_type, species_id) %>%
-  summarize(total_count = n(), .groups = "drop") %>%
-  mutate(prop = total_count/sum(total_count)) %>%
-  filter(species_id == "DS") # keep only spectabilis
+# Load necessary packages to run the code
+library(ggplot2)
+
+rodents_subset %>%
+  ggplot(aes(y = weight, x = common_name, fill = sex)) +
+  geom_boxplot() # wait, why does this look weird?
+
+# Investigate
+table(rodents_subset$sex, rodents_subset$species)
+table(rodents$sex, rodents$species)
 ```
-
-You look through the script and list out the following functions:
-`head()`
-`group_by()`
-`summarize()`
-`n()`
-`mutate()`
-`sum()`
-`filter()`
-
-:::callout
-`%>%` is technically an operator, not a function...
-FIXME note: `%>%` is an operator that also needs dplyr to be loaded. It might be relevant because the literal error that Jordan will get first is one about %>% if they don't have that loaded. But it's also exhausting to talk about and it might confuse people. By the time they finish loading {dplyr} for the sake of the other functions, the %>% will be included with {dplyr} and it will no longer be a problem. Hmm...
-:::
-
-You remember from your introductory R lesson that `group_by()` and `summarize()` are both functions that come from the `{dplyr}` package, so you can go ahead and add `library(dplyr)` to the top of your script.
-
-```{r}
-# This script will contain my minimal reproducible example.
-# Created by Mishka on 2024-12-17
-
-# Load packages needed for the analysis
-library(dplyr)
-
-# Calculate proportion of spectabilis caught
-head(control_spectab)
-prop_spectab <- control_spectab %>%
-  group_by(year, plot_type, species_id) %>%
-  summarize(total_count = n(), .groups = "drop") %>%
-  mutate(prop = total_count/sum(total_count)) %>%
-  filter(species_id == "DS") # keep only spectabilis
-```
-
-You're pretty sure that `mutate()` and `filter()` also come from `{dplyr}`, but you're not sure. And you don't know where `n()` and `sum()` come from at all!
-
-Some functions might be created, or "defined", in your code itself, instead of being contained in a package.  
-
-It's pretty common not to remember where functions come from, especially if they belong to packages you use regularly. Let's try searching for the `sum()` function in the documentation.
-
-In the "Help" tab of your RStudio window (which should be next to the "Packages" and "Viewer" tabs in the bottom right pane of RStudio if you have the default layout), search for "sum".
-
-[INCLUDE SCREENSHOT OF SUM HELP DOCS HERE]
-
-The top of the help file says `sum {base}`, which means that `sum()` is a function that comes from the `{base}` package. That's good for us--everyone has `{base}` loaded by default in R, so we don't need to tell our helper to load any additional packages in order to be able to access sum.
-
-Let's confirm that we remembered correctly about `mutate()` and `filter()` by searching for the documentation on those as well.
-
-Searching for "mutate" quickly shows us the help file for `mutate {dplyr}`, but searching for "filter" gives a long list of possible functions, all called `filter`. You look around a little bit and realize that the `filter` function you're using is also from the `{dplyr}` package. It might be a good idea to explicitly declare that in your code, in case your helper already has one of these other packages loaded.
-
-::: callout
-Maybe something about functions masking other functions? Or is that too much?
-:::
-
-You can explicitly declare which package a function comes from using a double colon `::`--for example, `dplyr::filter()`. (Declaring the function with a double colon also allows you to use that function even if the package is not loaded, as long as it's installed.)
-
-Let's add that to our script, so that it's really clear which `filter()` we're using.
-
-```{r}
-# This script will contain my minimal reproducible example.
-# Created by Mishka on 2024-12-17
-
-# Load packages needed for the analysis
-library(dplyr)
-
-# Calculate proportion of spectabilis caught
-head(control_spectab)
-prop_spectab <- control_spectab %>%
-  group_by(year, plot_type, species_id) %>%
-  summarize(total_count = n(), .groups = "drop") %>%
-  mutate(prop = total_count/sum(total_count)) %>%
-  dplyr::filter(species_id == "DS") # keep only spectabilis
-```
-
-The last function we need to find a source for is `n()`. Searching that in the Help files shows that it also comes from `{dplyr}`. Great! We don't need to consider any other packages, and the `library(dplyr)` line in our reprex script will tell our helper that the `{dplyr}` package is necessary to run our code. 
 
 ::::::::::::::::::::::::::::::::::::::::::: callout
 ## Installing vs. loading packages
@@ -390,38 +335,32 @@ FIXME
 :::
 :::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::: callout
-## Installing packages conditionally
+Including `library()` calls will definitely help Remy run the code. But this code still won't work as written because Remy does not have access to the same *objects*, also known as *variables*, that Mickey used in the code. 
 
-There is an alternative approach to installing packages [insert content/example of the if(require()) thing--but note that explaining this properly requires explaining why require() is different from library(), why it returns a logical, etc. and is kind of a rabbit hole that I don't want to go down here.]
-::::::::::::::::::::::::::::::::::::::::::: 
+The small piece of code that we copied from the main script into the reprex script came from the end of the script. Mickey had already done a lot of analyses before then, starting from the raw dataset that they read into R, and creating and modifying new objects along the way.
 
-Including `library()` calls will definitely help Jordan be able to run your code. But another reason that your code still won't work as written is that Jordan doesn't have access to the same *objects*, or *variables*, that you used in the code.
+The code as written relies on two objects, `rodents_subset` and `rodents`, that Remy will not have access to if they try to run the code. That means that we've succeeded in making our example *minimal*, but it is not *reproducible*: it does not allow someone else to reproduce the problem!
 
-The piece of code that we copied over to "reprex-script.R" from  "krat-analysis.R" came from line 117. We had done a lot of analyses before then, starting from the raw dataset and creating and modifying new objects along the way. 
+Let's ask ourselves: where did each of these objects come from? We can add the code that created each of those objects.
 
-You realize that Jordan doesn't have access to `control_spectab`, the dataset that the reprex relies on.
+```{r eval = F}
+# Mickey's reprex script
 
-One way to fix this would be to add the code that creates `control_spectab` to the reprex, like this:
+# Load necessary packages to run the code
+library(ggplot2)
 
-```{r}
-# This script will contain my minimal reproducible example.
-# Created by Mishka on 2024-12-17
+# Code to create `rodents
+rodents <- read.csv("data/surveys_complete_77_89.csv")
 
-# Load packages needed for the analysis
-library(dplyr)
+# Code to create `rodents_subset`
 
-# B. For Spectabilis-specific exclosure, we expect a lower proportion of spectabilis there than in the other plots.
-control_spectab <- krats %>%
-  filter(plot_type %in% c("Control", "Spectab exclosure"))
+rodents_subset %>%
+  ggplot(aes(y = weight, x = common_name, fill = sex)) +
+  geom_boxplot() # wait, why does this look weird?
 
-# Calculate proportion of spectabilis caught
-head(control_spectab)
-prop_spectab <- control_spectab %>%
-  group_by(year, plot_type, species_id) %>%
-  summarize(total_count = n(), .groups = "drop") %>%
-  mutate(prop = total_count/sum(total_count)) %>%
-  dplyr::filter(species_id == "DS") # keep only spectabilis
+# Investigate
+table(rodents_subset$sex, rodents_subset$species)
+table(rodents$sex, rodents$species)
 ```
 
 But that doesn't fix the problem either, because now Jordan doesn't have access to `krats`. Let's go back to where `krats` was created, on line 40:
