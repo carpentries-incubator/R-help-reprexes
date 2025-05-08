@@ -360,6 +360,7 @@ table(rodents_subset$sex, rodents_subset$species)
 table(rodents$sex, rodents$species)
 ```
 :::::
+:::
 
 Great, now we have a totally minimal script!
 
