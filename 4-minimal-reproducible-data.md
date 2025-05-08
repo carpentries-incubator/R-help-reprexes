@@ -236,7 +236,7 @@ x
 ```
 
 ``` output
- [1]  6  5 10  1  9  7  2  3  8  4
+ [1]  5  7  8  4  6 10  9  3  2  1
 ```
 
 Or you can randomly sample from a normal distribution
@@ -248,8 +248,8 @@ x
 ```
 
 ``` output
- [1]  0.52843061  0.87191979  0.86537784  2.71314285 -0.52456674  0.04088325
- [7] -1.38957579 -0.36933706 -0.92748638 -0.28970068
+ [1]  1.1214160 -0.1426486 -1.3042223 -1.5786243 -0.4058011 -0.2162288
+ [7] -0.1778716 -0.1621610 -0.4483774 -0.6936650
 ```
 
 You can also use `letters` to create factors.
@@ -261,8 +261,8 @@ x
 ```
 
 ``` output
- [1] "d" "a" "b" "a" "d" "d" "c" "a" "b" "d" "d" "a" "c" "d" "a" "c" "b" "d" "b"
-[20] "a"
+ [1] "b" "b" "c" "d" "a" "d" "d" "d" "d" "a" "b" "b" "b" "a" "a" "a" "c" "a" "a"
+[20] "b"
 ```
 
 Remember that a data frame is just a collection of vectors. You can create a data frame using `data.frame` (or `tibble` in the `dplyr` package). You can then create a vector for each variable. 
@@ -275,13 +275,13 @@ head(data)
 ```
 
 ``` output
-  x          y
-1 a -0.3250720
-2 b -1.4973815
-3 c  0.9041439
-4 c  2.8670714
-5 a -0.0906362
-6 b -1.1203793
+  x           y
+1 c -1.37302829
+2 a  1.77280978
+3 a -0.02042552
+4 b -0.43478224
+5 c  3.74692617
+6 c -0.16142435
 ```
 
 **However**, when sampling at random you must remember to `set.seed()` before sending it to someone to make sure you both get the same numbers!
@@ -309,7 +309,7 @@ krats %>%
   geom_vline(aes(xintercept = lubridate::ymd("1988-01-01")), col = "red")
 ```
 
-<img src="fig/3-minimal-reproducible-data-rendered-unnamed-chunk-9-1.png" width="600" height="600" style="display: block; margin: auto;" />
+<img src="fig/4-minimal-reproducible-data-rendered-unnamed-chunk-9-1.png" width="600" height="600" style="display: block; margin: auto;" />
 
 Now let's say we saw this and decided we wanted to get rid of "sp." but didn't know how.
 We want to ask someone online but we first need to create a minimal reproducible example. Remember our questions from earlier...
@@ -388,26 +388,26 @@ sample_data
 
 ``` output
    Day Plot Species
-1    1   P1       B
-2    2   P2       D
-3    3   P2       D
-4    4   P2       C
-5    5   P2       C
-6    6   P1       D
-7    7   P1       B
-8    8   P2       A
-9    9   P1       A
-10  10   P1       C
-11   1   P1       D
-12   2   P1       C
-13   3   P2       C
-14   4   P1       D
-15   5   P1       A
-16   6   P2       B
-17   7   P2       B
-18   8   P2       A
-19   9   P2       D
-20  10   P2       D
+1    1   P1       C
+2    2   P1       C
+3    3   P2       C
+4    4   P1       D
+5    5   P1       C
+6    6   P2       B
+7    7   P1       D
+8    8   P1       B
+9    9   P1       D
+10  10   P2       D
+11   1   P2       C
+12   2   P2       D
+13   3   P1       A
+14   4   P2       D
+15   5   P2       B
+16   6   P1       A
+17   7   P2       D
+18   8   P1       A
+19   9   P2       C
+20  10   P1       C
 ```
 
 Great!
@@ -463,7 +463,7 @@ sample_data %>%
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-<img src="fig/3-minimal-reproducible-data-rendered-unnamed-chunk-15-1.png" width="600" height="600" style="display: block; margin: auto;" />
+<img src="fig/4-minimal-reproducible-data-rendered-unnamed-chunk-15-1.png" width="600" height="600" style="display: block; margin: auto;" />
 
 Yes!
 
@@ -489,7 +489,7 @@ sample_data2 %>%
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-<img src="fig/3-minimal-reproducible-data-rendered-unnamed-chunk-16-1.png" width="600" height="600" style="display: block; margin: auto;" />
+<img src="fig/4-minimal-reproducible-data-rendered-unnamed-chunk-16-1.png" width="600" height="600" style="display: block; margin: auto;" />
 which is even more simplistic than the one before but still contains the elements we are interested in--we have a set of "species" separated into facets and we want to get rid of one of them. In reality, had we realized that we needed to get rid of the rows with "sp." in them, we could have ignored the figure entirely and posed the question about the data alone. E.g., "how do I remove rows that contain a specific name?" Then give just the example dataset we created.
 
 :::: challenge
@@ -595,7 +595,7 @@ data %>%
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-<img src="fig/3-minimal-reproducible-data-rendered-unnamed-chunk-22-1.png" width="600" height="600" style="display: block; margin: auto;" />
+<img src="fig/4-minimal-reproducible-data-rendered-unnamed-chunk-22-1.png" width="600" height="600" style="display: block; margin: auto;" />
 
 Do you think that works?
 
@@ -621,7 +621,7 @@ data2 %>%
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-<img src="fig/3-minimal-reproducible-data-rendered-unnamed-chunk-23-1.png" width="600" height="600" style="display: block; margin: auto;" />
+<img src="fig/4-minimal-reproducible-data-rendered-unnamed-chunk-23-1.png" width="600" height="600" style="display: block; margin: auto;" />
 That's more like it! You can keep playing around with it or you can give it more thought apriori, but either way you get the idea. While what we get is not an exact replica, it's an analogy. The important thing is that we created a figure whose basic elements/structure or "key features" remain intact--namely, the number and type of variables and categories.
 
 Now it is your turn!
@@ -674,7 +674,7 @@ krats_per_day %>%
   xlab("Species")
 ```
 
-<img src="fig/3-minimal-reproducible-data-rendered-unnamed-chunk-24-1.png" width="600" height="600" style="display: block; margin: auto;" />
+<img src="fig/4-minimal-reproducible-data-rendered-unnamed-chunk-24-1.png" width="600" height="600" style="display: block; margin: auto;" />
 
 :::: challenge
 
@@ -711,7 +711,7 @@ How might you reproduce this using the mpg dataset?
     xlab("Class")
 ```
 
-<img src="fig/3-minimal-reproducible-data-rendered-unnamed-chunk-25-1.png" width="600" height="600" style="display: block; margin: auto;" />
+<img src="fig/4-minimal-reproducible-data-rendered-unnamed-chunk-25-1.png" width="600" height="600" style="display: block; margin: auto;" />
 
 ``` r
   # this is only giving us 3 classes even though we asked for 4, why?
@@ -741,7 +741,7 @@ How might you reproduce this using the mpg dataset?
     xlab("Class")
 ```
 
-<img src="fig/3-minimal-reproducible-data-rendered-unnamed-chunk-25-2.png" width="600" height="600" style="display: block; margin: auto;" />
+<img src="fig/4-minimal-reproducible-data-rendered-unnamed-chunk-25-2.png" width="600" height="600" style="display: block; margin: auto;" />
 :::
 ::::
 
@@ -837,6 +837,7 @@ D) sample_data <- ____
 :::
 ::::
 
+Great work! We've created a minimal reproducible example. In the next episode, we'll learn about `{reprex}`, a package that can help us double-check that our example is reproducible by running it in a clean environment. (As an added bonus, `{reprex}` will format our example nicely so it's easy to post to places like Slack, GitHub, and StackOverflow.)
 
 ::: keypoints
 -   A minimal reproducible dataset contains (a) the minimum number of lines, variables, and categories, in the correct format, to reproduce a certain problem; and (b) it must be fully reproducible, meaning that someone else can reproduce the same problem using only the information provided.

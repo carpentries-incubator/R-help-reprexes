@@ -23,43 +23,19 @@ Mickey is an ecologist working with data from The Portal Project, a long-term re
 Mickey starts by loading the data so they can begin to explore it. They also load the {tidyverse}, a set of packages that will be useful for wrangling and visualizing the data.
 
 ::: instructor note
-Loading the entire {tidyverse} here, rather than a few component packages, is an intentional over-complication so that we can teach learners to simplify their packages later. Learners should have {tidyverse} installed, as per the setup instructions.
+The first chunk here is what will show up in the lesson (loading `{tidyverse}`), but this is set to `eval = F` because otherwise the website build takes forever.
 
-Would it be better to have the surveys dataset as a downloaded file for them to load in, or does loading it from a url make sense?
+The second chunk is what will actually run behind the scenes of the lesson (loading only `{dplyr}` and `{readr}`).
 :::
 
 
 ``` r
 library(tidyverse)
-```
 
-``` output
-── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.0.4     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
-```
-
-``` r
 surveys <- read_csv("https://raw.githubusercontent.com/carpentries-incubator/R-help-reprexes/refs/heads/main/episodes/data/surveys_complete_77_89.csv") 
 ```
 
-``` output
-Rows: 16878 Columns: 13
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (6): species_id, sex, genus, species, taxa, plot_type
-dbl (7): record_id, month, day, year, plot_id, hindfoot_length, weight
 
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-```
 
 Mickey has some past experience in R, but this project will require more data analysis than they have done before. Mickey attended a Carpentries workshop, "Data Analysis and Visualization in R for Ecologists," and they feel comfortable with the fundamentals of coding in R. Still, they are a little nervous about starting this project. 
 
@@ -179,13 +155,15 @@ For each individual caught, the field crew took `weight`, `sex` and `hindfoot_le
 The dataset contains 16,878 rodent observations ranging across years from 1977 through 1989. 
 
 :::callout
-More information about the Portal Project and the surveys dataset is available at [LINK].
+More information about the Portal Project and the surveys dataset is available at [https://portal.weecology.org/](https://portal.weecology.org/).
 :::
 
 With an introduction to the dataset and a road map to guide them if they get stuck, Mickey feels ready to start coding!
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
-- kp1
-- kp2
-- kp3
+- Applying some "code first aid" can help address problems in your code.
+- Helpers can more easily debug your code if you provide them with a small example of the problem (a "reprex") that they can tinker with themselves.
+- In the process of building a reprex, you may find the solution yourself.
+- In the rest of this lesson, we will be working through a "road map" to getting unstuck that includes code first aid and the process of making a reprex.
+- The `surveys` dataset includes records of rodents captured in a variety of experimental plots over a 12-year period, including some data about each rodent's sex and morphology.
 ::::::::::::::::::::::::::::::::::::::::::::::::
