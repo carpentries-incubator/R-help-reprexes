@@ -5,7 +5,6 @@ exercises: 35
 ---
 
 ::: questions
-- # XXX updateme
 - Why is it important to make a minimal code example?
 - Which part of my code is causing the problem?
 - Which parts of my code should I include in a minimal example?
@@ -448,8 +447,6 @@ The code as written relies on `rodents_subset`, which Remy will not have access 
 
 Great work! We've created a minimal reproducible example. In the next episode, we'll learn about `{reprex}`, a package that can help us double-check that our example is reproducible by running it in a clean environment. (As an added bonus, `{reprex}` will format our example nicely so it's easy to post to places like Slack, GitHub, and StackOverflow.)
 
-More on that soon. For now, let's review the road map that we just practiced.
-
 :::::::::::::::::::::::::::::::::::::::::::challenge
 ## Reflection
 
@@ -461,3 +458,10 @@ Let's take a moment to reflect on this process.
 
 This exercise should take about 5 minutes.
 ::::::::::::::::::::::::::::::::::::::::::: 
+
+:::keypoints
+- Making a reprex is the next step after trying code first aid.
+- In order to make a good reprex, it is important to simplify your code
+- Simplify code by removing parts not directly related to the question
+- Give helpers access to the functions used in your code by loading all necessary packages
+:::
