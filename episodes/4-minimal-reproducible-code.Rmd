@@ -64,10 +64,10 @@ But looking at the `common names` dataset reveals a problem!
 ## Applying code first aid
 
 1. Is this a syntax error or a semantic error? Explain why.
-2. What "code first aid" steps might be appropriate here? Which ones are not helpful?
+2. What "code first aid" steps might be appropriate here? Which ones are unlikely to be helpful?
 :::
 
-Mickey realizes they need to re-order the names, so they try the code again. This time, it works and they join the common names to `rodents_subset`.
+Mickey re-orders the names and tries the code again. This time, it works! Now they can join the common names to `rodents_subset`.
 
 ```{r}
 common_names <- data.frame(species = sort(unique(rodents_subset$species)), common_name = c("Ord's", "Banner-Tailed"))
@@ -83,7 +83,7 @@ rodents_subset <- rodents_subset %>%
 ```
 
 :::instructor note
-Because these are fairly simple errors, some learners (especially more advanced coders) may quickly "see" the solution and may need to be reminded to think through the exercise step by step and consider what steps could be helpful. Optionally, they can also be assigned the extra challenge exercise.
+Because these are fairly simple errors, more advanced learners may quickly "see" the solution and may need to be reminded to think through the exercise step by step and consider what steps could be helpful. Optionally, they can also be assigned the extra challenge exercise.
 :::
 
 :::challenge
@@ -108,7 +108,7 @@ test <- rodents_subset %>%
 3. Try some code first aid steps. What do you think happened here? How did you figure it out?
 :::
 
-Mickey reads some of the `{lubridate}` documentation and corrects their code so that the `date` column is created correctly.
+Mickey reads some of the `{lubridate}` documentation and changes their code so that the `date` column is created correctly.
 
 ```{r}
 rodents_subset <- rodents_subset %>%
@@ -136,14 +136,14 @@ rodents_subset %>%
   geom_boxplot()
 ```
 
-As the model made clear, Ord's kangaroo rats are significantly smaller than Banner-tailed kangaroo rats. But something is definitely wrong! The boxes are colored by sex, and it looks like all of the Banner-tailed kangaroo rats are male and all of the Ord's kangaroo rats are female. That can't be right! What are the chances of catching all one sex for two different species?
+As the model showed, Ord's kangaroo rats are significantly smaller than Banner-tailed kangaroo rats. But something is definitely wrong! Because the boxes are colored by sex, we can see that all of the Banner-tailed kangaroo rats are male and all of the Ord's kangaroo rats are female. That can't be right! What are the chances of catching all one sex for two different species?
 
-Mickey creates a two-way frequency table to see the raw numbers, and sure enough, there is only one sex for each species.
+Mickey confirms this with a two-way frequency table.
 ```{r}
 table(rodents_subset$sex, rodents_subset$species)
 ```
 
-What did the species-sex breakdown look like for the original dataset, before we subsetted it to just these two species?
+To double check, Mickey looks at the original dataset.
 
 ```{r}
 table(rodents$sex, rodents$species)
@@ -152,7 +152,7 @@ table(rodents$sex, rodents$species)
 Not only were there originally males and females present from both _ordii_ and _spectabilis_, but the original numbers were way, way higher! It looks like somewhere along the way, Mickey lost a lot of observations.
 
 [WORKING THROUGH CODE FIRST AID STEPS HERE]
-Mickey is feeling overwhelmed and not sure where their code went wrong. They were able to fix the errors and warning messages that they encountered so far, but this one seems more complicated, and there has been no clear indication of what went wrong. They work their way through the code first aid steps
+Mickey is feeling overwhelmed and not sure where their code went wrong. They were able to fix the errors and warning messages that they encountered so far, but this one seems more complicated, and there has been no clear indication of what went wrong. They work their way through the code first aid steps, but they are not able to solve the problem.
 
 They decide to consult Remy's road map to figure out what to do next.
 
@@ -218,17 +218,19 @@ table(rodents_subset$sex, rodents_subset$species)
 table(rodents$sex, rodents$species)
 ```
 
-Wow, that's a lot! Mickey's code also contains explanatory comments (which are great, but they may or may not be relevant to the problem at hand), and where their code threw errors, they sometimes kept the old code, commented out, for future reference.
+Wow, that's a lot! Mickey's code also contains explanatory comments (which are great, but they may or may not be relevant to the problem at hand), and when their code threw errors, they sometimes kept the old code, commented out, for future reference.
 
 ### Create a new script
 
-To make the task of simplifying the code less overwhelming, let's create a separate script for our reprex. This will allow us to experiment with stripping down our code to its basic parts while keeping the original code intact.
+To make the task of simplifying the code less overwhelming, let's create a separate script for our reprex. This will let us experiment with simplifying our code while keeping the original script intact.
 
-Let's created and save a new, blank R script and give it a name, such as "reprex-script.R"
+Let's create and save a new, blank R script and give it a name, such as "reprex-script.R"
 
 :::::::::::::::::::::::::::::::::::::callout
 ## Creating a new R script
-There are several ways to make an R script
+
+There are several ways to make an R script:
+
 - File > New File > R Script
 - Click the white square with a green plus sign at the top left corner of your RStudio window
 - Use a keyboard shortcut: Cmd + Shift + N (on a Mac) or Ctrl + Shift + N (on Windows)
@@ -286,13 +288,13 @@ table(rodents$sex, rodents$species)
 Now, we will follow a process: 
 1. Identify the symptom of the problem.
 2. Remove a piece of code to make the reprex more minimal.
-3. Re-run the reprex to make sure the reduced code still demonstrates the problem.
+3. Re-run the reprex to make sure the reduced code still demonstrates the problem--check that the symptom is still present.
 
-In this case, the problem is that *we are missing rows (ordii males, spectabilis females, and also some ordii females and spectabilis males!) in `rodents_subset` that were present in `rodents` and should not have been removed!*
+In this case, the problem is that *we are missing rows in `rodents_subset` that were present in `rodents` and should not have been removed!*
 
-Let's start by identifying pieces of code that we can probably remove. A good start is to look for lines of code that did not create variables that we used later, or that added complexity to the analysis that is not relevant to the problem at hand.
+Let's start by identifying pieces of code that we can probably remove. A good start is to look for lines of code that do not create variables for later use, or lines that add complexity to the analysis that is not relevant to the problem at hand.
 
-We can certainly remove the broken code that we commented out earlier! Also, adding a date column is something we wanted to do to make future analyses easier, but it is not directly relevant to the current problem, since we haven't started working with `date` yet. Let's go ahead and remove those pieces of code. Now our script looks like this:
+For starters, we can certainly remove the broken code that we commented out earlier! Also, adding a date column is not directly relevant to the current problem. Let's go ahead and remove those pieces of code. Now our script looks like this:
 
 ```{r eval = F}
 # Minimal reproducible example script
@@ -349,28 +351,18 @@ Which other lines of code can you remove to make this script more minimal? After
 
 A totally minimal script would look like this:
 ```{r eval = F}
-# Minimal reproducible example script
-# Load packages and data
-library(ggplot2)
-library(dplyr)
 rodents <- read.csv("data/surveys_complete_77_89.csv")
 
-# Subset to species and sexes of interest
 rodents_subset <- rodents %>%
   filter(species == c("ordii", "spectabilis"),
          sex == c("F", "M"))
 
-# Investigate
 table(rodents_subset$sex, rodents_subset$species)
 table(rodents$sex, rodents$species)
 ```
 :::::
 
 Great, now we have a totally minimal script!
-
-
-
-
 
 However, we're not done yet. 
 
@@ -448,231 +440,15 @@ FIXME
 :::
 :::::::::::::::::::::::::::::::::::::::::::
 
-Including `library()` calls will definitely help Remy run the code. But this code still won't work as written because Remy does not have access to the same *objects*, also known as *variables*, that Mickey used in the code. 
+Including `library()` calls will definitely help Remy run the code. But this code still won't work as written because Remy does not have access to the same *objects* that Mickey used in the code.
 
-The small piece of code that we copied from the main script into the reprex script came from the end of the script. Mickey had already done a lot of analyses before then, starting from the raw dataset that they read into R, and creating and modifying new objects along the way.
+The code as written relies on `rodents_subset`, which Remy will not have access to if they try to run the code. That means that we've succeeded in making our example *minimal*, but it is not *reproducible*: it does not allow someone else to reproduce the problem!
 
-The code as written relies on two objects, `rodents_subset` and `rodents`, that Remy will not have access to if they try to run the code. That means that we've succeeded in making our example *minimal*, but it is not *reproducible*: it does not allow someone else to reproduce the problem!
-
-Let's ask ourselves: where did each of these objects come from? We can add the code that created each of those objects.
-
-```{r eval = F}
-# Mickey's reprex script
-
-# Load necessary packages to run the code
-library(ggplot2)
-
-# Code to create `rodents
-rodents <- read.csv("data/surveys_complete_77_89.csv")
-
-# Code to create `rodents_subset`
-
-rodents_subset %>%
-  ggplot(aes(y = weight, x = common_name, fill = sex)) +
-  geom_boxplot() # wait, why does this look weird?
-
-# Investigate
-table(rodents_subset$sex, rodents_subset$species)
-table(rodents$sex, rodents$species)
-```
-
-But that doesn't fix the problem either, because now Jordan doesn't have access to `krats`. Let's go back to where `krats` was created, on line 40:
-
-```{r}
-# Just kangaroo rats because this is what we are studying
-krats <- rodents %>%
-  filter(genus == "Dipodomys")
-dim(krats) # okay, so that's a lot smaller, great.
-glimpse(krats)
-```
-
-But there are several other places in the code where we modified `krats`, and we need to include those as well if we want our code to be truly reproducible. For example, on line 47, a date column was added, and on line 70 we removed unidentified k-rats. And even after including those, we would need to go back even farther, because the `rodents` object also isn't something that Jordan has access to! We called the raw data `rodents` after reading it in, and we also made several modifications, such as when we removed non-rodent taxa on line 35.
-XXX This example would be better illustrated if we could actually show it breaking... like, if we think we've succeeded in tracing back far enough, and then it doesn't run because e.g. an essential column is missing/different.
-XXX This is definitely too much detail... but I do want this section to at least partially feel like "aaaah information overload, too complicated!" because the point is to show how hard it is to trace every object backwards and convince them of the value of using minimal data.
-
-::::::::::::::::::::::::::::::::::::::::::: challenge
-## Identifying variables
-
-For each of the following code snippets, identify all the variables used
-
-- [Straightforward example]
-- [Example where they use a built-in dataset but it contains a column that that dataset doesn't actually contain, i.e. because it's been modified previously. Might be good to use the `date` column that we put into `krats` for this]
-
-This exercise should take about 5 minutes.
-::: solution
-TBH maybe we don't need this exercise at all, since we want to just redirect them to minimal data anyway?
-:::
-::::::::::::::::::::::::::::::::::::::::::: 
-
-This process is confusing and difficult! If you keep tracing each variable back through your script, before you know it, you end up needing to include the entire script to give context, and then your code is no longer minimal.
-
-We can make our lives easier if we realize that helpers don't always need the exact same variables and datasets that we were using, just reasonably good stand-ins. Let's think back to the last episode, where we talked about different ways to create minimal reproducible datasets. We can lean on those skills here to make our example reproducible and greatly reduce the amount of code that we need to include.
-
-:::::::::::::::::::::::::::::::::::::::::::challenge
-## Incorporating minimal datasets
-
-What are some ways that you could use a minimal dataset to make this reprex better? What are the advantages and disadvantages of each approach?
-
-This exercise should take about 5 minutes.
-::: solution
-Could provide the `control_spectab` file directly to Jordan, e.g. via email attachment. 
-Advantages: less work, keeps the context, Jordan is a coworker so they probably understand it. 
-Disadvantages: file might be large, relies on ability to email file, won't be able to use this method if you post the question online, file contains extra rows/columns that aren't actually necessary to this problem and might therefore be confusing.
-  
-Could create a new dataset from scratch. 
-Advantages:
-Disadvantages:
-  
-Could take a minimal subset of the `control_spectab` data and use `dput` or similar to include it directly
-Advantages:
-Disadvantages:
-
-Could use a built-in dataset from R
-Advantages:
-Disadvantages:
-:::
-::::::::::::::::::::::::::::::::::::::::::: 
-
-You decide that the easiest way to approach this particular problem would be to use a sample dataset to reproduce the problem.
-
-Let's think about how to create a sample dataset that will accurately reproduce the problem.
-What columns are needed to create `prop_spectab`, and what do we know about those columns?
-
-```{r}
-head(control_spectab)
-length(unique(control_spectab$year)) # 13 years
-length(unique(control_spectab$species_id)) # three species
-length(unique(control_spectab$plot_type)) # two plot types
-```
-
-Looks like we use `year`, which is numeric, and `plot_type` and `species_id`, which are both character types but have discrete levels like a factor. We have data from 13 years across two plot types, and there are three species that might occur.
-
-Let's create some vectors. I'm only going to use four years here because 13 seems a little excessive.
-
-I'm going to arbitrarily decide how many species records are present for each year, assign every other row to treatment or control, and randomly select species for each row.
-```{r}
-years <- 1:4
-species <- c("Species A", "Species B", "Species C")
-plots <- c("Control", "Treatment")
-
-total_records_per_year <- c(10, 12, 3, 30) # I chose these arbitrarily 
-total_rows <- sum(total_records_per_year) # how many total rows will we have?
-
-# Create the fake data using `rep()` and `sample()`.
-minimal_data <- data.frame(year = rep(years, times = total_records_per_year),
-                      plot_type = rep(plots, length.out = total_rows),
-                      species_id = sample(species, size = total_rows, replace = TRUE))
-```
-
-We can go ahead and paste that into our reprex script. 
-
-```{r}
-# Provide a minimal dataset
-years <- 1:4
-species <- c("Species A", "Species B", "Species C")
-plots <- c("Control", "Treatment")
-
-total_records_per_year <- c(10, 12, 3, 30) # I chose these arbitrarily 
-total_rows <- sum(total_records_per_year) # how many total rows will we have?
-
-# Create the fake data using `rep()` and `sample()`.
-minimal_data <- data.frame(year = rep(years, times = total_records_per_year),
-                      plot_type = rep(plots, length.out = total_rows),
-                      species_id = sample(species, size = total_rows, replace = TRUE))
-```
-
-And finally, let's change our code to use `minimal_data` instead of `control_spectab`. (While we're at it, let's remove the piece of code that creates `control_spectab`--including a minimal dataset directly means that we don't need that code.)
-
-Let's calculate the proportion of Species A caught, instead of spectabilis.
-
-```{r}
-# Calculate proportion of Species A caught
-head(minimal_data)
-prop_speciesA <- minimal_data %>%
-  group_by(year, plot_type, species_id) %>%
-  summarize(total_count = n(), .groups = "drop") %>%
-  mutate(prop = total_count/sum(total_count)) %>%
-  dplyr::filter(species_id == "Species A") # keep only Species A
-```
-
-And now let's check to make sure that the code actually reproduces our problem. Remember, the problem was that the proportions of Species A caught seemed to be way too low based on what we knew about the frequency of occurrence of each k-rat species.
-
-When we created our sample data, we randomly allocated species A, B, and C to each row. Even after accounting for the stratification of the years and plot types, we would expect the proportion of Species A caught to be somewhere vaguely around 0.33 in each plot type and year. If we've reproduced our problem correctly, we would see values much lower than 0.33.
-
-```{r}
-head(prop_speciesA)
-```
-
-Indeed, those proportions look way too low! 3%, 1%... that's an order of magnitude off from what we expect to see here. I think we have successfully reproduced the problem using a minimal dataset. To make things extra easy for Jordan, let's add some comments in the script to point out the problem.
-
-```{r}
-# This script will contain my minimal reproducible example.
-# Created by Mishka on 2024-12-17
-
-# Load packages needed for the analysis
-library(dplyr)
-
-# Provide a minimal dataset
-years <- 1:4
-species <- c("Species A", "Species B", "Species C")
-plots <- c("Control", "Treatment")
-
-total_records_per_year <- c(10, 12, 3, 30) # I chose these arbitrarily 
-total_rows <- sum(total_records_per_year) # how many total rows will we have?
-
-# Create the fake data using `rep()` and `sample()`.
-minimal_data <- data.frame(year = rep(years, times = total_records_per_year),
-                      plot_type = rep(plots, length.out = total_rows),
-                      species_id = sample(species, size = total_rows, replace = TRUE)) # Because I assigned the species randomly, we should expect Species A to occur *roughly* 33% of the time.
-
-# Calculate proportion of Species A caught
-head(minimal_data)
-prop_speciesA <- minimal_data %>%
-  group_by(year, plot_type, species_id) %>%
-  summarize(total_count = n(), .groups = "drop") %>%
-  mutate(prop = total_count/sum(total_count)) %>%
-  dplyr::filter(species_id == "Species A") # keep only Species A
-
-head(prop_speciesA) # Species A only occurs 1-3% of the time in each plot type in each year. Why is this off by an order of magnitude? (This is the same problem I was seeing in my real data--the occurrence proportions were way, way too small.)
-```
-
-### Step 3. Simplify
-
-We're almost done! Now we have code that runs because it includes the necessary `library()` calls and makes use of a minimal dataset that still allows us to showcase the problem. Our script is almost ready to send to Jordan. 
-
-One last thing we can check is whether there are any other places where we can trim down the minimal example even more to eliminate distractions.
-
-Often, analysis code contains exploratory steps or other analyses that don't directly relate to the problem, such as calls to `head()`, `View()`, `str()`, or similar functions. (Exception: if you're using these directly to show things like dimension changes that help to illustrate the problem).
-
-Some other common examples are exploratory analyses, or extra formatting added to plots that doesn't change their interpretation.
-
-:::callout
-When cutting extra lines of code, we have to be careful not to remove anything that would cause the code to no longer reproduce our problem. In general, it's a good idea to comment out the line you think is extraneous, re-run the code, and check that the focal problem persists before removing it entirely.
-:::
-
-In our case, the code looks pretty minimal. We do have a call to `head()` at the end, but that's being used to clearly demonstrate the problem, so it should be left in. Trimming down the minimal dataset any further, for example by removing `plot_type` or `year`, would involve changing the analysis code and possibly not reproducing the problem anymore.
-
----
-XXX @XOR @PL: I wish I had picked an example that had some extraneous parts to take out, such as a ggplot call with really long code. Would love to include that. Since I didn't, I think I can take out this entire section of the roadmap, or add it as a bonus exercise that gives a completely different example with a lot of extraneous things to remove. Another option would be to add some fluff to the original code so that we can remove that fluff now. Thoughts/preferences?
----
+[Transition to minimal data episode]
 
 Great work! We've created a minimal reproducible example. In the next episode, we'll learn about `{reprex}`, a package that can help us double-check that our example is reproducible by running it in a clean environment. (As an added bonus, `{reprex}` will format our example nicely so it's easy to post to places like Slack, GitHub, and StackOverflow.)
 
 More on that soon. For now, let's review the road map that we just practiced.
-
-## Road map review
-### Step 0. Create a separate script
-  - It helps to have a separate place to work on your minimal code snippet.
-  
-### Step 1. Identify the problem area
-  - Which part of the code is causing the problem? Move it over to the reprex script so we can focus on it.
-  
-### Step 2. Identify dependencies
-  - Make sure that helpers have access to all the functions they'll need to run your code snippet.
-  - Make sure helpers can access the variables they'll need to run the code, or reasonable stand-ins.
-  
-### Step 3. Simplify
-  - Remove any extra code that isn't absolutely necessary to demonstrate your problem.
 
 :::::::::::::::::::::::::::::::::::::::::::challenge
 ## Reflection
@@ -684,47 +460,4 @@ Let's take a moment to reflect on this process.
 - What is one thing you're still confused about? What questions do you have?
 
 This exercise should take about 5 minutes.
-::::::::::::::::::::::::::::::::::::::::::: 
-
-
-# XXX maybe this story should end with Mishka solving their own problem.
-
-
-### run an ANOVA or something
-XXX Note: There's more to the analysis, and I only managed to walk through one example of an error. Is this example juicy enough? Should we just discard the rest of the analysis?
-XXX Note: I actually think the analysis here is wrong and might need to be re-worked--would need to do pairwise comparisons.
-
-#### MODELING ####
-counts_mod <- lm(count_per_day ~ plot_type + species_id, data = counts_per_day)
-summary(counts_mod)
-
-# with interaction term:
-counts_mod_interact <- lm(count_per_day ~ plot_type*species_id, data = counts_per_day)
-summary(counts_mod_interact)
-
-summary(counts_mod)
-summary(counts_mod_interact)
-
-
-
-
-
-
-
-
-:::::::::::::::::::::::::::::::::::::callout
-## Stepping through code, line by line
-
-Placing your cursor on a line of code and using the keyboard shortcut Cmd + Enter (Mac) or Ctrl + Enter (Windows) will run that line of code *and* it will automatically advance your cursor to the next line. This makes it easy to "step through" your code without having to click or highlight.
-::::::::::::::::::::::::::::::::::::::::::: 
-
-
-::::::::::::::::::::::::::::::::::::::::::: callout
-## Computational reproducibility
-
-Every object should be able to map back to either a file, a built-in dataset in R, or another intermediate step. If you found any variables where you weren't able to answer the "Where did this come from?" question, then that's a problem! Did you build a script that mistakenly relied on an object that was in your environment but was never properly defined?
-
-Mapping exercises like this can be a great way to check whether entire script is reproducible. Reproducibility is important in more cases than just debugging! More and more journals are requiring full analysis code to be posted, and if that code isn't reproducible, it will severely hamper other researchers' efforts to confirm and expand on what you've done.
-
-Various packages can help you keep track of your code and make it more reproducible. Check out the [`{targets}`](https://books.ropensci.org/targets/) and [`{renv}`](https://rstudio.github.io/renv/articles/renv.html) packages in particular if you're interested in learning more.
 ::::::::::::::::::::::::::::::::::::::::::: 
