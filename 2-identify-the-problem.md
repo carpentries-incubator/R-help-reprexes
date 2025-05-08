@@ -83,7 +83,7 @@ ggplot(aes(x = rodents$taxa)) + geom_bar()
 ```
 
 ``` error
-Error in `fortify()` at ggplot2/R/plot.R:121:3:
+Error in `fortify()`:
 ! `data` must be a <data.frame>, or an object coercible by `fortify()`,
   or a valid <data.frame>-like object coercible by `as.data.frame()`, not a
   <uneval> object.
@@ -232,7 +232,7 @@ ggplot(rodents) + geom_tile(aes(month, plot_type), stat = "count")
 Error in `geom_tile()`:
 ! Problem while computing stat.
 ℹ Error occurred in the 1st layer.
-Caused by error in `setup_params()` at ggplot2/R/ggproto.R:190:17:
+Caused by error in `setup_params()`:
 ! `stat_count()` must only have an x or y aesthetic.
 ```
 
@@ -287,7 +287,7 @@ facet_wrap(~species)
 ```
 
 ``` error
-Error in `combine_vars()` at ggplot2/R/facet-wrap.R:186:5:
+Error in `combine_vars()`:
 ! Faceting variables must have at least one value.
 ```
 
