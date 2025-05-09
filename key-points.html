@@ -36,7 +36,7 @@
       <div class="large-logo">
         <img id="incubator-logo" alt="Carpentries Incubator" src="assets/images/incubator-logo.svg"><span class="badge text-bg-danger">
           <abbr title="This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.">
-            <a href="https://cdh.carpentries.org/the-lesson-life-cycle.html#early-development-pre-alpha-through-alpha" class="external-link alert-link">
+            <a href="https://docs.carpentries.org/resources/curriculum/lesson-life-cycle.html" class="external-link alert-link">
               <i aria-hidden="true" class="icon" data-feather="alert-octagon" style="border-radius: 5px"></i>
               Pre-Alpha
             </a>
@@ -365,19 +365,25 @@
 <hr class="half-width">
 <ul>
 <li>A minimal reproducible dataset contains (a) the minimum number of
-lines, variables, and categories, in the correct format, to reproduce a
-certain problem; and (b) it must be fully reproducible, meaning that
-someone else can reproduce the same problem using only the information
-provided.</li>
-<li>You can create a dataset from scratch using
-<code>as.data.frame</code>, you can use available datasets like
-<code>iris</code> or you can use a subset of your own dataset</li>
-<li>You can share your own data by first subsetting it into its minimal
-components and then using <code>dput()</code> to create it via
-reproducible code</li>
-</ul></section><section id="4-minimal-reproducible-code"><h2 class="section-heading"><a href="4-minimal-reproducible-code.html">Minimal Reproducible CodeXXX FIXME:<a class="anchor" aria-label="anchor" href="#xxx-fixme"></a>XXX maybe this story should end with Mishka solving their own
-problem.<a class="anchor" aria-label="anchor" href="#xxx-maybe-this-story-should-end-with-mishka-solving-their-own-problem-"></a>with interaction term:<a class="anchor" aria-label="anchor" href="#with-interaction-term"></a></a></h2>
-<hr class="half-width"></section><section id="5-asking-your-question"><h2 class="section-heading"><a href="5-asking-your-question.html">Asking your question</a></h2>
+lines, variables, and categories, in the correct format, to replicate
+your issue; and (b) it must be fully reproducible, meaning that someone
+else can access or run the same code to reproduce the dataset needed for
+your reprex.</li>
+<li>To make it accessible, you can create a dataset from scratch using
+<code>as.data.frame</code>, you can use an R dataset like
+<code>cars</code>, or you can use a subset of your own dataset and then
+use <code>dput()</code> to generate reproducible code.</li>
+</ul></section><section id="4-minimal-reproducible-code"><h2 class="section-heading"><a href="4-minimal-reproducible-code.html">Minimal Reproducible CodeXXX updatemeMaking a reprex<a class="anchor" aria-label="anchor" href="#making-a-reprex"></a></a></h2>
+<hr class="half-width">
+<ul>
+<li>Making a reprex is the next step after trying code first aid.</li>
+<li>In order to make a good reprex, it is important to simplify your
+code</li>
+<li>Simplify code by removing parts not directly related to the
+question</li>
+<li>Give helpers access to the functions used in your code by loading
+all necessary packages</li>
+</ul></section><section id="5-asking-your-question"><h2 class="section-heading"><a href="5-asking-your-question.html">Asking your question</a></h2>
 <hr class="half-width">
 <ul>
 <li>The {reprex} package makes it easy to format and share your
@@ -412,7 +418,7 @@ and likelier to get answered.</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.11" class="external-link">sandpaper (0.16.11)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.5" class="external-link">varnish (1.0.5)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.12" class="external-link">sandpaper (0.16.12)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.6" class="external-link">varnish (1.0.6)</a></p>
 			</div>
 		</footer>
 </div> <!-- / div.container -->
@@ -424,10 +430,10 @@ and likelier to get answered.</li>
   <script type="application/ld+json">
     {
   "@context": "https://schema.org",
-  "@type": "TrainingMaterial",
+  "@type": "LearningResource",
   "@id": "https://carpentries-incubator.github.io/R-help-reprexes/key-points.html",
   "inLanguage": "en",
-  "dct:conformsTo": "https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE",
+  "dct:conformsTo": "https://bioschemas.org/profiles/LearningResource/1.0-RELEASE",
   "description": "A Carpentries Lesson teaching foundational data and coding skills to researchers worldwide",
   "keywords": "R, reprex, help, The Carpentries, error, debug, reproducible example",
   "name": "Key Points",
@@ -435,8 +441,8 @@ and likelier to get answered.</li>
   "url": "https://carpentries-incubator.github.io/R-help-reprexes/key-points.html",
   "identifier": "https://carpentries-incubator.github.io/R-help-reprexes/key-points.html",
   "dateCreated": "2024-05-14",
-  "dateModified": "2025-04-20",
-  "datePublished": "2025-04-20"
+  "dateModified": "2025-05-09",
+  "datePublished": "2025-05-09"
 }
 
   </script><script>
