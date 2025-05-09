@@ -585,7 +585,7 @@ Ta-da! Now they can easily recreate our minimal dataset and use it to run the mi
 And sure, you could just use `dput()` on your original dataset. It would work. But that wouldn't be very considerate to those who are trying to help. Try it.
 
 ```{r}
-dput(rodents)
+#dput(rodents)
 ```
 
 It becomes a huge chunk of code! When clearly we don't need all of that.
