@@ -721,4 +721,4 @@ D) sample_data <- ____
 :::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-
+Great work! We've created a minimal reproducible example. In the next episode, we'll learn about `{reprex}`, a package that can help us double-check that our example is reproducible by running it in a clean environment. (As an added bonus, `{reprex}` will format our example nicely so it's easy to post to places like Slack, GitHub, and StackOverflow.)
