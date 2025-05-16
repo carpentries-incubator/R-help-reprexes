@@ -7,10 +7,16 @@
     <loc>https://carpentries-incubator.github.io/R-help-reprexes/2-identify-the-problem.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/R-help-reprexes/3-minimal-reproducible-code.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/R-help-reprexes/3-minimal-reproducible-data.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/R-help-reprexes/4-minimal-reproducible-code.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/R-help-reprexes/4-minimal-reproducible-data.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/R-help-reprexes/404.html</loc>
@@ -43,10 +49,16 @@
     <loc>https://carpentries-incubator.github.io/R-help-reprexes/instructor/2-identify-the-problem.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/R-help-reprexes/instructor/3-minimal-reproducible-code.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/R-help-reprexes/instructor/3-minimal-reproducible-data.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/R-help-reprexes/instructor/4-minimal-reproducible-code.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/R-help-reprexes/instructor/4-minimal-reproducible-data.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/R-help-reprexes/instructor/404.html</loc>
