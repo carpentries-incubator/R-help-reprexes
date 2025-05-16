@@ -1,3 +1,4 @@
+
 # New script with lesson flow, created after April 11 meeting
 # Kaija Gahm
 
@@ -93,5 +94,3 @@ nrow(krats)
 nrow(krats_subset) # we decreased our dataset by waaaaaay too much. Removed far too many rows.
 
 # Here we move on to simplifying the data and the rest of the less --------
-
-
