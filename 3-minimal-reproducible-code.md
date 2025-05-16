@@ -13,7 +13,6 @@ exercises: 35
 :::
 
 ::: objectives
-- # XXX updateme
 - Explain the value of a minimal code snippet.
 - Identify the problem area of a script.
 - Identify supporting parts of the code that are essential to include.
@@ -25,22 +24,6 @@ exercises: 35
 :::
 
 
-``` output
-
-Attaching package: 'dplyr'
-```
-
-``` output
-The following objects are masked from 'package:stats':
-
-    filter, lag
-```
-
-``` output
-The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union
-```
 
 Mickey is interested in understanding how kangaroo rat weights differ across species and sexes, so they create a quick visualization.
 
@@ -82,7 +65,7 @@ common_names
 But looking at the `common names` dataset reveals a problem!
 
 :::challenge
-## Applying code first aid
+### Exercise 1a: Applying code first aid
 
 1. Is this a syntax error or a semantic error? Explain why.
 2. What "code first aid" steps might be appropriate here? Which ones are unlikely to be helpful?
@@ -93,21 +76,7 @@ Mickey re-orders the names and tries the code again. This time, it works! Now th
 
 ``` r
 common_names <- data.frame(species = sort(unique(rodents_subset$species)), common_name = c("Ord's", "Banner-Tailed"))
-common_names
-```
-
-``` output
-      species   common_name
-1       ordii         Ord's
-2 spectabilis Banner-Tailed
-```
-
-``` r
-rodents_subset <- left_join(rodents_subset, common_names)
-```
-
-``` output
-Joining with `by = join_by(species)`
+rodents_subset <- left_join(rodents_subset, common_names, by = "species")
 ```
 
 Before moving on to answering their research question about kangaroo rat weights, Mickey also wants to create a date column, since they realized that having the dates stored in three separate columns (`month`, `day`, and `year`) might be hard for future analysis. They want to use `{lubridate}` to parse the dates. But here, too, they run into trouble.
@@ -125,12 +94,12 @@ Caused by error in `lubridate()`:
 ! could not find function "lubridate"
 ```
 
-:::instructor note
+:::instructor
 Because these are fairly simple errors, more advanced learners may quickly "see" the solution and may need to be reminded to think through the exercise step by step and consider what steps could be helpful. Optionally, they can also be assigned the extra challenge exercise.
 :::
 
 :::challenge
-## Applying code first aid, part 2
+### Exercise 1b: Applying code first aid, part 2
 
 1. Is this a syntax error or a semantic error? Explain why.
 2. What "code first aid" steps might be appropriate here? 
@@ -138,7 +107,7 @@ Because these are fairly simple errors, more advanced learners may quickly "see"
 :::
 
 :::challenge
-## Applying code first aid, part 2 (extra challenge)
+### Exercise 1c: Applying code first aid, part 2 (extra challenge)
 
 Mickey tried several methods to create a date column. Here's one of them.
 
@@ -202,9 +171,9 @@ F-statistic:  3133 on 1 and 939 DF,  p-value: < 2.2e-16
 
 The negative coefficient for `common_nameOrd's` tells Mickey that Ord's kangaroo rats are significantly less heavy than Banner-tailed kangaroo rats.
 
-But something looks wrong with the coefficients for sex! Why is everything NA for `sexM`?
+But something is wrong with the coefficients for sex. Why is everything NA for `sexM`?
 
-Mickey realizes that before creating a model, they should have re-visualized the dataset to make sure everything looked correct. They make a boxplot of kangaroo rat weights by species and sex, putting the species common names on the x axis and coloring by sex. They expect to see one box for each species-sex combination.
+When Mickey visualizes the data, they see a problem in the graph, too. As the model showed, Ord's kangaroo rats are significantly smaller than Banner-tailed kangaroo rats. But something is definitely wrong! Because the boxes are colored by sex, we can see that all of the Banner-tailed kangaroo rats are male and all of the Ord's kangaroo rats are female. That can't be right! What are the chances of catching all one sex for two different species?
 
 
 ``` r
@@ -220,9 +189,8 @@ Warning: Removed 35 rows containing non-finite outside the scale range
 
 <img src="fig/3-minimal-reproducible-code-rendered-unnamed-chunk-10-1.png" style="display: block; margin: auto;" />
 
-As the model showed, Ord's kangaroo rats are significantly smaller than Banner-tailed kangaroo rats. But something is definitely wrong! Because the boxes are colored by sex, we can see that all of the Banner-tailed kangaroo rats are male and all of the Ord's kangaroo rats are female. That can't be right! What are the chances of catching all one sex for two different species?
-
 Mickey confirms this with a two-way frequency table.
+
 
 ``` r
 table(rodents_subset$sex, rodents_subset$species)
@@ -277,60 +245,11 @@ Since code first aid was not enough to solve this problem, it looks like it's ti
 
 When asking someone else for help, it is important to simplify your code as much as possible to make it easier for the helper to understand what is wrong. Simplifying code helps to reduce frustration and overwhelm when debugging an error in a complicated script. The more that we can make the process of helping easy and painless for the helper, the more likely that they will take the time to help.
 
-Let's look at all the code that Mickey has written so far.
-
 :::callout
 Depending on how closely you have been following the lesson and which challenges you have attempted, your script may not look exactly like Mickey's. That's okay!
 :::
 
-
-``` r
-# Load packages and data
-library(ggplot2)
-library(dplyr)
-rodents <- read.csv("data/surveys_complete_77_89.csv")
-
-# XXX ADD PETER'S EPISODE CODE HERE
-
-## Filter to only rodents
-rodents <- rodents %>% filter(taxa == "Rodent")
-
-# Visualize sex by species
-ggplot(rodents, aes(x = species, fill = sex))+
-  geom_bar()
-
-# Subset to species and sexes of interest
-rodents_subset <- rodents %>%
-  filter(species == c("ordii", "spectabilis"),
-         sex == c("F", "M"))
-
-# Add common names
-# common_names <- data.frame(species = unique(rodents_subset$species), common_name = c("Ord's", "Banner-tailed"))
-# common_names # oops, this looks wrong!
-common_names <- data.frame(species = sort(unique(rodents_subset$species)), common_name = c("Ord's", "Banner-Tailed"))
-common_names
-rodents_subset <- left_join(rodents_subset, common_names)
-
-# Add a date column
-# rodents_subset <- rodents_subset %>%
-#   mutate(date = lubridate(paste(year, month, day, sep = "-"))) # that didn't work!
-
-rodents_subset <- rodents_subset %>%
-  mutate(date = lubridate::ymd(paste(year, month, day, sep = "-")))
-
-# Predict weight by species and sex, and make a plot
-weight_model <- lm(weight ~ common_name + sex, data = rodents_subset)
-summary(weight_model) 
-rodents_subset %>%
-  ggplot(aes(y = weight, x = common_name, fill = sex)) +
-  geom_boxplot() # wait, why does this look weird?
-
-# Investigate
-table(rodents_subset$sex, rodents_subset$species)
-table(rodents$sex, rodents$species)
-```
-
-Wow, that's a lot! Mickey's code also contains explanatory comments (which are great, but they may or may not be relevant to the problem at hand), and when their code threw errors, they sometimes kept the old code, commented out, for future reference.
+Mickey has written a lot of code so far. The code is also a little messy--for example, after fixing the previous errors, they sometimes commented out the old code and kept it for future reference.
 
 ### Create a new script
 
@@ -339,7 +258,7 @@ To make the task of simplifying the code less overwhelming, let's create a separ
 Let's create and save a new, blank R script and give it a name, such as "reprex-script.R"
 
 :::::::::::::::::::::::::::::::::::::callout
-## Creating a new R script
+## Callout: Making an R script
 
 There are several ways to make an R script:
 
@@ -403,11 +322,11 @@ Now, we will follow a process:
 2. Remove a piece of code to make the reprex more minimal.
 3. Re-run the reprex to make sure the reduced code still demonstrates the problem--check that the symptom is still present.
 
-In this case, the problem is that *we are missing rows in `rodents_subset` that were present in `rodents` and should not have been removed!*
+In this case, the *symptom* is that we are *missing rows in `rodents_subset`* that were present in `rodents` and should not have been removed!
 
 Let's start by identifying pieces of code that we can probably remove. A good start is to look for lines of code that do not create variables for later use, or lines that add complexity to the analysis that is not relevant to the problem at hand.
 
-For starters, we can certainly remove the broken code that we commented out earlier! Also, adding a date column is not directly relevant to the current problem. Let's go ahead and remove those pieces of code. Now our script looks like this:
+We can start by removing the broken code that we commented out earlier. Also, adding the date column is not directly relevant to the current problem. Let's go ahead and remove those pieces of code. Now our script looks like this:
 
 
 ``` r
@@ -453,9 +372,10 @@ When we run this code, we can confirm that it still demonstrates our problem. Th
 We've made progress on minimizing our code, but we still have a ways to go. This script is still pretty long! Let's identify more pieces of code that we can remove.
 
 :::::challenge
-## Minimizing code
+## Exercise 2: Minimizing code
 
 Which other lines of code can you remove to make this script more minimal? After removing each one, be sure to re-run the code to make sure that it still reproduces the error.
+
 :::solution
 - [Peter's episode code]
 - Visualizing sex by species (ggplot) can be removed because it generates a plot but does not create any variables that are used later.
@@ -475,7 +395,8 @@ rodents_subset <- rodents %>%
 table(rodents_subset$sex, rodents_subset$species)
 table(rodents$sex, rodents$species)
 ```
-:::::
+:::
+
 :::
 
 Great, now we have a totally minimal script!
@@ -483,7 +404,7 @@ Great, now we have a totally minimal script!
 However, we're not done yet. 
 
 :::challenge
-## The problem area is not enough
+### Exercise 3: The problem area is not enough
 
 Let's suppose that Mickey has created the minimal problem area script shown above. They email this script to Remy so that Remy can help them debug the code.
 
@@ -503,6 +424,8 @@ First, let's talk about **functions**. Functions in R typically come from packag
 To make sure that your helper has access to the packages necessary to run your reprex, you will need to include calls to `library()` for whichever packages are used in the code. For example, if your code uses the function `lmer` from the `{lme4}` package, you would have to include `library(lme4)` at the top of your reprex script to make sure your helper has the `{lme4}` package loaded and can run your code.
 
 ::: callout
+### Callout: Default packages
+
 Some packages, such as `{base}` and `{stats}`, are loaded in R by default, so you might not have realized that a lot of functions, such as `dim`, `colSums`, `factor`, and `length` actually come from those packages!
 
 You can see a complete list of the functions that come from the `{base}` and `{stats}` packages by running `library(help = "base")` or `library(help = "stats")`.
@@ -533,7 +456,7 @@ Warning: Removed 35 rows containing non-finite outside the scale range
 (`stat_boxplot()`).
 ```
 
-<img src="fig/3-minimal-reproducible-code-rendered-unnamed-chunk-17-1.png" style="display: block; margin: auto;" />
+<img src="fig/3-minimal-reproducible-code-rendered-unnamed-chunk-16-1.png" style="display: block; margin: auto;" />
 
 ``` r
 # Investigate
@@ -570,7 +493,7 @@ table(rodents$sex, rodents$species)
 ```
 
 ::::::::::::::::::::::::::::::::::::::::::: callout
-## Installing vs. loading packages
+### Callout: Installing vs. loading packages
 
 But what if our helper doesn't have all of these packages installed? Won't the code not be reproducible?
 
@@ -580,17 +503,33 @@ Technically, this makes that part of the code not reproducible! But it's also mu
 :::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::: challenge
-## Which packages are essential?
+### Exercise 4: Which packages are essential?
 
 In each of the following code snippets, identify the necessary packages (or other code) to make the example reproducible.
 
-- [Example (including an ambiguous function: `dplyr::select()` is a good one because it masks `plyr::select()`)]
-- [Example where you have to look up which package a function comes from]
-- [Example with a user-defined function that doesn't exist in any package]
+a.
+```
+weight_model <- lm(weight ~ common_name + sex, data = rodents_subset)
+tab_mod(weight_model)
+```
+
+b.
+```
+mod <- lmer(weight ~ hindfoot_length + (1|plot_type), data = rodents)
+summary(mod)
+```
+
+c.
+```
+rodents_processed <- process_rodents_data(rodents)
+glimpse(rodents_processed)
+```
 
 This exercise should take about 10 minutes.
 :::solution
-FIXME
+a. `lm` is part of base R, so there's no package needed for that. `tab_mod` comes from the package `sjPlot`. You could add `libary(sjPlot)` to this code to make it reproducible.
+b. `lmer` is a linear mixed modeling function that comes from the package `lme4`. `summary` is from base R. You could add `library(lme4)` to this code to make it reproducible.
+c. `process_rodents_data` is not from any package that we know of, so it was probably an originally-created function. In order to make this example reproducible, you would have to include the definition of `process_rodents_data`. `glimpse` is probably from `dplyr`, but it's worth noting that there is also a `glimpse` function in the `pillar` package, so this might be ambiguous. This is another reason it's important to specify your packages--if you leave your helper guessing, they might load the wrong package and misunderstand your error!
 :::
 :::::::::::::::::::::::::::::::::::::::::::
 
@@ -601,7 +540,7 @@ The code as written relies on `rodents_subset`, which Remy will not have access 
 [Transition to minimal data episode]
 
 :::::::::::::::::::::::::::::::::::::::::::challenge
-## Reflection
+### Exercise 5: Reflection
 
 Let's take a moment to reflect on this process.
 
