@@ -62,9 +62,9 @@ contact: 'kgahm@ucla.edu'
 episodes:
 - 1-intro-reproducible-examples.Rmd
 - 2-identify-the-problem.Rmd
-- 3-minimal-reproducible-data.Rmd
-- 4-minimal-reproducible-code.Rmd
-- 5-asking-your-question.md
+- 3-minimal-reproducible-code.Rmd
+- 4-minimal-reproducible-data.Rmd
+- 5-asking-your-question.Rmd
 
 # Information for Learners
 learners:
