@@ -50,7 +50,7 @@ ggplot(rodents, aes(x = species, fill = sex))+
   geom_bar()
 ```
 
-<img src="fig/4-minimal-reproducible-code-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" />
+<img src="fig/3-minimal-reproducible-code-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" />
 Whoa, this is really overwhelming! Mickey forgot that the dataset includes data for a lot of different rodent species, not just kangaroo rats. Mickey is only interested in two kangaroo rat species: _Dipodomys ordii_ (Ord's kangaroo rat) and _Dipodomys spectabilis_ (Banner-tailed kangaroo rat). 
 
 Mickey also notices that there are three categories for sex: F, M, and what looks like a blank field when there is no sex information available. For the purposes of comparing weights, Mickey wants to focus only rodents of known sex.
@@ -218,7 +218,7 @@ Warning: Removed 35 rows containing non-finite outside the scale range
 (`stat_boxplot()`).
 ```
 
-<img src="fig/4-minimal-reproducible-code-rendered-unnamed-chunk-10-1.png" style="display: block; margin: auto;" />
+<img src="fig/3-minimal-reproducible-code-rendered-unnamed-chunk-10-1.png" style="display: block; margin: auto;" />
 
 As the model showed, Ord's kangaroo rats are significantly smaller than Banner-tailed kangaroo rats. But something is definitely wrong! Because the boxes are colored by sex, we can see that all of the Banner-tailed kangaroo rats are male and all of the Ord's kangaroo rats are female. That can't be right! What are the chances of catching all one sex for two different species?
 
@@ -533,7 +533,7 @@ Warning: Removed 35 rows containing non-finite outside the scale range
 (`stat_boxplot()`).
 ```
 
-<img src="fig/4-minimal-reproducible-code-rendered-unnamed-chunk-17-1.png" style="display: block; margin: auto;" />
+<img src="fig/3-minimal-reproducible-code-rendered-unnamed-chunk-17-1.png" style="display: block; margin: auto;" />
 
 ``` r
 # Investigate

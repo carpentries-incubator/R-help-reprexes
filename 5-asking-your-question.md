@@ -37,17 +37,27 @@ Some possible reasons:
 
 ![A function called `"my_awesome_custom_function"` is lurking in my R environment. I must have defined it a while ago and forgotten! Code that includes this function will not run for someone else unless the function definition is also included in the reprex.](fig/custom_function.png)
 
-```{r error = T}
+
+``` r
 my_awesome_custom_function("the kangaroo rat dataset")
+```
+
+``` error
+Error in my_awesome_custom_function("the kangaroo rat dataset"): could not find function "my_awesome_custom_function"
 ```
 
 I might conclude that this code is reproducible--after all, it works when I run it! But unless I remembered to include the function definition in the reprex itself, nobody will be able to run the code.
 
 A corrected reprex would look like this:
 
-```{r}
+
+``` r
 my_awesome_custom_function <- function(x){print(paste0(x, " is awesome!"))}
 my_awesome_custom_function("the kangaroo rat dataset")
+```
+
+``` output
+[1] "the kangaroo rat dataset is awesome!"
 ```
 
 There are so many components to remember when thinking about reproducibility, especially for more complex problems. Wouldn't it be nice if we had a way to double check our examples? Luckily, the {reprex} package will help you test your reprexes in a clean, isolated environment to make sure they're actually reproducible.
@@ -56,16 +66,29 @@ The most important function in the `{reprex}` package is called `reprex()`. Here
 
 First, install and load the `{reprex}` package.
 
-```{r}
+
+``` r
 #install.packages("reprex")
 library(reprex)
 ```
 
 Second, write some code. This is your reproducible example.
 
-```{r}
+
+``` r
 (y <- 1:4)
+```
+
+``` output
+[1] 1 2 3 4
+```
+
+``` r
 mean(y)
+```
+
+``` output
+[1] 2.5
 ```
 
 Third, highlight that code and copy it to your clipboard (e.g. `Cmd + C` on Mac, or `Ctrl + C` on Windows). 
@@ -90,13 +113,36 @@ And then the completed, rendered reprex replaces the original code on the clipbo
 
 Let's practice this one more time. Here's some very simple code:
 
-```{r}
+
+``` r
 library(ggplot2)
 library(dplyr)
+```
+
+``` output
+
+Attaching package: 'dplyr'
+```
+
+``` output
+The following objects are masked from 'package:stats':
+
+    filter, lag
+```
+
+``` output
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+```
+
+``` r
 mpg %>% 
   ggplot(aes(x = factor(cyl), y = displ))+
   geom_boxplot()
 ```
+
+<img src="fig/5-asking-your-question-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" />
 
 Let's highlight the code snippet, copy it to the clipboard, and then run `reprex()` in the console. 
 
@@ -133,12 +179,15 @@ The formatting is great, but `{reprex}` really shines when you treat it as a hel
 
 Let's see what happens if we forget to include `library(ggplot2)` in our small reprex above.
 
-```{r}
+
+``` r
 library(dplyr)
 mpg %>% 
   ggplot(aes(x = factor(cyl), y = displ))+
   geom_boxplot()
 ```
+
+<img src="fig/5-asking-your-question-rendered-unnamed-chunk-6-1.png" style="display: block; margin: auto;" />
 
 As before, let's copy that code to the clipboard, run `reprex()` in the console, and paste the result here.
 
@@ -171,8 +220,13 @@ This happened even though we had `ggplot2` already loaded in our own current RSt
 
 Let's return to our previous example with the custom function.
 
-```{r}
+
+``` r
 my_awesome_custom_function("the kangaroo rat dataset")
+```
+
+``` output
+[1] "the kangaroo rat dataset is awesome!"
 ```
 
 ```
@@ -189,9 +243,14 @@ my_awesome_custom_function("the kangaroo rat dataset")
 
 By contrast, if we include the function definition:
 
-```{r}
+
+``` r
 my_awesome_custom_function <- function(x){print(paste0(x, " is awesome!"))}
 my_awesome_custom_function("the kangaroo rat dataset")
+```
+
+``` output
+[1] "the kangaroo rat dataset is awesome!"
 ```
 
 ```
@@ -213,7 +272,8 @@ Now that we've met our new reprex-making collaborator, let's use it to test out 
 
 Here's the code we wrote:
 
-```{r}
+
+``` r
 #replace with final reprex code
 ```
 
@@ -226,7 +286,8 @@ reprex(venue = "r")
 
 It worked!
 
-```{r}
+
+``` r
 #replace with final output
 ```
 
@@ -239,13 +300,16 @@ Another nice thing about `{reprex}` is that you can choose to include informatio
 
 For example:
 
-```{r}
+
+``` r
 library(ggplot2)
 library(dplyr)
 mpg %>% 
   ggplot(aes(x = factor(cyl), y = displ))+
   geom_boxplot()
 ```
+
+<img src="fig/5-asking-your-question-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" />
 
 ```
 # In the console:
