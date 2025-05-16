@@ -50,15 +50,14 @@ library(tidyverse)
 surveys <- read_csv("https://raw.githubusercontent.com/carpentries-incubator/R-help-reprexes/refs/heads/main/episodes/data/surveys_complete_77_89.csv") 
 ```
 
-``` output
-Rows: 16878 Columns: 13
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (6): species_id, sex, genus, species, taxa, plot_type
-dbl (7): record_id, month, day, year, plot_id, hindfoot_length, weight
+``` warning
+Warning: Failed to open
+'https://raw.githubusercontent.com/carpentries-incubator/R-help-reprexes/refs/heads/main/episodes/data/surveys_complete_77_89.csv':
+The requested URL returned error: 429
+```
 
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+``` error
+Error in open.connection(structure(4L, class = c("curl", "connection"), conn_id = <pointer: 0x55d3d4ec9a00>), : cannot open the connection
 ```
 
 Mickey has some past experience in R, but this project will require more data analysis than they have done before. Mickey attended a Carpentries workshop, "Data Analysis and Visualization in R for Ecologists," and they feel comfortable with the fundamentals of coding in R. Still, they are a little nervous about starting this project. 
@@ -134,38 +133,24 @@ Before heading off to their own work, Jordan also introduces Mickey to the datas
 glimpse(surveys)
 ```
 
-``` output
-Rows: 16,878
-Columns: 13
-$ record_id       <dbl> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,…
-$ month           <dbl> 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, …
-$ day             <dbl> 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16…
-$ year            <dbl> 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, …
-$ plot_id         <dbl> 2, 3, 2, 7, 3, 1, 2, 1, 1, 6, 5, 7, 3, 8, 6, 4, 3, 2, …
-$ species_id      <chr> "NL", "NL", "DM", "DM", "DM", "PF", "PE", "DM", "DM", …
-$ sex             <chr> "M", "M", "F", "M", "M", "M", "F", "M", "F", "F", "F",…
-$ hindfoot_length <dbl> 32, 33, 37, 36, 35, 14, NA, 37, 34, 20, 53, 38, 35, NA…
-$ weight          <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-$ genus           <chr> "Neotoma", "Neotoma", "Dipodomys", "Dipodomys", "Dipod…
-$ species         <chr> "albigula", "albigula", "merriami", "merriami", "merri…
-$ taxa            <chr> "Rodent", "Rodent", "Rodent", "Rodent", "Rodent", "Rod…
-$ plot_type       <chr> "Control", "Long-term Krat Exclosure", "Control", "Rod…
+``` error
+Error: object 'surveys' not found
 ```
 
 ``` r
 min(surveys$year)
 ```
 
-``` output
-[1] 1977
+``` error
+Error: object 'surveys' not found
 ```
 
 ``` r
 max(surveys$year)
 ```
 
-``` output
-[1] 1989
+``` error
+Error: object 'surveys' not found
 ```
 
 Jordan explains that the dataset is made up of many individual rodent records (`record_id`). The date of each record is given by the `month`, `day`, and `year` columns. 
