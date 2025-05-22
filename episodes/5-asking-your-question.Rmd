@@ -418,15 +418,7 @@ mpg %>%
 ```
 
 :::challenge
-### Exercise 1: Adding context
-
-Working with the person next to you, write a brief description of Mickey's problem that they could include with their reprex when they post it online.
-
-Make sure that the description gives a little bit of background, describes what Mickey was trying to achieve, and describes what happened instead.
-:::
-
-:::challenge
-### Exercise 2: What makes a good description?
+### Exercise 1: What makes a good description?
 
 For each of the following reprexes, improve the description given.
 a. 
@@ -455,6 +447,18 @@ Help, my code isn't working! It says I have too many elements. I made a reprex s
 library(ggplot2)
 table(mpg)
 ```
+:::
+
+As we wrap up this lesson, let's work on adding some context for Mickey's reprex so they'll be ready to send it to Remy or post it online. 
+
+:::challenge
+### Exercise 2: Adding context
+
+Working with the person next to you, write a brief description of Mickey's problem that they could include with their reprex when they post it online.
+
+Make sure that the description gives a little bit of background, describes what Mickey was trying to achieve, and describes what happened instead.
+
+When you're done, compare notes between the groups and see if you can come up with a final reprex for Mickey!
 :::
 
 ::::::::::::::::::::::::::::::::::::: keypoints
