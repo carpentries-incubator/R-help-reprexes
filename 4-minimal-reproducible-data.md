@@ -214,7 +214,7 @@ x
 ```
 
 ``` output
- [1]  9  7  5  6  8  4  2  3 10  1
+ [1]  4  5  9  6  8 10  7  1  2  3
 ```
 
 Or you can randomly sample from a normal distribution
@@ -226,8 +226,8 @@ x
 ```
 
 ``` output
- [1] -0.2612568 -1.6060534  0.6268746  0.7563239  0.7070138  1.0672703
- [7]  0.5469804  0.9969740 -0.5611061  1.2546842
+ [1] -0.6568405 -0.4227599  1.0832748  1.9049019 -2.0478508  1.2917131
+ [7]  0.6110591  0.4374996 -0.7148949 -0.4526631
 ```
 
 You can also use `letters` to create factors.
@@ -239,8 +239,8 @@ x
 ```
 
 ``` output
- [1] "c" "d" "d" "c" "b" "a" "a" "c" "c" "a" "a" "b" "d" "d" "b" "b" "c" "b" "c"
-[20] "d"
+ [1] "c" "b" "a" "c" "c" "a" "c" "b" "d" "d" "a" "d" "b" "a" "a" "c" "c" "c" "a"
+[20] "c"
 ```
 
 Remember that a data frame is just a collection of vectors. You can create a data frame using `data.frame` (or `tibble` in the `dplyr` package). You can then create a vector for each variable. 
@@ -254,12 +254,12 @@ head(data)
 
 ``` output
   x          y
-1 b -0.4170913
-2 a  0.1434155
-3 b -0.7533787
-4 a  0.1576423
-5 a -0.9583369
-6 a -0.4956576
+1 b  1.1244507
+2 a  0.1716303
+3 b -0.9023029
+4 c -1.4754725
+5 a -0.2431301
+6 a  0.8104017
 ```
 
 **However**, when sampling at random you must remember to `set.seed()` before sending it to someone to make sure you both get the same numbers!
@@ -382,7 +382,7 @@ print(species)
 ```
 
 ``` output
-[1] "p" "y" "t"
+[1] "w" "a" "p"
 ```
 
 ``` r
@@ -416,16 +416,16 @@ print(sample_data)
 
 ``` output
    record_id species sex
-1          1       t   F
-2          2       y    
-3          3       t    
-4          4       t   F
-5          5       y   M
-6          6       t   M
-7          7       t   F
-8          8       t   F
-9          9       t   M
-10        10       y    
+1          1       a    
+2          2       w   M
+3          3       w   F
+4          4       a   M
+5          5       w    
+6          6       p   M
+7          7       p   M
+8          8       a   F
+9          9       w    
+10        10       a   M
 ```
 
 And just like that we created a 'dummy' dataset from scratch! Notice that we could also have compiled the same type of dataset in a single line by creating each vector already within the `data.frame()`
@@ -442,16 +442,16 @@ print(sample2_data)
 
 ``` output
    record_id species sex
-1          1       a    
-2          2       c    
-3          3       c   F
-4          4       b    
-5          5       a   M
-6          6       a   M
+1          1       c   F
+2          2       b   M
+3          3       b   F
+4          4       a   F
+5          5       c    
+6          6       b   M
 7          7       b   F
-8          8       a    
-9          9       c   M
-10        10       c   F
+8          8       b   F
+9          9       a   M
+10        10       b   M
 ```
 
 **Important**: Notice that the outputs of if you want the outputs to be EXACTLY the same each time, but you are using `sample()` which is an inherently random process, you must first use `set.seed()` and share that with your helper too.
