@@ -247,113 +247,26 @@ It worked!
 
 Now we have a beautifully-formatted reprex that includes runnable code and all the context needed to reproduce the problem.
 
-<!-- :::callout -->
-<!-- ### Callout: Including information about your R session -->
+:::callout
+### Callout: Including information about your R session
 
-<!-- Another nice thing about `reprex` is that you can choose to include information about your R session, in case your error has something to do with your R settings rather than the code itself. You can do that using the `session_info` argument to `reprex()`. -->
+Another nice thing about `reprex` is that you can choose to include information about your R session, in case your error has something to do with your R settings rather than the code itself. You can do that using the `session_info` argument to `reprex()`.
 
-<!-- For example: -->
+For example, try running the following reprex, setting session_info = TRUE, and observe what happens.
 
-<!-- ```{r message = FALSE} -->
-<!-- library(ggplot2) -->
-<!-- library(dplyr) -->
-<!-- mpg %>%  -->
-<!--   ggplot(aes(x = factor(cyl), y = displ))+ -->
-<!--   geom_boxplot() -->
-<!-- ``` -->
+```{r}
+library(ggplot2)
+library(dplyr)
+mpg %>%
+  ggplot(aes(x = factor(cyl), y = displ))+
+  geom_boxplot()
+```
 
-<!-- ``` -->
-<!-- # In the console: -->
-<!-- reprex(session_info = TRUE) -->
-<!-- ``` -->
-
-<!-- ``` r -->
-<!-- library(ggplot2) -->
-<!-- library(dplyr) -->
-<!-- #>  -->
-<!-- #> Attaching package: 'dplyr' -->
-<!-- #> The following objects are masked from 'package:stats': -->
-<!-- #>  -->
-<!-- #>     filter, lag -->
-<!-- #> The following objects are masked from 'package:base': -->
-<!-- #>  -->
-<!-- #>     intersect, setdiff, setequal, union -->
-<!-- mpg %>%  -->
-<!--   ggplot(aes(x = factor(cyl), y = displ))+ -->
-<!--   geom_boxplot() -->
-<!-- ``` -->
-
-<!-- ![](https://i.imgur.com/kHBf9Zr.png)<!-- --> -->
-
-<!-- <sup>Created on 2024-12-29 with [reprex v2.1.1](https://reprex.tidyverse.org)</sup> -->
-
-<!-- <details style="margin-bottom:10px;"> -->
-<!-- <summary> -->
-<!-- Session info -->
-<!-- </summary> -->
-
-<!-- ``` r -->
-<!-- sessioninfo::session_info() -->
-<!-- #> ─ Session info ─────────────────────────────────────────────────────────────── -->
-<!-- #>  setting  value -->
-<!-- #>  version  R version 4.4.2 (2024-10-31) -->
-<!-- #>  os       macOS Monterey 12.7.6 -->
-<!-- #>  system   aarch64, darwin20 -->
-<!-- #>  ui       X11 -->
-<!-- #>  language (EN) -->
-<!-- #>  collate  en_US.UTF-8 -->
-<!-- #>  ctype    en_US.UTF-8 -->
-<!-- #>  tz       America/New_York -->
-<!-- #>  date     2024-12-29 -->
-<!-- #>  pandoc   3.2 @ /Applications/RStudio.app/Contents/Resources/app/quarto/bin/tools/aarch64/ (via rmarkdown) -->
-<!-- #>  -->
-<!-- #> ─ Packages ─────────────────────────────────────────────────────────────────── -->
-<!-- #>  package     * version date (UTC) lib source -->
-<!-- #>  cli           3.6.3   2024-06-21 [1] CRAN (R 4.4.0) -->
-<!-- #>  colorspace    2.1-1   2024-07-26 [1] CRAN (R 4.4.0) -->
-<!-- #>  curl          6.0.1   2024-11-20 [1] https://jeroen.r-universe.dev (R 4.4.2) -->
-<!-- #>  digest        0.6.37  2024-08-19 [1] CRAN (R 4.4.1) -->
-<!-- #>  dplyr       * 1.1.4   2023-11-17 [1] CRAN (R 4.4.0) -->
-<!-- #>  evaluate      1.0.1   2024-10-10 [1] CRAN (R 4.4.1) -->
-<!-- #>  fansi         1.0.6   2023-12-08 [1] CRAN (R 4.4.0) -->
-<!-- #>  farver        2.1.2   2024-05-13 [1] CRAN (R 4.4.0) -->
-<!-- #>  fastmap       1.2.0   2024-05-15 [1] CRAN (R 4.4.0) -->
-<!-- #>  fs            1.6.5   2024-10-30 [1] CRAN (R 4.4.1) -->
-<!-- #>  generics      0.1.3   2022-07-05 [1] CRAN (R 4.4.0) -->
-<!-- #>  ggplot2     * 3.5.1   2024-04-23 [1] CRAN (R 4.4.0) -->
-<!-- #>  glue          1.8.0   2024-09-30 [1] CRAN (R 4.4.1) -->
-<!-- #>  gtable        0.3.6   2024-10-25 [1] CRAN (R 4.4.1) -->
-<!-- #>  htmltools     0.5.8.1 2024-04-04 [1] CRAN (R 4.4.0) -->
-<!-- #>  knitr         1.49    2024-11-08 [1] CRAN (R 4.4.1) -->
-<!-- #>  labeling      0.4.3   2023-08-29 [1] CRAN (R 4.4.0) -->
-<!-- #>  lifecycle     1.0.4   2023-11-07 [1] CRAN (R 4.4.0) -->
-<!-- #>  magrittr      2.0.3   2022-03-30 [1] CRAN (R 4.4.0) -->
-<!-- #>  munsell       0.5.1   2024-04-01 [1] CRAN (R 4.4.0) -->
-<!-- #>  pillar        1.9.0   2023-03-22 [1] CRAN (R 4.4.0) -->
-<!-- #>  pkgconfig     2.0.3   2019-09-22 [1] CRAN (R 4.4.0) -->
-<!-- #>  R6            2.5.1   2021-08-19 [1] CRAN (R 4.4.0) -->
-<!-- #>  reprex        2.1.1   2024-07-06 [1] CRAN (R 4.4.0) -->
-<!-- #>  rlang         1.1.4   2024-06-04 [1] CRAN (R 4.4.0) -->
-<!-- #>  rmarkdown     2.29    2024-11-04 [1] CRAN (R 4.4.1) -->
-<!-- #>  rstudioapi    0.17.1  2024-10-22 [1] CRAN (R 4.4.1) -->
-<!-- #>  scales        1.3.0   2023-11-28 [1] CRAN (R 4.4.0) -->
-<!-- #>  sessioninfo   1.2.2   2021-12-06 [1] CRAN (R 4.4.0) -->
-<!-- #>  tibble        3.2.1   2023-03-20 [1] CRAN (R 4.4.0) -->
-<!-- #>  tidyselect    1.2.1   2024-03-11 [1] CRAN (R 4.4.0) -->
-<!-- #>  utf8          1.2.4   2023-10-22 [1] CRAN (R 4.4.0) -->
-<!-- #>  vctrs         0.6.5   2023-12-01 [1] CRAN (R 4.4.0) -->
-<!-- #>  withr         3.0.2   2024-10-28 [1] CRAN (R 4.4.1) -->
-<!-- #>  xfun          0.49    2024-10-31 [1] CRAN (R 4.4.1) -->
-<!-- #>  xml2          1.3.6   2023-12-04 [1] CRAN (R 4.4.0) -->
-<!-- #>  yaml          2.3.10  2024-07-26 [1] CRAN (R 4.4.0) -->
-<!-- #>  -->
-<!-- #>  [1] /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library -->
-<!-- #>  -->
-<!-- #> ────────────────────────────────────────────────────────────────────────────── -->
-<!-- ``` -->
-
-<!-- </details> -->
-<!-- ::: -->
+```
+# In the console:
+reprex(session_info = TRUE)
+```
+:::
 
 ### Formatting
 
