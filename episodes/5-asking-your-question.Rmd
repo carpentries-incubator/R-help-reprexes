@@ -4,11 +4,13 @@ teaching: 10
 exercises: 2
 ---
 
-:::questions 
+:::::::::::::::::::::::::::::::::::::::: questions
+
 - How can I verify that my example is reproducible?
 - How can I easily share a reproducible example with a mentor or helper, or online?
 - How do I ask a good question?
-:::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 - Use the reprex package to test whether an example is reproducible.
@@ -361,7 +363,7 @@ The default, `venue = "gh"`, gives you "[GitHub-Flavored Markdown](https://githu
 
 Check out the formatting options in the help file with `?reprex`, and try out a few depending on the destination of your reprex!
 
-::: callout
+:::callout
 ### Callout: `reprex` can't do everything for you
 
 People often mention `reprex` as a useful tool for creating reproducible examples, but it can't do the work of crafting the example for you! The package doesn't locate the problem, pare down the code, create a minimal dataset, or automatically include package dependencies.
