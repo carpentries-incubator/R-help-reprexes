@@ -3,11 +3,12 @@ title: "Asking your question"
 teaching: 10
 exercises: 2
 ---
-:::::::::::::::::::::::::::::::::::::: questions 
+
+:::questions 
 - How can I verify that my example is reproducible?
 - How can I easily share a reproducible example with a mentor or helper, or online?
 - How do I ask a good question?
-::::::::::::::::::::::::::::::::::::::::::::::::
+:::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 - Use the reprex package to test whether an example is reproducible.
@@ -82,6 +83,7 @@ The generated output will be on your computer's clipboard by default. Then, you 
 
 ::: callout
 ### Callout: The `reprex` package workflow
+
 The `reprex` package workflow takes some getting used to. Instead of copying your code *into* the function, you simply copy it to the clipboard (a mysterious, invisible place to most of us) and then let the blank, empty `reprex()` function go over to the clipboard by itself and find it.
 
 And then the completed, rendered reprex replaces the original code on the clipboard and all you need to do is paste, not copy and paste. 
