@@ -281,7 +281,7 @@ x
 ```
 
 ``` output
- [1]  9  6  4  5  8 10  1  3  2  7
+ [1]  6  9 10  4  1  7  3  8  2  5
 ```
 
 Or you can randomly sample from a normal distribution
@@ -293,8 +293,8 @@ x
 ```
 
 ``` output
- [1]  0.6485271  0.2695619 -0.4002859  0.1123175  0.7134712 -1.6229162
- [7]  0.2227100 -0.9717694  0.8020542 -0.8534406
+ [1] -0.7645173 -0.9526317 -1.2161516  0.6193248 -0.2540016  0.9599602
+ [7]  0.1201105  0.9103763  0.5288797  0.7116196
 ```
 
 You can also use `letters` to create factors.
@@ -306,8 +306,8 @@ x
 ```
 
 ``` output
- [1] "a" "b" "d" "c" "d" "c" "b" "c" "c" "c" "d" "a" "a" "a" "a" "c" "a" "a" "b"
-[20] "c"
+ [1] "d" "c" "c" "a" "d" "c" "d" "a" "d" "b" "c" "b" "b" "d" "c" "a" "d" "b" "d"
+[20] "d"
 ```
 
 Remember that a data frame is just a collection of vectors.
@@ -322,13 +322,13 @@ head(data)
 ```
 
 ``` output
-  x           y
-1 b  0.68164493
-2 b  1.39168305
-3 a  0.02001665
-4 c  0.98402449
-5 a -1.26201765
-6 a -0.63863927
+  x          y
+1 b -0.4722334
+2 a -0.6265888
+3 b  1.6929309
+4 a  1.6969200
+5 a  0.8845575
+6 a  1.3272655
 ```
 
 **However**, when sampling at random you must remember to `set.seed()` before sending it to someone to make sure you both get the same numbers!
@@ -466,7 +466,7 @@ print(species)
 ```
 
 ``` output
-[1] "z" "g" "y"
+[1] "o" "g" "k"
 ```
 
 ``` r
@@ -500,16 +500,16 @@ print(sample_data)
 
 ``` output
    record_id species sex
-1          1       z    
-2          2       z   M
-3          3       z   F
-4          4       g   M
-5          5       g   M
-6          6       y   F
-7          7       g   F
-8          8       z    
-9          9       g   F
-10        10       g   M
+1          1       g   M
+2          2       o   M
+3          3       o    
+4          4       g   F
+5          5       g   F
+6          6       g    
+7          7       k    
+8          8       k    
+9          9       k   M
+10        10       k   F
 ```
 
 And just like that we created a 'dummy' dataset from scratch!
@@ -527,16 +527,16 @@ print(sample2_data)
 
 ``` output
    record_id species sex
-1          1       a   F
-2          2       a    
-3          3       b   M
-4          4       a   M
-5          5       a   M
-6          6       c   M
-7          7       a    
-8          8       c    
+1          1       c   M
+2          2       c   M
+3          3       c   F
+4          4       c    
+5          5       c   M
+6          6       c    
+7          7       c   F
+8          8       a    
 9          9       c   M
-10        10       c   F
+10        10       b   F
 ```
 
 **Important**: Notice that the outputs of if you want the outputs to be EXACTLY the same each time, but you are using `sample()` which is an inherently random process, you must first use `set.seed()` and share that with your helper too.
