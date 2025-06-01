@@ -175,7 +175,7 @@ To make the task of simplifying the code less overwhelming, let's create a separ
 Let's create and save a new, blank R script and give it a name, such as "reprex-script.R"
 
 :::::::::::::::::::::::::::::::::::::callout
-## Callout: Making an R script
+## Making an R script
 
 There are several ways to make an R script:
 
@@ -338,7 +338,7 @@ First, let's talk about **functions**. Functions in R typically come from packag
 To make sure that your helper has access to the packages necessary to run your reprex, you will need to include calls to `library()` for whichever packages are used in the code. For example, if your code uses the function `lmer` from the `{lme4}` package, you would have to include `library(lme4)` at the top of your reprex script to make sure your helper has the `{lme4}` package loaded and can run your code.
 
 ::: callout
-### Callout: Default packages
+### Default packages
 
 Some packages, such as `{base}` and `{stats}`, are loaded in R by default, so you might not have realized that a lot of functions, such as `dim`, `colSums`, `factor`, and `length` actually come from those packages!
 
@@ -369,7 +369,7 @@ table(rodents$sex, rodents$species)
 ```
 
 ::::::::::::::::::::::::::::::::::::::::::: callout
-### Callout: Installing vs. loading packages
+### Installing vs. loading packages
 
 But what if our helper doesn't have all of these packages installed? Won't the code not be reproducible?
 
