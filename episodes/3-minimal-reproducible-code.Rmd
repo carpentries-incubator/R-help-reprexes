@@ -1,5 +1,5 @@
 ---
-title: "Minimal Reproducible Code"
+title: "Minimal reproducible code"
 teaching: 40
 exercises: 35
 ---
