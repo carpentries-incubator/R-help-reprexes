@@ -281,7 +281,7 @@ x
 ```
 
 ``` output
- [1]  6  9 10  4  1  7  3  8  2  5
+ [1]  9 10  8  2  7  1  5  3  6  4
 ```
 
 Or you can randomly sample from a normal distribution
@@ -293,8 +293,8 @@ x
 ```
 
 ``` output
- [1] -0.7645173 -0.9526317 -1.2161516  0.6193248 -0.2540016  0.9599602
- [7]  0.1201105  0.9103763  0.5288797  0.7116196
+ [1] -0.1398645  1.0015359 -0.1666445 -0.6103498  0.6180695 -0.8971043
+ [7]  1.3758073  0.1261581 -0.6153112 -0.3017326
 ```
 
 You can also use `letters` to create factors.
@@ -306,7 +306,7 @@ x
 ```
 
 ``` output
- [1] "d" "c" "c" "a" "d" "c" "d" "a" "d" "b" "c" "b" "b" "d" "c" "a" "d" "b" "d"
+ [1] "b" "d" "d" "d" "a" "c" "d" "a" "d" "b" "b" "d" "d" "b" "d" "a" "b" "c" "a"
 [20] "d"
 ```
 
@@ -322,13 +322,13 @@ head(data)
 ```
 
 ``` output
-  x          y
-1 b -0.4722334
-2 a -0.6265888
-3 b  1.6929309
-4 a  1.6969200
-5 a  0.8845575
-6 a  1.3272655
+  x           y
+1 b -1.57281953
+2 c -0.05894296
+3 c -0.31202628
+4 a -0.18032307
+5 c -0.55459875
+6 c  0.81594280
 ```
 
 **However**, when sampling at random you must remember to `set.seed()` before sending it to someone to make sure you both get the same numbers!
@@ -466,7 +466,7 @@ print(species)
 ```
 
 ``` output
-[1] "o" "g" "k"
+[1] "f" "o" "b"
 ```
 
 ``` r
@@ -500,16 +500,16 @@ print(sample_data)
 
 ``` output
    record_id species sex
-1          1       g   M
-2          2       o   M
-3          3       o    
-4          4       g   F
-5          5       g   F
-6          6       g    
-7          7       k    
-8          8       k    
-9          9       k   M
-10        10       k   F
+1          1       o    
+2          2       o   F
+3          3       f    
+4          4       b   M
+5          5       f   F
+6          6       f    
+7          7       o   F
+8          8       f    
+9          9       b   M
+10        10       b   M
 ```
 
 And just like that we created a 'dummy' dataset from scratch!
@@ -527,16 +527,16 @@ print(sample2_data)
 
 ``` output
    record_id species sex
-1          1       c   M
-2          2       c   M
-3          3       c   F
-4          4       c    
-5          5       c   M
-6          6       c    
-7          7       c   F
+1          1       b   F
+2          2       c   F
+3          3       c    
+4          4       b    
+5          5       b    
+6          6       c   M
+7          7       c   M
 8          8       a    
-9          9       c   M
-10        10       b   F
+9          9       c    
+10        10       b   M
 ```
 
 **Important**: Notice that the outputs of if you want the outputs to be EXACTLY the same each time, but you are using `sample()` which is an inherently random process, you must first use `set.seed()` and share that with your helper too.
