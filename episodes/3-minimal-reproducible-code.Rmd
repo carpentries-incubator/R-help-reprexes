@@ -118,6 +118,7 @@ In this case, the *symptom* is that we are *missing rows in `rodents_subset`* th
 
 Let's start by identifying pieces of code that we can probably remove. A good start is to look for lines of code that do not create variables for later use, or lines that add complexity to the analysis that is not relevant to the problem at hand.
 
+START HERE WITH FIXING THIS
 We can start by removing the broken code that we commented out earlier. Also, adding the date column is not directly relevant to the current problem. Let's go ahead and remove those pieces of code. Now our script looks like this:
 
 ```{r eval = F}
@@ -302,7 +303,7 @@ Including `library()` calls will definitely help Remy run the code. But this cod
 
 The code as written relies on `rodents_subset`, which Remy will not have access to if they try to run the code. That means that we've succeeded in making our example *minimal*, but it is not *reproducible*: it does not allow someone else to reproduce the problem!
 
-[Transition to minimal data episode]
+[PULL UP ROAD MAP]
 
 :::::::::::::::::::::::::::::::::::::::::::challenge
 ### Exercise 5: Reflection
