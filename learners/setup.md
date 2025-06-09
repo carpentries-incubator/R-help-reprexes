@@ -120,4 +120,3 @@ For this lesson, we will be using a dataset called `surveys_complete_77_89.csv`,
 
 Please download the data file and put it into the `data/` folder of your RStudio project.
  - [cleaned data](../episodes/data/surveys_complete_77_89.csv)
-
