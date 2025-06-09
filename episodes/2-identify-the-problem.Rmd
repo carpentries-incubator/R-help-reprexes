@@ -32,7 +32,7 @@ library(readr)
 library(dplyr)
 library(ggplot2)
 library(stringr) # note to instructors: reading these packages in individually instead of the whole tidyverse to minimize lesson build time
-surveys <- read_csv("data/surveys_complete_77_89.csv")
+surveys <- read_csv("https://raw.githubusercontent.com/carpentries-incubator/R-help-reprexes/refs/heads/main/episodes/data/surveys_complete_77_89.csv") 
 ```
 
 
