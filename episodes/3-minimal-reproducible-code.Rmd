@@ -36,6 +36,7 @@ Mickey is interested in understanding how kangaroo rat weights differ across spe
 ggplot(rodents, aes(x = species, fill = sex))+
   geom_bar()
 ```
+
 Whoa, this is really overwhelming! Mickey forgot that the dataset includes data for a lot of different rodent species, not just kangaroo rats. Mickey is only interested in two kangaroo rat species: _Dipodomys ordii_ (Ord's kangaroo rat) and _Dipodomys spectabilis_ (Banner-tailed kangaroo rat). 
 
 Mickey also notices that there are three categories for sex: F, M, and what looks like a blank field when there is no sex information available. For the purposes of comparing weights, Mickey wants to focus only rodents of known sex.
@@ -56,7 +57,7 @@ common_names <- data.frame(species = unique(rodents_subset$species), common_name
 common_names
 ```
 
-But looking at the `common names` dataset reveals a problem!
+But looking at the `common names` dataset reveals a problem! The common names are not properly matched to the scientific names. For example, the genus *Ordii* should correspond to Ord's kangaroo rat, but currently, it is matched with the Banner-tailed kangaroo rat instead.
 
 :::challenge
 ### Exercise 1: Applying code first aid
@@ -65,7 +66,7 @@ But looking at the `common names` dataset reveals a problem!
 2. What "code first aid" steps might be appropriate here? Which ones are unlikely to be helpful?
 :::
 
-Mickey re-orders the names and tries the code again. This time, it works! Now they can join the common names to `rodents_subset`.
+Mickey re-orders the names and tries the code again. This time, it works! The common names are joined to the correct scientific names. Mickey joins the common names to `rodents_subset`.
 
 ```{r}
 common_names <- data.frame(species = sort(unique(rodents_subset$species)), common_name = c("Ord's", "Banner-Tailed"))
@@ -81,7 +82,7 @@ summary(weight_model)
 
 The negative coefficient for `common_nameOrd's` tells Mickey that Ord's kangaroo rats are significantly less heavy than Banner-tailed kangaroo rats.
 
-But something is wrong with the coefficients for sex. Why is everything NA for `sexM`?
+But something is wrong with the coefficients for sex. Why are there so many NA values for `sexM`?
 
 When Mickey visualizes the data, they see a problem in the graph, too. As the model showed, Ord's kangaroo rats are significantly smaller than Banner-tailed kangaroo rats. But something is definitely wrong! Because the boxes are colored by sex, we can see that all of the Banner-tailed kangaroo rats are male and all of the Ord's kangaroo rats are female. That can't be right! What are the chances of catching all one sex for two different species?
 
@@ -91,7 +92,7 @@ rodents_subset %>%
   geom_boxplot()
 ```
 
-Mickey confirms this with a two-way frequency table.
+To verify that the problem comes from the data, not from the plot code, Mickey creates a two-way frequency table, which confirms that there are no observations of female *spectabilis* or male *ordii* in `rodents_subset`. Something definitely seems wrong. Those rows should not be missing.
 
 ```{r}
 table(rodents_subset$sex, rodents_subset$species)
