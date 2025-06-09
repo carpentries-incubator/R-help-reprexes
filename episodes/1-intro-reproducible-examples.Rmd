@@ -26,10 +26,10 @@ Mickey starts by loading the data so they can begin to explore it. They also loa
 Loading the entire {tidyverse} here, rather than a few component packages, is an intentional over-complication so that we can teach learners to simplify their packages later. Learners should have {tidyverse} installed, as per the setup instructions.
 :::
 
-```{r eval = F}
+```{r eval = F, message = F, warning = F}
 library(tidyverse)
 
-surveys <- read_csv("https://raw.githubusercontent.com/carpentries-incubator/R-help-reprexes/refs/heads/main/episodes/data/surveys_complete_77_89.csv") 
+surveys <- read_csv("data/surveys_complete_77_89.csv") 
 ```
 
 Mickey has some past experience in R, but this project will require more data analysis than they have done before. Mickey attended a Carpentries workshop, "Data Analysis and Visualization in R for Ecologists," and they feel comfortable with the fundamentals of coding in R. Still, they are a little nervous about starting this project. 
@@ -42,7 +42,7 @@ This workshop assumes some prior experience with working in R and RStudio. We wi
 If you're much more experienced in R, this workshop is still for you! Even expert coders may not always know how to get unstuck. We hope this workshop will be useful to people with a variety of coding backgrounds.
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-Sometimes, Mickey's code doesn't work as expected and they go to their colleague, Remy, for help. Remy has spent many hours sitting with Mickey, helping to work through various errors. But soon, Remy will be starting a big project, and they won't have as much time to help with debugging. 
+Sometimes, Mickey's code doesn't work as expected and they go to their colleague, Remy, for help. Remy has spent many hours sitting with Mickey, helping to work through various errors. But soon, Remy will be starting a big project, and soon they won't have as much time to help with debugging. 
 
 ::: instructor
 The following exercises are optional, but they can are useful for getting learners settled in.
@@ -68,7 +68,7 @@ To help Mickey get more comfortable troubleshooting their own code, Remy suggest
 
 Remy explains that the road map includes two main phases. First, there is guidance about "code first aid." This includes understanding types of errors, reading function documentation, investigating error messages, and running through code line by line to diagnose problems.
 
-Sometimes, these first aid steps are not enough to solve your problem. One of the most frustrating parts of learning to code is getting stuck and not knowing what to do! Luckily, there are many people in the R and data science communities who are happy to help, as long as you give them the right information. But figuring out how to ask a good question can feel even harder than the original problem that got you stuck in the first place. That's why the second part of Remy's road map includes guidance on how to create a *minimal reproducible example* (also known as a "*reprex*"). 
+Sometimes, these first aid steps are not enough to solve your problem. One of the most frustrating parts of learning to code is getting stuck and not knowing what to do! Luckily, there are many people in the R and data science communities who are happy to help, as long as you give them the right information. But figuring out how to ask a good question can feel even harder than the original problem that got you stuck in the first place. That's why the second part of Remy's road map includes guidance on how to create a **minimal reproducible example** (also known as a **reprex**). 
 
 A minimal reproducible example is a piece of code that demonstrates the problem you are facing, includes all necessary information to show the problem but nothing extra, and will run easily on someone else's computer.
 
@@ -87,7 +87,7 @@ Minimal reproducible examples are very important tools to get help when you're s
 
 The phenomenon of solving one’s own problem during the process of trying to explain it to someone else is often called “rubber duck debugging.” This is a reference to a story about programmers who would keep rubber ducks on their desks to explain coding problems to. Jenny Bryan refers to reprexes as “basically the rubber duck in disguise,” because they force you to explain your problem to someone else, often solving it in the process.
 
-Jenny Bryan shares many other insights about reprexes in her 2018 talk ["Help me help you: creating reproducible examples."](https://www.youtube.com/watch?v=5gqksthQ0cM)
+Jenny Bryan shares many other insights about reprexes in her 2018 talk ["Help me help you: Creating reproducible examples."](https://www.youtube.com/watch?v=5gqksthQ0cM)
 :::
 
 ![](fig/jennybryan.png)
