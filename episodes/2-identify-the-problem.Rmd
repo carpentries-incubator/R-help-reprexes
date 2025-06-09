@@ -34,8 +34,7 @@ library(ggplot2)
 library(stringr)
 
 # Read in the data
-rodents <- read_csv("data/surveys_complete_77_89.csv")
-
+surveys <- read_csv("data/surveys_complete_77_89.csv")
 ```
 
 
@@ -53,24 +52,24 @@ The accompanying error message attempts to tell you exactly how your code failed
 ggplot(x = taxa) + geom_bar()
 ```
 
-Though we know somewhere there is an object called `taxa` (it is actually a column of the dataset `rodents`), R is trying to communicate that it cannot find any such object in the local environment. Let's try again, appropriately pointing ggplot to the `rodents` dataset and `taxa` column using the `$` operator. For the sake of argument, let's say we also remember that `geom_bar` expects an aesthetic (`aes`).
+Though we know somewhere there is an object called `taxa` (it is actually a column of the dataset `surveys`), R is trying to communicate that it cannot find any such object in the local environment. Let's try again, appropriately pointing ggplot to the `surveys` dataset and `taxa` column using the `$` operator. For the sake of argument, let's say we also remember that `geom_bar` expects an aesthetic (`aes`).
 
 ```{r, error=T}
-ggplot(aes(x = rodents$taxa)) + geom_bar()
+ggplot(aes(x = surveys$taxa)) + geom_bar()
 ```
 
-Whoops! Here we see another error message -- this time, R responds with a perhaps more-uninterpretable message.
+Whoops! Here we see another error message -- this time, R responds with a perhaps more uninterpretable message.
 
 
 
-Let's go over each part briefly. First, we see an error from a function called `fortify`, which we didn't even call! Then, there's a more helpful informational message: Did we accidentally pass `aes()` to the `data` argument? This does seem to relate to our function call, as we do pass `aes` into the `ggplot` function. But what is this “`data` argument?" A helpful starting place when attempting to decipher an error message is checking the documentation for the function which caused the error:
+Let's go over each part briefly. First, we see an error from a function called `fortify`, which we didn't even call! Then, there's a more helpful informational message: Did we accidentally pass `aes()` to the `data` argument? This does seem to relate to our function call, as we do pass `aes` into the `ggplot` function. But what is this "`data` argument?" A helpful starting place when attempting to decipher an error message is checking the documentation for the function which caused the error:
 
 `?ggplot`
 
-Here, a Help window pops up in RStudio which provides some more information. Skipping the general description at the top, we see ggplot takes positional arguments of `data`, *then* `mapping`, which uses the `aes` call. We can see in "Arguments" that the `aes(x = rodents$taxa)` object used in the plot is attempted by `fortify` to be converted to a data.frame: now the picture is clear! We accidentally passed our `mapping` argument (telling ggplot how to map variables to the plot) into the position it expected `data` in the form of a data frame. And if we scroll down to "Examples", to "Pattern 1", we can see exactly how ggplot expects these arguments in practice. Let's amend our result:
+Here, a Help window pops up in RStudio which provides some more information. Skipping the general description at the top, we see ggplot takes positional arguments of `data`, *then* `mapping`, which uses the `aes` call. We can see in "Arguments" that the `aes(x = surveys$taxa)` object used in the plot is attempted by `fortify` to be converted to a data.frame: now the picture is clear! We accidentally passed our `mapping` argument (telling ggplot how to map variables to the plot) into the position it expected `data` in the form of a data frame. And if we scroll down to "Examples", to "Pattern 1", we can see exactly how ggplot expects these arguments in practice. Let's amend our result:
   
 ```{r}
-ggplot(rodents, aes(x = taxa)) + geom_bar()
+ggplot(surveys, aes(x = taxa)) + geom_bar()
 ```
 
 Here we see our desired plot.
@@ -105,10 +104,10 @@ Another type of problem you may encounter is when your R code runs without error
 Let's go back to our rodent analysis. The next step in the plan is to subset to just the `Rodent` taxa (as opposed to other taxa: Bird, Rabbit, Reptile or NA). Let's quickly check to see how much data we'd be throwing out by doing so:
   
 ```{r}
-table(rodents$taxa)
+table(surveys$taxa)
 ```
 
-We're interested in the Rodents, and thankfully it seems like a majority of our observations will be maintained when subsetting to rodents. But wait... In our plot above, we can clearly see the presence of NA values. Why are we not seeing them here? Our command was correctly executed, but the output is not everything we intended. Having no error message to interpret, let's jump straight to the function documentation:
+We're interested in the rodents, and thankfully it seems like a majority of our observations will be maintained when subsetting to rodents. But wait... In our plot above, we can clearly see the presence of NA values. Why are we not seeing them here? Our command was correctly executed, but the output is not everything we intended. Having no error message to interpret, let's jump straight to the function documentation:
   
 ```{r}
 ?table
@@ -124,13 +123,13 @@ table(a, exclude = NULL) # reports NA's
 That seems like it should be inclusive. Let's try again:
 
 ```{r}
-table(rodents$taxa, exclude = NULL)
+table(surveys$taxa, exclude = NULL)
 ```
 
 Now our NA values show up in the table. We see that by subsetting to the "Rodent" taxa, we would losing about 357 NAs, which themselves could be rodents! However, in this case, it seems a small enough portion to safely omit. Let's subset our data to the rodent taxon.
 
 ```{r}
-rodents <- rodents %>% filter(taxa == "Rodent")
+rodents <- surveys %>% filter(taxa == "Rodent")
 ```
 
 
