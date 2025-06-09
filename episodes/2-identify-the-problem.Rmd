@@ -31,9 +31,7 @@ After completing this episode, participants should be able to...
 library(readr)
 library(dplyr)
 library(ggplot2)
-library(stringr)
-
-# Read in the data
+library(stringr) # note to instructors: reading these packages in individually instead of the whole tidyverse to minimize lesson build time
 surveys <- read_csv("data/surveys_complete_77_89.csv")
 ```
 
@@ -49,6 +47,7 @@ While sometimes frustrating to read, R will often let us know when a problem occ
 The accompanying error message attempts to tell you exactly how your code failed. For example, consider the following error message that occurs when I run this command in the R console:
   
 ```{r,error=T}
+# Make some plots
 ggplot(x = taxa) + geom_bar()
 ```
 
@@ -129,6 +128,7 @@ table(surveys$taxa, exclude = NULL)
 Now our NA values show up in the table. We see that by subsetting to the "Rodent" taxa, we would losing about 357 NAs, which themselves could be rodents! However, in this case, it seems a small enough portion to safely omit. Let's subset our data to the rodent taxon.
 
 ```{r}
+# Just rodents
 rodents <- surveys %>% filter(taxa == "Rodent")
 ```
 
@@ -209,6 +209,7 @@ Isolating your problem may not be as simple as assessing the output from a singl
 Consider the example below, where we now are attempting to see which species of kangaroo rodents appear in different plot types over the years. To do so, we'll filter our dataset to just include the genus *Dipodomys*. Then we'll plot a histogram of which how many observations are seen in each plot type over an x axis of years.
 
 ```{r, error=T}
+# Just k-rats
 krats <- rodents %>% filter(genus == "Dipadomys") #kangaroo rat genus
 
 ggplot(krats, aes(year, fill=plot_type)) + 
@@ -333,7 +334,7 @@ rodents_subset <- rodents %>%
 Because these scientific names are long, Mickey also decides to add common names to the dataset. They start by creating a data frame with the common names, which they will then join to the `rodents_subset` dataset:
 
 ```{r}
-## Adding common names
+# Add common names
 common_names <- data.frame(species = unique(rodents_subset$species), common_name = c("Ord's", "Banner-tailed"))
 common_names
 ```
@@ -357,6 +358,7 @@ rodents_subset <- left_join(rodents_subset, common_names, by = "species")
 Now, Mickey is ready to start learning about kangaroo rat weights. They start by running a quick linear regression to predict `weight` based on `species` and `sex`.
 
 ```{r}
+# Explore k-rat weights
 weight_model <- lm(weight ~ common_name + sex, data = rodents_subset)
 summary(weight_model) 
 ```

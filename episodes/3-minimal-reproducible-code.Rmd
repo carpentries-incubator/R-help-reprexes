@@ -62,6 +62,79 @@ We're going to start by copying over all of our code, so we have an exact copy o
 
 ```{r eval = F}
 # Minimal reproducible example script
+# Load packages and data
+library(tidyverse)
+surveys <- read_csv("data/surveys_complete_77_89.csv")
+
+# Take a look at the data
+glimpse(surveys)
+min(surveys$year)
+max(surveys$year)
+
+# Make some plots
+ggplot(x = taxa) + geom_bar()
+ggplot(aes(x = surveys$taxa)) + geom_bar()
+ggplot(surveys, aes(x = taxa)) + geom_bar()
+table(surveys$taxa)
+?table
+table(surveys$taxa, exclude = NULL)
+
+# Just rodents
+rodents <- surveys %>% filter(taxa == "Rodent")
+rodents_summary <- rodents %>% group_by(plot_type, month) %>% summarize(count=n())
+ggplot(rodents_summary) + geom_tile(aes(month, plot_type, fill=count))
+ggplot(rodents) + geom_tile(aes(month, plot_type), stat = "count")
+ggplot(rodents) + geom_tile(aes(month, plot_type))
+
+# Just k-rats
+krats <- rodents %>% filter(genus == "Dipadomys") #kangaroo rat genus
+ggplot(krats, aes(year, fill=plot_type)) +
+  geom_histogram() +
+  facet_wrap(~species)
+krats
+print(rodents %>% count(genus))
+
+krats <-rodents %>% filter(genus == "Dipodomys") #kangaroo rat genus
+dim(krats)
+
+ggplot(krats, aes(year, fill=plot_type)) +
+  geom_histogram() +
+  facet_wrap(~species)
+ggplot(rodents, aes(x = species, fill = sex))+
+  geom_bar()
+rodents_subset <- rodents %>%
+  filter(species == c("ordii", "spectabilis"),
+         sex == c("F", "M"))
+
+# Add common names
+common_names <- data.frame(species = unique(rodents_subset$species), common_name = c("Ord's", "Banner-tailed"))
+common_names
+common_names <- data.frame(species = sort(unique(rodents_subset$species)), common_name = c("Ord's", "Banner-Tailed"))
+rodents_subset <- left_join(rodents_subset, common_names, by = "species")
+
+# Explore k-rat weights
+weight_model <- lm(weight ~ common_name + sex, data = rodents_subset)
+summary(weight_model) # this looks weird
+rodents_subset %>%
+  ggplot(aes(y = weight, x = common_name, fill = sex)) +
+  geom_boxplot() # still looks weird
+table(rodents_subset$sex, rodents_subset$species)
+table(rodents$sex, rodents$species)
+```
+
+Now, we will follow a process: 
+1. Identify the symptom of the problem.
+2. Remove a piece of code to make the reprex more minimal.
+3. Re-run the reprex to make sure the reduced code still demonstrates the problem--check that the symptom is still present.
+
+In this case, the *symptom* is that we are *missing rows in `rodents_subset`* that were present in `rodents` and should not have been removed!
+
+Let's start by identifying pieces of code that we can probably remove. A good start is to look for lines of code that do not create variables for later use, or lines that add complexity to the analysis that is not relevant to the problem at hand.
+
+We can start by removing the broken code that we commented out earlier. Also, adding the date column is not directly relevant to the current problem. Let's go ahead and remove those pieces of code. Now our script looks like this:
+
+```{r eval = F}
+# Minimal reproducible example script
 library(tidyverse)
 surveys <- read_csv("data/surveys_complete_77_89.csv")
 glimpse(surveys)
@@ -107,55 +180,6 @@ summary(weight_model)
 rodents_subset %>%
   ggplot(aes(y = weight, x = common_name, fill = sex)) +
   geom_boxplot()
-table(rodents_subset$sex, rodents_subset$species)
-table(rodents$sex, rodents$species)
-```
-
-Now, we will follow a process: 
-1. Identify the symptom of the problem.
-2. Remove a piece of code to make the reprex more minimal.
-3. Re-run the reprex to make sure the reduced code still demonstrates the problem--check that the symptom is still present.
-
-In this case, the *symptom* is that we are *missing rows in `rodents_subset`* that were present in `rodents` and should not have been removed!
-
-Let's start by identifying pieces of code that we can probably remove. A good start is to look for lines of code that do not create variables for later use, or lines that add complexity to the analysis that is not relevant to the problem at hand.
-
-We can start by removing the broken code that we commented out earlier. Also, adding the date column is not directly relevant to the current problem. Let's go ahead and remove those pieces of code. Now our script looks like this:
-
-```{r eval = F}
-# Minimal reproducible example script
-# Load packages and data
-library(ggplot2)
-library(dplyr)
-rodents <- read.csv("data/surveys_complete_77_89.csv")
-
-# XXX ADD PETER'S EPISODE CODE HERE
-
-## Filter to only rodents
-rodents <- rodents %>% filter(taxa == "Rodent")
-
-# Visualize sex by species
-ggplot(rodents, aes(x = species, fill = sex))+
-  geom_bar()
-
-# Subset to species and sexes of interest
-rodents_subset <- rodents %>%
-  filter(species == c("ordii", "spectabilis"),
-         sex == c("F", "M"))
-
-# Add common names
-common_names <- data.frame(species = sort(unique(rodents_subset$species)), common_name = c("Ord's", "Banner-Tailed"))
-common_names
-rodents_subset <- left_join(rodents_subset, common_names)
-
-# Predict weight by species and sex, and make a plot
-weight_model <- lm(weight ~ common_name + sex, data = rodents_subset)
-summary(weight_model) 
-rodents_subset %>%
-  ggplot(aes(y = weight, x = common_name, fill = sex)) +
-  geom_boxplot() # wait, why does this look weird?
-
-# Investigate
 table(rodents_subset$sex, rodents_subset$species)
 table(rodents$sex, rodents$species)
 ```

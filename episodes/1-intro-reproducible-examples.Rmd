@@ -27,6 +27,7 @@ Loading the entire {tidyverse} here, rather than a few component packages, is an
 :::
 
 ```{r eval = F, message = F, warning = F}
+# Load packages and data
 library(tidyverse)
 
 surveys <- read_csv("data/surveys_complete_77_89.csv") 
@@ -103,6 +104,7 @@ Remy emphasizes to Mickey that they are still happy to be a helper, but that sin
 Before heading off to their own work, Remy also introduces Mickey to the dataset they've just loaded in.
 
 ```{r}
+# Take a look at the data
 glimpse(surveys)
 min(surveys$year)
 max(surveys$year)
