@@ -311,3 +311,88 @@ There may be some point at which our **code first aid** does not help us anymore
 
 While it is common practice in intro coding courses to call over the instructor with a raised hand and a statement such as "I don't know what's wrong," in reality people have limited time, bandwidth, or requisite knowledge to be able to help out with any problem that might arise. Even if they can't figure out a bug on their own, the practiced coder can identify and articulate the problem effectively such that someone with available time and expertise can help out 
 
+# ------ MOVED OVER FROM MIN REPRODUCIBLE CODE
+Mickey is interested in understanding how kangaroo rat weights differ across species and sexes, so they create a quick visualization.
+
+```{r}
+ggplot(rodents, aes(x = species, fill = sex))+
+  geom_bar()
+```
+
+Whoa, this is really overwhelming! Mickey forgot that the dataset includes data for a lot of different rodent species, not just kangaroo rats. Mickey is only interested in two kangaroo rat species: _Dipodomys ordii_ (Ord's kangaroo rat) and _Dipodomys spectabilis_ (Banner-tailed kangaroo rat). 
+
+Mickey also notices that there are three categories for sex: F, M, and what looks like a blank field when there is no sex information available. For the purposes of comparing weights, Mickey wants to focus only rodents of known sex.
+
+Mickey filters the data to include only the two focal species and only rodents whose sex is F or M.
+
+```{r}
+rodents_subset <- rodents %>%
+  filter(species == c("ordii", "spectabilis"),
+         sex == c("F", "M"))
+```
+
+Because these scientific names are long, Mickey also decides to add common names to the dataset. They start by creating a data frame with the common names, which they will then join to the `rodents_subset` dataset:
+
+```{r}
+## Adding common names
+common_names <- data.frame(species = unique(rodents_subset$species), common_name = c("Ord's", "Banner-tailed"))
+common_names
+```
+
+But looking at the `common names` dataset reveals a problem! The common names are not properly matched to the scientific names. For example, the genus *Ordii* should correspond to Ord's kangaroo rat, but currently, it is matched with the Banner-tailed kangaroo rat instead.
+
+:::challenge
+### Exercise 1: Applying code first aid
+
+1. Is this a syntax error or a semantic error? Explain why.
+2. What "code first aid" steps might be appropriate here? Which ones are unlikely to be helpful?
+:::
+
+Mickey re-orders the names and tries the code again. This time, it works! The common names are joined to the correct scientific names. Mickey joins the common names to `rodents_subset`.
+
+```{r}
+common_names <- data.frame(species = sort(unique(rodents_subset$species)), common_name = c("Ord's", "Banner-Tailed"))
+rodents_subset <- left_join(rodents_subset, common_names, by = "species")
+```
+
+Now, Mickey is ready to start learning about kangaroo rat weights. They start by running a quick linear regression to predict `weight` based on `species` and `sex`.
+
+```{r}
+weight_model <- lm(weight ~ common_name + sex, data = rodents_subset)
+summary(weight_model) 
+```
+
+The negative coefficient for `common_nameOrd's` tells Mickey that Ord's kangaroo rats are significantly less heavy than Banner-tailed kangaroo rats.
+
+But something is wrong with the coefficients for sex. Why are there so many NA values for `sexM`?
+
+When Mickey visualizes the data, they see a problem in the graph, too. As the model showed, Ord's kangaroo rats are significantly smaller than Banner-tailed kangaroo rats. But something is definitely wrong! Because the boxes are colored by sex, we can see that all of the Banner-tailed kangaroo rats are male and all of the Ord's kangaroo rats are female. That can't be right! What are the chances of catching all one sex for two different species?
+
+```{r}
+rodents_subset %>%
+  ggplot(aes(y = weight, x = common_name, fill = sex)) +
+  geom_boxplot()
+```
+
+To verify that the problem comes from the data, not from the plot code, Mickey creates a two-way frequency table, which confirms that there are no observations of female *spectabilis* or male *ordii* in `rodents_subset`. Something definitely seems wrong. Those rows should not be missing.
+
+```{r}
+table(rodents_subset$sex, rodents_subset$species)
+```
+
+To double check, Mickey looks at the original dataset.
+
+```{r}
+table(rodents$sex, rodents$species)
+```
+
+Not only were there originally males and females present from both _ordii_ and _spectabilis_, but the original numbers were way, way higher! It looks like somewhere along the way, Mickey lost a lot of observations.
+
+[WORKING THROUGH CODE FIRST AID STEPS HERE]
+Mickey is feeling overwhelmed and not sure where their code went wrong. They were able to fix the errors and warning messages that they encountered so far, but this one seems more complicated, and there has been no clear indication of what went wrong. They work their way through the code first aid steps, but they are not able to solve the problem.
+
+They decide to consult Remy's road map to figure out what to do next.
+
+![](fig/roadmap.png)
+
+Since code first aid was not enough to solve this problem, it looks like it's time to ask for help using a *reprex*.
