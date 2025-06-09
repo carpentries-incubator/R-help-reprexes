@@ -26,8 +26,8 @@ exercises: 35
 ```{r echo = FALSE, message = FALSE}
 library(ggplot2)
 library(dplyr)
-rodents <- read.csv("data/surveys_complete_77_89.csv")
-rodents <- rodents %>% filter(taxa == "Rodent")
+surveys <- read_csv("data/surveys_complete_77_89.csv")
+rodents <- surveys %>% filter(taxa == "Rodent")
 ```
 
 Mickey is interested in understanding how kangaroo rat weights differ across species and sexes, so they create a quick visualization.
@@ -59,7 +59,7 @@ common_names
 But looking at the `common names` dataset reveals a problem!
 
 :::challenge
-### Exercise 1a: Applying code first aid
+### Exercise 1: Applying code first aid
 
 1. Is this a syntax error or a semantic error? Explain why.
 2. What "code first aid" steps might be appropriate here? Which ones are unlikely to be helpful?
@@ -72,49 +72,7 @@ common_names <- data.frame(species = sort(unique(rodents_subset$species)), commo
 rodents_subset <- left_join(rodents_subset, common_names, by = "species")
 ```
 
-Before moving on to answering their research question about kangaroo rat weights, Mickey also wants to create a date column, since they realized that having the dates stored in three separate columns (`month`, `day`, and `year`) might be hard for future analysis. They want to use `{lubridate}` to parse the dates. But here, too, they run into trouble.
-
-```{r error = T}
-rodents_subset <- rodents_subset %>%
-  mutate(date = lubridate(paste(year, month, day, sep = "-")))
-```
-
-:::instructor
-Because these are fairly simple errors, more advanced learners may quickly "see" the solution and may need to be reminded to think through the exercise step by step and consider what steps could be helpful. Optionally, they can also be assigned the extra challenge exercise.
-:::
-
-:::challenge
-### Exercise 1b: Applying code first aid, part 2
-
-1. Is this a syntax error or a semantic error? Explain why.
-2. What "code first aid" steps might be appropriate here? 
-3. What would be your next step to fix this error, if you were Mickey?
-:::
-
-:::challenge
-### Exercise 1c: Applying code first aid, part 2 (extra challenge)
-
-Mickey tried several methods to create a date column. Here's one of them.
-```{r error = T}
-test <- rodents_subset %>%
-  mutate(date = lubridate::as_date(paste(day, month, year)))
-```
-
-1. What type of error is this?
-2. What do you learn from the warning message? Why do you think this code causes a warning message, rather than an error message?
-3. Try some code first aid steps. What do you think happened here? How did you figure it out?
-:::
-
-Mickey reads some of the `{lubridate}` documentation and changes their code so that the `date` column is created correctly.
-
-```{r}
-rodents_subset <- rodents_subset %>%
-  mutate(date = lubridate::ymd(paste(year, month, day, sep = "-")))
-```
-
-Now that the dataset is cleaned, Mickey is ready to start learning about kangaroo rat weights!
-
-They start by running a quick linear regression to predict `weight` based on `species` and `sex`.
+Now, Mickey is ready to start learning about kangaroo rat weights. They start by running a quick linear regression to predict `weight` based on `species` and `sex`.
 
 ```{r}
 weight_model <- lm(weight ~ common_name + sex, data = rodents_subset)
@@ -287,7 +245,7 @@ When we run this code, we can confirm that it still demonstrates our problem. Th
 We've made progress on minimizing our code, but we still have a ways to go. This script is still pretty long! Let's identify more pieces of code that we can remove.
 
 :::::challenge
-## Exercise 2: Minimizing code
+### Exercise 2: Minimizing code
 
 Which other lines of code can you remove to make this script more minimal? After removing each one, be sure to re-run the code to make sure that it still reproduces the error.
 
