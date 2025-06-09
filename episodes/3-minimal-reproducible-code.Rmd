@@ -62,47 +62,51 @@ We're going to start by copying over all of our code, so we have an exact copy o
 
 ```{r eval = F}
 # Minimal reproducible example script
-# Load packages and data
-library(ggplot2)
-library(dplyr)
-rodents <- read.csv("data/surveys_complete_77_89.csv")
+library(tidyverse)
+surveys <- read_csv("data/surveys_complete_77_89.csv")
+glimpse(surveys)
+min(surveys$year)
+max(surveys$year)
+# Read in the data
+ggplot(x = taxa) + geom_bar()
+ggplot(aes(x = surveys$taxa)) + geom_bar()
+ggplot(surveys, aes(x = taxa)) + geom_bar()
+table(surveys$taxa)
+?table
+table(surveys$taxa, exclude = NULL)
+rodents <- surveys %>% filter(taxa == "Rodent")
+rodents_summary <- rodents %>% group_by(plot_type, month) %>% summarize(count=n())
+ggplot(rodents_summary) + geom_tile(aes(month, plot_type, fill=count))
+ggplot(rodents) + geom_tile(aes(month, plot_type), stat = "count")
+ggplot(rodents) + geom_tile(aes(month, plot_type))
+krats <- rodents %>% filter(genus == "Dipadomys") #kangaroo rat genus
 
-# XXX ADD PETER'S EPISODE CODE HERE
+ggplot(krats, aes(year, fill=plot_type)) +
+  geom_histogram() +
+  facet_wrap(~species)
+krats
+print(rodents %>% count(genus))
+krats <- rodents %>% filter(genus == "Dipodomys") #kangaroo rat genus
+dim(krats)
 
-## Filter to only rodents
-rodents <- rodents %>% filter(taxa == "Rodent")
-
-# Visualize sex by species
+ggplot(krats, aes(year, fill=plot_type)) +
+  geom_histogram() +
+  facet_wrap(~species)
 ggplot(rodents, aes(x = species, fill = sex))+
   geom_bar()
-
-# Subset to species and sexes of interest
 rodents_subset <- rodents %>%
   filter(species == c("ordii", "spectabilis"),
          sex == c("F", "M"))
-
-# Add common names
-# common_names <- data.frame(species = unique(rodents_subset$species), common_name = c("Ord's", "Banner-tailed"))
-# common_names # oops, this looks wrong!
-common_names <- data.frame(species = sort(unique(rodents_subset$species)), common_name = c("Ord's", "Banner-Tailed"))
+## Adding common names
+common_names <- data.frame(species = unique(rodents_subset$species), common_name = c("Ord's", "Banner-tailed"))
 common_names
-rodents_subset <- left_join(rodents_subset, common_names)
-
-# Add a date column
-# rodents_subset <- rodents_subset %>%
-#   mutate(date = lubridate(paste(year, month, day, sep = "-"))) # that didn't work!
-
-rodents_subset <- rodents_subset %>%
-  mutate(date = lubridate::ymd(paste(year, month, day, sep = "-")))
-
-# Predict weight by species and sex, and make a plot
+common_names <- data.frame(species = sort(unique(rodents_subset$species)), common_name = c("Ord's", "Banner-Tailed"))
+rodents_subset <- left_join(rodents_subset, common_names, by = "species")
 weight_model <- lm(weight ~ common_name + sex, data = rodents_subset)
-summary(weight_model) 
+summary(weight_model)
 rodents_subset %>%
   ggplot(aes(y = weight, x = common_name, fill = sex)) +
-  geom_boxplot() # wait, why does this look weird?
-
-# Investigate
+  geom_boxplot()
 table(rodents_subset$sex, rodents_subset$species)
 table(rodents$sex, rodents$species)
 ```
