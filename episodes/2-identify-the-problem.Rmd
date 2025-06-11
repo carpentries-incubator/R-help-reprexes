@@ -311,7 +311,7 @@ There may be some point at which our **code first aid** does not help us anymore
 
 While it is common practice in intro coding courses to call over the instructor with a raised hand and a statement such as "I don't know what's wrong," in reality people have limited time, bandwidth, or requisite knowledge to be able to help out with any problem that might arise. Even if they can't figure out a bug on their own, the practiced coder can identify and articulate the problem effectively such that someone with available time and expertise can help out 
 
-# ------ MOVED OVER FROM MIN REPRODUCIBLE CODE
+### MOVED OVER FROM MIN REPRODUCIBLE CODE
 Mickey is interested in understanding how kangaroo rat weights differ across species and sexes, so they create a quick visualization.
 
 ```{r}

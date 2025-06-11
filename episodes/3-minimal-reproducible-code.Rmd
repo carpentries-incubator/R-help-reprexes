@@ -24,9 +24,10 @@ exercises: 35
 :::
 
 ```{r echo = FALSE, message = FALSE}
-library(ggplot2)
 library(dplyr)
-surveys <- read_csv("data/surveys_complete_77_89.csv")
+library(readr)
+library(ggplot2)
+surveys <- read_csv("https://raw.githubusercontent.com/carpentries-incubator/R-help-reprexes/refs/heads/main/episodes/data/surveys_complete_77_89.csv") 
 rodents <- surveys %>% filter(taxa == "Rodent")
 ```
 

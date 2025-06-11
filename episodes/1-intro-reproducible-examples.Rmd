@@ -26,6 +26,12 @@ Mickey starts by loading the data so they can begin to explore it. They also loa
 Loading the entire {tidyverse} here, rather than a few component packages, is an intentional over-complication so that we can teach learners to simplify their packages later. Learners should have {tidyverse} installed, as per the setup instructions.
 :::
 
+```{r echo = F, message = F, warning = F}
+library(dplyr)
+library(readr)
+surveys <- read_csv("https://raw.githubusercontent.com/carpentries-incubator/R-help-reprexes/refs/heads/main/episodes/data/surveys_complete_77_89.csv")
+```
+
 ```{r eval = F, message = F, warning = F}
 # Load packages and data
 library(tidyverse)
@@ -103,7 +109,7 @@ Remy emphasizes to Mickey that they are still happy to be a helper, but that sin
 
 Before heading off to their own work, Remy also introduces Mickey to the dataset they've just loaded in.
 
-```{r}
+```{r results='hold'}
 # Take a look at the data
 glimpse(surveys)
 min(surveys$year)
