@@ -228,7 +228,7 @@
 <div class="accordion accordion-flush" id="accordionFlush4">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading4">
-        <a href="3-minimal-reproducible-code.html">3. Minimal Reproducible Code</a>
+        <a href="3-minimal-reproducible-code.html">3. Minimal reproducible code</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -237,7 +237,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="4-minimal-reproducible-data.html">4. Minimal Reproducible Data</a>
+        <a href="4-minimal-reproducible-data.html">4. Minimal reproducible data</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -303,20 +303,14 @@
       <hr></nav><main id="main-content" class="main-content"><h1 class="schedule-heading">Summary and Setup</h1>
       
 
-<p>In this lesson you will learn what a reproducible example is and how
-it can help you better understand your code and solve error messages and
-other issues that may arise.</p>
-<ol style="list-style-type: decimal"><li>Minimal Reproducible Examples: what are they and why are they
-useful?</li>
-<li>Understanding Your Code: what is each line in my code actually
-doing?</li>
-<li>De-bugging Basics: what do I do when I encounter an error?</li>
-<li>Minimal Reproducible Data: What data do I use? How do I create dummy
-data?</li>
-<li>Minimal Reproducible Code: Which parts of my code do I actually need
-to replicate?</li>
-<li>Asking Your Question: My code is ready, how do I ask my
-question?</li>
+<p>In this lesson, you will learn how a combination of troubleshooting
+techniques and creating minimal reproducible examples can help solve
+problems in your code. The episodes will be as follows:</p>
+<ol style="list-style-type: decimal"><li>What is a reprex and why is it useful?</li>
+<li>Identify the problem and make a plan</li>
+<li>Minimal reproducible code</li>
+<li>Minimal reproducible data</li>
+<li>Asking your question</li>
 </ol><!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
@@ -339,7 +333,7 @@ before you install RStudio.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> For Windows </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <ul><li>Download R from the <a href="https://cran.r-project.org/bin/windows/base/release.htm" class="external-link">CRAN
 website</a>.</li>
@@ -361,7 +355,7 @@ don’t get any error messages.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> For MacOS </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <ul><li>Download R from the <a href="https://cran.r-project.org/bin/macosx/" class="external-link">CRAN website</a>.</li>
 <li>Select the <code>.pkg</code> file for the latest R version</li>
@@ -386,7 +380,7 @@ don’t get any error messages.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> For Linux </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <ul><li>Download R from the <a href="https://cran.r-project.org/bin/macosx/" class="external-link">CRAN website</a>.</li>
 <li>Select the <code>.pkg</code> file for the latest R version</li>
@@ -431,12 +425,12 @@ RStudio to the latest version, open RStudio and click on
 <code>Help &gt; Check for Updates</code>. If a new version is available
 follow the instruction on screen. By default, RStudio will also
 automatically notify you of new versions every once in a while.</li>
-</ul><div id="callout1" class="callout">
+</ul><div id="r-versions" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout</h3>
+<div id="r-versions" class="callout-inner">
+<h3 class="callout-title">R versions</h3>
 <div class="callout-content">
 <p>The changes introduced by new R versions are usually
 backwards-compatible. That is, your old code should still work after
@@ -456,27 +450,32 @@ regularly use is a good practice.</p>
 <h3 id="install-required-r-packages">Install required R packages<a class="anchor" aria-label="anchor" href="#install-required-r-packages"></a></h3>
 <p>During the course we will need a number of R packages. Packages
 contain useful R code written by other people. We will use the packages
-<code>ratdat</code>, <code>reprex</code>, <code>dplyr</code>, and
-<code>ggplot2</code>.</p>
+<code>tidyverse</code> and <code>reprex</code>. (The
+<code>tidyverse</code> is a suite of packages, including
+<code>ggplot2</code> and <code>dplyr</code>, which we will use in our
+code.)</p>
 <p>To try to install these packages, open RStudio and copy and paste the
 following command into the console window (look for a blinking cursor on
 the bottom left), then press the <kbd>Enter</kbd> (Windows and Linux) or
 <kbd>Return</kbd> (MacOS) to execute the command.</p>
-<p><code>{r} install.packages(c("ratdat", "reprex", "dplyr", "ggplot2"))</code></p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">install.packages</span><span class="op">(</span><span class="fu">c</span><span class="op">(</span><span class="st">"tidyverse"</span>, <span class="st">"reprex"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
 <p>Alternatively, you can install the packages using RStudio’s graphical
 user interface by going to <code>Tools &gt; Install Packages</code> and
 typing the names of the packages separated by a comma.</p>
 <p>R tries to download and install the packages on your machine.</p>
 <p>When the installation has finished, you can try to load the packages
 by pasting the following code into the console:</p>
-<div class="codewrapper sourceCode" id="cb1">
+<div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">ratdat</span><span class="op">)</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">reprex</span><span class="op">)</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">ggplot2</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">reprex</span><span class="op">)</span></span></code></pre>
 </div>
 <p>If you do not see an error like
 <code>there is no package called ‘...’</code> you are good to go!</p>
@@ -501,15 +500,16 @@ outside of the scope of this lesson.</p>
 </div>
 <div class="section level3">
 <h3 id="download-the-data">Download the data<a class="anchor" aria-label="anchor" href="#download-the-data"></a></h3>
-<p>We will download the data directly from R during the lessons.
-However, if you are expecting problems with the network, it may be
-better to download the data beforehand and store it on your machine.</p>
-<p>The data files for the lesson can be downloaded manually:</p>
-<ul><li><a href="data/surveys_complete_77_89.csv">cleaned data</a></li>
-</ul><!--
+<p>For this lesson, we will be using a dataset called
+<code>surveys_complete_77_89.csv</code>, which contains rodent survey
+data from the <a href="%22LINK%22">Portal Project</a></p>
+<p>Please download the data file and put it into the <code>data/</code>
+folder of your RStudio project. - <a href="data/surveys_complete_77_89.csv">cleaned data</a></p>
+<!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
- --></div>
+ -->
+</div>
 
 
       </section></main><nav class="bottom-pagination mx-md-4" aria-label="Next Chapter"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
@@ -561,8 +561,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/R-help-reprexes/index.html",
   "identifier": "https://carpentries-incubator.github.io/R-help-reprexes/index.html",
   "dateCreated": "2024-05-14",
-  "dateModified": "2025-06-11",
-  "datePublished": "2025-06-11"
+  "dateModified": "2025-06-12",
+  "datePublished": "2025-06-12"
 }
 
   </script><script>
