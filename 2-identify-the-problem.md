@@ -42,6 +42,7 @@ The accompanying error message attempts to tell you exactly how your code failed
   
 
 ``` r
+# Make some plots
 ggplot(x = taxa) + geom_bar()
 ```
 
@@ -49,11 +50,11 @@ ggplot(x = taxa) + geom_bar()
 Error: object 'taxa' not found
 ```
 
-Though we know somewhere there is an object called `taxa` (it is actually a column of the dataset `rodents`), R is trying to communicate that it cannot find any such object in the local environment. Let's try again, appropriately pointing ggplot to the `rodents` dataset and `taxa` column using the `$` operator. For the sake of argument, let's say we also remember that `geom_bar` expects an aesthetic (`aes`).
+Though we know somewhere there is an object called `taxa` (it is actually a column of the dataset `surveys`), R is trying to communicate that it cannot find any such object in the local environment. Let's try again, appropriately pointing ggplot to the `surveys` dataset and `taxa` column using the `$` operator. For the sake of argument, let's say we also remember that `geom_bar` expects an aesthetic (`aes`).
 
 
 ``` r
-ggplot(aes(x = rodents$taxa)) + geom_bar()
+ggplot(aes(x = surveys$taxa)) + geom_bar()
 ```
 
 ``` error
@@ -64,19 +65,19 @@ Error in `fortify()`:
 ℹ Did you accidentally pass `aes()` to the `data` argument?
 ```
 
-Whoops! Here we see another error message -- this time, R responds with a perhaps more-uninterpretable message.
+Whoops! Here we see another error message -- this time, R responds with a perhaps more uninterpretable message.
 
 
 
-Let's go over each part briefly. First, we see an error from a function called `fortify`, which we didn't even call! Then, there's a more helpful informational message: Did we accidentally pass `aes()` to the `data` argument? This does seem to relate to our function call, as we do pass `aes` into the `ggplot` function. But what is this “`data` argument?" A helpful starting place when attempting to decipher an error message is checking the documentation for the function which caused the error:
+Let's go over each part briefly. First, we see an error from a function called `fortify`, which we didn't even call! Then, there's a more helpful informational message: Did we accidentally pass `aes()` to the `data` argument? This does seem to relate to our function call, as we do pass `aes` into the `ggplot` function. But what is this "`data` argument?" A helpful starting place when attempting to decipher an error message is checking the documentation for the function which caused the error:
 
 `?ggplot`
 
-Here, a Help window pops up in RStudio which provides some more information. Skipping the general description at the top, we see ggplot takes positional arguments of `data`, *then* `mapping`, which uses the `aes` call. We can see in "Arguments" that the `aes(x = rodents$taxa)` object used in the plot is attempted by `fortify` to be converted to a data.frame: now the picture is clear! We accidentally passed our `mapping` argument (telling ggplot how to map variables to the plot) into the position it expected `data` in the form of a data frame. And if we scroll down to "Examples", to "Pattern 1", we can see exactly how ggplot expects these arguments in practice. Let's amend our result:
+Here, a Help window pops up in RStudio which provides some more information. Skipping the general description at the top, we see ggplot takes positional arguments of `data`, *then* `mapping`, which uses the `aes` call. We can see in "Arguments" that the `aes(x = surveys$taxa)` object used in the plot is attempted by `fortify` to be converted to a data.frame: now the picture is clear! We accidentally passed our `mapping` argument (telling ggplot how to map variables to the plot) into the position it expected `data` in the form of a data frame. And if we scroll down to "Examples", to "Pattern 1", we can see exactly how ggplot expects these arguments in practice. Let's amend our result:
   
 
 ``` r
-ggplot(rodents, aes(x = taxa)) + geom_bar()
+ggplot(surveys, aes(x = taxa)) + geom_bar()
 ```
 
 <img src="fig/2-identify-the-problem-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
@@ -114,7 +115,7 @@ Let's go back to our rodent analysis. The next step in the plan is to subset to 
   
 
 ``` r
-table(rodents$taxa)
+table(surveys$taxa)
 ```
 
 ``` output
@@ -123,7 +124,7 @@ table(rodents$taxa)
     300      69       4   16148 
 ```
 
-We're interested in the Rodents, and thankfully it seems like a majority of our observations will be maintained when subsetting to rodents. But wait... In our plot above, we can clearly see the presence of NA values. Why are we not seeing them here? Our command was correctly executed, but the output is not everything we intended. Having no error message to interpret, let's jump straight to the function documentation:
+We're interested in the rodents, and thankfully it seems like a majority of our observations will be maintained when subsetting to rodents. But wait... In our plot above, we can clearly see the presence of NA values. Why are we not seeing them here? Our command was correctly executed, but the output is not everything we intended. Having no error message to interpret, let's jump straight to the function documentation:
   
 
 ``` r
@@ -152,7 +153,7 @@ That seems like it should be inclusive. Let's try again:
 
 
 ``` r
-table(rodents$taxa, exclude = NULL)
+table(surveys$taxa, exclude = NULL)
 ```
 
 ``` output
@@ -165,7 +166,8 @@ Now our NA values show up in the table. We see that by subsetting to the "Rodent
 
 
 ``` r
-rodents <- rodents %>% filter(taxa == "Rodent")
+# Just rodents
+rodents <- surveys %>% filter(taxa == "Rodent")
 ```
 
 
@@ -269,6 +271,7 @@ Consider the example below, where we now are attempting to see which species of 
 
 
 ``` r
+# Just k-rats
 krats <- rodents %>% filter(genus == "Dipadomys") #kangaroo rat genus
 
 ggplot(krats, aes(year, fill=plot_type)) + 
@@ -413,3 +416,157 @@ There may be some point at which our **code first aid** does not help us anymore
 
 While it is common practice in intro coding courses to call over the instructor with a raised hand and a statement such as "I don't know what's wrong," in reality people have limited time, bandwidth, or requisite knowledge to be able to help out with any problem that might arise. Even if they can't figure out a bug on their own, the practiced coder can identify and articulate the problem effectively such that someone with available time and expertise can help out 
 
+### MOVED OVER FROM MIN REPRODUCIBLE CODE
+Mickey is interested in understanding how kangaroo rat weights differ across species and sexes, so they create a quick visualization.
+
+
+``` r
+ggplot(rodents, aes(x = species, fill = sex))+
+  geom_bar()
+```
+
+<img src="fig/2-identify-the-problem-rendered-unnamed-chunk-16-1.png" style="display: block; margin: auto;" />
+
+Whoa, this is really overwhelming! Mickey forgot that the dataset includes data for a lot of different rodent species, not just kangaroo rats. Mickey is only interested in two kangaroo rat species: _Dipodomys ordii_ (Ord's kangaroo rat) and _Dipodomys spectabilis_ (Banner-tailed kangaroo rat). 
+
+Mickey also notices that there are three categories for sex: F, M, and what looks like a blank field when there is no sex information available. For the purposes of comparing weights, Mickey wants to focus only rodents of known sex.
+
+Mickey filters the data to include only the two focal species and only rodents whose sex is F or M.
+
+
+``` r
+rodents_subset <- rodents %>%
+  filter(species == c("ordii", "spectabilis"),
+         sex == c("F", "M"))
+```
+
+Because these scientific names are long, Mickey also decides to add common names to the dataset. They start by creating a data frame with the common names, which they will then join to the `rodents_subset` dataset:
+
+
+``` r
+# Add common names
+common_names <- data.frame(species = unique(rodents_subset$species), common_name = c("Ord's", "Banner-tailed"))
+common_names
+```
+
+``` output
+      species   common_name
+1 spectabilis         Ord's
+2       ordii Banner-tailed
+```
+
+But looking at the `common names` dataset reveals a problem! The common names are not properly matched to the scientific names. For example, the genus *Ordii* should correspond to Ord's kangaroo rat, but currently, it is matched with the Banner-tailed kangaroo rat instead.
+
+:::challenge
+### Exercise 1: Applying code first aid
+
+1. Is this a syntax error or a semantic error? Explain why.
+2. What "code first aid" steps might be appropriate here? Which ones are unlikely to be helpful?
+:::
+
+Mickey re-orders the names and tries the code again. This time, it works! The common names are joined to the correct scientific names. Mickey joins the common names to `rodents_subset`.
+
+
+``` r
+common_names <- data.frame(species = sort(unique(rodents_subset$species)), common_name = c("Ord's", "Banner-Tailed"))
+rodents_subset <- left_join(rodents_subset, common_names, by = "species")
+```
+
+Now, Mickey is ready to start learning about kangaroo rat weights. They start by running a quick linear regression to predict `weight` based on `species` and `sex`.
+
+
+``` r
+# Explore k-rat weights
+weight_model <- lm(weight ~ common_name + sex, data = rodents_subset)
+summary(weight_model) 
+```
+
+``` output
+
+Call:
+lm(formula = weight ~ common_name + sex, data = rodents_subset)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-111.201   -6.466    2.534   10.799   45.799 
+
+Coefficients: (1 not defined because of singularities)
+                 Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      123.2007     0.8061  152.83   <2e-16 ***
+common_nameOrd's -74.7342     1.3352  -55.97   <2e-16 ***
+sexM                   NA         NA      NA       NA    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 19.71 on 939 degrees of freedom
+  (35 observations deleted due to missingness)
+Multiple R-squared:  0.7694,	Adjusted R-squared:  0.7691 
+F-statistic:  3133 on 1 and 939 DF,  p-value: < 2.2e-16
+```
+
+The negative coefficient for `common_nameOrd's` tells Mickey that Ord's kangaroo rats are significantly less heavy than Banner-tailed kangaroo rats.
+
+But something is wrong with the coefficients for sex. Why are there so many NA values for `sexM`?
+
+When Mickey visualizes the data, they see a problem in the graph, too. As the model showed, Ord's kangaroo rats are significantly smaller than Banner-tailed kangaroo rats. But something is definitely wrong! Because the boxes are colored by sex, we can see that all of the Banner-tailed kangaroo rats are male and all of the Ord's kangaroo rats are female. That can't be right! What are the chances of catching all one sex for two different species?
+
+
+``` r
+rodents_subset %>%
+  ggplot(aes(y = weight, x = common_name, fill = sex)) +
+  geom_boxplot()
+```
+
+``` warning
+Warning: Removed 35 rows containing non-finite outside the scale range
+(`stat_boxplot()`).
+```
+
+<img src="fig/2-identify-the-problem-rendered-unnamed-chunk-21-1.png" style="display: block; margin: auto;" />
+
+To verify that the problem comes from the data, not from the plot code, Mickey creates a two-way frequency table, which confirms that there are no observations of female *spectabilis* or male *ordii* in `rodents_subset`. Something definitely seems wrong. Those rows should not be missing.
+
+
+``` r
+table(rodents_subset$sex, rodents_subset$species)
+```
+
+``` output
+   
+    ordii spectabilis
+  F   350           0
+  M     0         626
+```
+
+To double check, Mickey looks at the original dataset.
+
+
+``` r
+table(rodents$sex, rodents$species)
+```
+
+``` output
+   
+    albigula eremicus flavus fulvescens fulviventer harrisi hispidus
+  F      474      372    222         46           3       0       68
+  M      368      468    302         16           2       0       42
+   
+    leucogaster maniculatus megalotis merriami ordii penicillatus  sp.
+  F         373         160       637     2522   690          221    4
+  M         397         248       680     3108   792          155    5
+   
+    spectabilis spilosoma taylori torridus
+  F        1135         1       0      390
+  M        1232         1       3      441
+```
+
+Not only were there originally males and females present from both _ordii_ and _spectabilis_, but the original numbers were way, way higher! It looks like somewhere along the way, Mickey lost a lot of observations.
+
+[WORKING THROUGH CODE FIRST AID STEPS HERE]
+Mickey is feeling overwhelmed and not sure where their code went wrong. They were able to fix the errors and warning messages that they encountered so far, but this one seems more complicated, and there has been no clear indication of what went wrong. They work their way through the code first aid steps, but they are not able to solve the problem.
+
+They decide to consult Remy's road map to figure out what to do next.
+
+![](fig/roadmap.png)
+
+Since code first aid was not enough to solve this problem, it looks like it's time to ask for help using a *reprex*.

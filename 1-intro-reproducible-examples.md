@@ -18,73 +18,48 @@ exercises: 10
 - Load in the rodent survey data and briefly explain its contents.
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-Mickey is an ecologist working with data from The Portal Project, a long-term research study of rodents in Portal, Arizona. Mickey has just started in a new lab at their university. They are interested in learning about rodent morphology. For now, they are learning about the dataset by doing some descriptive analyses and visualizations of the data. 
+Mickey is an ecology researcher who has just started in a new lab. Mickey's lab has been working for many years with data from the [Portal Project](https://portal.weecology.org/), a long-term research study of rodents in Portal, Arizona. Mickey is particularly interested in learning about rodent morphology. For now, they are getting familiar with the dataset by doing some descriptive analyses and visualizations. 
 
 Mickey starts by loading the data so they can begin to explore it. They also load the {tidyverse}, a set of packages that will be useful for wrangling and visualizing the data.
 
-::: instructor note
+::: instructor
 Loading the entire {tidyverse} here, rather than a few component packages, is an intentional over-complication so that we can teach learners to simplify their packages later. Learners should have {tidyverse} installed, as per the setup instructions.
-
-Would it be better to have the surveys dataset as a downloaded file for them to load in, or does loading it from a url make sense?
 :::
 
 
+
+
 ``` r
+# Load packages and data
 library(tidyverse)
-```
 
-``` output
-── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.2     ✔ tibble    3.2.1
-✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.0.4     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
-```
-
-``` r
-surveys <- read_csv("https://raw.githubusercontent.com/carpentries-incubator/R-help-reprexes/refs/heads/main/episodes/data/surveys_complete_77_89.csv") 
-```
-
-``` output
-Rows: 16878 Columns: 13
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (6): species_id, sex, genus, species, taxa, plot_type
-dbl (7): record_id, month, day, year, plot_id, hindfoot_length, weight
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+surveys <- read_csv("data/surveys_complete_77_89.csv") 
 ```
 
 Mickey has some past experience in R, but this project will require more data analysis than they have done before. Mickey attended a Carpentries workshop, "Data Analysis and Visualization in R for Ecologists," and they feel comfortable with the fundamentals of coding in R. Still, they are a little nervous about starting this project. 
 
 :::::::::::::::::::::::::::::::::::::: callout 
-## Prerequisites and target audience
+### Prerequisites and target audience
 
 This workshop assumes some prior experience with working in R and RStudio. We will assume you've taken the equivalent of the Data Analysis and Visualization in R for Ecologists workshop and are comfortable with basic commands, and we won't necessarily explain every line of code in detail.
 
 If you're much more experienced in R, this workshop is still for you! Even expert coders may not always know how to get unstuck. We hope this workshop will be useful to people with a variety of coding backgrounds.
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-Sometimes, Mickey's code doesn't work as expected and they go to their colleague, Remy, for help. Remy has spent many hours sitting with Mickey, helping to work through various errors. But soon, Remy will be starting a big project, and they won't have as much time to help with debugging. 
+Sometimes, Mickey's code doesn't work as expected and they go to their colleague, Remy, for help. Remy has spent many hours sitting with Mickey, helping to work through various errors. But soon, Remy will be starting a big project, and soon they won't have as much time to help with debugging. 
 
-::: instructor note
+::: instructor
 The following exercises are optional, but they can are useful for getting learners settled in.
 :::
 
 :::::::::::::::::::::::::::::::::::::: challenge 
-## Think, pair, share: When you get stuck
+### Exercise 1 (think, pair, share): When you get stuck
 
 When you're coding in R and you get stuck, what are some things that you do to get help or get unstuck?
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::: challenge 
-## Think, pair, share: Helping someone else
+### Exercise 2 (think, pair, share): Helping someone else
 
 Think about a time that you helped someone else with their code. What information did you need to know in order to help?
 (If you have never helped someone else with their code, think about a time that someone helped you--what information did they need to know in order to help?)
@@ -97,7 +72,7 @@ To help Mickey get more comfortable troubleshooting their own code, Remy suggest
 
 Remy explains that the road map includes two main phases. First, there is guidance about "code first aid." This includes understanding types of errors, reading function documentation, investigating error messages, and running through code line by line to diagnose problems.
 
-Sometimes, these first aid steps are not enough to solve your problem. One of the most frustrating parts of learning to code is getting stuck and not knowing what to do! Luckily, there are many people in the R and data science communities who are happy to help, as long as you give them the right information. But figuring out how to ask a good question can feel even harder than the original problem that got you stuck in the first place. That's why the second part of Jordan's road map includes guidance on how to create a *minimal reproducible example* (also known as a "*reprex*"). 
+Sometimes, these first aid steps are not enough to solve your problem. One of the most frustrating parts of learning to code is getting stuck and not knowing what to do! Luckily, there are many people in the R and data science communities who are happy to help, as long as you give them the right information. But figuring out how to ask a good question can feel even harder than the original problem that got you stuck in the first place. That's why the second part of Remy's road map includes guidance on how to create a **minimal reproducible example** (also known as a **reprex**). 
 
 A minimal reproducible example is a piece of code that demonstrates the problem you are facing, includes all necessary information to show the problem but nothing extra, and will run easily on someone else's computer.
 
@@ -112,26 +87,31 @@ Minimal reproducible examples are very important tools to get help when you're s
 - The process of making a minimal reproducible example often gives you insight into your own code. Often, you might end up solving the problem yourself, without even needing to ask for help.
 
 ::: callout
+### Rubber duck debugging
+
 The phenomenon of solving one’s own problem during the process of trying to explain it to someone else is often called “rubber duck debugging.” This is a reference to a story about programmers who would keep rubber ducks on their desks to explain coding problems to. Jenny Bryan refers to reprexes as “basically the rubber duck in disguise,” because they force you to explain your problem to someone else, often solving it in the process.
 
-Jenny Bryan shares many other insights about reprexes in her 2018 talk ["Help me help you: creating reproducible examples."](https://www.youtube.com/watch?v=5gqksthQ0cM)
+Jenny Bryan shares many other insights about reprexes in her 2018 talk ["Help me help you: Creating reproducible examples."](https://www.youtube.com/watch?v=5gqksthQ0cM)
 :::
 
 ![](fig/jennybryan.png)
 
 :::callout
-## Helpers
+### Helpers
 
 There are lots of people who might help you with your code: friends, colleagues, mentors, or total strangers online. In this lesson, we will use the term "helper" to refer to the person who is helping you to debug your code. Helpers are the target audience for your minimal reproducible example.
 :::
 
-Jordan emphasizes to Mickey that they are still happy to be a helper, but that since they won't have as much time to devote to debugging in the future, following this road map first will make the helping process more efficient. Hopefully, it will also make Mickey into a more confident coder! 
+Remy emphasizes to Mickey that they are still happy to be a helper, but that since they won't have as much time to devote to debugging in the future, following this road map first will make the helping process more efficient. Hopefully, it will also make Mickey into a more confident coder! 
 
-Before heading off to their own work, Jordan also introduces Mickey to the dataset they've just loaded in.
+Before heading off to their own work, Remy also introduces Mickey to the dataset they've just loaded in.
 
 
 ``` r
+# Take a look at the data
 glimpse(surveys)
+min(surveys$year)
+max(surveys$year)
 ```
 
 ``` output
@@ -150,25 +130,11 @@ $ genus           <chr> "Neotoma", "Neotoma", "Dipodomys", "Dipodomys", "Dipod�
 $ species         <chr> "albigula", "albigula", "merriami", "merriami", "merri…
 $ taxa            <chr> "Rodent", "Rodent", "Rodent", "Rodent", "Rodent", "Rod…
 $ plot_type       <chr> "Control", "Long-term Krat Exclosure", "Control", "Rod…
-```
-
-``` r
-min(surveys$year)
-```
-
-``` output
 [1] 1977
-```
-
-``` r
-max(surveys$year)
-```
-
-``` output
 [1] 1989
 ```
 
-Jordan explains that the dataset is made up of many individual rodent records (`record_id`). The date of each record is given by the `month`, `day`, and `year` columns. 
+Remy explains that the dataset is made up of many individual rodent records (`record_id`). The date of each record is given by the `month`, `day`, and `year` columns. 
 
 The dataset includes data from a number of different study plots that had different treatments applied: plot IDs are given by the `plot_id` column, and the type of treatment is specified in `plot_type`. 
 
@@ -178,14 +144,12 @@ For each individual caught, the field crew took `weight`, `sex` and `hindfoot_le
 
 The dataset contains 16,878 rodent observations ranging across years from 1977 through 1989. 
 
-:::callout
-More information about the Portal Project and the surveys dataset is available at [LINK].
-:::
-
 With an introduction to the dataset and a road map to guide them if they get stuck, Mickey feels ready to start coding!
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
-- kp1
-- kp2
-- kp3
+- Applying some "code first aid" can help address problems in your code.Add commentMore actions
+- Helpers can more easily debug your code if you provide them with a small example of the problem (a "reprex") that they can tinker with themselves.
+- In the process of building a reprex, you may find the solution yourself.
+- In the rest of this lesson, we will be working through a "road map" to getting unstuck that includes code first aid and the process of making a reprex.
+- The `surveys` dataset includes records of rodents captured in a variety of experimental plots over a 12-year period, including some data about each rodent's sex and morphology.
 ::::::::::::::::::::::::::::::::::::::::::::::::

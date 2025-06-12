@@ -1,5 +1,5 @@
 ---
-title: "Minimal Reproducible Code"
+title: "Minimal reproducible code"
 teaching: 40
 exercises: 35
 ---
@@ -25,220 +25,6 @@ exercises: 35
 
 
 
-Mickey is interested in understanding how kangaroo rat weights differ across species and sexes, so they create a quick visualization.
-
-
-``` r
-ggplot(rodents, aes(x = species, fill = sex))+
-  geom_bar()
-```
-
-<img src="fig/3-minimal-reproducible-code-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" />
-Whoa, this is really overwhelming! Mickey forgot that the dataset includes data for a lot of different rodent species, not just kangaroo rats. Mickey is only interested in two kangaroo rat species: _Dipodomys ordii_ (Ord's kangaroo rat) and _Dipodomys spectabilis_ (Banner-tailed kangaroo rat). 
-
-Mickey also notices that there are three categories for sex: F, M, and what looks like a blank field when there is no sex information available. For the purposes of comparing weights, Mickey wants to focus only rodents of known sex.
-
-Mickey filters the data to include only the two focal species and only rodents whose sex is F or M.
-
-
-``` r
-rodents_subset <- rodents %>%
-  filter(species == c("ordii", "spectabilis"),
-         sex == c("F", "M"))
-```
-
-Because these scientific names are long, Mickey also decides to add common names to the dataset. They start by creating a data frame with the common names, which they will then join to the `rodents_subset` dataset:
-
-
-``` r
-## Adding common names
-common_names <- data.frame(species = unique(rodents_subset$species), common_name = c("Ord's", "Banner-tailed"))
-common_names
-```
-
-``` output
-      species   common_name
-1 spectabilis         Ord's
-2       ordii Banner-tailed
-```
-
-But looking at the `common names` dataset reveals a problem!
-
-:::challenge
-### Exercise 1a: Applying code first aid
-
-1. Is this a syntax error or a semantic error? Explain why.
-2. What "code first aid" steps might be appropriate here? Which ones are unlikely to be helpful?
-:::
-
-Mickey re-orders the names and tries the code again. This time, it works! Now they can join the common names to `rodents_subset`.
-
-
-``` r
-common_names <- data.frame(species = sort(unique(rodents_subset$species)), common_name = c("Ord's", "Banner-Tailed"))
-rodents_subset <- left_join(rodents_subset, common_names, by = "species")
-```
-
-Before moving on to answering their research question about kangaroo rat weights, Mickey also wants to create a date column, since they realized that having the dates stored in three separate columns (`month`, `day`, and `year`) might be hard for future analysis. They want to use `{lubridate}` to parse the dates. But here, too, they run into trouble.
-
-
-``` r
-rodents_subset <- rodents_subset %>%
-  mutate(date = lubridate(paste(year, month, day, sep = "-")))
-```
-
-``` error
-Error in `mutate()`:
-ℹ In argument: `date = lubridate(paste(year, month, day, sep = "-"))`.
-Caused by error in `lubridate()`:
-! could not find function "lubridate"
-```
-
-:::instructor
-Because these are fairly simple errors, more advanced learners may quickly "see" the solution and may need to be reminded to think through the exercise step by step and consider what steps could be helpful. Optionally, they can also be assigned the extra challenge exercise.
-:::
-
-:::challenge
-### Exercise 1b: Applying code first aid, part 2
-
-1. Is this a syntax error or a semantic error? Explain why.
-2. What "code first aid" steps might be appropriate here? 
-3. What would be your next step to fix this error, if you were Mickey?
-:::
-
-:::challenge
-### Exercise 1c: Applying code first aid, part 2 (extra challenge)
-
-Mickey tried several methods to create a date column. Here's one of them.
-
-``` r
-test <- rodents_subset %>%
-  mutate(date = lubridate::as_date(paste(day, month, year)))
-```
-
-``` warning
-Warning: There was 1 warning in `mutate()`.
-ℹ In argument: `date = lubridate::as_date(paste(day, month, year))`.
-Caused by warning:
-! All formats failed to parse. No formats found.
-```
-
-1. What type of error is this?
-2. What do you learn from the warning message? Why do you think this code causes a warning message, rather than an error message?
-3. Try some code first aid steps. What do you think happened here? How did you figure it out?
-:::
-
-Mickey reads some of the `{lubridate}` documentation and changes their code so that the `date` column is created correctly.
-
-
-``` r
-rodents_subset <- rodents_subset %>%
-  mutate(date = lubridate::ymd(paste(year, month, day, sep = "-")))
-```
-
-Now that the dataset is cleaned, Mickey is ready to start learning about kangaroo rat weights!
-
-They start by running a quick linear regression to predict `weight` based on `species` and `sex`.
-
-
-``` r
-weight_model <- lm(weight ~ common_name + sex, data = rodents_subset)
-summary(weight_model) 
-```
-
-``` output
-
-Call:
-lm(formula = weight ~ common_name + sex, data = rodents_subset)
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--111.201   -6.466    2.534   10.799   45.799 
-
-Coefficients: (1 not defined because of singularities)
-                 Estimate Std. Error t value Pr(>|t|)    
-(Intercept)      123.2007     0.8061  152.83   <2e-16 ***
-common_nameOrd's -74.7342     1.3352  -55.97   <2e-16 ***
-sexM                   NA         NA      NA       NA    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 19.71 on 939 degrees of freedom
-  (35 observations deleted due to missingness)
-Multiple R-squared:  0.7694,	Adjusted R-squared:  0.7691 
-F-statistic:  3133 on 1 and 939 DF,  p-value: < 2.2e-16
-```
-
-The negative coefficient for `common_nameOrd's` tells Mickey that Ord's kangaroo rats are significantly less heavy than Banner-tailed kangaroo rats.
-
-But something is wrong with the coefficients for sex. Why is everything NA for `sexM`?
-
-When Mickey visualizes the data, they see a problem in the graph, too. As the model showed, Ord's kangaroo rats are significantly smaller than Banner-tailed kangaroo rats. But something is definitely wrong! Because the boxes are colored by sex, we can see that all of the Banner-tailed kangaroo rats are male and all of the Ord's kangaroo rats are female. That can't be right! What are the chances of catching all one sex for two different species?
-
-
-``` r
-rodents_subset %>%
-  ggplot(aes(y = weight, x = common_name, fill = sex)) +
-  geom_boxplot()
-```
-
-``` warning
-Warning: Removed 35 rows containing non-finite outside the scale range
-(`stat_boxplot()`).
-```
-
-<img src="fig/3-minimal-reproducible-code-rendered-unnamed-chunk-10-1.png" style="display: block; margin: auto;" />
-
-Mickey confirms this with a two-way frequency table.
-
-
-``` r
-table(rodents_subset$sex, rodents_subset$species)
-```
-
-``` output
-   
-    ordii spectabilis
-  F   350           0
-  M     0         626
-```
-
-To double check, Mickey looks at the original dataset.
-
-
-``` r
-table(rodents$sex, rodents$species)
-```
-
-``` output
-   
-    albigula eremicus flavus fulvescens fulviventer harrisi hispidus
-          62       14     15          0           0     136        2
-  F      474      372    222         46           3       0       68
-  M      368      468    302         16           2       0       42
-   
-    leucogaster maniculatus megalotis merriami ordii penicillatus  sp.
-             16           9        33       45     3            6   10
-  F         373         160       637     2522   690          221    4
-  M         397         248       680     3108   792          155    5
-   
-    spectabilis spilosoma taylori torridus
-             42       149       0       28
-  F        1135         1       0      390
-  M        1232         1       3      441
-```
-
-Not only were there originally males and females present from both _ordii_ and _spectabilis_, but the original numbers were way, way higher! It looks like somewhere along the way, Mickey lost a lot of observations.
-
-[WORKING THROUGH CODE FIRST AID STEPS HERE]
-Mickey is feeling overwhelmed and not sure where their code went wrong. They were able to fix the errors and warning messages that they encountered so far, but this one seems more complicated, and there has been no clear indication of what went wrong. They work their way through the code first aid steps, but they are not able to solve the problem.
-
-They decide to consult Remy's road map to figure out what to do next.
-
-![](fig/roadmap.png)
-
-Since code first aid was not enough to solve this problem, it looks like it's time to ask for help using a *reprex*.
-
 # Making a reprex
 
 ## Simplify the code
@@ -258,7 +44,7 @@ To make the task of simplifying the code less overwhelming, let's create a separ
 Let's create and save a new, blank R script and give it a name, such as "reprex-script.R"
 
 :::::::::::::::::::::::::::::::::::::callout
-## Callout: Making an R script
+## Making an R script
 
 There are several ways to make an R script:
 
@@ -273,46 +59,48 @@ We're going to start by copying over all of our code, so we have an exact copy o
 ``` r
 # Minimal reproducible example script
 # Load packages and data
-library(ggplot2)
-library(dplyr)
-rodents <- read.csv("data/surveys_complete_77_89.csv")
+library(tidyverse)
+surveys <- read_csv("data/surveys_complete_77_89.csv")
 
-# XXX ADD PETER'S EPISODE CODE HERE
+# Take a look at the data
+glimpse(surveys)
+min(surveys$year)
+max(surveys$year)
 
-## Filter to only rodents
-rodents <- rodents %>% filter(taxa == "Rodent")
+# Make some plots
+ggplot(surveys, aes(x = taxa)) + geom_bar()
+table(surveys$taxa)
+?table
+table(surveys$taxa, exclude = NULL)
 
-# Visualize sex by species
+# Just rodents
+rodents <- surveys %>% filter(taxa == "Rodent")
+rodents_summary <- rodents %>% group_by(plot_type, month) %>% summarize(count=n())
+ggplot(rodents_summary) + geom_tile(aes(month, plot_type, fill=count))
+
+# Just k-rats
+krats <-rodents %>% filter(genus == "Dipodomys") #kangaroo rat genus
+dim(krats)
+
+ggplot(krats, aes(year, fill=plot_type)) +
+  geom_histogram() +
+  facet_wrap(~species)
 ggplot(rodents, aes(x = species, fill = sex))+
   geom_bar()
-
-# Subset to species and sexes of interest
 rodents_subset <- rodents %>%
   filter(species == c("ordii", "spectabilis"),
          sex == c("F", "M"))
 
 # Add common names
-# common_names <- data.frame(species = unique(rodents_subset$species), common_name = c("Ord's", "Banner-tailed"))
-# common_names # oops, this looks wrong!
 common_names <- data.frame(species = sort(unique(rodents_subset$species)), common_name = c("Ord's", "Banner-Tailed"))
-common_names
-rodents_subset <- left_join(rodents_subset, common_names)
+rodents_subset <- left_join(rodents_subset, common_names, by = "species")
 
-# Add a date column
-# rodents_subset <- rodents_subset %>%
-#   mutate(date = lubridate(paste(year, month, day, sep = "-"))) # that didn't work!
-
-rodents_subset <- rodents_subset %>%
-  mutate(date = lubridate::ymd(paste(year, month, day, sep = "-")))
-
-# Predict weight by species and sex, and make a plot
+# Explore k-rat weights
 weight_model <- lm(weight ~ common_name + sex, data = rodents_subset)
-summary(weight_model) 
+summary(weight_model) # this looks weird
 rodents_subset %>%
   ggplot(aes(y = weight, x = common_name, fill = sex)) +
-  geom_boxplot() # wait, why does this look weird?
-
-# Investigate
+  geom_boxplot() # still looks weird
 table(rodents_subset$sex, rodents_subset$species)
 table(rodents$sex, rodents$species)
 ```
@@ -326,43 +114,57 @@ In this case, the *symptom* is that we are *missing rows in `rodents_subset`* th
 
 Let's start by identifying pieces of code that we can probably remove. A good start is to look for lines of code that do not create variables for later use, or lines that add complexity to the analysis that is not relevant to the problem at hand.
 
+START HERE WITH FIXING THIS
 We can start by removing the broken code that we commented out earlier. Also, adding the date column is not directly relevant to the current problem. Let's go ahead and remove those pieces of code. Now our script looks like this:
 
 
 ``` r
 # Minimal reproducible example script
-# Load packages and data
-library(ggplot2)
-library(dplyr)
-rodents <- read.csv("data/surveys_complete_77_89.csv")
+library(tidyverse)
+surveys <- read_csv("data/surveys_complete_77_89.csv")
+glimpse(surveys)
+min(surveys$year)
+max(surveys$year)
+# Read in the data
+ggplot(x = taxa) + geom_bar()
+ggplot(aes(x = surveys$taxa)) + geom_bar()
+ggplot(surveys, aes(x = taxa)) + geom_bar()
+table(surveys$taxa)
+?table
+table(surveys$taxa, exclude = NULL)
+rodents <- surveys %>% filter(taxa == "Rodent")
+rodents_summary <- rodents %>% group_by(plot_type, month) %>% summarize(count=n())
+ggplot(rodents_summary) + geom_tile(aes(month, plot_type, fill=count))
+ggplot(rodents) + geom_tile(aes(month, plot_type), stat = "count")
+ggplot(rodents) + geom_tile(aes(month, plot_type))
+krats <- rodents %>% filter(genus == "Dipadomys") #kangaroo rat genus
 
-# XXX ADD PETER'S EPISODE CODE HERE
+ggplot(krats, aes(year, fill=plot_type)) +
+  geom_histogram() +
+  facet_wrap(~species)
+krats
+print(rodents %>% count(genus))
+krats <- rodents %>% filter(genus == "Dipodomys") #kangaroo rat genus
+dim(krats)
 
-## Filter to only rodents
-rodents <- rodents %>% filter(taxa == "Rodent")
-
-# Visualize sex by species
+ggplot(krats, aes(year, fill=plot_type)) +
+  geom_histogram() +
+  facet_wrap(~species)
 ggplot(rodents, aes(x = species, fill = sex))+
   geom_bar()
-
-# Subset to species and sexes of interest
 rodents_subset <- rodents %>%
   filter(species == c("ordii", "spectabilis"),
          sex == c("F", "M"))
-
-# Add common names
-common_names <- data.frame(species = sort(unique(rodents_subset$species)), common_name = c("Ord's", "Banner-Tailed"))
+## Adding common names
+common_names <- data.frame(species = unique(rodents_subset$species), common_name = c("Ord's", "Banner-tailed"))
 common_names
-rodents_subset <- left_join(rodents_subset, common_names)
-
-# Predict weight by species and sex, and make a plot
+common_names <- data.frame(species = sort(unique(rodents_subset$species)), common_name = c("Ord's", "Banner-Tailed"))
+rodents_subset <- left_join(rodents_subset, common_names, by = "species")
 weight_model <- lm(weight ~ common_name + sex, data = rodents_subset)
-summary(weight_model) 
+summary(weight_model)
 rodents_subset %>%
   ggplot(aes(y = weight, x = common_name, fill = sex)) +
-  geom_boxplot() # wait, why does this look weird?
-
-# Investigate
+  geom_boxplot()
 table(rodents_subset$sex, rodents_subset$species)
 table(rodents$sex, rodents$species)
 ```
@@ -372,7 +174,7 @@ When we run this code, we can confirm that it still demonstrates our problem. Th
 We've made progress on minimizing our code, but we still have a ways to go. This script is still pretty long! Let's identify more pieces of code that we can remove.
 
 :::::challenge
-## Exercise 2: Minimizing code
+### Exercise 2: Minimizing code
 
 Which other lines of code can you remove to make this script more minimal? After removing each one, be sure to re-run the code to make sure that it still reproduces the error.
 
@@ -424,7 +226,7 @@ First, let's talk about **functions**. Functions in R typically come from packag
 To make sure that your helper has access to the packages necessary to run your reprex, you will need to include calls to `library()` for whichever packages are used in the code. For example, if your code uses the function `lmer` from the `{lme4}` package, you would have to include `library(lme4)` at the top of your reprex script to make sure your helper has the `{lme4}` package loaded and can run your code.
 
 ::: callout
-### Callout: Default packages
+### Default packages
 
 Some packages, such as `{base}` and `{stats}`, are loaded in R by default, so you might not have realized that a lot of functions, such as `dim`, `colSums`, `factor`, and `length` actually come from those packages!
 
@@ -451,23 +253,17 @@ rodents_subset %>%
   geom_boxplot() # wait, why does this look weird?
 ```
 
-``` warning
-Warning: Removed 35 rows containing non-finite outside the scale range
-(`stat_boxplot()`).
+``` error
+Error: object 'rodents_subset' not found
 ```
-
-<img src="fig/3-minimal-reproducible-code-rendered-unnamed-chunk-16-1.png" style="display: block; margin: auto;" />
 
 ``` r
 # Investigate
 table(rodents_subset$sex, rodents_subset$species)
 ```
 
-``` output
-   
-    ordii spectabilis
-  F   350           0
-  M     0         626
+``` error
+Error: object 'rodents_subset' not found
 ```
 
 ``` r
@@ -477,23 +273,20 @@ table(rodents$sex, rodents$species)
 ``` output
    
     albigula eremicus flavus fulvescens fulviventer harrisi hispidus
-          62       14     15          0           0     136        2
   F      474      372    222         46           3       0       68
   M      368      468    302         16           2       0       42
    
     leucogaster maniculatus megalotis merriami ordii penicillatus  sp.
-             16           9        33       45     3            6   10
   F         373         160       637     2522   690          221    4
   M         397         248       680     3108   792          155    5
    
     spectabilis spilosoma taylori torridus
-             42       149       0       28
   F        1135         1       0      390
   M        1232         1       3      441
 ```
 
 ::::::::::::::::::::::::::::::::::::::::::: callout
-### Callout: Installing vs. loading packages
+### Installing vs. loading packages
 
 But what if our helper doesn't have all of these packages installed? Won't the code not be reproducible?
 
@@ -537,7 +330,7 @@ Including `library()` calls will definitely help Remy run the code. But this cod
 
 The code as written relies on `rodents_subset`, which Remy will not have access to if they try to run the code. That means that we've succeeded in making our example *minimal*, but it is not *reproducible*: it does not allow someone else to reproduce the problem!
 
-[Transition to minimal data episode]
+[PULL UP ROAD MAP]
 
 :::::::::::::::::::::::::::::::::::::::::::challenge
 ### Exercise 5: Reflection
