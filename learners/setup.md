@@ -1,8 +1,6 @@
 ---
 title: Setup
 ---
-
-
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
 Setup instructions live in this document. Please specify the tools and the data sets the learner needs to have installed. If you want to hide different setup instructions, you can use a `solution` tag.
@@ -77,6 +75,8 @@ of new versions every once in a while.
 
 ::::::::::::::::::::::::::::: callout
 
+### R versions
+
 The changes introduced by new R versions are usually backwards-compatible. That is, your old code should still work after updating your R version. However, if breaking changes happen, it is useful to know that you can have multiple versions of R installed in parallel and that you can switch between them in RStudio by going to `Tools > Global Options > General > Basic`.
 
 While this may sound scary, it is **far more common** to run into issues due to using out-of-date versions of R or R packages. Keeping up with the latest versions of R, RStudio, and any packages you regularly use is a good practice.
@@ -85,12 +85,12 @@ While this may sound scary, it is **far more common** to run into issues due to 
 
 ### Install required R packages
 
-During the course we will need a number of R packages. Packages contain useful R code written by other people. We will use the packages `ratdat`, `reprex`, `dplyr`, and `ggplot2`. 
+During the course we will need a number of R packages. Packages contain useful R code written by other people. We will use the packages `tidyverse` and `reprex`. (The `tidyverse` is a suite of packages, including `ggplot2` and `dplyr`, which we will use in our code.)
 
 To try to install these packages, open RStudio and copy and paste the following command into the console window (look for a blinking cursor on the bottom left), then press the <kbd>Enter</kbd> (Windows and Linux) or <kbd>Return</kbd> (MacOS) to execute the command.
 
-```{r}
-install.packages(c("ratdat", "reprex", "dplyr", "ggplot2"))
+```r
+install.packages(c("tidyverse", "reprex"))
 ```
 
 Alternatively, you can install the packages using RStudio's graphical user interface by going to `Tools > Install Packages` and typing the names of the packages separated by a comma.
@@ -100,10 +100,8 @@ R tries to download and install the packages on your machine.
 When the installation has finished, you can try to load the packages by pasting the following code into the console:
 
 ```r
-library(ratdat)
+library(tidyverse)
 library(reprex)
-library(dplyr)
-library(ggplot2)
 ```
 
 If you do not see an error like `there is no package called ‘...’` you are good to go! 
@@ -118,9 +116,7 @@ Sometimes, package updates introduce changes that break your old code, which can
 
 ### Download the data
 
-We will download the data directly from R during the lessons. However, if you are expecting problems with the network, it may be better to download the data beforehand and store it on your machine.
+For this lesson, we will be using a dataset called `surveys_complete_77_89.csv`, which contains rodent survey data from the [Portal Project]("LINK")
 
-The data files for the lesson can be downloaded manually:
-
+Please download the data file and put it into the `data/` folder of your RStudio project.
  - [cleaned data](../episodes/data/surveys_complete_77_89.csv)
-
