@@ -268,7 +268,7 @@ While starting from scratch can be daunting at first, it often becomes the easie
 This is also the preferred method for other activities that require a reprex (e.g., teaching, collaborating, developing, etc.), and it often provides valuable problem-solving insights.
 So let's breakdown this process to be more digestible!
 
-Mickey is still new at this and has 2 pressing quesions:
+Mickey is still new at this and has 2 pressing questions:
 
 1.  How do I create a dataset from scratch?
 2.  How do I know which key aspects of my data to recreate?
@@ -300,7 +300,7 @@ x
 ```
 
 ``` output
- [1]  2  6  1  8  3  5  4  7 10  9
+ [1]  9  3 10  8  7  5  2  4  6  1
 ```
 
 Or you can randomly sample from a normal distribution
@@ -312,8 +312,8 @@ x
 ```
 
 ``` output
- [1] -0.34206943  1.23655004 -0.46485163  1.79639642  0.07108569 -1.97776989
- [7]  0.08680974 -1.23591711 -0.68019710  0.66481931
+ [1] -1.6675497 -0.3416870  2.8546680 -0.2833162 -0.3770334 -0.2047290
+ [7]  1.1787349  2.0916545 -0.1818944 -0.4773288
 ```
 
 You can also use `letters` to create factors.
@@ -325,8 +325,8 @@ x
 ```
 
 ``` output
- [1] "c" "d" "b" "c" "c" "d" "b" "c" "b" "c" "a" "b" "c" "c" "b" "a" "a" "c" "d"
-[20] "c"
+ [1] "b" "c" "b" "d" "b" "c" "d" "a" "a" "c" "c" "d" "d" "b" "d" "c" "d" "b" "d"
+[20] "a"
 ```
 
 Remember that a data frame is just a collection of vectors.
@@ -342,12 +342,12 @@ head(data)
 
 ``` output
   x          y
-1 b  0.7317639
-2 a  1.5539672
-3 b  0.1877140
-4 c -0.3868241
-5 c -0.6883384
-6 b  0.8461322
+1 b -1.7780771
+2 b -2.0006443
+3 a -0.3025849
+4 c  0.5272735
+5 c -0.0609910
+6 b -0.4980718
 ```
 
 **However**, when sampling at random you must remember to `set.seed()` before sending it to someone to make sure you both get the same numbers!
@@ -374,15 +374,15 @@ B. One continuous variable that is normally distributed.
 C. Name, sex, age, and treatment type.
 :::
 
-## 3.5 Identifying the key aspects of your data
+## 3.5 Identifying the key aspects of the data
 
-No matter which approach we take for providing a dataset, we need to identify which elements of our original data are necessary to replicate our problem.
-To do so, we propose starting with a few simple questions:
+No matter which approach you choose to take for providing a dataset, they key is always to identify which elements of the original data are necessary to replicate the problem.
+To do so, here are a few guiding questions:
 
-1.  How many variables are necessary?
+1.  Which variables are necessary to the problem?
 2.  What data type (discrete or continuous) is each variable?
 3.  How many levels and/or observations are necessary?
-4.  Should the values be distributed in a specific way?
+4.  Do the values need to be distributed in a specific way?
 5.  Are there any NAs that could be relevant?
 
 Let's check back with Mickey and the minimal code they settled on:
@@ -486,10 +486,10 @@ head(rodents)
 
 Try to answer the following questions on your own to determine what we need to include in our minimal reproducible dataset:
 
-1.  How many variablesdoes Mickey need to reproduce their problem?
+1.  Which variables does Mickey need to reproduce their problem?
 2.  What data type (discrete or continuous) is each variable?
 3.  How many levels and/or observations are necessary?
-4.  Should the values be distributed in a specific way?
+4.  Do the values need to be distributed in a specific way?
 5.  Are there any NAs that could be relevant?
 :::
 
@@ -511,10 +511,10 @@ Species and sex are both discrete (categorical) variables, while record ID would
 3.  How many levels and/or observations are necessary?
 
 Since Mickey is filtering their dataset down to 2 categories for both species and sex, that means they need at least 3 levels in each to start with.
-In terms of number of observations there don't seem to be specific restrictions other than we probably want at least 1 observation per original category, so 2\*3=6, or we can just pick a generally nice number like 10.
+In terms of number of observations there don't seem to be specific restrictions other than they probably want at least 1 observation per original category, so 2\*3=6, or they can just pick a generally nice number like 10.
 This is where creating a reprex dataset becomes a bit more of an art than a science; it is common to use trial and error until the problem is replicated accurately.
 
-4.  Should the values be distributed in a specific way?
+4.  Do the values need to be distributed in a specific way?
 
 This question probably isn't going to be relevant most of the time, but certainly worth considering.
 If Mickey needed a longer dataset of measurements they may have wanted to make sure it was normally distributed.
@@ -526,7 +526,7 @@ They can always come back to this question if they are unable to replicate their
 
 5.  Are there any NAs that could be relevant?
 
-Mickey does have NAs in their sex variable.
+Mickey's data does have NAs for the sex variable.
 It might not matter or it could be important, so let's have them put in NAs in the mock dataset just in case.
 
 
@@ -539,7 +539,7 @@ species
 ```
 
 ``` output
-[1] "e" "h" "l"
+[1] "b" "o" "c"
 ```
 
 ``` r
@@ -573,20 +573,20 @@ sample_data
 
 ``` output
    record_id species  sex
-1          1       h    M
-2          2       h <NA>
-3          3       l <NA>
-4          4       e    M
-5          5       h    M
-6          6       h    F
-7          7       l    M
-8          8       h    F
-9          9       l    M
-10        10       l    F
+1          1       c <NA>
+2          2       c <NA>
+3          3       o    M
+4          4       c    M
+5          5       b <NA>
+6          6       c <NA>
+7          7       c    M
+8          8       b    M
+9          9       o    M
+10        10       b    F
 ```
 
-And just like that we created a mock dataset from scratch!
-Notice that we could also have compiled the same type of dataset in a single line by creating each vector already within the `data.frame()`
+And just like that we helped Mickey create a mock dataset from scratch!
+Notice that they could also have compiled the same type of dataset in a single line by creating each vector already within the `data.frame()`
 
 
 ``` r
@@ -601,15 +601,15 @@ sample2_data
 ``` output
    record_id species  sex
 1          1       b    F
-2          2       a    F
-3          3       a    M
-4          4       b    M
+2          2       b <NA>
+3          3       c    M
+4          4       c    F
 5          5       a    F
-6          6       c <NA>
-7          7       b    F
-8          8       a    M
-9          9       b <NA>
-10        10       b    M
+6          6       a    F
+7          7       a    M
+8          8       a <NA>
+9          9       c    M
+10        10       b    F
 ```
 
 **Important**: Notice that the outputs of the two datasets are not the same.
@@ -667,7 +667,9 @@ sample(10)
 :::
 
 Great!
-Now we need to check whether it works within our code and whether it reproduces our issue
+Now we need to check whether the mock dataset works with the minimal code Mickey created earlier.
+Does it run?
+Does it reproduce the problem they were having?
 
 
 ``` r
@@ -688,7 +690,7 @@ table(sample_subset$sex, sample_subset$species)
 
 It works!
 The sample size has unexpectedly been reduced to just 2 observations, when we would have expected a sample of 8, based on the sample_data output above.
-Wherever the issue lies, we were able to successfully replicate it in our example dataset.
+Wherever the issue may lie, we were able to successfully replicate it in this minimal reproducible example.
 
 ::: challenge
 ### Exercise 5: Your turn!
@@ -705,7 +707,7 @@ C. Name, sex, age, and treatment type.
 
 ## 3.6 Using the original data set
 
-Even once you master the art of creating mock datasets, there may be occasions in which your data or your issue is maybe too complex and you can't seem to replicate the issue.
+Even once you master the art of creating mock datasets, there may be occasions in which your data or problem is maybe too complex and you can't seem to replicate the issue.
 Or maybe you still think using your original data would just be easier.
 
 In cases when you want to make your own data minimal and reproducible, you will want to take a similar approach to what we did in Episode 3 when making the code minimal.
@@ -716,10 +718,10 @@ The question still arises: how do I know what is essential?
 
 Use the same guiding questions that we used earlier!
 
-1.  How many (or rather which) variables are necessary?
-2.  What data type is each variable? (perhaps less necessary, since you are keeping the original variables)
-3.  How many levels and/or observations are necessary? (potentially still useful, we don't want to get rid of more than we need)
-4.  Should the values be distributed in a specific way? (they are as they are, but worth keeping in mind in terms of how we are removing observations)
+1.  Which variables are necessary to replicate the problem?
+2.  What data type (discrete or continuous) is each variable? (perhaps less necessary, since you are keeping the original variables)
+3.  How many levels and/or observations are necessary? (we don't want to get rid of more than we need)
+4.  Do the values need to be distributed in a specific way? (worth keeping in mind in terms of how we are removing observations)
 5.  Are there any NAs that could be relevant?
 
 Based on our previous answers we end up with:
@@ -728,7 +730,7 @@ Based on our previous answers we end up with:
 2.  Species and sex are categorical, record_id is a continuous count of our observations.
 3.  As we said earlier, we want 3 each for species and sex, which happens to already be the case. And we could reduce our record_id size to \~10.
 4.  Not really, but we want to make sure that when we reduce the number of observations we still have observations in each of the 3 levels in species and sex.
-5.  No NA's, but we still don't know if the blanks are relevant, so let's make sure we keep at least one.
+5.  NA's are present in the sex variable, so let's make sure we keep at least one.
 
 Now that we have a clearer goal, let's subset the data.
 
@@ -790,8 +792,8 @@ table(rodents$sex, rodents$species)
   M          0    5        1232         1        0       3      441       0
 ```
 
-Given that the code that is going wrong is that which creates krats_subset, we need to create a minimal reproducible version of rodents!
-We can then insert our new_rodent dataset in place of the original rodent one.
+Given that the code that is going wrong is that which creates rodents_subset, we need to create a minimal reproducible version of rodents!
+We can then insert our new_rodents dataset in place of the original rodents one.
 
 **Step 1: select the variables of interest**
 
@@ -1000,7 +1002,7 @@ new_subset
 
 Still nothing!
 What is going on??
-We don't have an answer, but we certainly replicated a problem when we filter the data.
+We don't have an answer, but we certainly replicated a problem that occurs when we filter the data.
 Time to ask for help!
 
 ::: instructor
@@ -1076,12 +1078,7 @@ However, was that really easier than creating a dataset from scratch?
 And sure, you could just use `dput()` on your original dataset.
 It would work.
 But that wouldn't be very considerate to those who are trying to help.
-Try it.
-
-
-``` r
-#dput(rodents)
-```
+Try running `dput(rodents)` in your script.
 
 It becomes a huge chunk of code!
 When clearly we don't need all of that.
@@ -1093,7 +1090,8 @@ Remember, we want to keep everything minimal for many reasons:
 -   to make the problem-solving process as easy and painless as possible
 -   bonus: to help *us* better understand and zero-in on the source of our issue, often stumbling upon a solution along the way
 
-Nevertheless, it remains an option for when your data appears too complex or you are not quite sure where your error lies and therefore are not sure what minimal components are needed to reproduce the example.
+Nevertheless, it remains an option for when your data appears too complex or you are not quite sure where your problem lies and therefore are not sure what minimal components are needed to reproduce the example.
+In other words, when you don't have a good mental model of what the problem is even after going through the initial steps we outlined earlier int he lesson.
 
 ## 3.7 Using an R-build dataset
 
@@ -1102,7 +1100,7 @@ The last approach we mentioned is to build a minimal reproducible dataset based 
 A list of readily available datasets can be found using `library(help="datasets")`.
 You can then use `?` in front of the dataset name to get more information about the contents of the dataset.
 
-For a more detailed discussion of the benefits of using this approach see [insert something]
+For a more detailed discussion of the benefits of using this approach see **[insert something]**
 
 This approach essentially blends the skills we already learned in the first two.
 We need to identify a dataset with appropriate variables that match the "key elements" of our original dataset.
