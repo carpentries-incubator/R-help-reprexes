@@ -19,11 +19,11 @@ After completing this episode, participants should be able to...
 
 -   Describe how the desired code output differs from the actual output
 -   Categorize an error message (e.g. syntax error, semantic errors, package-specific errors, etc.)
--   decode/describe what an error message is trying to communicate
+-   Describe what an error message is trying to communicate
 -   Identify specific lines and/or functions generating the error message
 -   Use R Documentation to look up function syntax and examples
--   Quickly fix commonly-encountered R errors using the internet
--   Identify when a problem is better suited for asking for further help, including online help and reprex
+-   Quickly fix commonly-encountered R errors using 'code first aid' 
+-   Identify when a problem is better suited for asking for further help by making a reprex
 :::
 
 
@@ -93,7 +93,22 @@ And, when all else fails, we can prepare our code into a reproducible example fo
 
 While the above steps may be new or seem familiar, we formalize this a little bit to explicitly address something: recognizing when a problem arises and attempting to interpret *what* is going wrong is essential to fixing it. This is true whether you fix the problem on your own, or communicate it to an expert. The latter steps we listed might be categorized as attempts to immediately address the problem -- we'll call these **code first aid** -- these steps might fix the problem, give you greater insight into what the problem is (and how R is interpreting your code), or not be helpful at all. 
 
-In any case, we want to emphasize that these skill sets are essential to being a practiced coder able to effectively seek help. While these examples may seem trivial to pull up a whole checklist, below we will see examples of problems that are trickier to both recognize and interpret. But in those cases, we'll nonetheless apply the same framework. 
+In any case, we want to emphasize that these skill sets are essential to being a practiced coder able to effectively seek help. While these examples may seem trivial to warrant pull up a whole checklist, below we will see examples of problems that are trickier to both recognize and interpret. But in those cases, we'll nonetheless apply the same framework. 
+
+
+:::::::::: challenge
+
+Below we see an error message pop up when trying to .... Which of the following interpretations of the error message most aptly describes the problem? 
+
+
+:::::: solution
+
+
+
+::::::
+
+
+:::::::::: 
 
 
 ## 3.2 What do I do when my code outputs something I don't expect
@@ -248,35 +263,13 @@ Our improved code here looks good. Checking the dimensions of our subsetted data
 
 
 :::::: callout
-Often, giving your expert helpers access to the entire problem, with a detailed description of your desired output allows you to directly improve your coding skills and learn about new functions and techniques.
+Often, giving your expert helpers access to the entire problem, with a detailed description of your desired output, allows you to directly improve your coding skills and learn about new functions and techniques.
 :::::: 
 
 
 ## Summary
 
-
-
-In general, encountering semantic errors can make our job more difficult, but the roadmap remains the same: 
-
-
-1. Seeing a problem arise in our code.
-
-1. Interpreting the problem.  
-
-Other steps we might take then include: 
-
-3. Acting on parts of the error we can understand, such as changing input to a function. 
-
-3. Pulling up the R Documentation for relevant functions, and reading the documentation's Description, Usage, Arguments, Details and Examples entries for greater insight into our error.
-
-3. Describing our problem into a search engine / generative LLM for more interpretable explanations.
-
-And, when all else fails, we can prepare our code into a reproducible example for expert help.
-
-
-
-
-
+With the length of a full script of code, it may be difficult to find exactly where our code is falling short, even if we can identify the proximal problem that arises (e.g. a plot not showing up). 
 
 Our roadmap to identifying problems in our code may now look like: 
 
@@ -286,7 +279,7 @@ Our roadmap to identifying problems in our code may now look like:
 
 1. Interpreting the problem. 
 
-Now we can see the need to isolate the specific areas of code causing the bug or problem. There is no general rule of thumb as to how large this needs to be. But, unless our problem occurs on the first line, we should be able to isolate our code a bit: Any early lines which we know run correctly and as intended may not need to be included, and by isolating the problem area as much as we can to make it understandable to others, even if that does not help us solve the problem ourselves. 
+Now we can see the need to isolate the specific areas of code causing the bug or problem, even if that does not solve the problem itself. There is no general rule of thumb as to how large this needs to be. But, unless our problem occurs on the first line, we should be able to isolate our code a bit: Any early lines which we know run correctly and as intended may not need to be included, and by isolating the problem area as much as we can to make it understandable to others. 
 
 Let's add to our code first aid:
   
@@ -301,17 +294,43 @@ Let's add to our code first aid:
 And, when all else fails, we can prepare our code into a reproducible example for expert help.
 
 
-
 While this is similar to our previous checklists, we can now understand these steps as a continuous cycle of isolating the problem into more and more discrete chunks for a reproducible example. Any step in the above that helps us identify the specific areas or aspects of our code that are failing in particular, we can zoom in on and restart the checklist. We can stop as soon as we don't understand anymore how our code fails. At this point, we can excise that area for further help using a reprex.
+
+
+:::::: challenge
+
+With our new skills in mind, try to isolate the problem area as much as you can with the following lines of code:
+
+```{r}
+
+# first line, no problem
+
+# second line -- problem
+
+# third line -- no problem
+
+# print or graph output -- does not work
+
+
+```
+
+::::: solution
+
+::::::
+
+:::::::::
 
 
 ## 3.3 When should I prepare my code for a reprex?
 
-There may be some point at which our **code first aid** does not help us anymore, and we still cannot figure out the problem our code is giving us -- in that case, it may be time to turn to expert help, by asking a coworker, mentor, or someone online for aid in 
+There may be some point at which our **code first aid** does not help us anymore, and we still cannot figure out the problem our code is giving us, even if we've isolated it as much as we can -- in that case, it may be time to turn to expert help, by asking a coworker, mentor, or someone online for aid. 
 
-While it is common practice in intro coding courses to call over the instructor with a raised hand and a statement such as "I don't know what's wrong," in reality people have limited time, bandwidth, or requisite knowledge to be able to help out with any problem that might arise. Even if they can't figure out a bug on their own, the practiced coder can identify and articulate the problem effectively such that someone with available time and expertise can help out 
+While in a classroom setting we may be used to raising our hand, pointing at our code, and saying  "I'm not sure what's wrong," in reality, people have limited time, bandwidth, or requisite knowledge to be able to help out with any problem that might arise. That's why reproducing the problem with a **reproducible example** is an essential skill to getting unstuck: it allows you to ask for expert help with a problem that's clearly identified, self-contained, and reproducible. We've already covered skills pertaining to the first two items above! We'll see how to apply these below as we start to create a reproducible example.
+
 
 ### MOVED OVER FROM MIN REPRODUCIBLE CODE
+
+
 Mickey is interested in understanding how kangaroo rat weights differ across species and sexes, so they create a quick visualization.
 
 ```{r}
@@ -342,7 +361,6 @@ common_names
 But looking at the `common names` dataset reveals a problem! The common names are not properly matched to the scientific names. For example, the genus *Ordii* should correspond to Ord's kangaroo rat, but currently, it is matched with the Banner-tailed kangaroo rat instead.
 
 :::challenge
-### Exercise 1: Applying code first aid
 
 1. Is this a syntax error or a semantic error? Explain why.
 2. What "code first aid" steps might be appropriate here? Which ones are unlikely to be helpful?
@@ -397,3 +415,14 @@ They decide to consult Remy's road map to figure out what to do next.
 ![](fig/roadmap.png)
 
 Since code first aid was not enough to solve this problem, it looks like it's time to ask for help using a *reprex*.
+
+
+::::::: key points
+
+- The first step to getting unstuck is identifying a problem, isolating the problem area, and interpreting the problem
+- Often, using "code first aid" -- acting on error messages, looking at data, inputs, etc., pulling up documentation, asking a search engine or LLM, can help us to quickly fix the error on our own
+- If code first aid doesn't work, we can ask for help and prepare a reproducible example (reprex) with a defined problem and isolated code
+- We'll cover future steps to prepare a reproducible example (reprex) in future episodes.
+
+:::::::
+
