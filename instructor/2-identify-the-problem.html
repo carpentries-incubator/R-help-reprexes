@@ -362,13 +362,14 @@ it?</li>
 output</li>
 <li>Categorize an error message (e.g. syntax error, semantic errors,
 package-specific errors, etc.)</li>
-<li>decode/describe what an error message is trying to communicate</li>
+<li>Describe what an error message is trying to communicate</li>
 <li>Identify specific lines and/or functions generating the error
 message</li>
 <li>Use R Documentation to look up function syntax and examples</li>
-<li>Quickly fix commonly-encountered R errors using the internet</li>
-<li>Identify when a problem is better suited for asking for further
-help, including online help and reprex</li>
+<li>Quickly fix commonly-encountered R errors using ‘code first
+aid’</li>
+<li>Identify when a problem is better suited for asking for further help
+by making a reprex</li>
 </ul></div>
 </div>
 </div>
@@ -492,10 +493,35 @@ problem, give you greater insight into what the problem is (and how R is
 interpreting your code), or not be helpful at all.</p>
 <p>In any case, we want to emphasize that these skill sets are essential
 to being a practiced coder able to effectively seek help. While these
-examples may seem trivial to pull up a whole checklist, below we will
-see examples of problems that are trickier to both recognize and
+examples may seem trivial to warrant pull up a whole checklist, below we
+will see examples of problems that are trickier to both recognize and
 interpret. But in those cases, we’ll nonetheless apply the same
 framework.</p>
+<div id="challenge1" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge</h3>
+<div class="callout-content">
+<p>Below we see an error message pop up when trying to …. Which of the
+following interpretations of the error message most aptly describes the
+problem?</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div class="accordion-body">
+
+</div>
+</div>
+</div>
+</div>
 </section><section><h2 class="section-heading" id="what-do-i-do-when-my-code-outputs-something-i-dont-expect">3.2 What do I do when my code outputs something I don’t expect<a class="anchor" aria-label="anchor" href="#what-do-i-do-when-my-code-outputs-something-i-dont-expect"></a></h2>
 <hr class="half-width"><p>Another type of problem you may encounter is when your R code runs
 without errors, but does not produce the desired output. You may
@@ -583,7 +609,7 @@ safely omit. Let’s subset our data to the rodent taxon.</p>
 <code class="sourceCode R"><span><span class="co"># Just rodents</span></span>
 <span><span class="va">rodents</span> <span class="op">&lt;-</span> <span class="va">surveys</span> <span class="op">%&gt;%</span> <span class="fu">filter</span><span class="op">(</span><span class="va">taxa</span> <span class="op">==</span> <span class="st">"Rodent"</span><span class="op">)</span></span></code></pre>
 </div>
-<div id="challenge1" class="callout challenge">
+<div id="challenge2" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -600,12 +626,12 @@ inferring what type of graph we’re trying to create!)</p>
 </ol></div>
 </div>
 </div>
-<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
-  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>In this case, A correctly creates the graph, plotting as colors in
 the tile the number of times an observation is seen. It essentially runs
@@ -823,40 +849,28 @@ expectations.</p>
 <h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <p>Often, giving your expert helpers access to the entire problem, with
-a detailed description of your desired output allows you to directly
+a detailed description of your desired output, allows you to directly
 improve your coding skills and learn about new functions and
 techniques.</p>
 </div>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="summary-1">Summary<a class="anchor" aria-label="anchor" href="#summary-1"></a></h2>
-<hr class="half-width"><p>In general, encountering semantic errors can make our job more
-difficult, but the roadmap remains the same:</p>
-<ol style="list-style-type: decimal"><li><p>Seeing a problem arise in our code.</p></li>
-<li><p>Interpreting the problem.</p></li>
-</ol><p>Other steps we might take then include:</p>
-<ol start="3" style="list-style-type: decimal"><li><p>Acting on parts of the error we can understand, such as changing
-input to a function.</p></li>
-<li><p>Pulling up the R Documentation for relevant functions, and
-reading the documentation’s Description, Usage, Arguments, Details and
-Examples entries for greater insight into our error.</p></li>
-<li><p>Describing our problem into a search engine / generative LLM for
-more interpretable explanations.</p></li>
-</ol><p>And, when all else fails, we can prepare our code into a reproducible
-example for expert help.</p>
+<hr class="half-width"><p>With the length of a full script of code, it may be difficult to find
+exactly where our code is falling short, even if we can identify the
+proximal problem that arises (e.g. a plot not showing up).</p>
 <p>Our roadmap to identifying problems in our code may now look
 like:</p>
 <ol style="list-style-type: decimal"><li><p>Seeing a problem arise in our code.</p></li>
 <li><p>Isolating our code to the problem area.</p></li>
 <li><p>Interpreting the problem.</p></li>
 </ol><p>Now we can see the need to isolate the specific areas of code causing
-the bug or problem. There is no general rule of thumb as to how large
-this needs to be. But, unless our problem occurs on the first line, we
-should be able to isolate our code a bit: Any early lines which we know
-run correctly and as intended may not need to be included, and by
-isolating the problem area as much as we can to make it understandable
-to others, even if that does not help us solve the problem
-ourselves.</p>
+the bug or problem, even if that does not solve the problem itself.
+There is no general rule of thumb as to how large this needs to be. But,
+unless our problem occurs on the first line, we should be able to
+isolate our code a bit: Any early lines which we know run correctly and
+as intended may not need to be included, and by isolating the problem
+area as much as we can to make it understandable to others.</p>
 <p>Let’s add to our code first aid:</p>
 <ol start="3" style="list-style-type: decimal"><li><p>Identify the problem area – add print statements immediately
 upstream or downstream of problem areas, check the desired output from
@@ -879,30 +893,70 @@ code that are failing in particular, we can zoom in on and restart the
 checklist. We can stop as soon as we don’t understand anymore how our
 code fails. At this point, we can excise that area for further help
 using a reprex.</p>
+<div id="challenge3" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge</h3>
+<div class="callout-content">
+<p>With our new skills in mind, try to isolate the problem area as much
+as you can with the following lines of code:</p>
+<div class="codewrapper sourceCode" id="cb30">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># first line, no problem</span></span>
+<span></span>
+<span><span class="co"># second line -- problem</span></span>
+<span></span>
+<span><span class="co"># third line -- no problem</span></span>
+<span></span>
+<span><span class="co"># print or graph output -- does not work</span></span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
+  <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
+</button>
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div class="accordion-body">
+
+</div>
+</div>
+</div>
+</div>
 </section><section><h2 class="section-heading" id="when-should-i-prepare-my-code-for-a-reprex">3.3 When should I prepare my code for a reprex?<a class="anchor" aria-label="anchor" href="#when-should-i-prepare-my-code-for-a-reprex"></a></h2>
 <hr class="half-width"><p>There may be some point at which our <strong>code first aid</strong>
 does not help us anymore, and we still cannot figure out the problem our
-code is giving us – in that case, it may be time to turn to expert help,
-by asking a coworker, mentor, or someone online for aid in</p>
-<p>While it is common practice in intro coding courses to call over the
-instructor with a raised hand and a statement such as “I don’t know
-what’s wrong,” in reality people have limited time, bandwidth, or
-requisite knowledge to be able to help out with any problem that might
-arise. Even if they can’t figure out a bug on their own, the practiced
-coder can identify and articulate the problem effectively such that
-someone with available time and expertise can help out</p>
+code is giving us, even if we’ve isolated it as much as we can – in that
+case, it may be time to turn to expert help, by asking a coworker,
+mentor, or someone online for aid.</p>
+<p>While in a classroom setting we may be used to raising our hand,
+pointing at our code, and saying “I’m not sure what’s wrong,” in
+reality, people have limited time, bandwidth, or requisite knowledge to
+be able to help out with any problem that might arise. That’s why
+reproducing the problem with a <strong>reproducible example</strong> is
+an essential skill to getting unstuck: it allows you to ask for expert
+help with a problem that’s clearly identified, self-contained, and
+reproducible. We’ve already covered skills pertaining to the first two
+items above! We’ll see how to apply these below as we start to create a
+reproducible example.</p>
 <div class="section level3">
 <h3 id="moved-over-from-min-reproducible-code">MOVED OVER FROM MIN REPRODUCIBLE CODE<a class="anchor" aria-label="anchor" href="#moved-over-from-min-reproducible-code"></a></h3>
 <p>Mickey is interested in understanding how kangaroo rat weights differ
 across species and sexes, so they create a quick visualization.</p>
-<div class="codewrapper sourceCode" id="cb30">
+<div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">rodents</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>, fill <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/2-identify-the-problem-rendered-unnamed-chunk-16-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Whoa, this is really overwhelming! Mickey forgot that the dataset
+<figure><img src="../fig/2-identify-the-problem-rendered-unnamed-chunk-17-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Whoa, this is really overwhelming! Mickey forgot that the dataset
 includes data for a lot of different rodent species, not just kangaroo
 rats. Mickey is only interested in two kangaroo rat species:
 <em>Dipodomys ordii</em> (Ord’s kangaroo rat) and <em>Dipodomys
@@ -913,7 +967,7 @@ available. For the purposes of comparing weights, Mickey wants to focus
 only rodents of known sex.</p>
 <p>Mickey filters the data to include only the two focal species and
 only rodents whose sex is F or M.</p>
-<div class="codewrapper sourceCode" id="cb31">
+<div class="codewrapper sourceCode" id="cb32">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -925,7 +979,7 @@ only rodents whose sex is F or M.</p>
 common names to the dataset. They start by creating a data frame with
 the common names, which they will then join to the
 <code>rodents_subset</code> dataset:</p>
-<div class="codewrapper sourceCode" id="cb32">
+<div class="codewrapper sourceCode" id="cb33">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -945,12 +999,12 @@ problem! The common names are not properly matched to the scientific
 names. For example, the genus <em>Ordii</em> should correspond to Ord’s
 kangaroo rat, but currently, it is matched with the Banner-tailed
 kangaroo rat instead.</p>
-<div id="exercise-1-applying-code-first-aid" class="callout discussion">
+<div id="discussion1" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
-<div id="exercise-1-applying-code-first-aid" class="callout-inner">
-<h3 class="callout-title">Exercise 1: Applying code first aid</h3>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge</h3>
 <div class="callout-content">
 <ol style="list-style-type: decimal"><li>Is this a syntax error or a semantic error? Explain why.</li>
 <li>What “code first aid” steps might be appropriate here? Which ones
@@ -961,7 +1015,7 @@ are unlikely to be helpful?</li>
 <p>Mickey re-orders the names and tries the code again. This time, it
 works! The common names are joined to the correct scientific names.
 Mickey joins the common names to <code>rodents_subset</code>.</p>
-<div class="codewrapper sourceCode" id="cb34">
+<div class="codewrapper sourceCode" id="cb35">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -972,7 +1026,7 @@ Mickey joins the common names to <code>rodents_subset</code>.</p>
 They start by running a quick linear regression to predict
 <code>weight</code> based on <code>species</code> and
 <code>sex</code>.</p>
-<div class="codewrapper sourceCode" id="cb35">
+<div class="codewrapper sourceCode" id="cb36">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1016,7 +1070,7 @@ Because the boxes are colored by sex, we can see that all of the
 Banner-tailed kangaroo rats are male and all of the Ord’s kangaroo rats
 are female. That can’t be right! What are the chances of catching all
 one sex for two different species?</p>
-<div class="codewrapper sourceCode" id="cb37">
+<div class="codewrapper sourceCode" id="cb38">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1030,12 +1084,12 @@ one sex for two different species?</p>
 <pre class="warning" tabindex="0"><code>Warning: Removed 35 rows containing non-finite outside the scale range
 (`stat_boxplot()`).</code></pre>
 </div>
-<figure><img src="../fig/2-identify-the-problem-rendered-unnamed-chunk-21-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>To verify that the problem comes from the data, not from the plot
+<figure><img src="../fig/2-identify-the-problem-rendered-unnamed-chunk-22-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>To verify that the problem comes from the data, not from the plot
 code, Mickey creates a two-way frequency table, which confirms that
 there are no observations of female <em>spectabilis</em> or male
 <em>ordii</em> in <code>rodents_subset</code>. Something definitely
 seems wrong. Those rows should not be missing.</p>
-<div class="codewrapper sourceCode" id="cb39">
+<div class="codewrapper sourceCode" id="cb40">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1050,7 +1104,7 @@ seems wrong. Those rows should not be missing.</p>
   M     0         626</code></pre>
 </div>
 <p>To double check, Mickey looks at the original dataset.</p>
-<div class="codewrapper sourceCode" id="cb41">
+<div class="codewrapper sourceCode" id="cb42">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1086,6 +1140,18 @@ steps, but they are not able to solve the problem.</p>
 next.</p>
 <figure><img src="../fig/roadmap.png" class="figure mx-auto d-block"></figure><p>Since code first aid was not enough to solve this problem, it looks
 like it’s time to ask for help using a <em>reprex</em>.</p>
+<p>::::::: key points</p>
+<ul><li>The first step to getting unstuck is identifying a problem,
+isolating the problem area, and interpreting the problem</li>
+<li>Often, using “code first aid” – acting on error messages, looking at
+data, inputs, etc., pulling up documentation, asking a search engine or
+LLM, can help us to quickly fix the error on our own</li>
+<li>If code first aid doesn’t work, we can ask for help and prepare a
+reproducible example (reprex) with a defined problem and isolated
+code</li>
+<li>We’ll cover future steps to prepare a reproducible example (reprex)
+in future episodes.</li>
+</ul><p>:::::::</p>
 <!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.

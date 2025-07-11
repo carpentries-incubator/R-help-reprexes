@@ -483,7 +483,7 @@ script to check whether they are reproducible. What did you find?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: upper-alpha"><li>Not reproducible because it is a screenshot.</li>
 <li>Not reproducible because it is a path to a file that only exists on
@@ -536,7 +536,7 @@ this code? Can you describe why the other ones are not?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>The correct answer is C!</p>
 <ol style="list-style-type: upper-alpha"><li>does not include the variable of interest (weight).</li>
@@ -577,7 +577,7 @@ not be possible or recommended?</p></li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <ol style="list-style-type: decimal"><li>Mickey is thinking that it would be easier for themselves, not
 necessarily for Remy.</li>
@@ -760,7 +760,7 @@ insights. So let’s breakdown this process to be more digestible!</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1]  9  3 10  8  7  5  2  4  6  1</code></pre>
+<pre class="output" tabindex="0"><code> [1]  4  5  3  2 10  1  8  6  9  7</code></pre>
 </div>
 <p>Or you can randomly sample from a normal distribution</p>
 <div class="codewrapper sourceCode" id="cb10">
@@ -773,8 +773,8 @@ insights. So let’s breakdown this process to be more digestible!</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1] -1.6675497 -0.3416870  2.8546680 -0.2833162 -0.3770334 -0.2047290
- [7]  1.1787349  2.0916545 -0.1818944 -0.4773288</code></pre>
+<pre class="output" tabindex="0"><code> [1]  0.92434663 -0.24657266  0.06317841 -0.57544829  1.30954922 -1.46765459
+ [7]  0.30350986  1.01373850  0.37161488  0.53801397</code></pre>
 </div>
 <p>You can also use <code>letters</code> to create factors.</p>
 <div class="codewrapper sourceCode" id="cb12">
@@ -787,8 +787,8 @@ insights. So let’s breakdown this process to be more digestible!</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1] "b" "c" "b" "d" "b" "c" "d" "a" "a" "c" "c" "d" "d" "b" "d" "c" "d" "b" "d"
-[20] "a"</code></pre>
+<pre class="output" tabindex="0"><code> [1] "d" "d" "b" "d" "a" "c" "a" "c" "d" "c" "d" "b" "b" "c" "a" "d" "b" "b" "a"
+[20] "d"</code></pre>
 </div>
 <p>Remember that a data frame is just a collection of vectors. You can
 create a data frame using <code>data.frame</code> (or
@@ -805,13 +805,13 @@ define a vector for each variable.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>  x          y
-1 b -1.7780771
-2 b -2.0006443
-3 a -0.3025849
-4 c  0.5272735
-5 c -0.0609910
-6 b -0.4980718</code></pre>
+<pre class="output" tabindex="0"><code>  x           y
+1 a  0.15634006
+2 a  0.33111040
+3 c  0.01119692
+4 a -1.28103031
+5 b  0.80924494
+6 a -0.19901776</code></pre>
 </div>
 <p><strong>However</strong>, when sampling at random you must remember
 to <code>set.seed()</code> before sending it to someone to make sure you
@@ -936,7 +936,7 @@ and <code>rodents_subset</code>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <p>Mickey needs to provide a mock dataset to replace the original
 <code>rodents</code> dataset.</p>
@@ -1037,7 +1037,7 @@ dataset just in case.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1] "b" "o" "c"</code></pre>
+<pre class="output" tabindex="0"><code>[1] "y" "k" "n"</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1080,16 +1080,16 @@ dataset just in case.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>   record_id species  sex
-1          1       c &lt;NA&gt;
-2          2       c &lt;NA&gt;
-3          3       o    M
-4          4       c    M
-5          5       b &lt;NA&gt;
-6          6       c &lt;NA&gt;
-7          7       c    M
-8          8       b    M
-9          9       o    M
-10        10       b    F</code></pre>
+1          1       y &lt;NA&gt;
+2          2       k    M
+3          3       n    M
+4          4       y    M
+5          5       k &lt;NA&gt;
+6          6       y    F
+7          7       k    F
+8          8       n    M
+9          9       y    M
+10        10       y    F</code></pre>
 </div>
 <p>And just like that we helped Mickey create a mock dataset from
 scratch! Notice that they could also have compiled the same type of
@@ -1110,16 +1110,16 @@ dataset in a single line by creating each vector already within the
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>   record_id species  sex
-1          1       b    F
-2          2       b &lt;NA&gt;
+1          1       a    M
+2          2       a &lt;NA&gt;
 3          3       c    M
 4          4       c    F
-5          5       a    F
-6          6       a    F
-7          7       a    M
-8          8       a &lt;NA&gt;
-9          9       c    M
-10        10       b    F</code></pre>
+5          5       b    M
+6          6       c    M
+7          7       b    F
+8          8       c    M
+9          9       b &lt;NA&gt;
+10        10       a    M</code></pre>
 </div>
 <p><strong>Important</strong>: Notice that the outputs of the two
 datasets are not the same. If you want the outputs to be EXACTLY the
@@ -1683,7 +1683,7 @@ still replicate our issue?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
   <h4 class="accordion-header" id="headingSolution5"> Show me the solution </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
 <div class="accordion-body">
 <p>Remember, there are many possible solutions! The most important
 feature is that the example dataset can replicate the issue when used
@@ -1905,7 +1905,7 @@ logical: returning NA</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution6" aria-expanded="false" aria-controls="collapseSolution6">
   <h4 class="accordion-header" id="headingSolution6"> Show me the solution </h4>
 </button>
-<div id="collapseSolution6" class="accordion-collapse collapse" aria-labelledby="headingSolution6" data-bs-parent="#accordionSolution6">
+<div id="collapseSolution6" class="accordion-collapse collapse" data-bs-parent="#accordionSolution6" aria-labelledby="headingSolution6">
 <div class="accordion-body">
 <ol style="list-style-type: upper-alpha"><li>“fruit” needs to be a factor and the order of the levels must be
 specified:
