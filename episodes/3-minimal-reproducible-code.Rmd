@@ -14,7 +14,7 @@ exercises: 35
 
 ::: objectives
 - Explain the value of a minimal code snippet.
-- Identify supporting parts of the code that are essential to include.
+- Identify packages or other dependencies needed to run the code.
 - Simplify a script down to a minimal code example.
 - Evaluate whether a piece of code is reproducible as is or not. If not, identify what is missing.
 - Edit a piece of code to make it reproducible
@@ -32,31 +32,13 @@ rodents <- surveys %>% filter(taxa == "Rodent")
 
 ## Simplify the code
 
-When asking someone else for help, it is important to simplify your code as much as possible to make it easier for the helper to understand what is wrong. Simplifying code helps to reduce frustration and overwhelm when debugging an error in a complicated script. The more that we can make the process of helping easy and painless for the helper, the more likely that they will take the time to help.
+Mickey has written a lot of code so far. The code is also a little messy--for example, after fixing the previous errors, they sometimes commented out the old code and kept it for future reference.
+
+Let's take a look at the script as it stands so far.
 
 :::callout
 Depending on how closely you have been following the lesson and which challenges you have attempted, your script may not look exactly like Mickey's. That's okay!
 :::
-
-Mickey has written a lot of code so far. The code is also a little messy--for example, after fixing the previous errors, they sometimes commented out the old code and kept it for future reference.
-
-### Create a new script
-
-To make the task of simplifying the code less overwhelming, let's create a separate script for our reprex. This will let us experiment with simplifying our code while keeping the original script intact.
-
-Let's create and save a new, blank R script and give it a name, such as "reprex-script.R"
-
-:::::::::::::::::::::::::::::::::::::callout
-## Making an R script
-
-There are several ways to make an R script:
-
-- File > New File > R Script
-- Click the white square with a green plus sign at the top left corner of your RStudio window
-- Use a keyboard shortcut: Cmd + Shift + N (on a Mac) or Ctrl + Shift + N (on Windows)
-::::::::::::::::::::::::::::::::::::::::::: 
-
-We're going to start by copying over all of our code, so we have an exact copy of the full analysis script.
 
 ```{r eval = F}
 # Minimal reproducible example script
@@ -115,7 +97,25 @@ As you look at this script and think through trying to debug it, what are your t
 Imagine you are Remy, an advanced grad student whose priority is finishing your dissertation. Your labmate Mickey has just sent you this script, asking for help debugging it. How do you feel when you get Mickey's email? What advice might you give Mickey?
 :::
 
+When asking someone else for help, it is important to simplify your code as much as possible to make it easier for the helper to understand what is wrong. Simplifying code helps to reduce frustration and overwhelm when debugging an error in a complicated script. The more that we can make the process of helping easy and painless for the helper, the more likely that they will take the time to help.
 
+### Create a new script
+
+To make the task of simplifying the code less overwhelming, let's create a separate script for our reprex. This will let us experiment with simplifying our code while keeping the original script intact.
+
+Let's create and save a new, blank R script and give it a name, such as "reprex-script.R"
+
+:::::::::::::::::::::::::::::::::::::callout
+## Making an R script
+
+There are several ways to make an R script:
+
+- File > New File > R Script
+- Click the white square with a green plus sign at the top left corner of your RStudio window
+- Use a keyboard shortcut: Cmd + Shift + N (on a Mac) or Ctrl + Shift + N (on Windows)
+::::::::::::::::::::::::::::::::::::::::::: 
+
+We're going to start by copying over all of our code, so we have an exact copy of the full analysis script.
 
 Now, we will follow a process: 
 1. Identify the symptom of the problem.
@@ -126,7 +126,6 @@ In this case, the *symptom* is that we are *missing rows in `rodents_subset`* th
 
 Let's start by identifying pieces of code that we can probably remove. A good start is to look for lines of code that do not create variables for later use, or lines that add complexity to the analysis that is not relevant to the problem at hand.
 
-START HERE WITH FIXING THIS
 We can start by removing the broken code that we commented out earlier. Also, adding the date column is not directly relevant to the current problem. Let's go ahead and remove those pieces of code. Now our script looks like this:
 
 ```{r eval = F}
@@ -198,8 +197,8 @@ Which other lines of code can you remove to make this script more minimal? After
 :::
 :::
 
-
 A totally minimal script would look like this:
+
 ```{r eval = F}
 rodents <- read.csv("data/surveys_complete_77_89.csv")
 
@@ -211,19 +210,15 @@ table(rodents_subset$sex, rodents_subset$species)
 table(rodents$sex, rodents$species)
 ```
 
-
-Great, now we have a totally minimal script!
-
-However, we're not done yet. 
+This is great progress! A helper will find this minimal code snippet much more approachable than the long script we started with. However, we're not done yet. 
 
 :::challenge
-### Exercise 3: The problem area is not enough
+### Exercise 3
 
-Let's suppose that Mickey has created the minimal problem area script shown above. They email this script to Remy so that Remy can help them debug the code.
+Mickey emails the minimal code script to Remy. Remy opens up the script and tries to run it on their computer, but it doesn't work.
 
-Remy opens up the script and tries to run it on their computer, but it doesn't work.
 - What do you think will happen when Remy tries to run the code from this reprex script?
-- What do you think Mickey should do next to improve the minimal reproducible example?
+- What should Mickey do next to improve the minimal reproducible example?
 :::
 
 We haven't yet included enough code to allow a helper, such as Remy, to run the code on their own computer. If Remy tries to run the reprex script in its current state, they will encounter errors because they don't have access to the same R environment that Mickey does. 
