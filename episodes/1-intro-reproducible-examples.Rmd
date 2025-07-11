@@ -14,7 +14,7 @@ exercises: 10
 ::::::::::::::::::::::::::::::::::::: objectives
 - Understand the high-level process for getting unstuck in R.
 - Define each key characteristic of a minimal reproducible example.
-- Explain why minimal reproducible examples are central to getting help from others.
+- Explain the benefits of creating a minimal reproducible example, for you and for others.
 - Load in the rodent survey data and briefly explain its contents.
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -71,7 +71,7 @@ Think about a time that you helped someone else with their code. What informatio
 
 To help Mickey get more comfortable troubleshooting their own code, Remy suggests some steps to follow the next time they get stuck. Remy calls this the "Road Map to Getting Unstuck in R."
 
-![](fig/roadmap.png)
+![](fig/roadmap_new.png)
 
 Remy explains that the road map includes two main phases. First, there is guidance about "code first aid." This includes understanding types of errors, reading function documentation, investigating error messages, and running through code line by line to diagnose problems.
 
@@ -105,7 +105,7 @@ Jenny Bryan shares many other insights about reprexes in her 2018 talk ["Help me
 There are lots of people who might help you with your code: friends, colleagues, mentors, or total strangers online. In this lesson, we will use the term "helper" to refer to the person who is helping you to debug your code. Helpers are the target audience for your minimal reproducible example.
 :::
 
-Remy emphasizes to Mickey that they are still happy to be a helper, but that since they won't have as much time to devote to debugging in the future, following this road map first will make the helping process more efficient. Hopefully, it will also make Mickey into a more confident coder! 
+Remy emphasizes to Mickey that they are still happy to be a helper, but that since they won't have as much time to devote to debugging in the future, following this road map first will make the helping process more efficient. 
 
 Before heading off to their own work, Remy also introduces Mickey to the dataset they've just loaded in.
 
@@ -129,9 +129,8 @@ The dataset contains 16,878 rodent observations ranging across years from 1977 t
 With an introduction to the dataset and a road map to guide them if they get stuck, Mickey feels ready to start coding!
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
-- Applying some "code first aid" can help address problems in your code.Add commentMore actions
-- Helpers can more easily debug your code if you provide them with a small example of the problem (a "reprex") that they can tinker with themselves.
-- In the process of building a reprex, you may find the solution yourself.
-- In the rest of this lesson, we will be working through a "road map" to getting unstuck that includes code first aid and the process of making a reprex.
+- Throughout this lesson, we will be walking through a "road map" to getting unstuck in R. Briefly, you can start by applying some basic debugging strategies to narrow down the problem, and if you're still stuck, you can create a minimal reproducible example ("reprex") to get help.
+- Helpers can more easily debug your code if your reprex is simple and minimal and reproduces the problem so that they can tinker with it themselves.
+- In the process of building a reprex, you will often find the solution yourself!
 - The `surveys` dataset includes records of rodents captured in a variety of experimental plots over a 12-year period, including some data about each rodent's sex and morphology.
 ::::::::::::::::::::::::::::::::::::::::::::::::
