@@ -412,7 +412,7 @@ Mickey is feeling overwhelmed and not sure where their code went wrong. They wer
 
 They decide to consult Remy's road map to figure out what to do next.
 
-![](fig/roadmap.png)
+![](fig/roadmap_new.png)
 
 Since code first aid was not enough to solve this problem, it looks like it's time to ask for help using a *reprex*.
 
