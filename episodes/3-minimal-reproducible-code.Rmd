@@ -14,13 +14,10 @@ exercises: 35
 
 ::: objectives
 - Explain the value of a minimal code snippet.
-- Identify the problem area of a script.
 - Identify supporting parts of the code that are essential to include.
 - Simplify a script down to a minimal code example.
 - Evaluate whether a piece of code is reproducible as is or not. If not, identify what is missing.
 - Edit a piece of code to make it reproducible
-- Have a road map to follow to simplify your code.
-- Describe the {reprex} package and its uses
 :::
 
 ```{r echo = FALSE, message = FALSE}
