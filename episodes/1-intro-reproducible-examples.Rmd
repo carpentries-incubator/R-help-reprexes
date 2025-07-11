@@ -49,7 +49,7 @@ This workshop assumes some prior experience with working in R and RStudio. We wi
 If you're much more experienced in R, this workshop is still for you! Even expert coders may not always know how to get unstuck. We hope this workshop will be useful to people with a variety of coding backgrounds.
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-Sometimes, Mickey's code doesn't work as expected and they go to their colleague, Remy, for help. Remy has spent many hours sitting with Mickey, helping to work through various errors. But soon, Remy will be starting a big project, and soon they won't have as much time to help with debugging. 
+Sometimes, Mickey's code doesn't work as expected and they go to their colleague, a fifth-year graduate student called Remy, for help. Remy has spent many hours sitting with Mickey, helping to work through various errors. But Remy will be writing up their dissertation soon, so they won't have as much time to help with debugging. 
 
 ::: instructor
 The following exercises are optional, but they can are useful for getting learners settled in.

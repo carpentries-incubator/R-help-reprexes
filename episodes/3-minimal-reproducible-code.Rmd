@@ -107,6 +107,16 @@ table(rodents_subset$sex, rodents_subset$species)
 table(rodents$sex, rodents$species)
 ```
 
+:::::challenge
+### Exercise 1: Reflection
+
+As you look at this script and think through trying to debug it, what are your thoughts/feelings?
+
+Imagine you are Remy, an advanced grad student whose priority is finishing your dissertation. Your labmate Mickey has just sent you this script, asking for help debugging it. How do you feel when you get Mickey's email? What advice might you give Mickey?
+:::
+
+
+
 Now, we will follow a process: 
 1. Identify the symptom of the problem.
 2. Remove a piece of code to make the reprex more minimal.
@@ -185,6 +195,9 @@ Which other lines of code can you remove to make this script more minimal? After
 - Filtering to only rodents can be removed because later we filter to only two species in particular
 - Adding common names can be removed because we didn't actually use those common names. This one is tricky because technically we did use the common names in the rodents_subset plot. But is that plot *really* necessary? We can still demonstrate the problem using the table() lines of code at the end. Also, we could still make the equivalent plot using the `species` column instead of the `common_name` column, and it would demonstrate the same thing!
 - The weight model and the summary can be removed
+:::
+:::
+
 
 A totally minimal script would look like this:
 ```{r eval = F}
@@ -197,9 +210,7 @@ rodents_subset <- rodents %>%
 table(rodents_subset$sex, rodents_subset$species)
 table(rodents$sex, rodents$species)
 ```
-:::
 
-:::
 
 Great, now we have a totally minimal script!
 
