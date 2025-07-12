@@ -396,12 +396,14 @@ rodents_subset %>%
 To verify that the problem comes from the data, not from the plot code, Mickey creates a two-way frequency table, which confirms that there are no observations of female *spectabilis* or male *ordii* in `rodents_subset`. Something definitely seems wrong. Those rows should not be missing.
 
 ```{r}
+# Subsetted dataset
 table(rodents_subset$sex, rodents_subset$species)
 ```
 
 To double check, Mickey looks at the original dataset.
 
 ```{r}
+# Original dataset
 table(rodents$sex, rodents$species)
 ```
 
