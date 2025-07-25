@@ -356,7 +356,7 @@
         
 <section id="aio-1-intro-reproducible-examples"><p>Content from <a href="1-intro-reproducible-examples.html">What is a reprex and why is it useful?</a></p>
 <hr>
-<p>Last updated on 2025-07-22 |
+<p>Last updated on 2025-07-25 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/1-intro-reproducible-examples.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -623,7 +623,7 @@ including some data about each rodent’s sex and morphology.</li>
 </div>
 </div></section><section id="aio-2-identify-the-problem"><p>Content from <a href="2-identify-the-problem.html">Identify the problem and make a plan</a></p>
 <hr>
-<p>Last updated on 2025-07-22 |
+<p>Last updated on 2025-07-25 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/2-identify-the-problem.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -819,7 +819,7 @@ problem?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 
 </div>
@@ -939,7 +939,7 @@ inferring what type of graph we’re trying to create!)</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>In this case, A correctly creates the graph, plotting as colors in
 the tile the number of times an observation is seen. It essentially runs
@@ -1245,7 +1245,7 @@ as you can with the following lines of code:</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 
 </div>
@@ -1489,7 +1489,7 @@ any links that you are not going to use.
 </div>
 </section></section><section id="aio-3-minimal-reproducible-code"><p>Content from <a href="3-minimal-reproducible-code.html">Minimal reproducible code</a></p>
 <hr>
-<p>Last updated on 2025-07-22 |
+<p>Last updated on 2025-07-25 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/3-minimal-reproducible-code.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1732,7 +1732,7 @@ sure that it still reproduces the error.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ul>
 <li>[Peter’s episode code]</li>
@@ -2019,7 +2019,7 @@ any links that you are not going to use.
 </div>
 </div></section><section id="aio-4-minimal-reproducible-data"><p>Content from <a href="4-minimal-reproducible-data.html">Minimal reproducible data</a></p>
 <hr>
-<p>Last updated on 2025-07-22 |
+<p>Last updated on 2025-07-25 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/4-minimal-reproducible-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -2046,19 +2046,20 @@ any links that you are not going to use.
 <h3 class="card-title">Objectives</h3>
 <ul>
 <li>Describe a minimal reproducible dataset</li>
-<li>Identify the aspects of your data necessary to replicate your
-issue</li>
-<li>Create a dataset from scratch to replicate your issue</li>
+<li>Appreciate the different approaches and viewpoints on providing
+example data</li>
+<li>Identify the relevant aspects of your data</li>
+<li>Create a suitable reprex dataset from scratch</li>
 <li>Share your own dataset in a way that is minimal, accessible, and
 reproducible</li>
-<li>Subset an existing dataset to replicate your issue</li>
+<li>Subset a built-in dataset to use in your reprex</li>
 </ul>
 </div>
 </div>
 </div>
 </div>
 </div>
-<section><h2 class="section-heading" id="what-is-a-minimal-reproducible-dataset-and-why-do-i-need-it">3.1 What is a minimal reproducible dataset and why do I need
+<section><h2 class="section-heading" id="what-is-a-minimal-reproducible-dataset-and-why-do-i-need-it">4.1 What is a minimal reproducible dataset and why do I need
 it?<a class="anchor" aria-label="anchor" href="#what-is-a-minimal-reproducible-dataset-and-why-do-i-need-it"></a>
 </h2>
 <hr class="half-width">
@@ -2066,11 +2067,11 @@ it?<a class="anchor" aria-label="anchor" href="#what-is-a-minimal-reproducible-d
 <p>Now that Mickey has narrowed down their problem area and stripped
 down their code to make it minimal, they need to ensure it is
 <strong>reproducible</strong>; this means it needs to be accessible and
-executable such that anyone else can copy-paste it into their system,
-run the code, and replicate their issue. Importantly, an <strong>example
-code will always require example data</strong> in order to run!
-Therefore, <strong>every reprex requires the creation of a minimal
-reproducible dataset to use with the code</strong>.</p>
+executable such that anyone else can simoly copy-paste the code into
+their system and replicate their issue. Importantly, a <strong>code
+snippet will usually require data objects</strong> in order to run!
+Therefore, <strong>every reprex requires a minimal reproducible dataset
+to use with the code</strong>.</p>
 <p>Furthermore, as we have seen previously, sometimes the source of the
 problem isn’t actually the code, but rather the data! Providing an
 appropriate example, or mock dataset <strong>allows a helper to better
@@ -2093,17 +2094,17 @@ script itself.</p>
 </div>
 </div>
 
-<p>As with the example code, an example dataset should also be
+<p>As with the code, a reprex dataset should also be
 <strong>minimal–free of unnecessary information</strong>. By removing
 extraneous information and only keeping what is required to replicate
-the issue, a helper can more clearly see how the data is structured and
-where the problem arises. While it may sometimes feel like unnecessary
-effort, the process of creating a minimal dataset will not only help
-others help you, but also allow you to <strong>better understand your
-data</strong> and often <strong>discover the source of the
-problem</strong> without the need for external help.</p>
-<p>In summary, <strong>a minimal reproducible dataset must
-be:</strong></p>
+the issue, we can ensure our helper will be able to easily see how the
+data is structured and where the problem arises. While it may sometimes
+feel like unnecessary effort, the process of creating a minimal dataset
+will not only help others help you, but also allow you to <strong>better
+understand your data</strong> and often <strong>discover the source of
+the problem</strong> without the need for external help.</p>
+<p>In summary, just like with the code, <strong>a minimal reproducible
+dataset must be:</strong></p>
 <ul>
 <li>
 <strong>minimal</strong>: it only contains information required to
@@ -2113,9 +2114,9 @@ necessary).</li>
 <li>
 <strong>reproducible</strong>: it must be
 <strong>accessible</strong> to someone without your computer, and it
-must consistently replicate your problem. This means it also needs to be
-<strong>complete</strong>, meaning there are no dependencies that have
-been omitted (e.g., packages).</li>
+must consistently <strong>replicate your problem</strong>. This means it
+also needs to be <strong>complete</strong>, meaning there are no
+dependencies that have been omitted (e.g., packages).</li>
 </ul>
 <div id="pro-tip" class="callout">
 <div class="callout-square">
@@ -2127,8 +2128,8 @@ been omitted (e.g., packages).</li>
 <p>An example of what minimal reproducible examples look like can also
 be found in the <code>?help</code> section, in R Studio. Just scroll all
 the way down to where there are examples listed. These will usually be
-minimal and reproducible, since the intended to be directly copy-pasted
-and run by anyone.</p>
+minimal and reproducible, since they are intended to be directly
+copy-pasted and run by anyone.</p>
 <p>For example, let’s look at the function <code>mean</code>:</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2151,18 +2152,19 @@ additional code.</p>
 </h3>
 <pre class="output" tabindex="0"><code>[1] 8.75 5.50</code></pre>
 </div>
-<p>In this case, x is the mock dataset consisting of just 1 variable.
-Notice how it was created as part of the example. This will be your goal
-with your reprex.</p>
+<p>In this case, <strong>x is the mock dataset</strong> consisting of
+just 1 variable. <strong>Notice how it was created as part of the
+example.</strong> This will be your goal with your reprex.</p>
 </div>
 </div>
 </div>
-<div id="exercise-1-test-your-knowledge" class="callout challenge">
+
+<div id="exercise-1-test-your-knowledge-3-mins" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise-1-test-your-knowledge" class="callout-inner">
-<h3 class="callout-title">Exercise 1: Test your knowledge!</h3>
+<div id="exercise-1-test-your-knowledge-3-mins" class="callout-inner">
+<h3 class="callout-title">Exercise 1: Test your knowledge! (3 mins)</h3>
 <div class="callout-content">
 <p>The datasets listed below are <strong>not</strong> well suited for
 use in a reprex. Can you explain why? Copy each one onto your own R
@@ -2170,7 +2172,6 @@ script to check whether they are reproducible. What did you find?</p>
 <ol style="list-style-type: upper-alpha">
 <li><img src="fig/data_screenshot.png" alt="Screenshot of the ratdat comple_old dataset." class="figure"></li>
 <li><code>sample_data &lt;- read_csv(“/Users/kaija/Desktop/RProjects/ResearchProject/data/sample_dataset.csv”)</code></li>
-<li><code>dput(complete_old[1:100,])</code></li>
 <li><code>sample_data &lt;- data.frame(species = species_vector, weight = c(10, 25, 14, 26, 30, 17))</code></li>
 </ol>
 </div>
@@ -2188,9 +2189,6 @@ script to check whether they are reproducible. What did you find?</p>
 <li>Not reproducible because it is a path to a file that only exists on
 someone else’s computer and therefore you do not have access to it using
 that path.</li>
-<li>Not minimal, it has far too many columns and probably too many rows.
-It is also not reproducible because we were not given the source for
-<code>complete_old</code>.</li>
 <li>Not reproducible because we are not given the source for
 <code>species_vector</code>.</li>
 </ol>
@@ -2257,18 +2255,20 @@ code–the object rodents_modified doesn’t exist.</li>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="can-i-just-use-my-own-data">3.2 Can I just use my own data?<a class="anchor" aria-label="anchor" href="#can-i-just-use-my-own-data"></a>
+</section><section><h2 class="section-heading" id="can-i-just-use-my-own-data">4.2 Can I just use my own data?<a class="anchor" aria-label="anchor" href="#can-i-just-use-my-own-data"></a>
 </h2>
 <hr class="half-width">
 <p>While Mickey is grateful to Remy for providing them with a roadmap to
-follow when they need help, they still feel it would be much easier to
-just send Remy their data rather than creating a different dataset.</p>
-<div id="exercise-2-reflect" class="callout challenge">
+follow when they need help, they still feel it would be much easier and
+faster to just send Remy their whole dataset rather than creating a
+different one. If they give Remy access to everything, can’t he still
+help?</p>
+<div id="exercise-2-reflect-3-mins" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise-2-reflect" class="callout-inner">
-<h3 class="callout-title">Exercise 2: Reflect</h3>
+<div id="exercise-2-reflect-3-mins" class="callout-inner">
+<h3 class="callout-title">Exercise 2: Reflect (3 mins)</h3>
 <div class="callout-content">
 <ol style="list-style-type: decimal">
 <li><p>When Mickey feels like sharing their own data would be easier,
@@ -2288,9 +2288,9 @@ not be possible or recommended?</p></li>
 <div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
-<li>Mickey is thinking that it would be easier for themselves, not
-necessarily for Remy.</li>
-</ol>
+<li>
+<p>Mickey is thinking that it would be easier for themselves, not
+necessarily for Remy.</p>
 <p><strong>Remember:</strong> one of the goals of creating a reprex is
 to <strong>help the helpers</strong>. They don’t have to help, they are
 volunteering their time. As such, they deserve to be treated with
@@ -2299,9 +2299,9 @@ much time and effort creating a reprex might be taking, remember that
 (1) <strong>trusting the process may reveal the solution along the
 way</strong>; and (2) <strong>being kind, clear, and helpful will reward
 you with a quicker, more accurate solution</strong>.</p>
-<ol start="2" style="list-style-type: decimal">
-<li>There are several reasons why sharing the original data may not be
-possible or recommended. The original dataset may be:</li>
+</li>
+<li><p>There are several reasons why sharing the original data may not
+be possible or recommended. The original dataset may be:</p></li>
 </ol>
 <ul>
 <li>too large - the Portal dataset is ~35,000 rows with 13 columns and
@@ -2330,41 +2330,47 @@ dataset directly to your helper.</li>
 <p>Mickey is not entirely wrong. While there are instances when it is
 not possible or advisable to share original data, there are also many
 ways around such challenges and some instances may indeed benefit from
-using the original data. However, it is still important to provide
+keeping the original data. However, it is still important to provide
 helpers with data that is minimal and reproducible. Therefore, while
 Mickey does not have to create a brand new example dataset, they should
 at least work to make their original data minimal and accessible (see
-the above reflection exercise), which isn’t necessarily easier or faster
-than creating a mock dataset from scratch.</p>
-<p>In summary, there are multiple ways to provide a minimal dataset for
-a reprex, including using a simplified version of the original dataset.
-They key is that any data provided remains minimal and reproducible. In
-the following section we will highlight 3 common approaches.</p>
-</section><section><h2 class="section-heading" id="how-do-i-create-a-minimal-reproducible-dataset">3.3 How do I create a minimal reproducible dataset?<a class="anchor" aria-label="anchor" href="#how-do-i-create-a-minimal-reproducible-dataset"></a>
+the above reflection exercise), and this may not end up being easier or
+faster than creating a mock dataset from scratch.</p>
+<p>In summary, there are multiple ways to provide a minimal,
+reproducible dataset for a reprex, including using a simplified version
+of the original dataset. In the following section we will highlight 3
+common approaches.</p>
+</section><section><h2 class="section-heading" id="three-different-approaches">4.3 Three different approaches<a class="anchor" aria-label="anchor" href="#three-different-approaches"></a>
 </h2>
 <hr class="half-width">
 <p>In general, there are 3 common ways to provide minimal reproducible
 data for a reprex.</p>
 <ul>
-<li><p>Write a script that creates a new mock dataset with the same key
-characteristics as the original data.</p></li>
-<li><p>Edit the original data to be minimal and reproducible.</p></li>
-<li><p>Use a dataset that is already provided by R (e.g.,
+<li><p>Add a few lines of code to create a mock dataset with the same
+key characteristics as the original data.</p></li>
+<li><p>Subset the original data to be minimal and reproducible.</p></li>
+<li><p>Subset a dataset that is already provided by R (e.g.,
 <code>cars</code>, <code>npk</code>, <code>penguins</code>, etc.). For a
 complete list, use <code>library(help = "datasets")</code>.</p></li>
 </ul>
+<div id="pros-and-cons" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="pros-and-cons" class="callout-inner">
+<h3 class="callout-title">Pros and Cons</h3>
+<div class="callout-content">
 <p>The developers of this lesson believe everyone is entitled to use any
-option they prefer, and the rest of this episode will expand on each of
-the 3 approaches listed above. However, within the data science
-community, opinions generally differ on which method is best
-recommended. Below is a summary table of advantages and disadvantages of
-each approach based on many conversations with several data science
-groups.</p>
+option they prefer, therefore the rest of this episode will expand on
+each of the 3 approaches listed above. However, within the data science
+community, opinions differ on which method is best recommended. Below is
+a summary table of advantages and disadvantages of each approach based
+on many conversations with several data science groups.</p>
 <table style="width:100%;" class="table">
 <colgroup>
 <col width="6%">
-<col width="51%">
-<col width="42%">
+<col width="57%">
+<col width="35%">
 </colgroup>
 <tbody>
 <tr class="odd">
@@ -2384,21 +2390,21 @@ and understand</p></li>
 <li><p>Avoids privacy/security concerns</p></li>
 <li><p>Lets you clearly illustrate the sought outcome</p></li>
 <li><p>Uses important-to-learn skills</p></li>
-<li><p>Easier for more skilled individuals</p></li>
+<li><p>Easier with practice</p></li>
 </ul></td>
 <td>
-<p>While some disadvantages are universal, many apply mostly to
-novices.</p>
 <ul>
-<li><p>Can be intimidating</p></li>
+<li>Can be intimidating</li>
+</ul>
+<!-- --><ul>
 <li><p>Requires good understanding of your data</p></li>
 <li><p>Harder to generate if the error is idiosyncratic or dependent on
 having a large dataset</p></li>
-<li><p>Time-consuming if unskilled</p></li>
+<li><p>Time-consuming if unpracticed</p></li>
 <li><p>Iterative (you may need to trial and error a few times to
 replicate the problem)</p></li>
-<li><p>More likely to require analogies–less interpretable/connected to
-real problems, more likely to require greater context</p></li>
+<li><p>More likely to require analogies, less interpretable/concrete,
+more likely to require greater context</p></li>
 <li><p>Risks generating XY problems–make sure you are asking the right
 question/replicating the right problem</p></li>
 </ul>
@@ -2447,9 +2453,8 @@ problem)</p></li>
 replicate if you are a novice</p></li>
 </ul></td>
 <td><ul>
-<li><p>Less growth-minded if chosen as the “easy way out”–skips the
-learning process of trying to construct a dataset and any insights that
-that process might give you.</p></li>
+<li><p>Less growth-minded if chosen as an “easy way out”–skips the
+learning process and any insights you could have gained.</p></li>
 <li><p>Easy to do poorly and think that you’re doing it well; perceived
 “easiness” leads to overcomplication/confusion</p></li>
 <li><p>Leaves all the work to the helpers if you don’t also work to
@@ -2461,13 +2466,16 @@ a quick answer</p></li>
 </ul></td>
 </tr>
 </tbody>
-</table></section><section><h2 class="section-heading" id="creating-a-mock-dataset-from-scratch">3.4 Creating a mock dataset from scratch<a class="anchor" aria-label="anchor" href="#creating-a-mock-dataset-from-scratch"></a>
+</table>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="creating-a-mock-dataset-from-scratch">4.4 Creating a mock dataset from scratch<a class="anchor" aria-label="anchor" href="#creating-a-mock-dataset-from-scratch"></a>
 </h2>
 <hr class="half-width">
-<p>While starting from scratch can be daunting at first, it often
-becomes the easier and faster option once you are familiar with the
-process; once you understand the basic building blocks and start
-practicing, it becomes the most straight-forward method of creating a
+<p>While starting from scratch can be daunting at first, it becomes
+easier and faster with practice. Once you are familiar with the basic
+building blocks, it is a very straight-forward method of creating a
 minimal reproducible dataset. This is also the preferred method for
 other activities that require a reprex (e.g., teaching, collaborating,
 developing, etc.), and it often provides valuable problem-solving
@@ -2478,7 +2486,9 @@ insights. So let’s breakdown this process to be more digestible!</p>
 <li>How do I know which key aspects of my data to recreate?</li>
 </ol>
 <p>Let’s start with the first.</p>
-<p>There are many ways one can create a dataset in R.</p>
+<p>There are many ways one can create a dataset in R (these should be
+familiar if you took the Carpentries lesson <a href="https://datacarpentry.org/R-ecology-lesson/" class="external-link">Data Analysis and
+Visualization in R for Ecologists</a>).</p>
 <p>You can start by creating vectors using <code>c()</code></p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2505,7 +2515,7 @@ insights. So let’s breakdown this process to be more digestible!</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1]  7  9  3 10  5  2  8  4  1  6</code></pre>
+<pre class="output" tabindex="0"><code> [1]  5 10  6  2  1  8  3  7  4  9</code></pre>
 </div>
 <p>Or you can randomly sample from a normal distribution</p>
 <div class="codewrapper sourceCode" id="cb10">
@@ -2518,8 +2528,8 @@ insights. So let’s breakdown this process to be more digestible!</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1]  1.19818610  0.01704092  2.07772031 -0.96906642 -0.70851763 -0.44057679
- [7] -0.02585938 -0.40951825 -0.11618711  1.47806367</code></pre>
+<pre class="output" tabindex="0"><code> [1] -0.4709011 -0.1765090  0.6869134  1.2346008 -0.3652337  0.3609966
+ [7]  0.6558098  1.2862907 -0.7825283 -1.7602848</code></pre>
 </div>
 <p>You can also use <code>letters</code> to create factors.</p>
 <div class="codewrapper sourceCode" id="cb12">
@@ -2532,13 +2542,14 @@ insights. So let’s breakdown this process to be more digestible!</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1] "a" "d" "b" "a" "a" "b" "b" "c" "a" "a" "c" "b" "c" "a" "d" "d" "c" "a" "c"
-[20] "d"</code></pre>
+<pre class="output" tabindex="0"><code> [1] "a" "a" "d" "d" "a" "a" "a" "a" "b" "a" "b" "b" "d" "a" "a" "d" "a" "b" "a"
+[20] "c"</code></pre>
 </div>
-<p>Remember that a data frame is just a collection of vectors. You can
-create a data frame using <code>data.frame</code> (or
-<code>tibble</code> in the <code>dplyr</code> package). You can then
-define a vector for each variable.</p>
+<p>Remember that <strong>a data frame is just a collection of
+vectors</strong>. You can create a data frame using
+<code>data.frame</code> (or <code>tibble</code> in the
+<code>dplyr</code> package), and then define a vector for each
+variable.</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -2550,18 +2561,18 @@ define a vector for each variable.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>  x           y
-1 a  1.27293263
-2 b -1.67935435
-3 c  0.09416562
-4 b -1.13942537
-5 a  0.70867496
-6 a  0.11686550</code></pre>
+<pre class="output" tabindex="0"><code>  x          y
+1 b  0.1370622
+2 b  0.3333761
+3 a  0.2795380
+4 b -0.9981357
+5 b -0.5166556
+6 b  0.7553728</code></pre>
 </div>
 <p><strong>However</strong>, when sampling at random you must remember
 to <code>set.seed()</code> before sending it to someone to make sure you
 both get the same numbers!</p>
-<div id="callout3" class="callout">
+<div id="callout4" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -2579,12 +2590,12 @@ formats. For these, you can use any of the provided
 </div>
 </div>
 
-<div id="extra-practice-optional-1" class="callout discussion">
+<div id="exercise-3-you-try-5-mins" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
-<div id="extra-practice-optional-1" class="callout-inner">
-<h3 class="callout-title">Extra Practice (optional)</h3>
+<div id="exercise-3-you-try-5-mins" class="callout-inner">
+<h3 class="callout-title">Exercise 3: You try! (5 mins)</h3>
 <div class="callout-content">
 <p>Create a data frame with:</p>
 <p>A. One categorical variable with 2 levels and one continuous
@@ -2594,15 +2605,15 @@ variable.</p>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="identifying-the-key-aspects-of-the-data">3.5 Identifying the key aspects of the data<a class="anchor" aria-label="anchor" href="#identifying-the-key-aspects-of-the-data"></a>
+</section><section><h2 class="section-heading" id="identifying-the-relevant-aspects-of-your-data">4.5 Identifying the relevant aspects of your data<a class="anchor" aria-label="anchor" href="#identifying-the-relevant-aspects-of-your-data"></a>
 </h2>
 <hr class="half-width">
 <p>No matter which approach you choose to take for providing a dataset,
 they key is always to identify which elements of the original data are
-necessary to replicate the problem. To do so, here are a few guiding
-questions:</p>
+necessary, or relevant, to replicate the problem. To do so, here are a
+few guiding questions:</p>
 <ol style="list-style-type: decimal">
-<li>Which variables are necessary to the problem?</li>
+<li>Which variables are necessary to replicate the problem?</li>
 <li>What data type (discrete or continuous) is each variable?</li>
 <li>How many levels and/or observations are necessary?</li>
 <li>Do the values need to be distributed in a specific way?</li>
@@ -2665,14 +2676,14 @@ on:</p>
   F          0    4        1135         1        0       0      390       0
   M          0    5        1232         1        0       3      441       0</code></pre>
 </div>
-<p>To make sure Remy can work on this wherever, Mickey needs to ensure
-they have the required dataset to run the code.</p>
-<div id="exercise-3-quick-think" class="callout challenge">
+<p>To make sure Remy can work on this anywhere, Mickey needs to ensure
+he has the required dataset to run the code.</p>
+<div id="exercise-4-quick-think-2-mins" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise-3-quick-think" class="callout-inner">
-<h3 class="callout-title">Exercise 3: Quick, think!</h3>
+<div id="exercise-4-quick-think-2-mins" class="callout-inner">
+<h3 class="callout-title">Exercise 4: Quick, think! (2 mins)</h3>
 <div class="callout-content">
 <p>Based on the current minimal code, which dataset does Mickey need to
 recreate? Hint: they currently have two datasets, <code>rodents</code>
@@ -2720,17 +2731,17 @@ then answer the questions outlined earlier.</p>
 5   Dipodomys merriami Rodent Long-term Krat Exclosure
 6 Perognathus   flavus Rodent        Spectab exclosure</code></pre>
 </div>
-<div id="excercise-4" class="callout discussion">
+<div id="exercise-5-your-turn-5-mins" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
-<div id="excercise-4" class="callout-inner">
-<h3 class="callout-title">Excercise 4</h3>
+<div id="exercise-5-your-turn-5-mins" class="callout-inner">
+<h3 class="callout-title">Exercise 5: Your turn! (5 mins)</h3>
 <div class="callout-content">
 <p>Try to answer the following questions on your own to determine what
 we need to include in our minimal reproducible dataset:</p>
 <ol style="list-style-type: decimal">
-<li>Which variables does Mickey need to reproduce their problem?</li>
+<li>Which variables does Mickey need to replicate their problem?</li>
 <li>What data type (discrete or continuous) is each variable?</li>
 <li>How many levels and/or observations are necessary?</li>
 <li>Do the values need to be distributed in a specific way?</li>
@@ -2742,6 +2753,7 @@ we need to include in our minimal reproducible dataset:</p>
 
 <p>Let’s go over the answers together and help Mickey build a dataset as
 we go along!</p>
+
 <ol style="list-style-type: decimal">
 <li>How many variables does Mickey need to reproduce their problem?</li>
 </ol>
@@ -2749,11 +2761,35 @@ we go along!</p>
 This means they potentially need 3 vectors (remember, each column in a
 dataframe is essentially a vector, and in “tidy data” should correspond
 with a variable; each row is then an observation).</p>
+<div class="codewrapper sourceCode" id="cb22">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># create 3 variables: species, sex, and maybe record_id</span></span>
+<span></span>
+<span><span class="co"># a vector for species:</span></span>
+<span></span>
+<span><span class="co"># a vector for sex:</span></span>
+<span></span>
+<span><span class="co"># a vector for record_id:</span></span></code></pre>
+</div>
 <ol start="2" style="list-style-type: decimal">
 <li>What data type (discrete or continuous) is each variable?</li>
 </ol>
 <p>Species and sex are both discrete (categorical) variables, while
 record ID would be more continuous.</p>
+<div class="codewrapper sourceCode" id="cb23">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># create 3 variables: species, sex, and maybe record_id</span></span>
+<span></span>
+<span><span class="co"># a vector for species: categorical </span></span>
+<span></span>
+<span><span class="co"># a vector for sex: categorical</span></span>
+<span></span>
+<span><span class="co"># a vector for record_id: continuous</span></span></code></pre>
+</div>
 <ol start="3" style="list-style-type: decimal">
 <li>How many levels and/or observations are necessary?</li>
 </ol>
@@ -2765,6 +2801,18 @@ original category, so 2*3=6, or they can just pick a generally nice
 number like 10. This is where creating a reprex dataset becomes a bit
 more of an art than a science; it is common to use trial and error until
 the problem is replicated accurately.</p>
+<div class="codewrapper sourceCode" id="cb24">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># create 3 variables: species, sex, and maybe record_id</span></span>
+<span></span>
+<span><span class="co"># a vector for species: categorical with 3 levels </span></span>
+<span></span>
+<span><span class="co"># a vector for sex: categorical with 3 levels </span></span>
+<span></span>
+<span><span class="co"># a vector for record_id: continuous, ~10</span></span></code></pre>
+</div>
 <ol start="4" style="list-style-type: decimal">
 <li>Do the values need to be distributed in a specific way?</li>
 </ol>
@@ -2785,12 +2833,13 @@ related to the problem they are having!).</p>
 <p>Mickey’s data does have NAs for the sex variable. It might not matter
 or it could be important, so let’s have them put in NAs in the mock
 dataset just in case.</p>
-<div class="codewrapper sourceCode" id="cb22">
+<div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># We need 3 variables: species, sex, and record_id</span></span>
-<span><span class="co"># species and sex are categorical with at least 3 levels, one of which is blank for sex</span></span>
+<code class="sourceCode R"><span><span class="co"># create 3 variables: species, sex, and maybe record_id</span></span>
+<span></span>
+<span><span class="co"># a vector for species: categorical with 3 levels</span></span>
 <span><span class="va">species</span> <span class="op">&lt;-</span> <span class="fu">sample</span><span class="op">(</span><span class="va">letters</span>, <span class="fl">3</span>, replace<span class="op">=</span><span class="cn">F</span><span class="op">)</span> </span>
 <span>          <span class="co"># or name 3 categories like we do with sex below</span></span>
 <span><span class="va">species</span></span></code></pre>
@@ -2798,13 +2847,14 @@ dataset just in case.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1] "b" "m" "l"</code></pre>
+<pre class="output" tabindex="0"><code>[1] "z" "k" "l"</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb24">
+<div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sex</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">'M'</span>,<span class="st">'F'</span>,<span class="cn">NA</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># a vector for sex: categorical with 3 levels, one of which is NA </span></span>
+<span><span class="va">sex</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">'M'</span>,<span class="st">'F'</span>,<span class="cn">NA</span><span class="op">)</span></span>
 <span><span class="va">sex</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -2812,12 +2862,12 @@ dataset just in case.</p>
 </h3>
 <pre class="output" tabindex="0"><code>[1] "M" "F" NA </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb26">
+<div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># record_id is continuous </span></span>
-<span><span class="va">record_id</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span>
+<code class="sourceCode R"><span><span class="co"># a vector for record_id: continuous, ~10 </span></span>
+<span><span class="va">record_id</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> </span>
 <span><span class="va">record_id</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -2825,38 +2875,43 @@ dataset just in case.</p>
 </h3>
 <pre class="output" tabindex="0"><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb28">
+<div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Now let's go sampling and put it all together</span></span>
+<code class="sourceCode R"><span><span class="co"># Now let's go "sampling" and put our "obervations" in a dataframe</span></span>
 <span><span class="va">sample_data</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span></span>
+<span>  <span class="co"># record_id stays the same, since these are our 10 "observations"</span></span>
 <span>  record_id <span class="op">=</span> <span class="va">record_id</span>,</span>
+<span>  <span class="co"># randomly select 10 observations from our list of species</span></span>
 <span>  species <span class="op">=</span> <span class="fu">sample</span><span class="op">(</span><span class="va">species</span>, <span class="fl">10</span>, replace<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,</span>
+<span>  <span class="co"># randomly select 10 observations from our list of sexes</span></span>
 <span>  sex <span class="op">=</span> <span class="fu">sample</span><span class="op">(</span><span class="va">sex</span>, <span class="fl">10</span>, replace<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Look at our new dataset</span></span>
 <span><span class="va">sample_data</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>   record_id species  sex
-1          1       b    F
-2          2       b &lt;NA&gt;
-3          3       l &lt;NA&gt;
-4          4       l &lt;NA&gt;
-5          5       l &lt;NA&gt;
-6          6       l    M
-7          7       m &lt;NA&gt;
-8          8       l    M
-9          9       m &lt;NA&gt;
-10        10       l    F</code></pre>
+1          1       z &lt;NA&gt;
+2          2       l &lt;NA&gt;
+3          3       l    M
+4          4       k    M
+5          5       k    M
+6          6       z &lt;NA&gt;
+7          7       k    M
+8          8       l    F
+9          9       k    M
+10        10       k    F</code></pre>
 </div>
 <p>And just like that we helped Mickey create a mock dataset from
 scratch! Notice that they could also have compiled the same type of
-dataset in a single line by creating each vector already within the
+dataset in a single line by creating each vector within
 <code>data.frame()</code></p>
-<div class="codewrapper sourceCode" id="cb30">
+<div class="codewrapper sourceCode" id="cb33">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2865,29 +2920,30 @@ dataset in a single line by creating each vector already within the
 <span>  species <span class="op">=</span> <span class="fu">sample</span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="fl">10</span>, replace<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,</span>
 <span>  sex <span class="op">=</span> <span class="fu">sample</span><span class="op">(</span><span class="fu">c</span><span class="op">(</span><span class="st">'M'</span>,<span class="st">'F'</span>, <span class="cn">NA</span><span class="op">)</span>, <span class="fl">10</span>, replace<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
+<span></span>
 <span><span class="va">sample2_data</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>   record_id species sex
-1          1       a   F
-2          2       c   F
-3          3       c   F
-4          4       a   M
-5          5       a   F
-6          6       a   M
-7          7       c   F
-8          8       a   F
-9          9       c   F
-10        10       a   F</code></pre>
+<pre class="output" tabindex="0"><code>   record_id species  sex
+1          1       a    F
+2          2       a    M
+3          3       c    F
+4          4       a    F
+5          5       c    M
+6          6       a &lt;NA&gt;
+7          7       a    F
+8          8       c &lt;NA&gt;
+9          9       b    M
+10        10       a    F</code></pre>
 </div>
 <p><strong>Important</strong>: Notice that the outputs of the two
 datasets are not the same. If you want the outputs to be EXACTLY the
 same each time, but you are using <code>sample()</code> which is an
 inherently random process, you must first use <code>set.seed()</code>
 and share that with your helper too.</p>
-<div class="codewrapper sourceCode" id="cb32">
+<div class="codewrapper sourceCode" id="cb35">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2914,7 +2970,7 @@ and share that with your helper too.</p>
 9          9       b &lt;NA&gt;
 10        10       c    M</code></pre>
 </div>
-<div id="callout4" class="callout">
+<div id="callout5" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -2929,7 +2985,7 @@ example below we set a seed of 2 and then run <code>sample(10)</code>
 twice. You will notice that the output of each sample run is not the
 same. However, if you run the whole code again, you will see that each
 of the outputs actually do stay the same.</p>
-<div class="codewrapper sourceCode" id="cb34">
+<div class="codewrapper sourceCode" id="cb37">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2941,7 +2997,7 @@ of the outputs actually do stay the same.</p>
 </h3>
 <pre class="output" tabindex="0"><code> [1]  5  6  9  1 10  7  4  8  3  2</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb36">
+<div class="codewrapper sourceCode" id="cb39">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2956,9 +3012,9 @@ of the outputs actually do stay the same.</p>
 </div>
 </div>
 <p>Great! Now we need to check whether the mock dataset works with the
-minimal code Mickey created earlier. Does it run? Does it reproduce the
+minimal code Mickey created earlier. Does it run? Does it replicate the
 problem they were having?</p>
-<div class="codewrapper sourceCode" id="cb38">
+<div class="codewrapper sourceCode" id="cb41">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2981,27 +3037,12 @@ problem they were having?</p>
 observations, when we would have expected a sample of 8, based on the
 sample_data output above. Wherever the issue may lie, we were able to
 successfully replicate it in this minimal reproducible example.</p>
-<div id="exercise-5-your-turn" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<div id="exercise-5-your-turn" class="callout-inner">
-<h3 class="callout-title">Exercise 5: Your turn!</h3>
-<div class="callout-content">
-<p>Now practice doing it yourself. Create a data frame with:</p>
-<p>A. One categorical variable with 2 levels and one continuous
-variable.</p>
-<p>B. One continuous variable that is normally distributed.</p>
-<p>C. Name, sex, age, and treatment type.</p>
-</div>
-</div>
-</div>
-</section><section><h2 class="section-heading" id="using-the-original-data-set">3.6 Using the original data set<a class="anchor" aria-label="anchor" href="#using-the-original-data-set"></a>
+</section><section><h2 class="section-heading" id="using-the-original-data-set">4.6 Using the original data set<a class="anchor" aria-label="anchor" href="#using-the-original-data-set"></a>
 </h2>
 <hr class="half-width">
-<p>Even once you master the art of creating mock datasets, there may be
-occasions in which your data or problem is maybe too complex and you
-can’t seem to replicate the issue. Or maybe you still think using your
+<p>Even if you master the art of creating mock datasets, there may be
+occasions in which your data or problem is too complex and you can’t
+seem to replicate the issue. Or maybe you still think using your
 original data would just be easier.</p>
 <p>In cases when you want to make your own data minimal and
 reproducible, you will want to take a similar approach to what we did in
@@ -3041,11 +3082,11 @@ indexing with [] (e.g., iris[1:4,]). Alternatively, you can use
 tidyverse functions like <code>select()</code>, and
 <code>filter()</code> from the tidyverse. You can also use the same
 <code>sample()</code> functions we covered earlier.</p>
-<p><em>Note</em>: you should already have an understanding of how to
-subset or wrangle data using the tidyverse from the R for Ecology
-lesson. If not, go check it out! <strong>[insert link to
-lesson]</strong></p>
-<div class="codewrapper sourceCode" id="cb40">
+<p><strong><em>Note</em>:</strong> you should already have an
+understanding of how to subset or wrangle data using the tidyverse from
+the <a href="https://datacarpentry.org/R-ecology-lesson/" class="external-link">Data Analysis
+and Visualization in R for Ecologists</a>. If not, go check it out!</p>
+<div class="codewrapper sourceCode" id="cb43">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3070,7 +3111,7 @@ lesson]</strong></p>
   F   333           0
   M     0         610</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb42">
+<div class="codewrapper sourceCode" id="cb45">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3105,7 +3146,7 @@ rodents_subset, we need to create a minimal reproducible version of
 rodents! We can then insert our new_rodents dataset in place of the
 original rodents one.</p>
 <p><strong>Step 1: select the variables of interest</strong></p>
-<div class="codewrapper sourceCode" id="cb44">
+<div class="codewrapper sourceCode" id="cb47">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3162,12 +3203,12 @@ sexes</strong></p>
 <p>While the rest is just one step, it is the trickiest, because this is
 where we want to ensure the key elements of our original dataset, as
 defined earlier, are preserved.</p>
-<div id="exercise-6-your-turn" class="callout discussion">
+<div id="exercise-6-your-turn-5-mins" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
-<div id="exercise-6-your-turn" class="callout-inner">
-<h3 class="callout-title">Exercise 6: Your Turn!</h3>
+<div id="exercise-6-your-turn-5-mins" class="callout-inner">
+<h3 class="callout-title">Exercise 6: Your Turn! (5 mins)</h3>
 <div class="callout-content">
 <p>How would you continue the subsetting pipeline? How could you reduce
 the number of observations while <strong>making sure you still have at
@@ -3176,7 +3217,7 @@ right answer! Trial and error works wonders.</p>
 </div>
 </div>
 </div>
-<div class="codewrapper sourceCode" id="cb46">
+<div class="codewrapper sourceCode" id="cb49">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3204,26 +3245,26 @@ right answer! Trial and error works wonders.</p>
 11     14482        &lt;NA&gt;
 12      9376   spilosoma    </code></pre>
 </div>
-<p>The code ran wihtout issues, yay! But do we end up with what we were
-looking for?</p>
+<p>The code ran without issues, hooray! But do we end up with what we
+were looking for?</p>
 <ol style="list-style-type: decimal">
-<li>Doe we have ~10 observations? Yes! 9 seems good enough</li>
+<li>Do we have ~10 observations? Yes! 9 seems good enough</li>
 <li>Do we have at least 3 species? Yes! We have 7 (we could choose to
 reduce this further)</li>
 <li>Do we have at least 3 sexes? Yes! M, F, and blank</li>
 </ol>
 <p>Great! All of our requirements are fulfilled. Now let’s see if it
-replicates our issue when we add it to our minimal code.</p>
-<p><strong>Note:</strong> <code>slice_sample()</code> and similar
-functions allow you to specify and customize how exactly you want that
-sample to be taken (check the documentation!). For example, you can
-specify a proportion of rows to select, specify how to order variables,
-whether ties <strong>[may require more explanation]</strong> should be
-kept together, or even whether to weigh certain variables. All of this
-allows you to keep aspects of your dataset that may be relevant and hard
-to replicate otherwise.</p>
+replicates Mickey’s problem when we add it to their minimal code.</p>
+<p><strong><em>Note:</em></strong> <code>slice_sample()</code> and
+similar functions allow you to specify and customize how exactly you
+want that sample to be taken (check the documentation!). For example,
+you can specify a proportion of rows to select, specify how to order
+variables, whether ties <strong>[may require more explanation]</strong>
+should be kept together, or even whether to weigh certain variables. All
+of this allows you to keep aspects of your dataset that may be relevant
+and hard to replicate otherwise.</p>
 <p>Remember the minimal code:</p>
-<div class="codewrapper sourceCode" id="cb48">
+<div class="codewrapper sourceCode" id="cb51">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3241,7 +3282,7 @@ to replicate otherwise.</p>
   F   333           0
   M     0         610</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb50">
+<div class="codewrapper sourceCode" id="cb53">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3275,7 +3316,7 @@ to replicate otherwise.</p>
 <code>new_rodents</code>. Do we need to change anything else?</p>
 <p>We actually still have ordii and spectabilis as species in our list,
 so we can keep it as is. Same for sex. So we’re all set!</p>
-<div class="codewrapper sourceCode" id="cb52">
+<div class="codewrapper sourceCode" id="cb55">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3283,17 +3324,22 @@ so we can keep it as is. Same for sex. So we’re all set!</p>
 <span>  <span class="fu">filter</span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="fu">c</span><span class="op">(</span><span class="st">"ordii"</span>, <span class="st">"spectabilis"</span><span class="op">)</span>,</span>
 <span>         <span class="va">sex</span> <span class="op">==</span> <span class="fu">c</span><span class="op">(</span><span class="st">"F"</span>, <span class="st">"M"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<p>The code ran without any issues! But does it replicate our issue?</p>
+<p>The code ran without any errors! But does it replicate Mickey’s
+problem?</p>
 
 <p>Take a step back to remind yourself of what you are looking for. What
-was the issue we had identified?</p>
-<p>The number of rows we end up after the filer is lower than
-expected.</p>
+was the problem we had identified?</p>
+<ul>
+<li>The number of rows that remain after the filter is lower than
+expected.</li>
+</ul>
 <p>So what would we expect to see with this new dataset? Since it is
 nice and short, this makes it a lot easier to predict the outcome.</p>
-<p>We are asking for the 2 ordii rows, both males, and the 1 spectabilis
-row, which is female.</p>
-<div class="codewrapper sourceCode" id="cb53">
+<ul>
+<li>We are asking for the 2 ordii rows, both males, and the 1
+spectabilis row, which is female.</li>
+</ul>
+<div class="codewrapper sourceCode" id="cb56">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3308,7 +3354,7 @@ row, which is female.</p>
 asking for?</p>
 <p>Maybe our table is just wrong, let’s look at the actual dataset we
 end up with</p>
-<div class="codewrapper sourceCode" id="cb55">
+<div class="codewrapper sourceCode" id="cb58">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3324,16 +3370,17 @@ end up with</p>
 certainly replicated a problem that occurs when we filter the data. Time
 to ask for help!</p>
 
-<p>But wait, our dataset is now minimal and relevant, but is it
-reproducible (accessible outside your device)? Not yet. We created a
-subset of our original dataset <code>rodents</code> but this came from a
-file on our computer. We could share our csv file and add an upload
-code… but that’s not ideal and it makes it hard to share our problem on
-a community site. Remember, the more steps required, the less likely
-someone will want to help.</p>
+<p>But wait, Mickey’s dataset is now minimal and relevant, but is it
+reproducible (accessible outside their device)? Not yet. We created a
+subset of their original dataset <code>rodents</code> but this came from
+a file on their computer. They could share the csv file and add a line
+of code that uploads it… but we already said this is not good practice
+for a reprex, and it makes it hard to ask for help on a community
+website. Remember, the more steps required, the less likely someone will
+want to help.</p>
 <p>Thankfully, there is a nifty function <code>dput()</code> that can
 help us out. Let’s try it and see what happens.</p>
-<div class="codewrapper sourceCode" id="cb57">
+<div class="codewrapper sourceCode" id="cb60">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3350,9 +3397,9 @@ help us out. Let’s try it and see what happens.</p>
 <span><span class="op">-</span><span class="fl">12L</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <p>It spit out a hard-to-read but not excessively long chunk of code.
-This code, when run, will recreate our <code>new_rodents</code> dataset!
+This code, when run, will recreate the <code>new_rodents</code> dataset!
 We can also break it down and label it further to help the reader.</p>
-<div class="codewrapper sourceCode" id="cb59">
+<div class="codewrapper sourceCode" id="cb62">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3388,13 +3435,23 @@ We can also break it down and label it further to help the reader.</p>
 11     11333   spilosoma
 12       351 leucogaster    </code></pre>
 </div>
-<p>Ta-da! Now they can easily recreate our minimal dataset and use it to
-run the minimal code. However, was that really easier than creating a
-dataset from scratch?</p>
-<p>And sure, you could just use <code>dput()</code> on your original
-dataset. It would work. But that wouldn’t be very considerate to those
-who are trying to help. Try running <code>dput(rodents)</code> in your
-script.</p>
+<p>Ta-da! Now anyone can easily recreate Mickey’s minimal dataset and
+use it to run the minimal code. Now, was that <em>really</em> easier
+than creating a dataset from scratch?</p>
+<p>Some of you may still be thinking that you could just use
+<code>dput()</code> on the original dataset. And it would work. But that
+wouldn’t be very considerate to those who are trying to help.</p>
+<div id="exercise-7-try-it-1-min" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="exercise-7-try-it-1-min" class="callout-inner">
+<h3 class="callout-title">Exercise 7: Try it! (1 min)</h3>
+<div class="callout-content">
+<p>Try running <code>dput(rodents)</code> in your script.</p>
+</div>
+</div>
+</div>
 <p>It becomes a huge chunk of code! When clearly we don’t need all of
 that.</p>
 <p>Remember, we want to keep everything minimal for many reasons:</p>
@@ -3405,15 +3462,16 @@ factors</li>
 <li>to make the problem-solving process as easy and painless as
 possible</li>
 <li>bonus: to help <em>us</em> better understand and zero-in on the
-source of our issue, often stumbling upon a solution along the way</li>
+source of our problem, often stumbling upon a solution along the
+way</li>
 </ul>
 <p>Nevertheless, it remains an option for when your data appears too
 complex or you are not quite sure where your problem lies and therefore
 are not sure what minimal components are needed to reproduce the
 example. In other words, when you don’t have a good mental model of what
 the problem is even after going through the initial steps we outlined
-earlier int he lesson.</p>
-</section><section><h2 class="section-heading" id="using-an-r-build-dataset">3.7 Using an R-build dataset<a class="anchor" aria-label="anchor" href="#using-an-r-build-dataset"></a>
+earlier in the lesson.</p>
+</section><section><h2 class="section-heading" id="using-an-r-built-dataset">4.7 Using an R-built dataset<a class="anchor" aria-label="anchor" href="#using-an-r-built-dataset"></a>
 </h2>
 <hr class="half-width">
 <p>The last approach we mentioned is to build a minimal reproducible
@@ -3424,30 +3482,34 @@ everyone would have access to).</p>
 in front of the dataset name to get more information about the contents
 of the dataset.</p>
 <p>For a more detailed discussion of the benefits of using this approach
-see <strong>[insert something]</strong></p>
-<p>This approach essentially blends the skills we already learned in the
-first two. We need to identify a dataset with appropriate variables that
-match the “key elements” of our original dataset. We then need to
+see the Pros and Cons callout in section 4.3.</p>
+<p>This approach essentially blends the skills you already learned in
+the first two. You need to identify a dataset with appropriate variables
+that match the “key elements” of the original dataset. You then need to
 further reduce that dataset to a minimal, relevant, number or rows. Once
-again, we can use the previously learned functions such as
+again, you can use the previously learned functions such as
 <code>select()</code>, <code>filter()</code>, or
 <code>sample()</code>.</p>
-<p>Since we already practiced everything you need, why not try it
+<p>Since you already learned everything you need, why not try it
 yourself?</p>
-<div id="exercise-8-extra-challenge" class="callout challenge">
+<div id="exercise-8-extra-challenge-10-mins" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise-8-extra-challenge" class="callout-inner">
-<h3 class="callout-title">Exercise 8: Extra Challenge</h3>
+<div id="exercise-8-extra-challenge-10-mins" class="callout-inner">
+<h3 class="callout-title">Exercise 8: Extra Challenge (10 mins)</h3>
 <div class="callout-content">
 <p>Using the “HairEyeColor” dataset, create a minimal reproducible
-dataset for the same issue and minimal code we have been exploring. 1.
-Start by using <code>?HairEyeColor</code> to read a description of the
-dataset and <code>View(HairEyeColor)</code> to see the actual dataset.
-2. Which variables would be a good match for our situation? What are our
-requirements? 3. How can we subset this dataset to make it minimal and
-still replicate our issue?</p>
+dataset for the same issue and minimal code we have been exploring.</p>
+<ol style="list-style-type: decimal">
+<li><p>Start by using <code>?HairEyeColor</code> to read a description
+of the dataset and <code>View(HairEyeColor)</code> to see the actual
+dataset.</p></li>
+<li><p>Which variables would be a good match for our situation? What are
+our requirements?</p></li>
+<li><p>How can we subset this dataset to make it minimal and still
+replicate our issue?</p></li>
+</ol>
 </div>
 </div>
 </div>
@@ -3467,7 +3529,7 @@ they are both categorical and have at least 3 levels. We don’t strictly
 need anything else. We will call our new <code>rodents</code>
 replacement <code>hyc</code>. We set a seed because we want a random
 sample.</p>
-<div class="codewrapper sourceCode" id="cb61">
+<div class="codewrapper sourceCode" id="cb64">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3494,7 +3556,7 @@ sample.</p>
 9  Brown Brown
 10   Red Brown</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb63">
+<div class="codewrapper sourceCode" id="cb66">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3516,7 +3578,7 @@ sample.</p>
   Red       0    1     0     0
   Blond     0    0     0     0</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb65">
+<div class="codewrapper sourceCode" id="cb68">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3529,7 +3591,7 @@ sample.</p>
 <pre class="output" tabindex="0"><code>  Hair  Eye
 1  Red Blue</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb67">
+<div class="codewrapper sourceCode" id="cb70">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3550,28 +3612,27 @@ sample.</p>
 </div>
 </div>
 </div>
-<div id="callout5" class="callout">
+<div id="what-about-nas" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout</h3>
+<div id="what-about-nas" class="callout-inner">
+<h3 class="callout-title"><em>What about NAs?</em></h3>
 <div class="callout-content">
-<p><em>What about NAs?</em> If your data has NAs and they may be causing
-the problem, it is important to include them in your example dataset.
-You can find where there are NAs in your dataset by using
-<code>is.na</code>, for example: <code>is.na(krats$weight)</code>. This
-will return a logical vector or TRUE if the cell contains an NA and
-FALSE if not. The simplest way to include NAs in your dummy dataset is
-to directly include it in vectors: <code>x &lt;- c(1,2,3,NA)</code>. You
-can also subset a dataset that already contains NAs, or change some of
-the values to NAs using <code>mutate(ifelse())</code> or substitute all
-the values in a column by sampling from within a vector that contains
-NAs.</p>
+<p>If your data has NAs and they may be causing the problem, it is
+important to include them in your example dataset. You can find where
+there are NAs in your dataset by using <code>is.na</code>, for example:
+<code>is.na(krats$weight)</code>. This will return a logical vector or
+TRUE if the cell contains an NA and FALSE if not. The simplest way to
+include NAs in your dummy dataset is to directly include it in vectors:
+<code>x &lt;- c(1,2,3,NA)</code>. You can also subset a dataset that
+already contains NAs, or change some of the values to NAs using
+<code>mutate(ifelse())</code> or substitute all the values in a column
+by sampling from within a vector that contains NAs.</p>
 <p>One important thing to note when subsetting a dataset with NAs is
 that subsetting methods that use a condition to match rows won’t
 necessarily match NA values in the way you expect. For example</p>
-<div class="codewrapper sourceCode" id="cb69">
+<div class="codewrapper sourceCode" id="cb72">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3584,7 +3645,7 @@ necessarily match NA values in the way you expect. For example</p>
 <pre class="output" tabindex="0"><code>  x          y
 1 1 -0.3053884</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb71">
+<div class="codewrapper sourceCode" id="cb74">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3603,6 +3664,12 @@ necessarily match NA values in the way you expect. For example</p>
 </div>
 </div>
 </div>
+<p>Great work! You created a minimal reproducible example. In the next
+episode, you will learn about <a href="https://reprex.tidyverse.org" class="external-link">reprex</a>, a package that can
+help you double-check that your example is properly reproducible by
+running it in a clean environment. (As an added bonus,
+<a href="https://reprex.tidyverse.org" class="external-link">reprex</a> will format your example nicely so it’s easy to
+post to places like Slack, GitHub, and StackOverflow.)</p>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -3611,13 +3678,12 @@ necessarily match NA values in the way you expect. For example</p>
 <h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul>
-<li>A minimal reproducible dataset contains (a) the minimum number of
+<li>A minimal reproducible dataset (a) contains the minimum number of
 lines, variables, and categories, in the correct format, to replicate
-your issue; and (b) it must be fully reproducible, meaning that someone
-else can access or run the same code to reproduce the dataset needed for
-your reprex.</li>
+your problem; and (b) must be fully reproducible, meaning that someone
+else can run the same code from anywhere without additional steps.</li>
 <li>To make it accessible, you can create a dataset from scratch using
-<code>as.data.frame</code>, you can use an R dataset like
+<code>as.data.frame</code>, you can use an R-built dataset like
 <code>cars</code>, or you can use a subset of your own dataset and then
 use <code>dput()</code> to generate reproducible code.</li>
 </ul>
@@ -3704,19 +3770,13 @@ specified:
 </div>
 </div>
 </div>
-<p>Great work! We’ve created a minimal reproducible example. In the next
-episode, we’ll learn about <a href="https://reprex.tidyverse.org" class="external-link">reprex</a>, a package that can
-help us double-check that our example is reproducible by running it in a
-clean environment. (As an added bonus, <a href="https://reprex.tidyverse.org" class="external-link">reprex</a> will format
-our example nicely so it’s easy to post to places like Slack, GitHub,
-and StackOverflow.)</p>
 <!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
 </section></section><section id="aio-5-asking-your-question"><p>Content from <a href="5-asking-your-question.html">Asking your question</a></p>
 <hr>
-<p>Last updated on 2025-07-22 |
+<p>Last updated on 2025-07-25 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/5-asking-your-question.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -4361,8 +4421,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/R-help-reprexes/aio.html",
   "identifier": "https://carpentries-incubator.github.io/R-help-reprexes/aio.html",
   "dateCreated": "2024-05-14",
-  "dateModified": "2025-07-22",
-  "datePublished": "2025-07-22"
+  "dateModified": "2025-07-25",
+  "datePublished": "2025-07-25"
 }
 
   </script><script>
