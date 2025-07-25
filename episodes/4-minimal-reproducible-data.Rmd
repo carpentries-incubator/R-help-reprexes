@@ -1,5 +1,5 @@
 ---
-title: "Minimal Reproducible Data"
+title: "Minimal reproducible data"
 teaching: 60
 exercises: 34
 editor_options: 
