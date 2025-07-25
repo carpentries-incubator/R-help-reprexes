@@ -1,7 +1,7 @@
 ---
 title: "Minimal Reproducible Data"
-teaching: 90
-exercises: 6
+teaching: 60
+exercises: 34
 editor_options: 
   markdown: 
     wrap: sentence
@@ -35,13 +35,14 @@ table(rodents$sex, rodents$species)
 
 ::: objectives
 -   Describe a minimal reproducible dataset
--   Identify the aspects of your data necessary to replicate your issue
--   Create a dataset from scratch to replicate your issue
+-   Appreciate the different approaches and viewpoints on providing example data
+-   Identify the relevant aspects of your data
+-   Create a suitable reprex dataset from scratch
 -   Share your own dataset in a way that is minimal, accessible, and reproducible
--   Subset an existing dataset to replicate your issue
+-   Subset a built-in dataset to use in your reprex
 :::
 
-## 3.1 What is a minimal reproducible dataset and why do I need it?
+## 4.1 What is a minimal reproducible dataset and why do I need it?
 
 ::: instructor
 Development note: Previous episodes should have already introduced the concept of a minimal reproducible examples, why it is important, and talked about making the code minimal and reproducible.
@@ -50,9 +51,9 @@ This data episode is part of being reproducible and should perhaps be followed-u
 
 **[INSERT ROADMAP]**
 
-Now that Mickey has narrowed down their problem area and stripped down their code to make it minimal, they need to ensure it is **reproducible**; this means it needs to be accessible and executable such that anyone else can copy-paste it into their system, run the code, and replicate their issue.
-Importantly, an **example code will always require example data** in order to run!
-Therefore, **every reprex requires the creation of a minimal reproducible dataset to use with the code**.
+Now that Mickey has narrowed down their problem area and stripped down their code to make it minimal, they need to ensure it is **reproducible**; this means it needs to be accessible and executable such that anyone else can simoly copy-paste the code into their system and replicate their issue.
+Importantly, a **code snippet will usually require data objects** in order to run!
+Therefore, **every reprex requires a minimal reproducible dataset to use with the code**.
 
 Furthermore, as we have seen previously, sometimes the source of the problem isn't actually the code, but rather the data!
 Providing an appropriate example, or mock dataset **allows a helper to better investigate and manipulate that data** to fix the problem.
@@ -69,21 +70,21 @@ Since the goal is to make everyone's lives as easy as possible, we need to think
 Idea for future edits: the above callout could be rephrased using Mickey and a narrative example (e.g., Mickey tries to just send their data to Remy but it doesn't work out).
 :::
 
-As with the example code, an example dataset should also be **minimal--free of unnecessary information**.
-By removing extraneous information and only keeping what is required to replicate the issue, a helper can more clearly see how the data is structured and where the problem arises.
+As with the code, a reprex dataset should also be **minimal--free of unnecessary information**.
+By removing extraneous information and only keeping what is required to replicate the issue, we can ensure our helper will be able to easily see how the data is structured and where the problem arises.
 While it may sometimes feel like unnecessary effort, the process of creating a minimal dataset will not only help others help you, but also allow you to **better understand your data** and often **discover the source of the problem** without the need for external help.
 
-In summary, **a minimal reproducible dataset must be:**
+In summary, just like with the code, **a minimal reproducible dataset must be:**
 
 -   **minimal**: it only contains information required to run your minimal code. You can also think of this as being **relevant** to the problem (keep only what is necessary).
--   **reproducible**: it must be **accessible** to someone without your computer, and it must consistently replicate your problem. This means it also needs to be **complete**, meaning there are no dependencies that have been omitted (e.g., packages).
+-   **reproducible**: it must be **accessible** to someone without your computer, and it must consistently **replicate your problem**. This means it also needs to be **complete**, meaning there are no dependencies that have been omitted (e.g., packages).
 
 ::: callout
 ### Pro-tip
 
 An example of what minimal reproducible examples look like can also be found in the `?help` section, in R Studio.
 Just scroll all the way down to where there are examples listed.
-These will usually be minimal and reproducible, since the intended to be directly copy-pasted and run by anyone.
+These will usually be minimal and reproducible, since they are intended to be directly copy-pasted and run by anyone.
 
 For example, let's look at the function `mean`:
 
@@ -99,13 +100,16 @@ xm <- mean(x)
 c(xm, mean(x, trim = 0.10))
 ```
 
-In this case, x is the mock dataset consisting of just 1 variable.
-Notice how it was created as part of the example.
-This will be your goal with your reprex.
+In this case, **x is the mock dataset** consisting of just 1 variable.
+**Notice how it was created as part of the example.** This will be your goal with your reprex.
+:::
+
+::: instructor
+Section 4.1, Exercise 1, and the extra practice exercise that follows are all intended to address the LO "Describe a minimal reproducible dataset." The extra practice exercise better targets the learner's ability to identify the appropriate reprex dataset.
 :::
 
 :::: challenge
-### Exercise 1: Test your knowledge!
+### Exercise 1: Test your knowledge! (3 mins)
 
 The datasets listed below are **not** well suited for use in a reprex.
 Can you explain why?
@@ -114,21 +118,19 @@ What did you find?
 
 A)  ![](fig/data_screenshot.png){alt="Screenshot of the ratdat comple_old dataset."}
 B)  `sample_data <- read_csv(“/Users/kaija/Desktop/RProjects/ResearchProject/data/sample_dataset.csv”)`
-C)  `dput(complete_old[1:100,])`
-D)  `sample_data <- data.frame(species = species_vector, weight = c(10, 25, 14, 26, 30, 17))`
+C)  `sample_data <- data.frame(species = species_vector, weight = c(10, 25, 14, 26, 30, 17))`
 
 ::: solution
 ### Solution
 
 A)  Not reproducible because it is a screenshot.
 B)  Not reproducible because it is a path to a file that only exists on someone else’s computer and therefore you do not have access to it using that path.
-C)  Not minimal, it has far too many columns and probably too many rows. It is also not reproducible because we were not given the source for `complete_old`.
-D)  Not reproducible because we are not given the source for `species_vector`.
+C)  Not reproducible because we are not given the source for `species_vector`.
 :::
 ::::
 
 ::: instructor
-We recommend you skip the exercise below to keep this lesson under 4 hours.
+The lesson develoepers recommend you skip the exercise below to stay within the lesson's time estimate.
 You can provide it as extra practice for quicker learners or during breaks.
 :::
 
@@ -167,12 +169,13 @@ E)  uses a dataset that isn't accessible without previous data wrangling code–
 :::
 ::::
 
-## 3.2 Can I just use my own data?
+## 4.2 Can I just use my own data?
 
-While Mickey is grateful to Remy for providing them with a roadmap to follow when they need help, they still feel it would be much easier to just send Remy their data rather than creating a different dataset.
+While Mickey is grateful to Remy for providing them with a roadmap to follow when they need help, they still feel it would be much easier and faster to just send Remy their whole dataset rather than creating a different one.
+If they give Remy access to everything, can't he still help?
 
 :::: challenge
-### Exercise 2: Reflect
+### Exercise 2: Reflect (3 mins)
 
 1.  When Mickey feels like sharing their own data would be easier, for whom do you think they are referring?
     Who would find it easier, Mickey or Remy?
@@ -182,10 +185,7 @@ While Mickey is grateful to Remy for providing them with a roadmap to follow whe
 ::: solution
 1.  Mickey is thinking that it would be easier for themselves, not necessarily for Remy.
 
-**Remember:** one of the goals of creating a reprex is to **help the helpers**.
-They don't have to help, they are volunteering their time.
-As such, they deserve to be treated with kindness and respect.
-If you find yourself getting frustrated at how much time and effort creating a reprex might be taking, remember that (1) **trusting the process may reveal the solution along the way**; and (2) **being kind, clear, and helpful will reward you with a quicker, more accurate solution**.
+    **Remember:** one of the goals of creating a reprex is to **help the helpers**. They don't have to help, they are volunteering their time. As such, they deserve to be treated with kindness and respect. If you find yourself getting frustrated at how much time and effort creating a reprex might be taking, remember that (1) **trusting the process may reveal the solution along the way**; and (2) **being kind, clear, and helpful will reward you with a quicker, more accurate solution**.
 
 2.  There are several reasons why sharing the original data may not be possible or recommended. The original dataset may be:
 
@@ -198,78 +198,86 @@ If you find yourself getting frustrated at how much time and effort creating a r
 ::::
 
 Mickey is not entirely wrong.
-While there are instances when it is not possible or advisable to share original data, there are also many ways around such challenges and some instances may indeed benefit from using the original data.
+While there are instances when it is not possible or advisable to share original data, there are also many ways around such challenges and some instances may indeed benefit from keeping the original data.
 However, it is still important to provide helpers with data that is minimal and reproducible.
-Therefore, while Mickey does not have to create a brand new example dataset, they should at least work to make their original data minimal and accessible (see the above reflection exercise), which isn't necessarily easier or faster than creating a mock dataset from scratch.
+Therefore, while Mickey does not have to create a brand new example dataset, they should at least work to make their original data minimal and accessible (see the above reflection exercise), and this may not end up being easier or faster than creating a mock dataset from scratch.
 
-In summary, there are multiple ways to provide a minimal dataset for a reprex, including using a simplified version of the original dataset.
-They key is that any data provided remains minimal and reproducible.
+In summary, there are multiple ways to provide a minimal, reproducible dataset for a reprex, including using a simplified version of the original dataset.
 In the following section we will highlight 3 common approaches.
 
-## 3.3 How do I create a minimal reproducible dataset?
+## 4.3 Three different approaches
 
 In general, there are 3 common ways to provide minimal reproducible data for a reprex.
 
--   Write a script that creates a new mock dataset with the same key characteristics as the original data.
+-   Add a few lines of code to create a mock dataset with the same key characteristics as the original data.
 
--   Edit the original data to be minimal and reproducible.
+-   Subset the original data to be minimal and reproducible.
 
--   Use a dataset that is already provided by R (e.g., `cars`, `npk`, `penguins`, etc.).
+-   Subset a dataset that is already provided by R (e.g., `cars`, `npk`, `penguins`, etc.).
     For a complete list, use `library(help = "datasets")`.
 
-The developers of this lesson believe everyone is entitled to use any option they prefer, and the rest of this episode will expand on each of the 3 approaches listed above.
-However, within the data science community, opinions generally differ on which method is best recommended.
+::: instructor
+It would be nice if we could toggle the callout below or at least the table so that it doesn't take so much room since it is not an essential part of the lesson.
+:::
+
+::: callout
+## Pros and Cons
+
+The developers of this lesson believe everyone is entitled to use any option they prefer, therefore the rest of this episode will expand on each of the 3 approaches listed above.
+However, within the data science community, opinions differ on which method is best recommended.
 Below is a summary table of advantages and disadvantages of each approach based on many conversations with several data science groups.
 
-+-----------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-|                       | **Advantages**                                                                                                                                                                                             | **Disadvantages**                                                                                                                                                      |
-+-----------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| **Data from Scratch** | -   Often the most concise                                                                                                                                                                                 | While some disadvantages are universal, many apply mostly to novices.                                                                                                  |
-|                       |                                                                                                                                                                                                            |                                                                                                                                                                        |
-|                       | -   Easiest for helpers                                                                                                                                                                                    | -   Can be intimidating                                                                                                                                                |
-|                       |                                                                                                                                                                                                            |                                                                                                                                                                        |
-|                       | -   Helps problem-solve along the way (e.g., identify what data aspects are generating the problem)                                                                                                        | -   Requires good understanding of your data                                                                                                                           |
-|                       |                                                                                                                                                                                                            |                                                                                                                                                                        |
-|                       | -   More universally applicable: Easy to share, collaborate, teach, and understand                                                                                                                         | -   Harder to generate if the error is idiosyncratic or dependent on having a large dataset                                                                            |
-|                       |                                                                                                                                                                                                            |                                                                                                                                                                        |
-|                       | -   Avoids privacy/security concerns                                                                                                                                                                       | -   Time-consuming if unskilled                                                                                                                                        |
-|                       |                                                                                                                                                                                                            |                                                                                                                                                                        |
-|                       | -   Lets you clearly illustrate the sought outcome                                                                                                                                                         | -   Iterative (you may need to trial and error a few times to replicate the problem)                                                                                   |
-|                       |                                                                                                                                                                                                            |                                                                                                                                                                        |
-|                       | -   Uses important-to-learn skills                                                                                                                                                                         | -   More likely to require analogies–less interpretable/connected to real problems, more likely to require greater context                                             |
-|                       |                                                                                                                                                                                                            |                                                                                                                                                                        |
-|                       | -   Easier for more skilled individuals                                                                                                                                                                    | -   Risks generating XY problems–make sure you are asking the right question/replicating the right problem                                                             |
-+-----------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| **R-built Data**      | -   Simple and easy to share–no need to provide additional data                                                                                                                                            | -   May require a good mental model of the problem                                                                                                                     |
-|                       |                                                                                                                                                                                                            |                                                                                                                                                                        |
-|                       | -   Familiar–helpers already know the data structure                                                                                                                                                       | -   Harder if the error is idiosyncratic                                                                                                                               |
-|                       |                                                                                                                                                                                                            |                                                                                                                                                                        |
-|                       | -   Potentially faster than starting from scratch (i.e. faster than generating rows/columns de novo).                                                                                                      | -   Greatest risk of generating XY problems–make sure you are asking the right question/replicating the right problem                                                  |
-|                       |                                                                                                                                                                                                            |                                                                                                                                                                        |
-|                       | -   No privacy/security concerns                                                                                                                                                                           | -   Iterative (you may need to trial and error a few times to replicate the problem)                                                                                   |
-|                       |                                                                                                                                                                                                            |                                                                                                                                                                        |
-|                       | -   Can easily be manipulated or simplified                                                                                                                                                                | -   Need to re-think the question so it matches a different dataset and context–mental gymnastics                                                                      |
-|                       |                                                                                                                                                                                                            |                                                                                                                                                                        |
-|                       | -   Generalizes the problem                                                                                                                                                                                | -   Still need to choose which dataset and variables are more appropriate                                                                                              |
-+-----------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| **Your Data**         | -   Can require the least mental effort                                                                                                                                                                    | -   Less growth-minded if chosen as the "easy way out"--skips the learning process of trying to construct a dataset and any insights that that process might give you. |
-|                       |                                                                                                                                                                                                            |                                                                                                                                                                        |
-|                       | -   Problem is easy to replicate even if you don’t understand it at all                                                                                                                                    | -   Easy to do poorly and think that you're doing it well; perceived "easiness" leads to overcomplication/confusion                                                    |
-|                       |                                                                                                                                                                                                            |                                                                                                                                                                        |
-|                       | -   Accurately represents the actual problem; avoids XY problems.                                                                                                                                          | -   Leaves all the work to the helpers if you don’t also work to minimize it–less motivation for harder work                                                           |
-|                       |                                                                                                                                                                                                            |                                                                                                                                                                        |
-|                       | -   Richer context may intrigue/motivate helpers                                                                                                                                                           | -   Could obfuscate the problem if not minimized–less likely to find a quick answer                                                                                    |
-|                       |                                                                                                                                                                                                            |                                                                                                                                                                        |
-|                       | -   Can be quicker if dataset is small                                                                                                                                                                     | -   More difficult to share–may be large/messy                                                                                                                         |
-|                       |                                                                                                                                                                                                            |                                                                                                                                                                        |
-|                       | -   May be required for idiosyncratic problems that are based on aspects of the data itself that you don’t know about (e.g.  when the data itself, rather than the code per se, is central to the problem) | -   Security/privacy/sanitizeation problems                                                                                                                            |
-|                       |                                                                                                                                                                                                            |                                                                                                                                                                        |
-|                       | -   Captures data structures that are difficult or time-consuming to replicate if you are a novice                                                                                                         |                                                                                                                                                                        |
-+-----------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++-----------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+|                       | **Advantages**                                                                                                                                                                                             | **Disadvantages**                                                                                                         |
++-----------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+| **Data from Scratch** | -   Often the most concise                                                                                                                                                                                 | -   Can be intimidating                                                                                                   |
+|                       |                                                                                                                                                                                                            |                                                                                                                           |
+|                       | -   Easiest for helpers                                                                                                                                                                                    | <!-- -->                                                                                                                  |
+|                       |                                                                                                                                                                                                            |                                                                                                                           |
+|                       | -   Helps problem-solve along the way (e.g., identify what data aspects are generating the problem)                                                                                                        | -   Requires good understanding of your data                                                                              |
+|                       |                                                                                                                                                                                                            |                                                                                                                           |
+|                       | -   More universally applicable: Easy to share, collaborate, teach, and understand                                                                                                                         | -   Harder to generate if the error is idiosyncratic or dependent on having a large dataset                               |
+|                       |                                                                                                                                                                                                            |                                                                                                                           |
+|                       | -   Avoids privacy/security concerns                                                                                                                                                                       | -   Time-consuming if unpracticed                                                                                         |
+|                       |                                                                                                                                                                                                            |                                                                                                                           |
+|                       | -   Lets you clearly illustrate the sought outcome                                                                                                                                                         | -   Iterative (you may need to trial and error a few times to replicate the problem)                                      |
+|                       |                                                                                                                                                                                                            |                                                                                                                           |
+|                       | -   Uses important-to-learn skills                                                                                                                                                                         | -   More likely to require analogies, less interpretable/concrete, more likely to require greater context                 |
+|                       |                                                                                                                                                                                                            |                                                                                                                           |
+|                       | -   Easier with practice                                                                                                                                                                                   | -   Risks generating XY problems–make sure you are asking the right question/replicating the right problem                |
++-----------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+| **R-built Data**      | -   Simple and easy to share–no need to provide additional data                                                                                                                                            | -   May require a good mental model of the problem                                                                        |
+|                       |                                                                                                                                                                                                            |                                                                                                                           |
+|                       | -   Familiar–helpers already know the data structure                                                                                                                                                       | -   Harder if the error is idiosyncratic                                                                                  |
+|                       |                                                                                                                                                                                                            |                                                                                                                           |
+|                       | -   Potentially faster than starting from scratch (i.e. faster than generating rows/columns de novo).                                                                                                      | -   Greatest risk of generating XY problems–make sure you are asking the right question/replicating the right problem     |
+|                       |                                                                                                                                                                                                            |                                                                                                                           |
+|                       | -   No privacy/security concerns                                                                                                                                                                           | -   Iterative (you may need to trial and error a few times to replicate the problem)                                      |
+|                       |                                                                                                                                                                                                            |                                                                                                                           |
+|                       | -   Can easily be manipulated or simplified                                                                                                                                                                | -   Need to re-think the question so it matches a different dataset and context–mental gymnastics                         |
+|                       |                                                                                                                                                                                                            |                                                                                                                           |
+|                       | -   Generalizes the problem                                                                                                                                                                                | -   Still need to choose which dataset and variables are more appropriate                                                 |
++-----------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+| **Your Data**         | -   Can require the least mental effort                                                                                                                                                                    | -   Less growth-minded if chosen as an "easy way out"--skips the learning process and any insights you could have gained. |
+|                       |                                                                                                                                                                                                            |                                                                                                                           |
+|                       | -   Problem is easy to replicate even if you don’t understand it at all                                                                                                                                    | -   Easy to do poorly and think that you're doing it well; perceived "easiness" leads to overcomplication/confusion       |
+|                       |                                                                                                                                                                                                            |                                                                                                                           |
+|                       | -   Accurately represents the actual problem; avoids XY problems.                                                                                                                                          | -   Leaves all the work to the helpers if you don’t also work to minimize it–less motivation for harder work              |
+|                       |                                                                                                                                                                                                            |                                                                                                                           |
+|                       | -   Richer context may intrigue/motivate helpers                                                                                                                                                           | -   Could obfuscate the problem if not minimized–less likely to find a quick answer                                       |
+|                       |                                                                                                                                                                                                            |                                                                                                                           |
+|                       | -   Can be quicker if dataset is small                                                                                                                                                                     | -   More difficult to share–may be large/messy                                                                            |
+|                       |                                                                                                                                                                                                            |                                                                                                                           |
+|                       | -   May be required for idiosyncratic problems that are based on aspects of the data itself that you don’t know about (e.g.  when the data itself, rather than the code per se, is central to the problem) | -   Security/privacy/sanitizeation problems                                                                               |
+|                       |                                                                                                                                                                                                            |                                                                                                                           |
+|                       | -   Captures data structures that are difficult or time-consuming to replicate if you are a novice                                                                                                         |                                                                                                                           |
++-----------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+:::
 
-## 3.4 Creating a mock dataset from scratch
+## 4.4 Creating a mock dataset from scratch
 
-While starting from scratch can be daunting at first, it often becomes the easier and faster option once you are familiar with the process; once you understand the basic building blocks and start practicing, it becomes the most straight-forward method of creating a minimal reproducible dataset.
+While starting from scratch can be daunting at first, it becomes easier and faster with practice.
+Once you are familiar with the basic building blocks, it is a very straight-forward method of creating a minimal reproducible dataset.
 This is also the preferred method for other activities that require a reprex (e.g., teaching, collaborating, developing, etc.), and it often provides valuable problem-solving insights.
 So let's breakdown this process to be more digestible!
 
@@ -280,7 +288,7 @@ Mickey is still new at this and has 2 pressing questions:
 
 Let's start with the first.
 
-There are many ways one can create a dataset in R.
+There are many ways one can create a dataset in R (these should be familiar if you took the Carpentries lesson [Data Analysis and Visualization in R for Ecologists](https://datacarpentry.org/R-ecology-lesson/)).
 
 You can start by creating vectors using `c()`
 
@@ -312,9 +320,8 @@ x <- sample(letters[1:4], 20, replace=T)
 x
 ```
 
-Remember that a data frame is just a collection of vectors.
-You can create a data frame using `data.frame` (or `tibble` in the `dplyr` package).
-You can then define a vector for each variable.
+Remember that **a data frame is just a collection of vectors**.
+You can create a data frame using `data.frame` (or `tibble` in the `dplyr` package), and then define a vector for each variable.
 
 ```{r}
 data <- data.frame (x = sample(letters[1:3], 20, replace=T), 
@@ -331,11 +338,16 @@ For these, you can use any of the provided `as.someType` functions: `as.factor`,
 :::
 
 ::: instructor
-You can skip the challenge below or you can run through it together to illustrate the above.
+You can skip the challenge below if short on time.
+The exercise assesses the LO: "Create a dataset from scratch." There will not be another exercise to practice this, but you will walk through creating the main reprex dataset together, so that may be enough.
+**Do not spend too much time on this**.
+Students can work in pairs, or you can work all together.
+Don't wait for everyone to be done before going through solutions, maybe have them alert you when they finish each one, they can then keep going while they wait.
+You can skip giving the solution for C, expecting quicker learners to have tried it for practice while slower learners may not have gotten to it, that's ok!
 :::
 
 ::: challenge
-### Extra Practice (optional)
+### Exercise 3: You try! (5 mins)
 
 Create a data frame with:
 
@@ -346,12 +358,12 @@ B. One continuous variable that is normally distributed.
 C. Name, sex, age, and treatment type.
 :::
 
-## 3.5 Identifying the key aspects of the data
+## 4.5 Identifying the relevant aspects of your data
 
-No matter which approach you choose to take for providing a dataset, they key is always to identify which elements of the original data are necessary to replicate the problem.
+No matter which approach you choose to take for providing a dataset, they key is always to identify which elements of the original data are necessary, or relevant, to replicate the problem.
 To do so, here are a few guiding questions:
 
-1.  Which variables are necessary to the problem?
+1.  Which variables are necessary to replicate the problem?
 2.  What data type (discrete or continuous) is each variable?
 3.  How many levels and/or observations are necessary?
 4.  Do the values need to be distributed in a specific way?
@@ -375,10 +387,10 @@ table(rodents_subset$sex, rodents_subset$species)
 table(rodents$sex, rodents$species)
 ```
 
-To make sure Remy can work on this wherever, Mickey needs to ensure they have the required dataset to run the code.
+To make sure Remy can work on this anywhere, Mickey needs to ensure he has the required dataset to run the code.
 
 :::: challenge
-### Exercise 3: Quick, think!
+### Exercise 4: Quick, think! (2 mins)
 
 Based on the current minimal code, which dataset does Mickey need to recreate?
 Hint: they currently have two datasets, `rodents` and `rodents_subset`.
@@ -393,6 +405,7 @@ Mickey needs to provide a mock dataset to replace the original `rodents` dataset
 ::: instructor
 Make sure participants understand the distinction we are trying to make and why it matters.
 It may not be straightforward.
+While it does not address a specific LO, it is relevant to being able to create a dataset for a given reprex.
 :::
 
 Let's take a closer look at the dataset we need to substitute and then answer the questions outlined earlier.
@@ -402,11 +415,11 @@ head(rodents)
 ```
 
 ::: challenge
-### Excercise 4
+### Exercise 5: Your turn! (5 mins)
 
 Try to answer the following questions on your own to determine what we need to include in our minimal reproducible dataset:
 
-1.  Which variables does Mickey need to reproduce their problem?
+1.  Which variables does Mickey need to replicate their problem?
 2.  What data type (discrete or continuous) is each variable?
 3.  How many levels and/or observations are necessary?
 4.  Do the values need to be distributed in a specific way?
@@ -414,25 +427,62 @@ Try to answer the following questions on your own to determine what we need to i
 :::
 
 ::: instructor
-Give them some time to think it through, maybe in pairs or small groups, but focus on working through the answers together, even if not everyone has finished.
+Give them some time to think it through, maybe in pairs or small groups, but **focus on working through the answers together, even if not everyone has finished**.
+Go one question at a time (time to answer the first -\> walk through solution -\> time to answer the second -\> etc.).
 :::
 
 Let's go over the answers together and help Mickey build a dataset as we go along!
+
+::: instructor
+Begin creating the dataset with the information gained from each question, then you can put it all together.
+:::
 
 1.  How many variables does Mickey need to reproduce their problem?
 
 They need species, sex, and maybe a third identifier like record_id.
 This means they potentially need 3 vectors (remember, each column in a dataframe is essentially a vector, and in "tidy data" should correspond with a variable; each row is then an observation).
 
+```{r}
+# create 3 variables: species, sex, and maybe record_id
+
+# a vector for species:
+
+# a vector for sex:
+
+# a vector for record_id:
+
+```
+
 2.  What data type (discrete or continuous) is each variable?
 
 Species and sex are both discrete (categorical) variables, while record ID would be more continuous.
+
+```{r}
+# create 3 variables: species, sex, and maybe record_id
+
+# a vector for species: categorical 
+
+# a vector for sex: categorical
+
+# a vector for record_id: continuous
+```
 
 3.  How many levels and/or observations are necessary?
 
 Since Mickey is filtering their dataset down to 2 categories for both species and sex, that means they need at least 3 levels in each to start with.
 In terms of number of observations there don't seem to be specific restrictions other than they probably want at least 1 observation per original category, so 2\*3=6, or they can just pick a generally nice number like 10.
 This is where creating a reprex dataset becomes a bit more of an art than a science; it is common to use trial and error until the problem is replicated accurately.
+
+```{r}
+# create 3 variables: species, sex, and maybe record_id
+
+# a vector for species: categorical with 3 levels 
+
+# a vector for sex: categorical with 3 levels 
+
+# a vector for record_id: continuous, ~10
+
+```
 
 4.  Do the values need to be distributed in a specific way?
 
@@ -450,29 +500,37 @@ Mickey's data does have NAs for the sex variable.
 It might not matter or it could be important, so let's have them put in NAs in the mock dataset just in case.
 
 ```{r}
-# We need 3 variables: species, sex, and record_id
-# species and sex are categorical with at least 3 levels, one of which is blank for sex
+# create 3 variables: species, sex, and maybe record_id
+
+# a vector for species: categorical with 3 levels
 species <- sample(letters, 3, replace=F) 
           # or name 3 categories like we do with sex below
 species
+
+# a vector for sex: categorical with 3 levels, one of which is NA 
 sex <- c('M','F',NA)
 sex
 
-# record_id is continuous 
-record_id <- 1:10
+# a vector for record_id: continuous, ~10 
+record_id <- 1:10 
 record_id
 
-# Now let's go sampling and put it all together
+# Now let's go "sampling" and put our "obervations" in a dataframe
 sample_data <- data.frame(
+  # record_id stays the same, since these are our 10 "observations"
   record_id = record_id,
+  # randomly select 10 observations from our list of species
   species = sample(species, 10, replace=T),
+  # randomly select 10 observations from our list of sexes
   sex = sample(sex, 10, replace=T)
 )
+
+# Look at our new dataset
 sample_data
 ```
 
 And just like that we helped Mickey create a mock dataset from scratch!
-Notice that they could also have compiled the same type of dataset in a single line by creating each vector already within the `data.frame()`
+Notice that they could also have compiled the same type of dataset in a single line by creating each vector within `data.frame()`
 
 ```{r}
 sample2_data <- data.frame(
@@ -480,6 +538,7 @@ sample2_data <- data.frame(
   species = sample(letters[1:3], 10, replace=T),
   sex = sample(c('M','F', NA), 10, replace=T)
 )
+
 sample2_data
 ```
 
@@ -513,7 +572,7 @@ sample(10)
 Great!
 Now we need to check whether the mock dataset works with the minimal code Mickey created earlier.
 Does it run?
-Does it reproduce the problem they were having?
+Does it replicate the problem they were having?
 
 ```{r}
 # Minimal code [or whatever we end up with] 
@@ -528,22 +587,9 @@ It works!
 The sample size has unexpectedly been reduced to just 2 observations, when we would have expected a sample of 8, based on the sample_data output above.
 Wherever the issue may lie, we were able to successfully replicate it in this minimal reproducible example.
 
-::: challenge
-### Exercise 5: Your turn!
+## 4.6 Using the original data set
 
-Now practice doing it yourself.
-Create a data frame with:
-
-A. One categorical variable with 2 levels and one continuous variable.
-
-B. One continuous variable that is normally distributed.
-
-C. Name, sex, age, and treatment type.
-:::
-
-## 3.6 Using the original data set
-
-Even once you master the art of creating mock datasets, there may be occasions in which your data or problem is maybe too complex and you can't seem to replicate the issue.
+Even if you master the art of creating mock datasets, there may be occasions in which your data or problem is too complex and you can't seem to replicate the issue.
 Or maybe you still think using your original data would just be easier.
 
 In cases when you want to make your own data minimal and reproducible, you will want to take a similar approach to what we did in Episode 3 when making the code minimal.
@@ -560,6 +606,10 @@ Use the same guiding questions that we used earlier!
 4.  Do the values need to be distributed in a specific way? (worth keeping in mind in terms of how we are removing observations)
 5.  Are there any NAs that could be relevant?
 
+::: instructor
+You can give them time to answer those questions on their own first, like in Exercise 5, or just go through them together.
+:::
+
 Based on our previous answers we end up with:
 
 1.  We need species, sex, and maybe record_id
@@ -574,9 +624,8 @@ Useful functions for subsetting a dataset include `subset()`, `head()`, `tail()`
 Alternatively, you can use tidyverse functions like `select()`, and `filter()` from the tidyverse.
 You can also use the same `sample()` functions we covered earlier.
 
-*Note*: you should already have an understanding of how to subset or wrangle data using the tidyverse from the R for Ecology lesson.
+***Note*****:** you should already have an understanding of how to subset or wrangle data using the tidyverse from the [Data Analysis and Visualization in R for Ecologists](https://datacarpentry.org/R-ecology-lesson/).
 If not, go check it out!
-**[insert link to lesson]**
 
 ```{r}
 # Mickey's minimal code [ UPDATE AS NEEDED ]
@@ -614,7 +663,7 @@ new_rodents
 While the rest is just one step, it is the trickiest, because this is where we want to ensure the key elements of our original dataset, as defined earlier, are preserved.
 
 ::: challenge
-### Exercise 6: Your Turn!
+### Exercise 6: Your Turn! (5 mins)
 
 How would you continue the subsetting pipeline?
 How could you reduce the number of observations while **making sure you still have at least 3 species and 3 sexes left**?
@@ -631,18 +680,18 @@ new_rodents <- rodents %>%
 new_rodents
 ```
 
-The code ran wihtout issues, yay!
+The code ran without issues, hooray!
 But do we end up with what we were looking for?
 
-1.  Doe we have \~10 observations? Yes! 9 seems good enough
+1.  Do we have \~10 observations? Yes! 9 seems good enough
 2.  Do we have at least 3 species? Yes! We have 7 (we could choose to reduce this further)
 3.  Do we have at least 3 sexes? Yes! M, F, and blank
 
 Great!
 All of our requirements are fulfilled.
-Now let's see if it replicates our issue when we add it to our minimal code.
+Now let's see if it replicates Mickey's problem when we add it to their minimal code.
 
-**Note:** `slice_sample()` and similar functions allow you to specify and customize how exactly you want that sample to be taken (check the documentation!).
+***Note:*** `slice_sample()` and similar functions allow you to specify and customize how exactly you want that sample to be taken (check the documentation!).
 For example, you can specify a proportion of rows to select, specify how to order variables, whether ties **[may require more explanation]** should be kept together, or even whether to weigh certain variables.
 All of this allows you to keep aspects of your dataset that may be relevant and hard to replicate otherwise.
 
@@ -670,22 +719,22 @@ new_subset <- new_rodents %>%
          sex == c("F", "M"))
 ```
 
-The code ran without any issues!
-But does it replicate our issue?
+The code ran without any errors!
+But does it replicate Mickey's problem?
 
 ::: instructor
-Note: if the new dataset had an odd number of rows it would spit out a warning giving you a hint as to what the issue may be.
+***Note:*** if the new dataset had an odd number of rows it would spit out a warning giving you a hint as to what the source of the problem may be.
 :::
 
 Take a step back to remind yourself of what you are looking for.
-What was the issue we had identified?
+What was the problem we had identified?
 
-The number of rows we end up after the filer is lower than expected.
+-   The number of rows that remain after the filter is lower than expected.
 
 So what would we expect to see with this new dataset?
 Since it is nice and short, this makes it a lot easier to predict the outcome.
 
-We are asking for the 2 ordii rows, both males, and the 1 spectabilis row, which is female.
+-   We are asking for the 2 ordii rows, both males, and the 1 spectabilis row, which is female.
 
 ```{r}
 table(new_subset$sex, new_subset$species)
@@ -709,11 +758,11 @@ Time to ask for help!
 I love that the `filter {dplyr}` documentation is thoroughly unhelpful on this
 :::
 
-But wait, our dataset is now minimal and relevant, but is it reproducible (accessible outside your device)?
+But wait, Mickey's dataset is now minimal and relevant, but is it reproducible (accessible outside their device)?
 Not yet.
-We created a subset of our original dataset `rodents` but this came from a file on our computer.
-We could share our csv file and add an upload code...
-but that's not ideal and it makes it hard to share our problem on a community site.
+We created a subset of their original dataset `rodents` but this came from a file on their computer.
+They could share the csv file and add a line of code that uploads it...
+but we already said this is not good practice for a reprex, and it makes it hard to ask for help on a community website.
 Remember, the more steps required, the less likely someone will want to help.
 
 Thankfully, there is a nifty function `dput()` that can help us out.
@@ -724,7 +773,7 @@ dput(new_rodents)
 ```
 
 It spit out a hard-to-read but not excessively long chunk of code.
-This code, when run, will recreate our `new_rodents` dataset!
+This code, when run, will recreate the `new_rodents` dataset!
 We can also break it down and label it further to help the reader.
 
 ```{r}
@@ -745,13 +794,18 @@ print(reprex_data)
 ```
 
 Ta-da!
-Now they can easily recreate our minimal dataset and use it to run the minimal code.
-However, was that really easier than creating a dataset from scratch?
+Now anyone can easily recreate Mickey's minimal dataset and use it to run the minimal code.
+Now, was that *really* easier than creating a dataset from scratch?
 
-And sure, you could just use `dput()` on your original dataset.
-It would work.
+Some of you may still be thinking that you could just use `dput()` on the original dataset.
+And it would work.
 But that wouldn't be very considerate to those who are trying to help.
+
+::: challenge
+### Exercise 7: Try it! (1 min)
+
 Try running `dput(rodents)` in your script.
+:::
 
 It becomes a huge chunk of code!
 When clearly we don't need all of that.
@@ -761,38 +815,38 @@ Remember, we want to keep everything minimal for many reasons:
 -   to make it easy for our helpers to understand our data and code
 -   to allow helpers to quickly focus their efforts on the right factors
 -   to make the problem-solving process as easy and painless as possible
--   bonus: to help *us* better understand and zero-in on the source of our issue, often stumbling upon a solution along the way
+-   bonus: to help *us* better understand and zero-in on the source of our problem, often stumbling upon a solution along the way
 
 Nevertheless, it remains an option for when your data appears too complex or you are not quite sure where your problem lies and therefore are not sure what minimal components are needed to reproduce the example.
-In other words, when you don't have a good mental model of what the problem is even after going through the initial steps we outlined earlier int he lesson.
+In other words, when you don't have a good mental model of what the problem is even after going through the initial steps we outlined earlier in the lesson.
 
-## 3.7 Using an R-build dataset
+## 4.7 Using an R-built dataset
 
 The last approach we mentioned is to build a minimal reproducible dataset based on the datasets that already exist within R (and therefore everyone would have access to).
 
 A list of readily available datasets can be found using `library(help="datasets")`.
 You can then use `?` in front of the dataset name to get more information about the contents of the dataset.
 
-For a more detailed discussion of the benefits of using this approach see **[insert something]**
+For a more detailed discussion of the benefits of using this approach see the Pros and Cons callout in section 4.3.
 
-This approach essentially blends the skills we already learned in the first two.
-We need to identify a dataset with appropriate variables that match the "key elements" of our original dataset.
-We then need to further reduce that dataset to a minimal, relevant, number or rows.
-Once again, we can use the previously learned functions such as `select()`, `filter()`, or `sample()`.
+This approach essentially blends the skills you already learned in the first two.
+You need to identify a dataset with appropriate variables that match the "key elements" of the original dataset.
+You then need to further reduce that dataset to a minimal, relevant, number or rows.
+Once again, you can use the previously learned functions such as `select()`, `filter()`, or `sample()`.
 
-Since we already practiced everything you need, why not try it yourself?
+Since you already learned everything you need, why not try it yourself?
 
 :::: challenge
-### Exercise 8: Extra Challenge
+### Exercise 8: Extra Challenge (10 mins)
 
 Using the "HairEyeColor" dataset, create a minimal reproducible dataset for the same issue and minimal code we have been exploring.
-1.
-Start by using `?HairEyeColor` to read a description of the dataset and `View(HairEyeColor)` to see the actual dataset.
-2.
-Which variables would be a good match for our situation?
-What are our requirements?
-3.
-How can we subset this dataset to make it minimal and still replicate our issue?
+
+1.  Start by using `?HairEyeColor` to read a description of the dataset and `View(HairEyeColor)` to see the actual dataset.
+
+2.  Which variables would be a good match for our situation?
+    What are our requirements?
+
+3.  How can we subset this dataset to make it minimal and still replicate our issue?
 
 ::: solution
 Remember, there are many possible solutions!
@@ -833,7 +887,9 @@ table(hyc$Hair, hyc$Eye) # Reds have 2 Blue and 1 Brown, and Blonds have 1 Brown
 ::::
 
 ::: callout
-*What about NAs?* If your data has NAs and they may be causing the problem, it is important to include them in your example dataset.
+### *What about NAs?* 
+
+If your data has NAs and they may be causing the problem, it is important to include them in your example dataset.
 You can find where there are NAs in your dataset by using `is.na`, for example: `is.na(krats$weight)`.
 This will return a logical vector or TRUE if the cell contains an NA and FALSE if not.
 The simplest way to include NAs in your dummy dataset is to directly include it in vectors: `x <- c(1,2,3,NA)`.
@@ -851,9 +907,14 @@ test %>% filter(x != 3 | is.na(x))
 ```
 :::
 
+Great work!
+You created a minimal reproducible example.
+In the next episode, you will learn about `{reprex}`, a package that can help you double-check that your example is properly reproducible by running it in a clean environment.
+(As an added bonus, `{reprex}` will format your example nicely so it's easy to post to places like Slack, GitHub, and StackOverflow.)
+
 ::: keypoints
--   A minimal reproducible dataset contains (a) the minimum number of lines, variables, and categories, in the correct format, to replicate your issue; and (b) it must be fully reproducible, meaning that someone else can access or run the same code to reproduce the dataset needed for your reprex.
--   To make it accessible, you can create a dataset from scratch using `as.data.frame`, you can use an R dataset like `cars`, or you can use a subset of your own dataset and then use `dput()` to generate reproducible code.
+-   A minimal reproducible dataset (a) contains the minimum number of lines, variables, and categories, in the correct format, to replicate your problem; and (b) must be fully reproducible, meaning that someone else can run the same code from anywhere without additional steps.
+-   To make it accessible, you can create a dataset from scratch using `as.data.frame`, you can use an R-built dataset like `cars`, or you can use a subset of your own dataset and then use `dput()` to generate reproducible code.
 :::
 
 ## Bonus: Additional Practice
@@ -893,8 +954,3 @@ C)  **?? + what's really the point of this one?**
 D)  `sample_data <- data.frame(x = factor(1:3), y = 4:6)`
 :::
 ::::
-
-Great work!
-We've created a minimal reproducible example.
-In the next episode, we'll learn about `{reprex}`, a package that can help us double-check that our example is reproducible by running it in a clean environment.
-(As an added bonus, `{reprex}` will format our example nicely so it's easy to post to places like Slack, GitHub, and StackOverflow.)
