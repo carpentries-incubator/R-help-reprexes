@@ -226,18 +226,19 @@ Great progress, but this script is still pretty long and complicated. Can we rem
 :::::challenge
 ### Exercise 2: Minimizing code
 
-Which other lines of code can you remove to make this script more minimal? After removing each one, be sure to re-run the code to make sure that it still reproduces the error.
+Minimizing code is an iterative process. Repeat steps B and C above several more times. Which other lines of code can you remove to make this script more minimal? After removing each part, be sure to re-run the code to make sure that it still reproduces the error.
 
 :::solution
-- [Peter's episode code]
 - Visualizing sex by species (ggplot) can be removed because it generates a plot but does not create any variables that are used later.
 - Filtering to only rodents can be removed because later we filter to only two species in particular
 - Adding common names can be removed because we didn't actually use those common names. This one is tricky because technically we did use the common names in the rodents_subset plot. But is that plot *really* necessary? We can still demonstrate the problem using the table() lines of code at the end. Also, we could still make the equivalent plot using the `species` column instead of the `common_name` column, and it would demonstrate the same thing!
 - The weight model and the summary can be removed
+- Any other informational functions that could have been run in the console, such as `table()` or `print()` or `head()` can be removed.
+- The essential parts to keep are the lines that access the dataset in the first place, subset it down to rodents_subset, and then diagnose the problem (the `table()` calls at the end).
 :::
 :::
 
-A totally minimal script would look like this:
+After repeating steps B and C over and over again, we arrive at a much more minimal script.
 
 ```{r eval = F}
 rodents <- read.csv("data/surveys_complete_77_89.csv")
@@ -250,12 +251,48 @@ table(rodents_subset$sex, rodents_subset$species)
 table(rodents$sex, rodents$species)
 ```
 
+Maybe we can narrow our example down even more! Let's try removing the species filter and only filtering by sex.
+
+```{r eval = F}
+rodents <- read.csv("data/surveys_complete_77_89.csv")
+
+rodents_subset <- rodents %>%
+  filter(species == c("ordii", "spectabilis"),
+         #sex == c("F", "M")
+         )
+
+table(rodents_subset$sex, rodents_subset$species)
+table(rodents$sex, rodents$species)
+```
+
+Something is different--we no longer have zero rows for two of the species/sex combos. But this example still demonstrates our problem. Remember, we previously stated the problem as "There are many observations missing from `rodents_subset` that should not have been removed." And sure enough, if we look closely here, we can see that our species/sex counts have changed from 690 F ordii/792 M ordii and 1135 F spectabilis/1232 M spectabilis to 333/339 and 567/610, respectively. The problem persists! We are still mysteriously missing rows.
+
+:::callout
+If you had chosen to remove the species filter instead of removing the sex filter, the same point would be made. The numbers would be different, but we would still see fewer rows in the subsetted data frame. Either one works!
+:::
+
+:::callout
+If you hadn't noticed that you could simplify this example even further, that would still be okay! Minimizing code is an art, not an exact science. The more minimal you can make your code, the better, but a helper will still have a much easier time working on your problem if you've removed some extraneous steps, even if you haven't narrowed it down 100%. Don't let the perfect be the enemy of the good!
+:::
+
+Okay, so our minimal snippet looks like this:
+
+```{r eval = F}
+rodents <- read.csv("data/surveys_complete_77_89.csv")
+
+rodents_subset <- rodents %>%
+  filter(species == c("ordii", "spectabilis"))
+
+table(rodents_subset$sex, rodents_subset$species) # there are fewer male and female ordii and spectabilis individuals in the subsetted dataset than there were in the original dataset, and we're not sure why.
+table(rodents$sex, rodents$species)
+```
+
 This is great progress! A helper will find this minimal code snippet much more approachable than the long script we started with. However, we're not done yet. 
 
 :::challenge
 ### Exercise 3
 
-Mickey emails the minimal code script to Remy. Remy opens up the script and tries to run it on their computer, but it doesn't work.
+Mickey emails the minimal code script to Remy. Remy notices immediately that this code is much easier to read and understand. They open up the script and try to run it in R.
 
 - What do you think will happen when Remy tries to run the code from this reprex script?
 - What should Mickey do next to improve the minimal reproducible example?
@@ -281,24 +318,30 @@ You can see a complete list of the functions that come from the `{base}` and `{s
 
 Let's do this for our own reprex. We can start by identifying all the functions used, and then we can figure out where each function comes from to make sure that we tell our helper to load the right packages.
 
-The first function used in our example is `ggplot()`, which comes from the package `{ggplot2}`. Therefore, we know we will need to add `library(ggplot2)` at the top of our script.
+:::challenge
+The functions used in our minimal example are `read.csv()`, `filter()`, `c()`, and `table()`.
 
-The function `geom_boxplot()` also comes from `{ggplot2}`. We also used the function `table()`. Running `?table` tells us that the `table` function comes from the package `{base}`, which is automatically installed and loaded when you use R--that means we don't need to include `library(base)` in our script.
+Identify the package that each of the functions comes from and modify the minimal example so that it explicitly loads those packages.
+:::solution
+`library(dplyr)`
 
-Our reprex script now looks like this:
+`read.csv()` comes from `{utils}`, which is loaded by default. `c()` and `table()` come from `{base}`, which is also loaded by default.
 
-```{r}
-# Mickey's reprex script
+Bonus if you notice that we also use the `%>%` operator, which comes from `{dplyr}` too, so we definitely need to make sure that `{dplyr}` is loaded!
+:::
+:::
 
-# Load necessary packages to run the code
-library(ggplot2)
+We can update our minimal code to include that `library()` call.
 
-rodents_subset %>%
-  ggplot(aes(y = weight, x = common_name, fill = sex)) +
-  geom_boxplot() # wait, why does this look weird?
+```{r eval = F}
+library(dplyr)
 
-# Investigate
-table(rodents_subset$sex, rodents_subset$species)
+rodents <- read.csv("data/surveys_complete_77_89.csv")
+
+rodents_subset <- rodents %>%
+  filter(species == c("ordii", "spectabilis"))
+
+table(rodents_subset$sex, rodents_subset$species) # there are fewer male and female ordii and spectabilis individuals in the subsetted dataset than there were in the original dataset, and we're not sure why.
 table(rodents$sex, rodents$species)
 ```
 
@@ -347,7 +390,7 @@ Including `library()` calls will definitely help Remy run the code. But this cod
 
 The code as written relies on `rodents_subset`, which Remy will not have access to if they try to run the code. That means that we've succeeded in making our example *minimal*, but it is not *reproducible*: it does not allow someone else to reproduce the problem!
 
-[PULL UP ROAD MAP]
+[ROAD MAP again]
 
 :::::::::::::::::::::::::::::::::::::::::::challenge
 ### Exercise 5: Reflection
