@@ -369,7 +369,7 @@
       "RemoteSha": "c23c0fba61c8ee50ff21e5a5ff175e310713801f",
       "NeedsCompilation": "yes",
       "Author": "Jeroen Ooms [aut, cre] (ORCID: <https://orcid.org/0000-0002-4035-0289>), Hadley Wickham [ctb], Posit Software, PBC [cph]",
-      "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>"
+      "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>",
       "RemoteType": "repository",
       "Requirements": [
         "R"
