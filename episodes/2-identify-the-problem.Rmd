@@ -356,7 +356,7 @@ chisq.test(plot_counts$n, p = exp_proportions)
 
 An isolated version of the problem area might look like: 
 
-```{r}
+```{r, error=T}
 n_control_plots <- length(control_plot_data$plot_id)
 exp_proportions <- rep(1/n_control_plots, n_control_plots)
 
