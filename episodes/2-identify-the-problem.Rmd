@@ -23,7 +23,7 @@ After completing this episode, participants should be able to...
 -   Identify specific lines and/or functions generating the error message
 -   Use R Documentation to look up function syntax and examples
 -   Quickly fix commonly-encountered R errors using 'code first aid' 
--   Identify when a problem is better suited for asking for further help, including making a reprex
+-   Identify when a problem is better suited for asking for further help, including making a `reprex`
 :::
 
 
