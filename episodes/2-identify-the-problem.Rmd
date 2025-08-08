@@ -20,7 +20,7 @@ After completing this episode, participants should be able to...
 -   Describe what an error message is trying to communicate
 -   Identify specific lines and/or functions generating the error message
 -   Use R Documentation to look up function syntax and examples
--   Quickly fix commonly-encountered R errors using 'code first aid'
+-   Quickly fix commonly-encountered R errors using 'code first aid' 
 -   Identify when a problem is better suited for asking for further help, including making a `reprex`
 :::
 
@@ -40,14 +40,12 @@ Then, we'll return to Mickey's analysis at the end of the lesson.
 
 While sometimes frustrating to read, R will often let us know when a problem occurs by generating an error message that tells us exactly why R was unable to run our code. This type of ‘error’ is often referred to as a **syntax** error. When R is unable to run your code, it will return this type of error message, and stop the program (as opposed to a **warning** or attempting to run further lines despite the error). Error messages may happen for many reasons. However, deciphering the meaning of such error messages is not always as easy as we might hope. While we can't review every type of reason your code generates an error, we will try to teach you some tools for you to interpret and figure out syntax errors for yourself.
 
-The accompanying error message attempts to tell you exactly how your code failed. For example, consider the following error message that occurs when I run this command in the R console. Here, I'm trying to plot a simple bar graph, getting the counts of `taxa` groups in our dataset.
-
 ```{r,error=T}
 # Make some plots
 ggplot(x = taxa) + geom_bar()
 ```
 
-Though we know somewhere there is an object called `taxa` (it is actually a column of the dataset `surveys`), R is trying to communicate that it cannot find any such object in the local environment. Let's try again, appropriately pointing ggplot to the `surveys` dataset and `taxa` column using the `$` operator. However, an error R *didn't* tell us was happening is that we forgot to add `aes`, pointing `ggplot` to the fact that we're directly defining the aesthetic (e.g. what goes on the x axis) from data. Let's add that fix now.
+Though we know somewhere there is an object called `taxa` (it is actually a column of the dataset `surveys`), R is trying to communicate that it cannot find any such object in the local environment. Let's try again, appropriately pointing ggplot to the `surveys` dataset and `taxa` column using the `$` operator. However, an error R *didn't* tell us was happening is that we forgot to add `aes`, pointing `ggplot` to the fact that we're directly defining the aesthetic (e.g. what goes on the x axis) from data. Let's add that fix now. 
 
 ```{r, error=T}
 ggplot(aes(x = surveys$taxa)) + geom_bar()
@@ -85,24 +83,26 @@ Other steps we might take then include:
 
 And, when all else fails, we can prepare our code into a reproducible example for expert help.
 
-While the above steps may be new or seem familiar, we abstract this a little bit to explicitly address something: recognizing when a problem arises and attempting to interpret *what* is going wrong is essential to fixing it. This is true whether you fix the problem on your own, or communicate it to an expert. The latter steps we listed might be categorized as attempts to immediately address the problem -- we'll call these **code first aid** -- these steps might fix the problem, give you greater insight into what the problem is (and how R is interpreting your code), or not be helpful at all.
+While the above steps may be new or seem familiar, we abstract this a little bit to explicitly address something: recognizing when a problem arises and attempting to interpret *what* is going wrong is essential to fixing it. This is true whether you fix the problem on your own, or communicate it to an expert. The latter steps we listed might be categorized as attempts to immediately address the problem -- we'll call these **code first aid** -- these steps might fix the problem, give you greater insight into what the problem is (and how R is interpreting your code), or not be helpful at all. 
 
 In any case, we want to emphasize that these skill sets are essential to being a practiced coder able to effectively seek help. While the errors we've encountered so far may seem too trivial to warrant pull up a whole checklist, below we will see examples of problems that are trickier to both recognize and interpret. But in those cases, we'll nonetheless apply the same framework.
 
-:::: challenge
+:::::::::: challenge
+
 Below we see an error message pop up when trying to quantify the counts of `genus` and `species` in our dataset. Which of the following interpretations of the error message most aptly describes the problem (hint: look at the `?tally` documentation if you're stuck!)
 
 ```{r, error=T}
 surveys %>% tally(genus, species)
 ```
 
-a.  `tally` does not accept `'type' (character)` arguments. We should change genus and species to factors or numbers and run this line again.
 
-b.  `tally` does not accept `'type' (character)` arguments. There is no way to quantify these data with this function.
+a. `tally` does not accept `'type' (character)` arguments. We should change genus and species to factors or numbers and run this line again.
 
-c.  `tally` does not accept `'type' (character)` arguments. We need to assign a weight (e.g. 1) to each row so it knows how much to numerically weigh each observation.
+b. `tally` does not accept `'type' (character)` arguments. There is no way to quantify these data with this function.
 
-d.  `tally` does not accept `'type' (character)` arguments. This function is not intended to `group_by` two variables and a different function (`count`) is required instead.
+c. `tally` does not accept `'type' (character)` arguments. We need to assign a weight (e.g. 1) to each row so it knows how much to numerically weigh each observation.
+
+d. `tally` does not accept `'type' (character)` arguments. This function is not intended to `group_by` two variables and a different function (`count`) is required instead. 
 
 ::: solution
 d is the correct answer!
@@ -172,7 +172,6 @@ B is a syntax error, and will produce the following error:
 ```{r, error=T}
 ggplot(rodents) + geom_tile(aes(month, plot_type), stat = "count")
 ```
-
 Finally, C is a semantic error. It does produce a plot, which is rather meaningless:
 
 ```{r}
@@ -209,7 +208,8 @@ Let's fill in more steps to our **code first aid** :
 
 And, when all else fails, we can prepare our code into a reproducible example for expert help.
 
-The steps to identifying the problem and in **code first aid** matches what we've seen above. However, here seeing the problem arise in our code may be much more subtle, and comes from us recognizing output we don't expect or know to be wrong. Even if the code is run, R may give us **warning** or informational messages which pop up when executing your code. Most of the time, however, it's up to the coder to be vigilant and be sure steps are running as they should. Interpreting the problem may also be more difficult as R gives us little or no indication about how it's misinterpreting our intent.
+The steps to identifying the problem and in **code first aid** matches what we've seen above. However, here seeing the problem arise in our code may be much more subtle, and comes from us recognizing output we don't expect or know to be wrong. Even if the code is run, R may give us **warning** or informational messages which pop up when executing your code. Most of the time, however, it's up to the coder to be vigilant and be sure steps are running as they should. Interpreting the problem may also be more difficult as R gives us little or no indication about how it's misinterpreting our intent. 
+
 
 ::: callout
 Generally, the more your code deviates from just using base R functions, or the more you use specific packages, both the quality of documentation and online help available from search engines and Googling gets worse and worse. While base R errors will often be solvable in a couple of minutes from a quick `?help` check or a long online discussion and solutions on a website like Stack Overflow, errors arising from little-used packages applied in bespoke analyses might merit isolating your specific problem to a reproducible example for online help, or even getting in touch with the developers! Such community input and questions are often the way packages and documentation improves over time.
@@ -443,9 +443,11 @@ They decide to consult Remy's road map to figure out what to do next.
 
 Since code first aid was not enough to solve this problem, it looks like it's time to ask for help using a *reprex*.
 
-::: keypoints
--   The first step to getting unstuck is identifying a problem, isolating the problem area, and interpreting the problem
--   Often, using "code first aid" -- acting on error messages, looking at data, inputs, etc., pulling up documentation, asking a search engine or LLM, can help us to quickly fix the error on our own.
--   If code first aid doesn't work, we can ask for help and prepare a reproducible example (reprex) with a defined problem and isolated code
--   We'll cover future steps to prepare a reproducible example (reprex) in future episodes.
-:::
+:::::::keypoints
+
+- The first step to getting unstuck is identifying a problem, isolating the problem area, and interpreting the problem
+- Often, using "code first aid" -- acting on error messages, looking at data, inputs, etc., pulling up documentation, asking a search engine or LLM, can help us to quickly fix the error on our own.
+- If code first aid doesn't work, we can ask for help and prepare a reproducible example (reprex) with a defined problem and isolated code
+- We'll cover future steps to prepare a reproducible example (reprex) in future episodes.
+
+:::::::
