@@ -4,7 +4,6 @@ teaching: 50
 exercises: 20
 ---
 
-
 ::: questions
 -   What do I do when I encounter an error?
 -   What do I do when my code outputs something I don’t expect?
@@ -12,7 +11,6 @@ exercises: 20
 -   How can I find which areas of code are responsible for errors?
 -   How can I fix my code? What other options exist if I can't fix it?
 :::
-
 
 ::: objectives
 After completing this episode, participants should be able to...
@@ -28,9 +26,7 @@ After completing this episode, participants should be able to...
 
 
 
-
-
-The first step we'll cover is what to do when encountering an error or other undesired output from your code. With this episode, we hope to teach you the basics about identifying errors, rectifying them if possible, and if not, how to isolate the problem for others to look at. This is the first step in our "roadmap" of how to solve coding problems -- recognizing when something you don't intend is happening with your code, and then identifying the problem (to a lesser or greater degree) in order to solve it yourself or be able to succinctly describe it to a helper. 
+The first step we'll cover is what to do when encountering an error or other undesired output from your code. With this episode, we hope to teach you the basics about identifying errors, rectifying them if possible, and if not, how to isolate the problem for others to look at. This is the first step in our "roadmap" of how to solve coding problems -- recognizing when something you don't intend is happening with your code, and then identifying the problem (to a lesser or greater degree) in order to solve it yourself or be able to succinctly describe it to a helper.
 
 Then, we'll return to Mickey's analysis at the end of the lesson.
 
@@ -38,8 +34,6 @@ Then, we'll return to Mickey's analysis at the end of the lesson.
 
 While sometimes frustrating to read, R will often let us know when a problem occurs by generating an error message that tells us exactly why R was unable to run our code. This type of ‘error’ is often referred to as a **syntax** error. When R is unable to run your code, it will return this type of error message, and stop the program (as opposed to a **warning** or attempting to run further lines despite the error). Error messages may happen for many reasons. However, deciphering the meaning of such error messages is not always as easy as we might hope. While we can't review every type of reason your code generates an error, we will try to teach you some tools for you to interpret and figure out syntax errors for yourself.
 
-The accompanying error message attempts to tell you exactly how your code failed. For example, consider the following error message that occurs when I run this command in the R console. Here, I'm trying to plot a simple bar graph, getting the counts of `taxa` groups in our dataset. 
-  
 
 ``` r
 # Make some plots
@@ -67,14 +61,12 @@ Error in `fortify()`:
 
 Whoops! Here we see another error message -- this time, R responds with a perhaps more uninterpretable message.
 
-
-
 Let's go over each part briefly. First, we see an error from a function called `fortify`, which we didn't even call! Then, there's a more helpful informational message: Did we accidentally pass `aes()` to the `data` argument? This does seem to relate to our line of code, as we do pass `aes` into the `ggplot` function. But what is this "`data` argument?" A helpful starting place when attempting to decipher an error message is checking the documentation for the function which caused the error:
 
 `?ggplot`
 
 Here, a Help window pops up in RStudio which provides some more information. Skipping the general description at the top, we see ggplot takes positional arguments of `data`, *then* `mapping`, which uses the `aes` call. We can see in "Arguments" that the `aes(x = surveys$taxa)` object we passed in is attempted by `fortify` to be converted to a data.frame: now the picture is clear! We accidentally passed our `mapping` argument (telling ggplot how to map variables to the plot) into the position it expected `data` in the form of a data frame. And if we scroll down to "Examples", to "Pattern 1", we can see exactly how ggplot expects these arguments in practice. Let's amend our result:
-  
+
 
 ``` r
 ggplot(surveys, aes(x = taxa)) + geom_bar()
@@ -84,28 +76,27 @@ ggplot(surveys, aes(x = taxa)) + geom_bar()
 
 Here we see our desired plot. Lots of Rodents!
 
-## Stop no. 1 on our roadmap: Identifying the problem 
+## Stop no. 1 on our roadmap: Identifying the problem
 
-Let's pause here to highlight some patterns we're starting to see in the course of fixing our code: 
+Let's pause here to highlight some patterns we're starting to see in the course of fixing our code:
 
-1. Seeing a problem arise in our code (in this case, R is explicitly telling us it has a problem running it).
+1.  Seeing a problem arise in our code (in this case, R is explicitly telling us it has a problem running it).
 
-1. Reading and interpreting the error message R gives us. 
+2.  Reading and interpreting the error message R gives us.
 
-Other steps we might take then include: 
+Other steps we might take then include:
 
-3. Acting on parts of the error we can understand, such as changing input to a function. 
+3.  Acting on parts of the error we can understand, such as changing input to a function.
 
-3. Pulling up the R Documentation for that function, and reading the documentation's Description, Usage, Arguments, Details and Examples entries for greater insight into our error.
+4.  Pulling up the R Documentation for that function, and reading the documentation's Description, Usage, Arguments, Details and Examples entries for greater insight into our error.
 
-3. Copying and pasting the error message into a search engine / generative LLM for more interpretable explanations.
+5.  Copying and pasting the error message into a search engine / generative LLM for more interpretable explanations.
 
 And, when all else fails, we can prepare our code into a reproducible example for expert help.
 
 While the above steps may be new or seem familiar, we abstract this a little bit to explicitly address something: recognizing when a problem arises and attempting to interpret *what* is going wrong is essential to fixing it. This is true whether you fix the problem on your own, or communicate it to an expert. The latter steps we listed might be categorized as attempts to immediately address the problem -- we'll call these **code first aid** -- these steps might fix the problem, give you greater insight into what the problem is (and how R is interpreting your code), or not be helpful at all. 
 
-In any case, we want to emphasize that these skill sets are essential to being a practiced coder able to effectively seek help. While the errors we've encountered so far may seem too trivial to warrant pull up a whole checklist, below we will see examples of problems that are trickier to both recognize and interpret. But in those cases, we'll nonetheless apply the same framework. 
-
+In any case, we want to emphasize that these skill sets are essential to being a practiced coder able to effectively seek help. While the errors we've encountered so far may seem too trivial to warrant pull up a whole checklist, below we will see examples of problems that are trickier to both recognize and interpret. But in those cases, we'll nonetheless apply the same framework.
 
 :::::::::: challenge
 
@@ -132,11 +123,8 @@ c. `tally` does not accept `'type' (character)` arguments. We need to assign a w
 
 d. `tally` does not accept `'type' (character)` arguments. This function is not intended to `group_by` two variables and a different function (`count`) is required instead. 
 
-
-
-:::::: solution
-
-d is the correct answer! 
+::: solution
+d is the correct answer!
 
 
 ``` r
@@ -159,20 +147,15 @@ surveys %>% count(genus, species)
 10 Dipodomys        merriami         5675
 # ℹ 26 more rows
 ```
-
-
-::::::
-
-
-:::::::::: 
-
+:::
+::::
 
 ## 3.2 What do I do when my code outputs something I don't expect
 
 Another type of problem you may encounter is when your R code runs without errors, but does not produce the desired output. You may sometimes see these called **semantic errors**. As with syntax errors, semantic errors may occur for a variety of non-intuitive reasons, and are often harder to solve as there is no description of the error -- you must work out where your code is defective yourself!
-  
+
 Let's go back to our rodent analysis. The next step in the plan is to subset to just the `Rodent` taxa (as opposed to other taxa: Bird, Rabbit, Reptile or NA). Let's quickly check to see how much data we'd be throwing out by doing so:
-  
+
 
 ``` r
 table(surveys$taxa)
@@ -185,7 +168,7 @@ table(surveys$taxa)
 ```
 
 We're interested in the rodents, and thankfully it seems like a majority of our observations will be maintained when subsetting to rodents. But wait... In our plot above, we can clearly see the presence of NA values. Why are we not seeing them here? Our command was correctly executed, but the output is not everything we intended. Having no error message to interpret, let's jump straight to the function documentation:
-  
+
 
 ``` r
 ?table
@@ -203,7 +186,7 @@ Using the first match ...
 ```
 
 Here, the documentation provides some clues: there seems to be an argument called `useNA` that accepts "no", "ifany", and "always", but it's not immediately apparent which one we should use to show our NA values. Let's set that aside and try something else. As a second approach, let's go to `Examples` to see if we can find any quick fixes. Here we see a couple lines further down:
-  
+
 ``` r
 table(a)                 # does not report NA's
 table(a, exclude = NULL) # reports NA's
@@ -230,14 +213,8 @@ Now our NA values show up in the table. We see that by subsetting to the "Rodent
 rodents <- surveys %>% filter(taxa == "Rodent")
 ```
 
-
-
-::::::: challenge 
-
+:::: challenge
 There are 3 lines of code below, and each attempts to create the same plot. Identify which produces a syntax error, which produces a semantic error, and which correctly creates the plot (hint: this may require you inferring what type of graph we're trying to create!)
-
-
-
 
 A.  `ggplot(rodents) + geom_bin_2d(aes(month, plot_type))`
 
@@ -245,9 +222,7 @@ B.  `ggplot(rodents) + geom_tile(aes(month, plot_type), stat = "count")`
 
 C.  `ggplot(rodents) + geom_tile(aes(month, plot_type))`
 
-
-::::: solution
-
+::: solution
 In this case, A correctly creates the graph, plotting as colors in the tile the number of times an observation is seen. It essentially runs the following lines of code:
 
 
@@ -266,7 +241,7 @@ ggplot(rodents_summary) + geom_tile(aes(month, plot_type, fill=count))
 
 <img src="fig/2-identify-the-problem-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" />
 
-B is a syntax error, and will produce the following error: 
+B is a syntax error, and will produce the following error:
 
 
 ``` r
@@ -283,43 +258,39 @@ Caused by error in `setup_params()`:
 Finally, C is a semantic error. It does produce a plot, which is rather meaningless:
 
 
-
 ``` r
 ggplot(rodents) + geom_tile(aes(month, plot_type))
 ```
 
 <img src="fig/2-identify-the-problem-rendered-unnamed-chunk-13-1.png" style="display: block; margin: auto;" />
-
-:::::
-
-
-::::::: 
-
-
+:::
+::::
 
 ## Summary
 
-In general, encountering semantic errors can make our job more difficult, but the roadmap remains the same: 
+In general, encountering semantic errors can make our job more difficult, but the roadmap remains the same:
 
+1.  Seeing a problem arise in our code.
 
-1. Seeing a problem arise in our code.
+2.  Interpreting the problem.
 
-1. Interpreting the problem.  
+Let's fill in more steps to our **code first aid** :
 
-Let's fill in more steps to our **code first aid** : 
+1.  Acting on parts of the error we can understand
 
-1. Acting on parts of the error we can understand
-  - changing input to a function
-  - checking on the control flow of code (e.g. for loops, if/else)
+-   changing input to a function
+-   checking on the control flow of code (e.g. for loops, if/else)
 
-2. Pulling up the R Documentation for relevant functions
-  - reading the documentation's **Description**, **Usage**, **Arguments**, **Details** 
-  - testing out **Examples** entries in the console for greater insight
+2.  Pulling up the R Documentation for relevant functions
 
-3. Quick online help with a search engine / generative LLM
-  - Copying error messages for more interpretable explanations
-  - Describing your error in the hopes of an already-solved solution
-  - Seeing if an LLM generates equivalent error-free code solving the same goal
+-   reading the documentation's **Description**, **Usage**, **Arguments**, **Details**
+-   testing out **Examples** entries in the console for greater insight
+
+3.  Quick online help with a search engine / generative LLM
+
+-   Copying error messages for more interpretable explanations
+-   Describing your error in the hopes of an already-solved solution
+-   Seeing if an LLM generates equivalent error-free code solving the same goal
 
 And, when all else fails, we can prepare our code into a reproducible example for expert help.
 
@@ -353,8 +324,8 @@ Error in `combine_vars()`:
 
 Uh-oh. Another error here, when we try to make a ggplot. But what is "combine_vars?" And then: "Faceting variables must have at least one value" What does that mean?
 
-This is not an easily-interpretable error message from ggplot, and our code looks like it *should* run. Perhaps we can take a step back and see whether our error is actually not in the ggplot code itself. Often, when trying to isolate the problem area, it is a good idea to look back at the original input. So let’s take a look at our `krats` dataset. 
-  
+This is not an easily-interpretable error message from ggplot, and our code looks like it *should* run. Perhaps we can take a step back and see whether our error is actually not in the ggplot code itself. Often, when trying to isolate the problem area, it is a good idea to look back at the original input. So let’s take a look at our `krats` dataset.
+
 
 ``` r
 krats
@@ -418,53 +389,53 @@ facet_wrap(~species)
 
 Our improved code here looks good. Checking the dimensions of our subsetted data frame using the dim() function confirms we now have all the *Dipodomys* observations, and our plot is looking better. In general, having a 'print' statement or some other output after we manipulate data or other major steps can be a good way to check your code is producing intermediate results consistent with your expectations.
 
-
-:::::: callout
+::: callout
 Often, giving your expert helpers access to the entire problem, with a detailed description of your desired output, allows you to directly improve your coding skills and learn about new functions and techniques.
-:::::: 
-
+:::
 
 ## Summary
 
-With the length of a full script of code, it may be difficult to find exactly where our code is falling short, even if we can identify the proximal problem that arises (e.g. a plot not showing up). 
+With the length of a full script of code, it may be difficult to find exactly where our code is falling short, even if we can identify the proximal problem that arises (e.g. a plot not showing up).
 
-Our roadmap to identifying problems in our code may now look like: 
+Our roadmap to identifying problems in our code may now look like:
 
-1. Seeing a problem arise in our code.
+1.  Seeing a problem arise in our code.
 
-1. Isolating our code to the problem area.
+2.  Isolating our code to the problem area.
 
-1. Interpreting the problem. 
+3.  Interpreting the problem.
 
 Now we can see the need to isolate the specific areas of code causing the bug or problem, even if that does not solve the problem itself. There is no general rule of thumb as to how large this needs to be. But, unless our problem occurs on the first line, and we don't understand the error until the last line, we should be able to isolate our code a bit: Any early lines which we know run correctly and as intended may not need to be included, and by isolating the problem area as much as we can to make it understandable to others. We'll go over this in more detail in the next episode.
 
 Let's add to our code first aid:
-  
-1. Identify the problem area
-  - add print statements immediately upstream or downstream of problem areas
-  - check the desired output from functions 
-  - see whether any intermediate output can be further isolated and examined separately
 
-2. Acting on parts of the error we can understand
-  - changing input to a function
-  - checking on the control flow of code (e.g. for loops, if/else)
+1.  Identify the problem area
 
-3. Pulling up the R Documentation for relevant functions
-  - reading the documentation's **Description**, **Usage**, **Arguments**, **Details** 
-  - testing out **Examples** entries in the console for greater insight
+-   add print statements immediately upstream or downstream of problem areas
+-   check the desired output from functions
+-   see whether any intermediate output can be further isolated and examined separately
 
-4. Quick online help with a search engine / generative LLM
-  - Copying error messages for more interpretable explanations
-  - Describing your error in the hopes of an already-solved solution
-  - Seeing if an LLM generates equivalent error-free code solving the same goal
+2.  Acting on parts of the error we can understand
+
+-   changing input to a function
+-   checking on the control flow of code (e.g. for loops, if/else)
+
+3.  Pulling up the R Documentation for relevant functions
+
+-   reading the documentation's **Description**, **Usage**, **Arguments**, **Details**
+-   testing out **Examples** entries in the console for greater insight
+
+4.  Quick online help with a search engine / generative LLM
+
+-   Copying error messages for more interpretable explanations
+-   Describing your error in the hopes of an already-solved solution
+-   Seeing if an LLM generates equivalent error-free code solving the same goal
 
 And, when all else fails, we can prepare our code into a reproducible example for expert help.
 
 While this is similar to our previous checklists, we can now understand these steps as a continuous cycle of isolating the problem into more and more discrete chunks for a reproducible example. Any step in the above that helps us identify the specific areas or aspects of our code that are failing in particular, we can zoom in on and restart the checklist. We can stop as soon as we don't understand anymore how our code fails. At this point, we can excise that area for further help using a reprex.
 
-
-:::::: challenge
-
+:::: challenge
 With our new skills in mind, try to isolate the problem area as much as you can with the following lines of code. Here, we're trying to see whether kangaroo rat observations in the `control` plot type differed significantly by plot id (hopefully not!).
 
 
@@ -485,9 +456,8 @@ chisq.test(plot_counts$n, p = exp_proportions)
 Error in chisq.test(plot_counts$n, p = exp_proportions): 'x' and 'p' must have the same number of elements
 ```
 
-::::: solution
-
-An isolated version of the problem area might look like: 
+::: solution
+An isolated version of the problem area might look like:
 
 
 ``` r
@@ -503,7 +473,7 @@ chisq.test(plot_counts$n, p = exp_proportions)
 Error in chisq.test(plot_counts$n, p = exp_proportions): 'x' and 'p' must have the same number of elements
 ```
 
-If we decide to move the plot_counts line right after the first control_plot_data line, as plot_counts seems to be calculated correctly. Here, we can see there's probably something wrong with the `p` argument: exp_proportions is very long, much longer than the number of control plots! Let's solve the problem. 
+If we decide to move the plot_counts line right after the first control_plot_data line, as plot_counts seems to be calculated correctly. Here, we can see there's probably something wrong with the `p` argument: exp_proportions is very long, much longer than the number of control plots! Let's solve the problem.
 
 
 ``` r
@@ -522,22 +492,18 @@ chisq.test(plot_counts$n, p = exp_proportions)
 data:  plot_counts$n
 X-squared = 79.977, df = 7, p-value = 1.392e-14
 ```
-We can see that some plots have significantly more or fewer counts than others! Observations of kangaroo rats are not random -- rather, some plots seem to attract the kangaroo rats more than others. 
 
-::::::
-
-:::::::::
-
+We can see that some plots have significantly more or fewer counts than others! Observations of kangaroo rats are not random -- rather, some plots seem to attract the kangaroo rats more than others.
+:::
+::::
 
 ## 3.3 When should I prepare my code for a reprex?
 
-There may be some point at which our **code first aid** does not help us anymore, and we still cannot figure out the problem our code is giving us, even if we've isolated it as much as we can -- in that case, it may be time to turn to expert help, by asking a coworker, mentor, or someone online for aid. 
+There may be some point at which our **code first aid** does not help us anymore, and we still cannot figure out the problem our code is giving us, even if we've isolated it as much as we can -- in that case, it may be time to turn to expert help, by asking a coworker, mentor, or someone online for aid.
 
-While in a classroom setting we may be used to raising our hand, pointing at our code, and saying  "I'm not sure what's wrong," in reality, people have limited time, bandwidth, or requisite knowledge to be able to help out with any problem that might arise. That's why reproducing the problem with a **reproducible example** is an essential skill to getting unstuck: it allows you to ask for expert help with a problem that's clearly identified, self-contained, and reproducible, and allows the expert to quickly see whether they've got the requisite skills to answer your question! We've already covered skills pertaining to identifying the problem and some skills making sure it's self-contained. We'll see how to apply these below as we start to create a reproducible example.
+While in a classroom setting we may be used to raising our hand, pointing at our code, and saying "I'm not sure what's wrong," in reality, people have limited time, bandwidth, or requisite knowledge to be able to help out with any problem that might arise. That's why reproducing the problem with a **reproducible example** is an essential skill to getting unstuck: it allows you to ask for expert help with a problem that's clearly identified, self-contained, and reproducible, and allows the expert to quickly see whether they've got the requisite skills to answer your question! We've already covered skills pertaining to identifying the problem and some skills making sure it's self-contained. We'll see how to apply these below as we start to create a reproducible example.
 
-
-### Back to our Analysis... 
-
+### Back to our Analysis...
 
 Mickey is interested in understanding how kangaroo rat weights differ across species and sexes, so they create a quick visualization.
 
@@ -549,7 +515,7 @@ ggplot(rodents, aes(x = species, fill = sex)) +
 
 <img src="fig/2-identify-the-problem-rendered-unnamed-chunk-21-1.png" style="display: block; margin: auto;" />
 
-Whoa, this is really overwhelming! Mickey forgot that the dataset includes data for a lot of different rodent species, not just kangaroo rats. Mickey is only interested in two kangaroo rat species: _Dipodomys ordii_ (Ord's kangaroo rat) and _Dipodomys spectabilis_ (Banner-tailed kangaroo rat). 
+Whoa, this is really overwhelming! Mickey forgot that the dataset includes data for a lot of different rodent species, not just kangaroo rats. Mickey is only interested in two kangaroo rat species: *Dipodomys ordii* (Ord's kangaroo rat) and *Dipodomys spectabilis* (Banner-tailed kangaroo rat).
 
 Mickey also notices that there are three categories for sex: F, M, and what looks like a blank field when there is no sex information available. For the purposes of comparing weights, Mickey wants to focus only rodents of known sex.
 
@@ -579,11 +545,9 @@ common_names
 
 But looking at the `common names` dataset reveals a problem! The common names are not properly matched to the scientific names. For example, the genus *Ordii* should correspond to Ord's kangaroo rat, but currently, it is matched with the Banner-tailed kangaroo rat instead.
 
-:::challenge
-
-1. Is this a syntax error or a semantic error? Explain why.
-2. What "code first aid" steps might be appropriate here? Which ones are unlikely to be helpful?
-
+::: challenge
+1.  Is this a syntax error or a semantic error? Explain why.
+2.  What "code first aid" steps might be appropriate here? Which ones are unlikely to be helpful?
 :::
 
 Mickey re-orders the names and tries the code again. This time, it works! The common names are joined to the correct scientific names. Mickey joins the common names to `rodents_subset`.
@@ -628,7 +592,7 @@ F-statistic:  3133 on 1 and 939 DF,  p-value: < 2.2e-16
 
 The negative coefficient for `common_nameOrd's` tells Mickey that Ord's kangaroo rats are significantly less heavy than Banner-tailed kangaroo rats.
 
-But something is wrong with the coefficients for sex. Why are there NA values for `sexM`? Let's directly visualize weight by species and sex to see. 
+But something is wrong with the coefficients for sex. Why are there NA values for `sexM`? Let's directly visualize weight by species and sex to see.
 
 
 ``` r
@@ -646,12 +610,11 @@ Warning: Removed 35 rows containing non-finite outside the scale range
 
 When Mickey visualizes the data, they see a problem in the graph, too. As the model showed, Ord's kangaroo rats are significantly smaller than Banner-tailed kangaroo rats. But something is definitely wrong! Because the boxes are colored by sex, we can see that all of the Banner-tailed kangaroo rats are male and all of the Ord's kangaroo rats are female. That can't be right! What are the chances of catching all one sex for two different species?
 
-
-
 To verify that the problem comes from the data, not from the plot code, Mickey creates a two-way frequency table, which confirms that there are no observations of female *spectabilis* or male *ordii* in `rodents_subset`. Something definitely seems wrong. Those rows should not be missing.
 
 
 ``` r
+# Subsetted dataset
 table(rodents_subset$sex, rodents_subset$species)
 ```
 
@@ -666,6 +629,7 @@ To double check, Mickey looks at the original dataset.
 
 
 ``` r
+# Original dataset
 table(rodents$sex, rodents$species)
 ```
 
@@ -684,8 +648,7 @@ table(rodents$sex, rodents$species)
   M        1232         1       3      441
 ```
 
-Not only were there originally males and females present from both _ordii_ and _spectabilis_, but the original numbers were way, way higher! It looks like somewhere along the way, Mickey lost a lot of observations.
-
+Not only were there originally males and females present from both *ordii* and *spectabilis*, but the original numbers were way, way higher! It looks like somewhere along the way, Mickey lost a lot of observations.
 
 While we don't have the time today, let's assume Mickey worked their way through the code first aid steps, but weren't able to solve the problem.
 
@@ -695,7 +658,6 @@ They decide to consult Remy's road map to figure out what to do next.
 
 Since code first aid was not enough to solve this problem, it looks like it's time to ask for help using a *reprex*.
 
-
 :::::::keypoints
 
 - The first step to getting unstuck is identifying a problem, isolating the problem area, and interpreting the problem
@@ -704,4 +666,3 @@ Since code first aid was not enough to solve this problem, it looks like it's ti
 - We'll cover future steps to prepare a reproducible example (reprex) in future episodes.
 
 :::::::
-
