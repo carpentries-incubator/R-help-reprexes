@@ -396,11 +396,6 @@ deciphering the meaning of such error messages is not always as easy as
 we might hope. While we can’t review every type of reason your code
 generates an error, we will try to teach you some tools for you to
 interpret and figure out syntax errors for yourself.</p>
-<p>The accompanying error message attempts to tell you exactly how your
-code failed. For example, consider the following error message that
-occurs when I run this command in the R console. Here, I’m trying to
-plot a simple bar graph, getting the counts of <code>taxa</code> groups
-in our dataset.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1235,7 +1230,8 @@ seems wrong. Those rows should not be missing.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">table</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Subsetted dataset</span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1250,7 +1246,8 @@ seems wrong. Those rows should not be missing.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">table</span><span class="op">(</span><span class="va">rodents</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Original dataset</span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>

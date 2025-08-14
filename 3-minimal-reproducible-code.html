@@ -342,15 +342,11 @@
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul><li>Explain the value of a minimal code snippet.</li>
-<li>Identify the problem area of a script.</li>
-<li>Identify supporting parts of the code that are essential to
-include.</li>
+<li>Identify packages or other dependencies needed to run the code.</li>
 <li>Simplify a script down to a minimal code example.</li>
 <li>Evaluate whether a piece of code is reproducible as is or not. If
 not, identify what is missing.</li>
 <li>Edit a piece of code to make it reproducible</li>
-<li>Have a road map to follow to simplify your code.</li>
-<li>Describe the {reprex} package and its uses</li>
 </ul></div>
 </div>
 </div>
@@ -359,13 +355,11 @@ not, identify what is missing.</li>
 <div class="section level1">
 <h1 id="making-a-reprex">Making a reprex<a class="anchor" aria-label="anchor" href="#making-a-reprex"></a></h1>
 <div class="section level2">
-<h2 id="simplify-the-code">Simplify the code<a class="anchor" aria-label="anchor" href="#simplify-the-code"></a></h2>
-<p>When asking someone else for help, it is important to simplify your
-code as much as possible to make it easier for the helper to understand
-what is wrong. Simplifying code helps to reduce frustration and
-overwhelm when debugging an error in a complicated script. The more that
-we can make the process of helping easy and painless for the helper, the
-more likely that they will take the time to help.</p>
+<h2 id="step-1-simplify-the-code">Step 1: Simplify the code<a class="anchor" aria-label="anchor" href="#step-1-simplify-the-code"></a></h2>
+<p>Mickey has written a lot of code so far. The code is also a little
+messy–for example, after fixing the previous errors, they sometimes
+commented out the old code and kept it for future reference.</p>
+<p>Let’s take a look at the script as it stands so far.</p>
 <div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
@@ -379,35 +373,6 @@ Mickey’s. That’s okay!</p>
 </div>
 </div>
 </div>
-<p>Mickey has written a lot of code so far. The code is also a little
-messy–for example, after fixing the previous errors, they sometimes
-commented out the old code and kept it for future reference.</p>
-<div class="section level3">
-<h3 id="create-a-new-script">Create a new script<a class="anchor" aria-label="anchor" href="#create-a-new-script"></a></h3>
-<p>To make the task of simplifying the code less overwhelming, let’s
-create a separate script for our reprex. This will let us experiment
-with simplifying our code while keeping the original script intact.</p>
-<p>Let’s create and save a new, blank R script and give it a name, such
-as “reprex-script.R”</p>
-<div id="making-an-r-script" class="callout">
-<div class="callout-square">
-<i class="callout-icon" data-feather="bell"></i>
-</div>
-<span class="callout-header">Callout</span>
-<div id="making-an-r-script" class="callout-inner">
-<h3 class="callout-title">Making an R script</h3>
-<div class="callout-content">
-<p>There are several ways to make an R script:</p>
-<ul><li>File &gt; New File &gt; R Script</li>
-<li>Click the white square with a green plus sign at the top left corner
-of your RStudio window</li>
-<li>Use a keyboard shortcut: Cmd + Shift + N (on a Mac) or Ctrl + Shift
-+ N (on Windows)</li>
-</ul></div>
-</div>
-</div>
-<p>We’re going to start by copying over all of our code, so we have an
-exact copy of the full analysis script.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -459,22 +424,165 @@ exact copy of the full analysis script.</p>
 <span><span class="fu">table</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span>
 <span><span class="fu">table</span><span class="op">(</span><span class="va">rodents</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></code></pre>
 </div>
-<p>Now, we will follow a process: 1. Identify the symptom of the
-problem. 2. Remove a piece of code to make the reprex more minimal. 3.
-Re-run the reprex to make sure the reduced code still demonstrates the
-problem–check that the symptom is still present.</p>
-<p>In this case, the <em>symptom</em> is that we are <em>missing rows in
-<code>rodents_subset</code></em> that were present in
-<code>rodents</code> and should not have been removed!</p>
-<p>Let’s start by identifying pieces of code that we can probably
-remove. A good start is to look for lines of code that do not create
-variables for later use, or lines that add complexity to the analysis
-that is not relevant to the problem at hand.</p>
-<p>START HERE WITH FIXING THIS We can start by removing the broken code
-that we commented out earlier. Also, adding the date column is not
-directly relevant to the current problem. Let’s go ahead and remove
-those pieces of code. Now our script looks like this:</p>
+<div id="exercise-1-reflection" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<span class="callout-header">Discussion</span>
+<div id="exercise-1-reflection" class="callout-inner">
+<h3 class="callout-title">Exercise 1: Reflection</h3>
+<div class="callout-content">
+<ol style="list-style-type: decimal"><li><p>As you look at this script and think through trying to debug it,
+how do you feel?</p></li>
+<li><p>Imagine you are Remy, an advanced grad student whose priority is
+finishing your dissertation. Your labmate Mickey has just sent you this
+script, asking for help debugging it. How do you feel when you get
+Mickey’s email? What advice might you give Mickey?</p></li>
+</ol></div>
+</div>
+</div>
+<p>When asking someone else for help, it is important to simplify your
+code as much as possible to make it easier for the helper to understand
+what is wrong. Simplifying code helps to reduce frustration and
+overwhelm when debugging an error in a complicated script. The more that
+we can make the process of helping easy and painless for the helper, the
+more likely that they will take the time to help.</p>
+<div class="section level3">
+<h3 id="create-a-new-script">Create a new script<a class="anchor" aria-label="anchor" href="#create-a-new-script"></a></h3>
+<p>To make the task of simplifying the code less overwhelming, let’s
+create a separate script for our reprex. This will let us experiment
+with simplifying our code while keeping the original script intact.</p>
+<p>Let’s create and save a new, blank R script and give it a name, such
+as “reprex-script.R”</p>
+<div id="making-an-r-script" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div id="making-an-r-script" class="callout-inner">
+<h3 class="callout-title">Making an R script</h3>
+<div class="callout-content">
+<p>There are several ways to make an R script:</p>
+<ul><li>File &gt; New File &gt; R Script</li>
+<li>Click the white square with a green plus sign at the top left corner
+of your RStudio window</li>
+<li>Use a keyboard shortcut: Cmd + Shift + N (on a Mac) or Ctrl + Shift
++ N (on Windows)</li>
+</ul></div>
+</div>
+</div>
+<p>Let’s go ahead and copy over all of our code so we have an exact copy
+of the full analysis script. This way, we can make as many changes to it
+as we want and still keep the original code untouched.</p>
+<p>Now, we will follow an iterative process to simplify our script.</p>
+<p>A. Identify the symptom of the problem. <em>What are you observing
+that shows you something is wrong?</em></p>
+<p>B. Remove some code that is not central to demonstrating the
+problem.</p>
+<p>C. Run the simplified code and make sure that the symptom is still
+present. <em>Does your example still reproduce the problem?</em></p>
+</div>
+<div class="section level3">
+<h3 id="a--identify-a-symptom-of-the-problem">A. Identify a symptom of the problem<a class="anchor" aria-label="anchor" href="#a--identify-a-symptom-of-the-problem"></a></h3>
+<p>Let’s figure out which line of code, when you run it, <em>clearly
+shows that something is wrong</em>. For a syntax error, this is
+straightforward: it’s the line of code that generates the error message.
+But our error here is a semantic error. The code runs, but it returns
+the wrong result. So let’s think instead about what line of code created
+a result that we could clearly see was incorrect.</p>
+<p>This is a little tricky in our case, because we first noticed
+something was wrong when we looked at the output of the linear model.
+That model output could be a perfectly reasonable symptom to use!</p>
 <div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">summary</span><span class="op">(</span><span class="va">weight_model</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'weight_model' not found</code></pre>
+</div>
+<p>But let’s not discount the work we’ve already done to diagnose this
+problem! Something looked strange about this model, so we made a plot.
+Something looked strange about the plot, so we double checked the
+dataset used to create both the model and the plot. By comparing that
+dataset with the original, un-subsetted data, we were able to determine
+that something was wrong.</p>
+<p>To summarize, we have already determined:</p>
+<p><strong>The problem:</strong> There are many observations missing
+from <code>rodents_subset</code> that should not have been removed.</p>
+<p><strong>The symptom (lines that show that something is
+wrong):</strong> Comparison between the species and sex counts in the
+original and subsetted datasets.</p>
+<p>In particular, this comparison shows us that there are no
+observations of female <em>spectabilis</em> or male <em>ordii</em> in
+<code>rodents_subset</code>, but there <em>were</em> plenty in the
+original dataset.</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Subsetted dataset</span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span> </span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'rodents_subset' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Original dataset</span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents</span><span class="op">$</span><span class="va">species</span><span class="op">)</span> <span class="co"># there are no observations of female spectabilis or male ordii in `rodents_subset`, even though there were in the original dataset.</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>
+    albigula eremicus flavus fulvescens fulviventer harrisi hispidus
+  F      474      372    222         46           3       0       68
+  M      368      468    302         16           2       0       42
+
+    leucogaster maniculatus megalotis merriami ordii penicillatus  sp.
+  F         373         160       637     2522   690          221    4
+  M         397         248       680     3108   792          155    5
+
+    spectabilis spilosoma taylori torridus
+  F        1135         1       0      390
+  M        1232         1       3      441</code></pre>
+</div>
+<p>These two lines of code, and the observation we made about them, will
+be our guide as we simplify the script further.</p>
+<p>We can now start removing pieces of code that we believe are not
+central to our problem. After each removal, we can re-run the code and
+make sure that our symptom persists. If the symptom changes, we have
+either solved our problem (yay for rubber duck debugging!) or we removed
+a line of code that was actually essential to reproducing our
+problem.</p>
+</div>
+<div class="section level3">
+<h3 id="b--remove-some-code-that-is-not-central-to-demonstrating-the-problem-">B. Remove some code that is not central to demonstrating the
+problem.<a class="anchor" aria-label="anchor" href="#b--remove-some-code-that-is-not-central-to-demonstrating-the-problem-"></a></h3>
+<p>Let’s start identifying pieces of code to remove. In general, we can
+remove code that does not create variables for later use (for example,
+exploratory plots, models, or descriptive functions such as
+<code>head()</code> or <code>summary()</code>). We can also get rid of
+code that adds complexity to the analysis that is not relevant to the
+problem at hand.</p>
+<p>Let’s start by removing the broken code that we commented out
+earlier. Also, we created a <code>date</code> column by combining the
+<code>month</code>, <code>day</code>, and <code>year</code> columns.
+This column might be useful for analysis later, but it doesn’t seem
+relevant to the problem we’re facing now with the sex and species
+columns. We can probably get rid of that part while still reproducing
+our problem.</p>
+<p>Let’s go ahead and remove those pieces of code. Now our script looks
+like this:</p>
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -524,15 +632,24 @@ those pieces of code. Now our script looks like this:</p>
 <span><span class="va">rodents_subset</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">weight</span>, x <span class="op">=</span> <span class="va">common_name</span>, fill <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span>
-<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></code></pre>
+<span><span class="co"># Subsetted dataset</span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span> </span>
+<span><span class="co"># Original dataset</span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents</span><span class="op">$</span><span class="va">species</span><span class="op">)</span> <span class="co"># there are no observations of female spectabilis or male ordii in `rodents_subset`, even though there were in the original dataset.</span></span></code></pre>
 </div>
-<p>When we run this code, we can confirm that it still demonstrates our
-problem. There are still many rows missing from
-<code>rodents_subset</code>.</p>
-<p>We’ve made progress on minimizing our code, but we still have a ways
-to go. This script is still pretty long! Let’s identify more pieces of
-code that we can remove.</p>
+</div>
+<div class="section level3">
+<h3 id="c--run-the-simplified-code-and-make-sure-that-the-symptom-is-still-present--does-your-example-still-reproduce-the-problem">C. Run the simplified code and make sure that the symptom is still
+present. <em>Does your example still reproduce the problem?</em>
+<a class="anchor" aria-label="anchor" href="#c--run-the-simplified-code-and-make-sure-that-the-symptom-is-still-present--does-your-example-still-reproduce-the-problem"></a></h3>
+<p>Now it’s time to re-run the script to make sure we haven’t removed
+anything essential. Remember to pay attention to the symptom of the
+problem at the end and make sure that our essential observation hasn’t
+changed. Sure enough, those observations are still missing. We have
+succeeded in simplifying our code while still demonstrating the
+problem!</p>
+<p>Great progress, but this script is still pretty long and complicated.
+Can we remove more things?</p>
 <div id="exercise-2-minimizing-code" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
@@ -541,9 +658,10 @@ code that we can remove.</p>
 <div id="exercise-2-minimizing-code" class="callout-inner">
 <h3 class="callout-title">Exercise 2: Minimizing code</h3>
 <div class="callout-content">
-<p>Which other lines of code can you remove to make this script more
-minimal? After removing each one, be sure to re-run the code to make
-sure that it still reproduces the error.</p>
+<p>Minimizing code is an iterative process. Repeat steps B and C above
+several more times. Which other lines of code can you remove to make
+this script more minimal? After removing each part, be sure to re-run
+the code to make sure that it still reproduces the error.</p>
 </div>
 </div>
 </div>
@@ -554,8 +672,7 @@ sure that it still reproduces the error.</p>
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
-<ul><li>[Peter’s episode code]</li>
-<li>Visualizing sex by species (ggplot) can be removed because it
+<ul><li>Visualizing sex by species (ggplot) can be removed because it
 generates a plot but does not create any variables that are used
 later.</li>
 <li>Filtering to only rodents can be removed because later we filter to
@@ -569,8 +686,19 @@ equivalent plot using the <code>species</code> column instead of the
 <code>common_name</code> column, and it would demonstrate the same
 thing!</li>
 <li>The weight model and the summary can be removed</li>
-</ul><p>A totally minimal script would look like this:</p>
-<div class="codewrapper sourceCode" id="cb3">
+<li>Any other informational functions that could have been run in the
+console, such as <code>table()</code> or <code>print()</code> or
+<code>head()</code> can be removed.</li>
+<li>The essential parts to keep are the lines that access the dataset in
+the first place, subset it down to rodents_subset, and then diagnose the
+problem (the <code>table()</code> calls at the end).</li>
+</ul></div>
+</div>
+</div>
+</div>
+<p>After repeating steps B and C over and over again, we arrive at a
+much more minimal script.</p>
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -583,29 +711,93 @@ thing!</li>
 <span><span class="fu">table</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span>
 <span><span class="fu">table</span><span class="op">(</span><span class="va">rodents</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></code></pre>
 </div>
+<p>Maybe we can narrow our example down even more! Let’s try removing
+the species filter and only filtering by sex.</p>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">rodents</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"data/surveys_complete_77_89.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">rodents_subset</span> <span class="op">&lt;-</span> <span class="va">rodents</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="fu">c</span><span class="op">(</span><span class="st">"ordii"</span>, <span class="st">"spectabilis"</span><span class="op">)</span>,</span>
+<span>         <span class="co">#sex == c("F", "M")</span></span>
+<span>         <span class="op">)</span></span>
+<span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Something is different–we no longer have zero rows for two of the
+species/sex combos. But this example still demonstrates our problem.
+Remember, we previously stated the problem as “There are many
+observations missing from <code>rodents_subset</code> that should not
+have been removed.” And sure enough, if we look closely here, we can see
+that our species/sex counts have changed from 690 F ordii/792 M ordii
+and 1135 F spectabilis/1232 M spectabilis to 333/339 and 567/610,
+respectively. The problem persists! We are still mysteriously missing
+rows.</p>
+<div id="callout3" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div class="callout-inner">
+<div class="callout-content">
+<p>If you had chosen to remove the species filter instead of removing
+the sex filter, the same point would be made. The numbers would be
+different, but we would still see fewer rows in the subsetted data
+frame. Either one works!</p>
 </div>
 </div>
 </div>
+<div id="callout4" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
 </div>
-<p>Great, now we have a totally minimal script!</p>
-<p>However, we’re not done yet.</p>
-<div id="exercise-3-the-problem-area-is-not-enough" class="callout discussion">
+<span class="callout-header">Callout</span>
+<div class="callout-inner">
+<div class="callout-content">
+<p>If you hadn’t noticed that you could simplify this example even
+further, that would still be okay! Minimizing code is an art, not an
+exact science. The more minimal you can make your code, the better, but
+a helper will still have a much easier time working on your problem if
+you’ve removed some extraneous steps, even if you haven’t narrowed it
+down 100%. Don’t let the perfect be the enemy of the good!</p>
+</div>
+</div>
+</div>
+<p>Okay, so our minimal snippet looks like this:</p>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">rodents</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"data/surveys_complete_77_89.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">rodents_subset</span> <span class="op">&lt;-</span> <span class="va">rodents</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="fu">c</span><span class="op">(</span><span class="st">"ordii"</span>, <span class="st">"spectabilis"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span> <span class="co"># there are fewer male and female ordii and spectabilis individuals in the subsetted dataset than there were in the original dataset, and we're not sure why.</span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></code></pre>
+</div>
+<p>This is great progress! A helper will find this minimal code snippet
+much more approachable than the long script we started with. However,
+we’re not done yet.</p>
+<div id="exercise-3" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <span class="callout-header">Discussion</span>
-<div id="exercise-3-the-problem-area-is-not-enough" class="callout-inner">
-<h3 class="callout-title">Exercise 3: The problem area is not
-enough</h3>
+<div id="exercise-3" class="callout-inner">
+<h3 class="callout-title">Exercise 3</h3>
 <div class="callout-content">
-<p>Let’s suppose that Mickey has created the minimal problem area script
-shown above. They email this script to Remy so that Remy can help them
-debug the code.</p>
-<p>Remy opens up the script and tries to run it on their computer, but
-it doesn’t work. - What do you think will happen when Remy tries to run
-the code from this reprex script? - What do you think Mickey should do
-next to improve the minimal reproducible example?</p>
-</div>
+<p>Mickey emails the minimal code script to Remy. Remy notices
+immediately that this code is much easier to read and understand. They
+open up the script and try to run it in R.</p>
+<ul><li>What do you think will happen when Remy tries to run the code from
+this reprex script?</li>
+<li>What should Mickey do next to improve the minimal reproducible
+example?</li>
+</ul></div>
 </div>
 </div>
 <p>We haven’t yet included enough code to allow a helper, such as Remy,
@@ -654,68 +846,45 @@ packages!</p>
 functions used, and then we can figure out where each function comes
 from to make sure that we tell our helper to load the right
 packages.</p>
-<p>The first function used in our example is <code>ggplot()</code>,
-which comes from the package <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a>. Therefore, we know
-we will need to add <code><a href="https://ggplot2.tidyverse.org" class="external-link">library(ggplot2)</a></code> at the top of our
-script.</p>
-<p>The function <code>geom_boxplot()</code> also comes from
-<a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a>. We also used the function <code>table()</code>.
-Running <code>?table</code> tells us that the <code>table</code>
-function comes from the package <code>{base}</code>, which is
-automatically installed and loaded when you use R–that means we don’t
-need to include <code>library(base)</code> in our script.</p>
-<p>Our reprex script now looks like this:</p>
-<div class="codewrapper sourceCode" id="cb4">
+<div id="discussion3" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<span class="callout-header">Discussion</span>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge</h3>
+<div class="callout-content">
+<p>The functions used in our minimal example are
+<code>read.csv()</code>, <code>filter()</code>, <code>c()</code>, and
+<code>table()</code>.</p>
+<p>Identify the package that each of the functions comes from and modify
+the minimal example so that it explicitly loads those packages.
+:::solution <code><a href="https://dplyr.tidyverse.org" class="external-link">library(dplyr)</a></code></p>
+<p><code>read.csv()</code> comes from <code>{utils}</code>, which is
+loaded by default. <code>c()</code> and <code>table()</code> come from
+<code>{base}</code>, which is also loaded by default.</p>
+<p>Bonus if you notice that we also use the <code>%&gt;%</code>
+operator, which comes from <a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a> too, so we definitely
+need to make sure that <a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a> is loaded!</p>
+</div>
+</div>
+</div>
+<p>:::</p>
+<p>We can update our minimal code to include that <code>library()</code>
+call.</p>
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Mickey's reprex script</span></span>
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Load necessary packages to run the code</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">ggplot2</span><span class="op">)</span></span>
+<span><span class="va">rodents</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"data/surveys_complete_77_89.csv"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">rodents_subset</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">weight</span>, x <span class="op">=</span> <span class="va">common_name</span>, fill <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span> <span class="co"># wait, why does this look weird?</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'rodents_subset' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb6">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Investigate</span></span>
-<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'rodents_subset' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb8">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">table</span><span class="op">(</span><span class="va">rodents</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>
-    albigula eremicus flavus fulvescens fulviventer harrisi hispidus
-  F      474      372    222         46           3       0       68
-  M      368      468    302         16           2       0       42
-
-    leucogaster maniculatus megalotis merriami ordii penicillatus  sp.
-  F         373         160       637     2522   690          221    4
-  M         397         248       680     3108   792          155    5
-
-    spectabilis spilosoma taylori torridus
-  F        1135         1       0      390
-  M        1232         1       3      441</code></pre>
+<span><span class="va">rodents_subset</span> <span class="op">&lt;-</span> <span class="va">rodents</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="fu">c</span><span class="op">(</span><span class="st">"ordii"</span>, <span class="st">"spectabilis"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span> <span class="co"># there are fewer male and female ordii and spectabilis individuals in the subsetted dataset than there were in the original dataset, and we're not sure why.</span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></code></pre>
 </div>
 <div id="installing-vs.-loading-packages" class="callout">
 <div class="callout-square">
@@ -792,7 +961,7 @@ will not have access to if they try to run the code. That means that
 we’ve succeeded in making our example <em>minimal</em>, but it is not
 <em>reproducible</em>: it does not allow someone else to reproduce the
 problem!</p>
-<p>[PULL UP ROAD MAP]</p>
+<p>[ROAD MAP again]</p>
 <div id="exercise-5-reflection" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>

@@ -206,12 +206,20 @@
 <div class="accordion accordion-flush" id="accordionFlushcurrent">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-headingcurrent">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
         1. What is a reprex and why is it useful?
         </span>
-      
+      </button>
     </div><!--/div.accordion-header-->
+
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+      <div class="accordion-body">
+        <ul><li><a href="#why-a-reprex">Why a reprex?</a></li>
+<li><a href="#meet-mickey-your-learning-companion">Meet Mickey, your learning companion</a></li>
+        </ul></div><!--/div.accordion-body-->
+    </div><!--/div.accordion-collapse-->
 
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
@@ -324,6 +332,41 @@
 
         
 
+<div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
+  <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Welcome and introductions </h3>
+</button>
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div class="accordion-body">
+<p>Welcome to “RRRR, I’m Stuck!” We’re glad you’re here! Let’s first
+take care of a few setup steps. You should have all followed the setup
+instructions on the workshop website, and you should have both R and
+RStudio installed. You should also have the following packages
+installed: {reprex}, {dplyr}, and {ggplot2}. We have a range of levels
+of experience here. This workshop assumes that you are a researcher in
+ecology or biology who has some prior experience working with R in
+RStudio.</p>
+<p>This lesson will follow a fictional ecology grad student named Mickey
+as they explore a new dataset, deal with various common coding problems,
+and learn how to write a minimal reproducible example to ask for help in
+community forums. We will not spend much time discussing the code
+itself, as we will assume you have a basic background. [Reference
+guide?]</p>
+<p>It’s okay if you’re not an R expert–but even more experienced R
+coders may not always know how to get unstuck, so we hope this workshop
+will be useful to many levels of coding background.</p>
+<p>[MAYBE ADD SOMETHING ABOUT WHAT THE OVERALL LESSON OBKECTIVES
+ARE]</p>
+<p>In this first episode we will introduce what a minimal reproducible
+example is and how it can be a useful tool for getting unstuck while
+coding. We will provide you with a roadmap that highlights the key steps
+to follow as we move through the lesson. And we will take a look at the
+dataset we will be working with throughout.</p>
+</div>
+</div>
+</div>
+</div>
 <div class="overview card">
 <h2 class="card-header">Overview</h2>
 <div class="row g-0">
@@ -334,7 +377,7 @@
 <ul><li>What steps can you take to solve problems in your code?</li>
 <li>What is a minimal reproducible example?</li>
 <li>Why are minimal reproducible examples important?</li>
-<li>What variables are included in the Portal Project dataset?</li>
+<li>What is the Portal Project dataset?</li>
 </ul></div>
 </div>
 </div>
@@ -342,11 +385,12 @@
 <div class="card-body">
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
-<ul><li>Understand the high-level process for getting unstuck in R.</li>
-<li>Define each key characteristic of a minimal reproducible
-example.</li>
-<li>Explain why minimal reproducible examples are central to getting
-help from others.</li>
+<ul><li>Describe a minimal reproducible example and its requirements.</li>
+<li>Recognize how creating a minimal reproducible example can help you
+solve problems in your code.</li>
+<li>List the key steps to creating a minimal reproducible example.</li>
+<li>Explain the benefits of creating a minimal reproducible example both
+for you and for others.</li>
 <li>Load in the rodent survey data and briefly explain its
 contents.</li>
 </ul></div>
@@ -354,78 +398,19 @@ contents.</li>
 </div>
 </div>
 </div>
-<p>Mickey is an ecology researcher who has just started in a new lab.
-Mickey’s lab has been working for many years with data from the <a href="https://portal.weecology.org/" class="external-link">Portal Project</a>, a long-term
-research study of rodents in Portal, Arizona. Mickey is particularly
-interested in learning about rodent morphology. For now, they are
-getting familiar with the dataset by doing some descriptive analyses and
-visualizations.</p>
-<p>Mickey starts by loading the data so they can begin to explore it.
-They also load the {tidyverse}, a set of packages that will be useful
-for wrangling and visualizing the data.</p>
-<div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
-  <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
-</button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
-<div class="accordion-body">
-<p>Loading the entire {tidyverse} here, rather than a few component
-packages, is an intentional over-complication so that we can teach
-learners to simplify their packages later. Learners should have
-{tidyverse} installed, as per the setup instructions.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="codewrapper sourceCode" id="cb1">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load packages and data</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">surveys</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/surveys_complete_77_89.csv"</span><span class="op">)</span> </span></code></pre>
-</div>
-<p>Mickey has some past experience in R, but this project will require
-more data analysis than they have done before. Mickey attended a
-Carpentries workshop, “Data Analysis and Visualization in R for
-Ecologists,” and they feel comfortable with the fundamentals of coding
-in R. Still, they are a little nervous about starting this project.</p>
-<div id="prerequisites-and-target-audience" class="callout">
-<div class="callout-square">
-<i class="callout-icon" data-feather="bell"></i>
-</div>
-<span class="callout-header">Callout</span>
-<div id="prerequisites-and-target-audience" class="callout-inner">
-<h3 class="callout-title">Prerequisites and target audience</h3>
-<div class="callout-content">
-<p>This workshop assumes some prior experience with working in R and
-RStudio. We will assume you’ve taken the equivalent of the Data Analysis
-and Visualization in R for Ecologists workshop and are comfortable with
-basic commands, and we won’t necessarily explain every line of code in
-detail.</p>
-<p>If you’re much more experienced in R, this workshop is still for you!
-Even expert coders may not always know how to get unstuck. We hope this
-workshop will be useful to people with a variety of coding
-backgrounds.</p>
-</div>
-</div>
-</div>
-<p>Sometimes, Mickey’s code doesn’t work as expected and they go to
-their colleague, Remy, for help. Remy has spent many hours sitting with
-Mickey, helping to work through various errors. But soon, Remy will be
-starting a big project, and soon they won’t have as much time to help
-with debugging.</p>
 <div id="accordionInstructor2" class="accordion instructor-note accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor2" aria-expanded="false" aria-controls="collapseInstructor2">
   <h3 class="accordion-header" id="headingInstructor2">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
 <div class="accordion-body">
 <p>The following exercises are optional, but they can are useful for
-getting learners settled in.</p>
+getting learners settled in. They could happen at the start of the
+lesson, to break the ice:</p>
+<p>“Before we begin, let’s take a moment to reflect on why we are
+here”</p>
+<p>Or they can happen after a first introduction to reprexes</p>
 </div>
 </div>
 </div>
@@ -460,63 +445,57 @@ helped you–what information did they need to know in order to help?)</p>
 </div>
 </div>
 </div>
-<p>To help Mickey get more comfortable troubleshooting their own code,
-Remy suggests some steps to follow the next time they get stuck. Remy
-calls this the “Road Map to Getting Unstuck in R.”</p>
-<figure><img src="../fig/roadmap.png" class="figure mx-auto d-block"></figure><p>Remy explains that the road map includes two main phases. First,
-there is guidance about “code first aid.” This includes understanding
-types of errors, reading function documentation, investigating error
-messages, and running through code line by line to diagnose
-problems.</p>
-<p>Sometimes, these first aid steps are not enough to solve your
-problem. One of the most frustrating parts of learning to code is
-getting stuck and not knowing what to do! Luckily, there are many people
-in the R and data science communities who are happy to help, as long as
-you give them the right information. But figuring out how to ask a good
-question can feel even harder than the original problem that got you
-stuck in the first place. That’s why the second part of Remy’s road map
-includes guidance on how to create a <strong>minimal reproducible
-example</strong> (also known as a <strong>reprex</strong>).</p>
-<p>A minimal reproducible example is a piece of code that demonstrates
-the problem you are facing, includes all necessary information to show
-the problem but nothing extra, and will run easily on someone else’s
-computer.</p>
-<figure><img src="../fig/MinimalReproducibleExample.png" class="figure mx-auto d-block"></figure><p>Minimal reproducible examples are very important tools to get help
-when you’re stuck on a coding problem.</p>
-<ul><li><p>Stripping the code and data down to their simplest
-(<em>minimal</em>) parts makes it easy for a helper to zero in on what
-might be going wrong.</p></li>
-<li><p>Making your example <em>reproducible</em> allows a helper to run
-your code on their own computer so they can “feel your pain” and
-understand what’s going wrong. Even experts often have to “tinker” with
-code in order to fix it. Providing a reprex makes that “tinkering” easy,
-which makes it more likely that a helper will take the time to assist
-you.</p></li>
-<li><p>The process of making a minimal reproducible example often gives
-you insight into your own code. Often, you might end up solving the
-problem yourself, without even needing to ask for help.</p></li>
-</ul><div id="rubber-duck-debugging" class="callout">
-<div class="callout-square">
-<i class="callout-icon" data-feather="bell"></i>
-</div>
-<span class="callout-header">Callout</span>
-<div id="rubber-duck-debugging" class="callout-inner">
-<h3 class="callout-title">Rubber duck debugging</h3>
-<div class="callout-content">
-<p>The phenomenon of solving one’s own problem during the process of
-trying to explain it to someone else is often called “rubber duck
-debugging.” This is a reference to a story about programmers who would
-keep rubber ducks on their desks to explain coding problems to. Jenny
-Bryan refers to reprexes as “basically the rubber duck in disguise,”
-because they force you to explain your problem to someone else, often
-solving it in the process.</p>
-<p>Jenny Bryan shares many other insights about reprexes in her 2018
-talk <a href="https://www.youtube.com/watch?v=5gqksthQ0cM" class="external-link">“Help me help
-you: Creating reproducible examples.”</a></p>
+<p>One of the most frustrating parts of learning to code is getting
+stuck and not knowing what to do! Maybe R gives you an angry red error
+message you don’t understand or your code doesn’t seem to be doing what
+you were expecting and you don’t know why. Maybe you try to use Google
+to find answers but you can’t quite find the same problem out there.
+What to do?</p>
+<p>Luckily, there are many people in the R and data science communities
+who are happy to help. However, in order to do so, you must give them
+the right information. Figuring out how to ask a good question can be
+hard, especially when they ask you to provide example data or a
+<strong>reprex</strong> (a <strong>minimal reproducible
+example</strong>). What even is that? Wouldn’t it be nice if you could
+just hand over your computer so a helper can see exactly what is
+happening? That’s exactly what the reprex is for.</p>
+<p>A reprex is essentially a <strong>simplified</strong> version of your
+problematic code that clearly demonstrates the problem you are facing
+(includes <strong>only</strong> the necessary information to show the
+problem, nothing more) and <strong>will run easily on anyone’s
+computer</strong>.</p>
+<p>The Tidyverse documentation puts it simply:</p>
+<blockquote>
+<p>“The goal of a reprex is to package your problematic code in such a
+way that other people can run it and feel your pain. Then, hopefully,
+they can provide a solution and put you out of your misery.” - <a href="https://www.tidyverse.org/help/" class="external-link">Get help! (Tidyverse)</a></p>
+</blockquote>
+<figure><img src="../fig/MinimalReproducibleExample.png" class="figure mx-auto d-block"></figure><div id="accordionInstructor3" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor3" aria-expanded="false" aria-controls="collapseInstructor3">
+  <h3 class="accordion-header" id="headingInstructor3">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
+</button>
+<div id="collapseInstructor3" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor3" aria-labelledby="headingInstructor3">
+<div class="accordion-body">
+<p>Or maybe the reflection exercises can happen here.</p>
 </div>
 </div>
 </div>
-<figure><img src="../fig/jennybryan.png" class="figure mx-auto d-block"></figure><div id="helpers" class="callout">
+</div>
+<section><h2 class="section-heading" id="why-a-reprex">Why a reprex?<a class="anchor" aria-label="anchor" href="#why-a-reprex"></a></h2>
+<hr class="half-width"><p>Reprexes are very important tools to get help when you’re stuck on a
+coding problem, especially since they are required by many consultants
+(often available at Universities) or online help forums (e.g.,
+StackOverflow or the Posit Community).</p>
+<p>As the name suggests, a minimal reproducible example needs to be
+<strong>minimal</strong> and <strong>reproducible</strong>.</p>
+<ul><li><p>Stripping the code and data down to their essential
+(<strong>minimal</strong>) parts makes it easy for a helper to zero-in
+on what might be going wrong.</p></li>
+<li><p>Making your example <strong>reproducible</strong> allows a helper
+to run your code on their own computer so they can easily “tinker” with
+it to fix it. This makes them more likely to help you.</p></li>
+</ul><div id="helpers" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -532,42 +511,134 @@ example.</p>
 </div>
 </div>
 </div>
-<p>Remy emphasizes to Mickey that they are still happy to be a helper,
-but that since they won’t have as much time to devote to debugging in
-the future, following this road map first will make the helping process
-more efficient. Hopefully, it will also make Mickey into a more
-confident coder!</p>
-<p>Before heading off to their own work, Remy also introduces Mickey to
-the dataset they’ve just loaded in.</p>
+<p><strong>Importantly</strong>, the process of making a reprex often
+leads to a better understanding of your own code. Therefore, you can end
+up solving the problem yourself without asking for help.</p>
+<div id="rubber-duck-debugging" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div id="rubber-duck-debugging" class="callout-inner">
+<h3 class="callout-title">Rubber duck debugging</h3>
+<div class="callout-content">
+<p>The phenomenon of solving one’s own problem during the process of
+trying to explain it to someone else is often called “rubber duck
+debugging.” This is a reference to a story about programmers who would
+explain the problem they were having with their code to a rubber duck
+they would keep on their desk. Jenny Bryan refers to reprexes as
+“basically the rubber duck in disguise,” because they force you to
+unpack your problem to explain it more clearly.</p>
+<p>Jenny Bryan shares many other insights about reprexes in her 2018
+talk <a href="https://www.youtube.com/watch?v=5gqksthQ0cM" class="external-link">“Help me help
+you: Creating reproducible examples.”</a></p>
+</div>
+</div>
+</div>
+<figure><img src="../fig/jennybryan.png" class="figure mx-auto d-block"></figure><p>Making a reprex can be an excellent learning opportunity, but the
+process can feel daunting when you are not sure where to begin. In this
+lesson, we will walk through a step by step roadmap you can use whenever
+you feel stuck, including some first steps for debugging your code and
+the process of creating a reprex. We’ll talk about each of the steps and
+provide a workflow that you can follow when you get stuck in the future.
+At the end, we’ll introduce you to the <a href="https://reprex.tidyverse.org/" class="external-link">reprex</a> package, a useful tool
+for creating good minimal reproducible examples. By the end of the
+lesson you will have gained a better understanding of how to approach
+error and warning messages, you will feel more confident in your ability
+to make a reprex, and you will feel more comfortable asking for formal
+help.</p>
+</section><section><h2 class="section-heading" id="meet-mickey-your-learning-companion">Meet Mickey, your learning companion<a class="anchor" aria-label="anchor" href="#meet-mickey-your-learning-companion"></a></h2>
+<hr class="half-width"><p>Mickey is an ecology grad student who just joined a new lab. Mickey’s
+lab has been working for many years with data from the <a href="https://portal.weecology.org/" class="external-link">Portal Project</a>, a long-term
+research study of rodents in Portal, Arizona. Mickey would like to
+explore this data for their research, so they reach out to Remy, a
+fifth-year grad student who is very familiar with this project. To get
+them started, Remy sends Mickey an archival dataset of rodent surveys
+that were done in 1977-1989, and tells them to upload the data into
+Rstudio and “play around” with it to familiarize themselves with the
+data.</p>
+<p>Mickey has some past experience in R. They attended a Carpentries
+workshop, “Data Analysis and Visualization in R for Ecologists,” and
+they feel comfortable with the fundamentals of coding in R. Still, they
+are a little rusty and nervous about their skills and the unfamiliar
+data.</p>
+<div id="prerequisites-and-target-audience" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div id="prerequisites-and-target-audience" class="callout-inner">
+<h3 class="callout-title">Prerequisites and target audience</h3>
+<div class="callout-content">
+<p>This workshop assumes some prior experience with working in R and
+RStudio. We will assume you’ve taken the equivalent of the Data Analysis
+and Visualization in R for Ecologists workshop and are comfortable with
+basic commands, and we won’t necessarily explain every line of code in
+detail.</p>
+<p>If you’re much more experienced in R, this workshop is still for you!
+Even expert coders may not always know how to get unstuck. We hope this
+workshop will be useful to people with a variety of coding
+backgrounds.</p>
+</div>
+</div>
+</div>
+<p>Mickey starts by loading the data so they can begin to explore it.
+They also load the {tidyverse}, a set of packages that will be useful
+for wrangling and visualizing the data.</p>
+<div id="accordionInstructor4" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor4" aria-expanded="false" aria-controls="collapseInstructor4">
+  <h3 class="accordion-header" id="headingInstructor4">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
+</button>
+<div id="collapseInstructor4" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor4" aria-labelledby="headingInstructor4">
+<div class="accordion-body">
+<p>Loading the entire {tidyverse} here, rather than a few component
+packages, is an intentional over-complication so that we can teach
+learners to simplify their packages later. Learners should have
+{tidyverse} installed, as per the setup instructions. They should also
+already have a project and folders set up, with the data downloaded and
+in the “data” folder of the project.</p>
+<p>If necessary, here is the url for the data: <a href="https://raw.githubusercontent.com/carpentries-incubator/R-help-reprexes/refs/heads/main/episodes/data/surveys_complete_77_89.csv" class="external-link uri">https://raw.githubusercontent.com/carpentries-incubator/R-help-reprexes/refs/heads/main/episodes/data/surveys_complete_77_89.csv</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Loading the tidyverse package</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Uploading the dataset that is currently saved in the project's data folder</span></span>
+<span><span class="va">surveys</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/surveys_complete_77_89.csv"</span><span class="op">)</span> </span></code></pre>
+</div>
+<p>Now that the dataset has been uploaded it is time to take a look at
+it and find out what type of data was collected during these
+surveys.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Take a look at the data</span></span>
-<span><span class="fu">glimpse</span><span class="op">(</span><span class="va">surveys</span><span class="op">)</span></span>
-<span><span class="fu">min</span><span class="op">(</span><span class="va">surveys</span><span class="op">$</span><span class="va">year</span><span class="op">)</span></span>
-<span><span class="fu">max</span><span class="op">(</span><span class="va">surveys</span><span class="op">$</span><span class="va">year</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">glimpse</span><span class="op">(</span><span class="va">surveys</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>Rows: 16,878
-Columns: 13
-$ record_id       &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,…
-$ month           &lt;dbl&gt; 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, …
-$ day             &lt;dbl&gt; 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16…
-$ year            &lt;dbl&gt; 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, …
-$ plot_id         &lt;dbl&gt; 2, 3, 2, 7, 3, 1, 2, 1, 1, 6, 5, 7, 3, 8, 6, 4, 3, 2, …
-$ species_id      &lt;chr&gt; "NL", "NL", "DM", "DM", "DM", "PF", "PE", "DM", "DM", …
-$ sex             &lt;chr&gt; "M", "M", "F", "M", "M", "M", "F", "M", "F", "F", "F",…
-$ hindfoot_length &lt;dbl&gt; 32, 33, 37, 36, 35, 14, NA, 37, 34, 20, 53, 38, 35, NA…
-$ weight          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-$ genus           &lt;chr&gt; "Neotoma", "Neotoma", "Dipodomys", "Dipodomys", "Dipod…
-$ species         &lt;chr&gt; "albigula", "albigula", "merriami", "merriami", "merri…
-$ taxa            &lt;chr&gt; "Rodent", "Rodent", "Rodent", "Rodent", "Rodent", "Rod…
-$ plot_type       &lt;chr&gt; "Control", "Long-term Krat Exclosure", "Control", "Rod…
-[1] 1977
-[1] 1989</code></pre>
+<pre class="error" tabindex="0"><code>Error in glimpse(surveys): could not find function "glimpse"</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># or you can use</span></span>
+<span><span class="fu">str</span><span class="op">(</span><span class="va">surveys</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'surveys' not found</code></pre>
 </div>
 <p>Remy explains that the dataset is made up of many individual rodent
 records (<code>record_id</code>). The date of each record is given by
@@ -582,10 +653,29 @@ had different treatments applied: plot IDs are given by the
 <code>taxa</code> information and a short-form <code>species_id</code>
 code.</p>
 <p>For each individual caught, the field crew took <code>weight</code>,
-<code>sex</code> and <code>hindfoot_length</code> measurements, although
-those measurements are sometimes missing.</p>
+<code>sex</code> and <code>hindfoot_length</code> measurements <em>when
+able</em>, so values are sometimes missing.</p>
 <p>The dataset contains 16,878 rodent observations ranging across years
 from 1977 through 1989.</p>
+<p>With a clear understanding of the data, Mickey is now free to explore
+on their own. However, Remy notices that Mickey still looks nervous and
+decides to share a tool they recently found useful: a roadmap to getting
+unstuck in R by making a reprex.</p>
+<figure><img src="../Roadmap_Aug25.svg" class="figure mx-auto d-block"></figure><p>Remy explains that while the roadmap outlines four key steps for
+making a reprex, it is also intended to help the user better understand
+their problem and potentially find a solution along the way. Remy has
+found it very useful to follow the steps any time he gets stuck while
+coding. Indeed, the first step, which he likes to call “code first aid,”
+includes steps to help identify and diagnose the problem such as
+identifying the type of error, reading the function documentation,
+interpreting error messages, and running through code line by line.</p>
+<p>Sometimes, even these first aid steps are enough to solve your
+problem! If not, the rest of the roadmap outlines other strategies that
+help isolate the problem and better understand what is causing it.</p>
+<p>Remy emphasizes to Mickey that they are also happy to help, but they
+will be very busy trying to finish writing their dissertation. If Mickey
+can first follow the steps outlined in this roadmap, then Remy can more
+easily help with whatever Mickey is struggling to resolve.</p>
 <p>With an introduction to the dataset and a road map to guide them if
 they get stuck, Mickey feels ready to start coding!</p>
 <div id="keypoints1" class="callout keypoints">
@@ -595,16 +685,18 @@ they get stuck, Mickey feels ready to start coding!</p>
 <span class="callout-header">Key Points</span>
 <div class="callout-inner">
 <div class="callout-content">
-<ul><li>Applying some “code first aid” can help address problems in your
-code.Add commentMore actions</li>
-<li>Helpers can more easily debug your code if you provide them with a
-small example of the problem (a “reprex”) that they can tinker with
-themselves.</li>
-<li>In the process of building a reprex, you may find the solution
-yourself.</li>
-<li>In the rest of this lesson, we will be working through a “road map”
-to getting unstuck that includes code first aid and the process of
-making a reprex.</li>
+<ul><li>Throughout this lesson, we will be walking through a “roadmap” to
+getting unstuck in R by creating a minimal reproducible example
+(“reprex”).</li>
+<li>A reprex is a simplified version of your problematic code that
+clearly demonstrates the problem you are facing and will run on anyone’s
+computer.</li>
+<li>A reprex should contain only the minimum required to replicate the
+problem from any device so that helpers can more easily tinker and debug
+your code.</li>
+<li>The process of building a reprex helps you better understand your
+code, your data, and your problem so that you will often find the
+solution yourself!</li>
 <li>The <code>surveys</code> dataset includes records of rodents
 captured in a variety of experimental plots over a 12-year period,
 including some data about each rodent’s sex and morphology.</li>
@@ -615,10 +707,7 @@ including some data about each rodent’s sex and morphology.</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
-
-
-
-      </div> <!-- / div.lesson-content -->
+</section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="../instructor/index.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="../instructor/2-identify-the-problem.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
