@@ -308,7 +308,7 @@ x
 ```
 
 ``` output
- [1]  4  5 10  9  6  3  2  1  8  7
+ [1]  5  2  6  7  1 10  9  4  3  8
 ```
 
 Or you can randomly sample from a normal distribution
@@ -320,8 +320,8 @@ x
 ```
 
 ``` output
- [1] -1.0379658  1.8999886  0.8948331 -0.2029324  1.3012106  0.6803354
- [7]  0.6053070  0.6160930  0.3996400 -1.3133968
+ [1]  0.925978767 -0.008437866 -1.856599078  0.896655036 -0.649186515
+ [6] -0.519545749  0.444666330 -0.113793995 -0.266159832 -1.261082005
 ```
 
 You can also use `letters` to create factors.
@@ -333,8 +333,8 @@ x
 ```
 
 ``` output
- [1] "d" "b" "b" "c" "d" "b" "b" "c" "c" "a" "c" "d" "c" "a" "a" "b" "d" "c" "c"
-[20] "b"
+ [1] "d" "d" "a" "d" "a" "b" "d" "b" "c" "c" "a" "c" "d" "b" "c" "a" "b" "a" "c"
+[20] "a"
 ```
 
 Remember that **a data frame is just a collection of vectors**.
@@ -349,12 +349,12 @@ head(data)
 
 ``` output
   x          y
-1 b -0.6265588
-2 c  1.3486782
-3 a  0.6752896
-4 a -0.2362781
-5 c -0.6463419
-6 a -1.4128814
+1 a  0.4783532
+2 a  0.7007388
+3 b -2.0219004
+4 c  0.6877717
+5 c  0.7751494
+6 b -0.3664980
 ```
 
 **However**, when sampling at random you must remember to `set.seed()` before sending it to someone to make sure you both get the same numbers!
@@ -591,7 +591,7 @@ species
 ```
 
 ``` output
-[1] "s" "c" "u"
+[1] "l" "h" "p"
 ```
 
 ``` r
@@ -631,16 +631,16 @@ sample_data
 
 ``` output
    record_id species  sex
-1          1       u    F
-2          2       s    F
-3          3       s    F
-4          4       s    F
-5          5       c    M
-6          6       c    M
-7          7       u    F
-8          8       s <NA>
-9          9       u <NA>
-10        10       u <NA>
+1          1       l <NA>
+2          2       l <NA>
+3          3       p    F
+4          4       p    M
+5          5       p    M
+6          6       p    M
+7          7       p    F
+8          8       p <NA>
+9          9       l    F
+10        10       p <NA>
 ```
 
 And just like that we helped Mickey create a mock dataset from scratch!
@@ -660,15 +660,15 @@ sample2_data
 ``` output
    record_id species  sex
 1          1       a <NA>
-2          2       b <NA>
-3          3       a    F
-4          4       a    M
-5          5       b <NA>
-6          6       c <NA>
+2          2       a <NA>
+3          3       b    F
+4          4       b <NA>
+5          5       a    F
+6          6       b    F
 7          7       c    F
-8          8       c <NA>
-9          9       b    M
-10        10       b <NA>
+8          8       c    F
+9          9       b    F
+10        10       a    M
 ```
 
 **Important**: Notice that the outputs of the two datasets are not the same.
