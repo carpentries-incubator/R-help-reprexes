@@ -114,6 +114,14 @@ You should update **all of the packages** required for the lesson, even if you i
 
 Sometimes, package updates introduce changes that break your old code, which can be very frustrating. To avoid this problem, you can use a package called `renv`. It locks the package versions you have used for a given project and makes it straightforward to reinstall those exact package version in a new environment, for example after updating your R version or on another computer. However, the details are outside of the scope of this lesson.
 
+### Creating and opening an RStudio project
+
+We will be using the "project" feature of RStudio to keep our code and data contained for this lesson. To create a new project in RStudio, choose File > New Project from the top menu. Then you can choose to create the project in a new or existing folder. Name your project something distinctive that you will recognize (for example, "2025-08-15_reprexes_workshop"). Then, create a "data/" folder inside your project folder.
+
+Switch over to the project from inside of RStudio by clicking on the blue cube icon at the upper righthand corner of the RStudio window and choosing "Open Project". Alternatively, you can navigate to your project folder in Finder (on Mac) or File Explorer (on Windows) and double-click the file with the ".Rproj" extension to open up a fresh session of RStudio for your project.
+
+For more information and guidance on RStudio projects, see the [Posit support page](https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects).
+
 ### Download the data
 
 For this lesson, we will be using a dataset called `surveys_complete_77_89.csv`, which contains rodent survey data from the [Portal Project]("LINK")

@@ -125,14 +125,20 @@ Loading the entire {tidyverse} here, rather than a few component packages, is an
 If necessary, here is the url for the data: <https://raw.githubusercontent.com/carpentries-incubator/R-help-reprexes/refs/heads/main/episodes/data/surveys_complete_77_89.csv>
 :::
 
-Let's go over to RStudio. Make sure that you're in the RStudio project that you created for this lesson, and that you've downloaded the data as a csv and saved it in the "data/" folder. Now, we can load in the dataset with the following code:
+Let's go over to RStudio. Make sure that you're in the RStudio project that you created for this lesson, and that you've downloaded the data as a csv and saved it in the "data/" folder. 
+
+::: callout
+As a reminder: Make sure you're coding in your RStudio project. You can open the project you created by double-clicking the ".Rproj" file from your Finder/File Explorer. Or, from inside of RStudio, navigate to the upper right corner of the screen, click on the blue cube icon, choose "Open Project", and then select your project to open a new session of RStudio.
+:::
+
+Now, we can load in the dataset with the following code:
 
 ```{r eval = F, message = F, warning = F}
 # Loading the tidyverse package
 library(tidyverse)
 ```
 
-```{r echo = F}
+```{r echo = F, message = F, warning = F}
 # actually loading readr and dplyr, instead of loading the entire tidyverse, so that the lesson page renders correctly
 library(readr)
 library(dplyr)
