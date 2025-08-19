@@ -163,7 +163,13 @@ Looking over Mickey's shoulder, Remy explains that the dataset is made up of man
 
 The dataset includes data from a number of different study plots that had different treatments applied: plot IDs are given by the `plot_id` column, and the type of treatment is specified in `plot_type`.
 
-There is information about the `genus` and `species` of each individual caught, as well as higher-level `taxa` information and a short-form `species_id` code.
+There is information about the `genus` and `species` of each individual caught. There is a `species_id` column that identifies the species of each individual caught.
+
+In addition, there is a column called `taxa` that contains higher-level taxonomic information. Most of the observations are rodents, but there are also some birds, rabbits, and reptiles.
+
+```{r}
+table(surveys$taxa)
+```
 
 For each individual caught, the field crew took `weight`, `sex` and `hindfoot_length` measurements *when possible*, so values are sometimes missing.
 
