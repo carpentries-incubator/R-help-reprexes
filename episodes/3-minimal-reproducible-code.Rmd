@@ -390,7 +390,7 @@ Including `library()` calls will definitely help Remy run the code. But this cod
 
 The code as written relies on `rodents_subset`, which Remy will not have access to if they try to run the code. That means that we've succeeded in making our example *minimal*, but it is not *reproducible*: it does not allow someone else to reproduce the problem!
 
-[ROAD MAP again]
+![](fig/02_minimize_code.png)
 
 :::::::::::::::::::::::::::::::::::::::::::challenge
 ### Exercise 5: Reflection

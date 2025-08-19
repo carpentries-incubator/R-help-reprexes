@@ -49,7 +49,7 @@ Development note: Previous episodes should have already introduced the concept o
 This data episode is part of being reproducible and should perhaps be followed-up with more details on reproducibility if not previously mentioned (e.g., reprex needs minimal code - check - dependencies, which include minimal data - check - and other basic information like your system and R version as well as contextual information on your data?).
 :::
 
-**[INSERT ROADMAP]**
+![](4-minimal-reproducible-data.Rmd)
 
 Now that Mickey has narrowed down their problem area and stripped down their code to make it minimal, they need to ensure it is **reproducible**; this means it needs to be accessible and executable such that anyone else can simoly copy-paste the code into their system and replicate their issue.
 Importantly, a **code snippet will usually require data objects** in order to run!
