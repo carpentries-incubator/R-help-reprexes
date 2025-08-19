@@ -38,7 +38,7 @@ Let's take a look in more detail at the first step of the roadmap.
 
 In this episode, we'll cover what to do when you first encounter an error or undesired output from your code. We'll cover the basics of identifying errors, fixing them if possible, and determining when to create a reprex. At the end of the lesson, we'll return to Mickey's analysis.
 
-Let's start with some **code first aid** strategies--quick, first-line strategies that you might attempt as soon as you notice that something is wrong with your code. These steps might fix your problem or give you more insight into what the problem is... or they might not help you at all, in which case we'll talk about what to try next!
+The first step in solving a problem is understanding what is going wrong. Sometimes R will help you out by displaying an error message when it is unable to run your code. This is a helpful diagnostic tool that, when interpreted correctly, can quickly lead you to a solution. Other times, R doesn't encounter any problems running your code, but the output is not what you expected. These problems may require a few extra steps to properly diagnose. We will start with easier scenarios and provide helpful "code first aid" steps as we build up to harder challenges.
 
 ## Strategy 1: Interpret error messages and change function inputs
 
