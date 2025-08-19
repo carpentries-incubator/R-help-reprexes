@@ -77,14 +77,14 @@ Let's access the documentation for the function `ggplot`:
 ?ggplot
 ```
 
-A Help window pops up in RStudio. The "Usage" and "Arguments" sections tell us that ggplot takes the argument `data`, followed by `mapping`, which uses `aes()`. The "Arguments" section tells us that if the object passed to that first `data` argument isn't already a data frame, ggplot will try to convert it to a data frame using `fortify`. That function, `fortify`, sounds familiar from the error message! This gives us an important clue. It looks like we accidentally passed the `mapping` argument into the position where ggplot expected `data` in the form of a data frame.
+A Help window pops up in RStudio. [Add discussion of the different sections of function documentation, in general terms, here?] The "Usage" and "Arguments" sections tell us that ggplot takes the argument `data`, followed by `mapping`, which uses `aes()`. The "Arguments" section tells us that if the object passed to that first `data` argument isn't already a data frame, ggplot will try to convert it to a data frame using `fortify`. That function, `fortify`, sounds familiar from the error message! This gives us an important clue. It looks like we accidentally passed the `mapping` argument into the position where ggplot expected `data` in the form of a data frame.
 
 The "Examples" section of the function documentation can be particularly helpful because it shows how functions are used in context. The "Examples" section in the `ggplot` documentation, under "Pattern 1", shows exactly how `ggplot` expects the `data` and `mapping` arguments to be written.
 
-Using this information, we can change our code to put the arguments in the right order--first the name of the dataset for the `data` argument, and then the `aes()` call for the mapping.
+Using this information, we can change our code to put the arguments in the right order--first the name of the dataset for the `data` argument, and then the `aes()` call for the `mapping` argument.
 
 ```{r}
-ggplot(surveys, aes(x = taxa)) + geom_bar()
+ggplot(data = surveys, mapping = aes(x = taxa)) + geom_bar()
 ```
 
 The error message is gone, and it works! Here we see our desired plot. What do you notice about the data?
@@ -258,7 +258,7 @@ We can use a `print` statement to see which genera are included in the original 
 print(rodents %>% count(genus))
 ```
 
-This tells us two things. For one, we've misspelled *Dipodomys*, which we can now fix.
+This tells us two things. For one, we noticed that we have misspelled *Dipodomys*, which we can now fix.
 
 Our `print()` call also tells us that we should expect a data frame with 9573 values after subsetting to the genus *Dipodomys*. This will be useful to check our work after fixing the misspelling.
 
