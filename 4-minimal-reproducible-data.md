@@ -33,7 +33,7 @@ Development note: Previous episodes should have already introduced the concept o
 This data episode is part of being reproducible and should perhaps be followed-up with more details on reproducibility if not previously mentioned (e.g., reprex needs minimal code - check - dependencies, which include minimal data - check - and other basic information like your system and R version as well as contextual information on your data?).
 :::
 
-**[INSERT ROADMAP]**
+![](4-minimal-reproducible-data.Rmd)
 
 Now that Mickey has narrowed down their problem area and stripped down their code to make it minimal, they need to ensure it is **reproducible**; this means it needs to be accessible and executable such that anyone else can simoly copy-paste the code into their system and replicate their issue.
 Importantly, a **code snippet will usually require data objects** in order to run!
@@ -308,7 +308,7 @@ x
 ```
 
 ``` output
- [1]  3  1  9  8 10  6  2  7  4  5
+ [1]  3 10  8  4  5  6  7  9  2  1
 ```
 
 Or you can randomly sample from a normal distribution
@@ -320,8 +320,8 @@ x
 ```
 
 ``` output
- [1] -0.4292310 -0.3070409  0.2976117 -0.2102472  0.3474965  1.8236680
- [7]  0.8974636  1.4024984 -1.0566849  1.6460865
+ [1]  0.4304001 -0.5333890  0.6440562 -0.8586174 -0.2969207  0.7786548
+ [7] -1.0096863 -0.6178580 -1.0228058 -1.1535391
 ```
 
 You can also use `letters` to create factors.
@@ -333,8 +333,8 @@ x
 ```
 
 ``` output
- [1] "d" "a" "d" "c" "c" "d" "c" "d" "c" "c" "b" "d" "d" "c" "b" "d" "c" "b" "a"
-[20] "c"
+ [1] "b" "a" "a" "c" "c" "b" "c" "d" "a" "a" "a" "b" "d" "b" "b" "d" "d" "c" "b"
+[20] "a"
 ```
 
 Remember that **a data frame is just a collection of vectors**.
@@ -349,12 +349,12 @@ head(data)
 
 ``` output
   x          y
-1 a -0.2165377
-2 a -0.3189379
-3 c -0.7810176
-4 a  0.1765408
-5 a -0.7632780
-6 b -0.5069396
+1 c -0.1968483
+2 a  0.1291153
+3 c -1.3629358
+4 b -0.1633209
+5 c  0.4932992
+6 b  0.9518509
 ```
 
 **However**, when sampling at random you must remember to `set.seed()` before sending it to someone to make sure you both get the same numbers!
@@ -591,7 +591,7 @@ species
 ```
 
 ``` output
-[1] "l" "r" "z"
+[1] "c" "n" "k"
 ```
 
 ``` r
@@ -630,17 +630,17 @@ sample_data
 ```
 
 ``` output
-   record_id species sex
-1          1       z   M
-2          2       r   M
-3          3       r   F
-4          4       l   M
-5          5       r   F
-6          6       l   F
-7          7       z   F
-8          8       r   F
-9          9       r   F
-10        10       r   M
+   record_id species  sex
+1          1       n <NA>
+2          2       n    F
+3          3       c    F
+4          4       c <NA>
+5          5       k    F
+6          6       c    F
+7          7       c    F
+8          8       k    F
+9          9       c <NA>
+10        10       k    M
 ```
 
 And just like that we helped Mickey create a mock dataset from scratch!
@@ -659,16 +659,16 @@ sample2_data
 
 ``` output
    record_id species  sex
-1          1       a    M
-2          2       c <NA>
+1          1       b    F
+2          2       a    F
 3          3       c <NA>
-4          4       a    F
-5          5       c    F
-6          6       c <NA>
-7          7       b <NA>
-8          8       c <NA>
-9          9       c <NA>
-10        10       a    F
+4          4       c    F
+5          5       a    F
+6          6       b    M
+7          7       c    M
+8          8       b    F
+9          9       b    F
+10        10       a    M
 ```
 
 **Important**: Notice that the outputs of the two datasets are not the same.

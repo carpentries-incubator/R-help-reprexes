@@ -22,6 +22,8 @@ exercises: 2
 
 Congratulations on finishing your reprex! In this episode, we will introduce a tool, the `{reprex}` package. This package will help you check that your example is truly reproducible and format it nicely to make it easy to present to a helper, either in person or online.
 
+![](5-asking-your-question.Rmd)
+
 There are three principles to remember when you think about sharing your reprex with other people: **Reproducibility**, **formatting**, and **context**.
 
 ## 1. Reproducibility
