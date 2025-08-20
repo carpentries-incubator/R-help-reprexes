@@ -44,32 +44,35 @@ The first step in solving a problem is understanding what is going wrong. Someti
 
 R will often let us know there's a problem by displaying an error message. An error that generates an error message is called a **syntax error**. Error messages happen when R is not able to run your code (this is in contrast to a **warning** message, which gives a hint that something could be wrong while the code keeps running). Error messages are sometimes straightforward, but other times they can be very tricky to decipher. In this lesson, will teach some tools for interpreting syntax errors for yourself.
 
-First, let's look at an example error message.
+Here's an example error message. In the last episode, we saw that the `taxa` column contains information about the higher-level taxon of each organism caught, such as "Rodent" or "Bird". We decide to look at the distribution of taxa by creating a frequency table.
+
+```{r error = T}
+table(taxa)
+```
+This code produces an error. What's going on?
+
+R is telling us that it can't find `taxa` in the local environment. That's because we haven't told it where to look--recall that `taxa` is the name of a column in the `surveys` dataset. 
+
+The information from the error message doesn't specifically tell us how to solve the error, but it can help us realize what went wrong. In this case, we can look back at our previous code and see that we were able to point R to the column using the `$` operator:
+
+```{r}
+table(surveys$taxa)
+```
+
+That's better! Now, let's make a barplot of this column to show this same information.
 
 ```{r, error = T}
 # Make a plot of the different taxa in the rodents dataset
-ggplot(x = taxa) + geom_bar()
-```
-
-This code produces an error. What's going on?
-
-We know from the previous episode that there's a column called `taxa` in our dataset! But R is telling us that it can't find `taxa` in the local environment. That's because we haven't told it where to look--recall that `taxa` is the name of a column in the surveys dataset. 
-
-Let's try again, this time pointing ggplot to the `taxa` column of `surveys` using the `$` operator. 
-
-We'll also fix another error that R *didn't* tell us was happening: we forgot to add `aes()` in order to tell ggplot that the `surveys$taxa` object is defining the x aesthetic of the plot.
-
-```{r, error=T}
 ggplot(aes(x = surveys$taxa)) + geom_bar()
 ```
 
-It seems like that should have worked, but we got another error message, and this one seems even harder to interpret. How discouraging! But we can return to our previous strategy: let's go over each part of the error message and see if it provides any clues.
+It seems like that should have worked, but we got another error message, and this one seems harder to interpret. Once again, let's go over each part of the error message and see if it provides any clues.
 
 First, we see an error from a function called `fortify`, which we didn't even use! Then, there's a more helpful informational message: "Did you accidentally pass `aes()` to the `data` argument?" This does seem to relate to our line of code, as we do pass `aes` into the `ggplot` function. But what is this "`data` argument?"
 
 ## Strategy 2: Read function documentation
 
-Sometimes, when an error message is hard to make sense of, it can help to check the documentation for the function that produced the error.
+Reading the error message gave us some clues, but it wasn't enough to fix the problem. Let's try another strategy. Reading the function documentation can improve our understanding of how the function works, and often that can reveal problems with our code.
 
 Let's access the documentation for the function `ggplot`: 
 
