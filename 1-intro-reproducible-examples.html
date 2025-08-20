@@ -216,7 +216,8 @@
 
     <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
-        <ul><li><a href="#why-a-reprex">Why a reprex?</a></li>
+        <ul><li><a href="#what-is-a-reprex">What is a reprex?</a></li>
+<li><a href="#why-use-a-reprex">Why use a reprex?</a></li>
 <li><a href="#meet-mickey-your-learning-companion">Meet Mickey, your learning companion</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
@@ -318,7 +319,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>What is a reprex and why is it useful?</h1>
-        <p>Last updated on 2025-08-19 |
+        <p>Last updated on 2025-08-20 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/1-intro-reproducible-examples.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -395,19 +396,21 @@ helped you–what information did they need to know in order to help?)</p>
 </div>
 <p>One of the most frustrating parts of learning to code is getting
 stuck and not knowing what to do! Maybe R gives you an angry red error
-message you don’t understand or your code doesn’t seem to be doing what
+message you don’t understand, or your code doesn’t seem to be doing what
 you were expecting and you don’t know why. Maybe you try to use Google
 to find answers but you can’t quite find the same problem out there.
 What to do?</p>
 <p>Luckily, there are many people in the R and data science communities
-who are happy to help. However, in order to do so, you must give them
-the right information. Figuring out how to ask a good question can be
-hard, especially when they ask you to provide example data or a
-<strong>reprex</strong> (a <strong>minimal reproducible
-example</strong>). What even is that? Wouldn’t it be nice if you could
-just hand over your computer so a helper can see exactly what is
-happening? That’s exactly what the reprex is for.</p>
-<p>A reprex is essentially a <strong>simplified</strong> version of your
+who are happy to help. However, in order for them to do so, you must
+give them the right information. Figuring out how to ask a good question
+can be hard.</p>
+<p>Many helpers or forums may ask you to provide example data or a
+<strong>minimal reproducible example</strong> (commonly abbreviated as a
+“<strong>reprex</strong>”). What even is that? Wouldn’t it be nice if
+you could just hand over your computer so a helper can see exactly what
+is happening? That’s exactly what the reprex is for.</p>
+<section><h2 class="section-heading" id="what-is-a-reprex">What is a reprex?<a class="anchor" aria-label="anchor" href="#what-is-a-reprex"></a></h2>
+<hr class="half-width"><p>A reprex is essentially a <strong>simplified</strong> version of your
 problematic code that clearly demonstrates the problem you are facing
 (includes <strong>only</strong> the necessary information to show the
 problem, nothing more) and <strong>will run easily on anyone’s
@@ -418,11 +421,12 @@ computer</strong>.</p>
 way that other people can run it and feel your pain. Then, hopefully,
 they can provide a solution and put you out of your misery.” - <a href="https://www.tidyverse.org/help/" class="external-link">Get help! (Tidyverse)</a></p>
 </blockquote>
-<figure><img src="fig/MinimalReproducibleExample.png" class="figure mx-auto d-block"></figure><section><h2 class="section-heading" id="why-a-reprex">Why a reprex?<a class="anchor" aria-label="anchor" href="#why-a-reprex"></a></h2>
+<figure><img src="fig/MinimalReproducibleExample.png" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="why-use-a-reprex">Why use a reprex?<a class="anchor" aria-label="anchor" href="#why-use-a-reprex"></a></h2>
 <hr class="half-width"><p>Reprexes are very important tools to get help when you’re stuck on a
-coding problem, especially since they are required by many consultants
-(often available at Universities) or online help forums (e.g.,
-StackOverflow or the Posit Community).</p>
+coding problem. You may be asked to provide a reprex when you’re working
+with a statistical consultant (often available at universities) or when
+posting a question to online help forums (such as StackOverflow or the
+Posit Community).</p>
 <p>As the name suggests, a minimal reproducible example needs to be
 <strong>minimal</strong> and <strong>reproducible</strong>.</p>
 <ul><li><p>Stripping the code and data down to their essential
@@ -447,9 +451,10 @@ example.</p>
 </div>
 </div>
 </div>
-<p><strong>Importantly</strong>, the process of making a reprex often
-leads to a better understanding of your own code. Therefore, you can end
-up solving the problem yourself without asking for help.</p>
+<p>But there’s another hidden reason to make a reprex! The process of
+making a reprex often leads to a better understanding of your own code.
+Therefore, you might end up solving the problem yourself without asking
+for help.</p>
 <div id="rubber-duck-debugging" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
@@ -473,11 +478,11 @@ you: Creating reproducible examples.”</a></p>
 </div>
 <figure><img src="fig/jennybryan.png" class="figure mx-auto d-block"></figure><p>Making a reprex can be an excellent learning opportunity, but the
 process can feel daunting when you are not sure where to begin. In this
-lesson, we will walk through a step by step roadmap you can use whenever
-you feel stuck, including some first steps for debugging your code and
-the process of creating a reprex. We’ll talk about each of the steps and
-provide a workflow that you can follow when you get stuck in the future.
-At the end, we’ll introduce you to the <a href="https://reprex.tidyverse.org/" class="external-link">reprex</a> package, a useful tool
+lesson, we will walk through a <strong>step by step roadmap</strong> you
+can use whenever you feel stuck, including some first steps for
+debugging your code and the process of creating a reprex. We’ll talk
+about each of the steps and provide a workflow that you can follow when
+you get stuck in the future. At the end, we’ll introduce you to the <a href="https://reprex.tidyverse.org/" class="external-link">{reprex}</a> package, a useful tool
 for creating good minimal reproducible examples. By the end of the
 lesson you will have gained a better understanding of how to approach
 error and warning messages, you will feel more confident in your ability
@@ -489,15 +494,14 @@ lab has been working for many years with data from the <a href="https://portal.w
 research study of rodents in Portal, Arizona. Mickey would like to
 explore this data for their research, so they reach out to Remy, a
 fifth-year grad student who is very familiar with this project. To get
-them started, Remy sends Mickey an archival dataset of rodent surveys
-that were done in 1977-1989, and tells them to upload the data into
-Rstudio and “play around” with it to familiarize themselves with the
-data.</p>
-<p>Mickey has some past experience in R. They attended a Carpentries
-workshop, “Data Analysis and Visualization in R for Ecologists,” and
-they feel comfortable with the fundamentals of coding in R. Still, they
-are a little rusty and nervous about their skills and the unfamiliar
-data.</p>
+Mickey started, Remy sends Mickey an archival dataset of rodent surveys
+from 1977-1989, and tells Mickey to “play around” with the data in
+RStudio to get familiar with it.</p>
+<p>Mickey has some past experience in R. They attended the “<a href="https://datacarpentry.github.io/R-ecology-lesson/" class="external-link">Data Analysis
+and Visualization in R for Ecologists</a>” Carpentries workshop, and
+they feel comfortable with the fundamentals of coding in R. Still,
+Mickey is a little rusty and nervous about their skills and the
+unfamiliar data.</p>
 <div id="prerequisites-and-target-audience" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
@@ -522,81 +526,171 @@ backgrounds.</p>
 They also load the {tidyverse}, a set of packages that will be useful
 for wrangling and visualizing the data.</p>
 
+<p>Let’s go over to RStudio. Make sure that you’re in the RStudio
+project that you created for this lesson, and that you’ve downloaded the
+data as a csv and saved it in the “data/” folder.</p>
+<div id="callout4" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div class="callout-inner">
+<div class="callout-content">
+<p>As a reminder: Make sure you’re coding in your RStudio project. You
+can open the project you created by double-clicking the “.Rproj” file
+from your Finder/File Explorer. Or, from inside of RStudio, navigate to
+the upper right corner of the screen, click on the blue cube icon,
+choose “Open Project”, and then select your project to open a new
+session of RStudio.</p>
+</div>
+</div>
+</div>
+<p>Now, we can load in the dataset with the following code:</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Loading the tidyverse package</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Uploading the dataset that is currently saved in the project's data folder</span></span>
-<span><span class="va">surveys</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/surveys_complete_77_89.csv"</span><span class="op">)</span> </span></code></pre>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span></code></pre>
 </div>
-<p>Now that the dataset has been uploaded it is time to take a look at
-it and find out what type of data was collected during these
-surveys.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Take a look at the data</span></span>
-<span><span class="fu">glimpse</span><span class="op">(</span><span class="va">surveys</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Uploading the dataset that is currently saved in the project's data folder</span></span>
+<span><span class="va">surveys</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/surveys_complete_77_89.csv"</span><span class="op">)</span> </span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in glimpse(surveys): could not find function "glimpse"</code></pre>
+<pre class="output" tabindex="0"><code>Rows: 16878 Columns: 13
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (6): species_id, sex, genus, species, taxa, plot_type
+dbl (7): record_id, month, day, year, plot_id, hindfoot_length, weight
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
+<p>Mickey loads in the dataset and takes a look at it to find out what
+type of data was collected during these surveys.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># or you can use</span></span>
+<code class="sourceCode R"><span><span class="co"># Take a look at the data</span></span>
+<span><span class="fu">glimpse</span><span class="op">(</span><span class="va">surveys</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># or you can use</span></span>
 <span><span class="fu">str</span><span class="op">(</span><span class="va">surveys</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'surveys' not found</code></pre>
+<pre class="output" tabindex="0"><code>Rows: 16,878
+Columns: 13
+$ record_id       &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,…
+$ month           &lt;dbl&gt; 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, …
+$ day             &lt;dbl&gt; 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16…
+$ year            &lt;dbl&gt; 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, 1977, …
+$ plot_id         &lt;dbl&gt; 2, 3, 2, 7, 3, 1, 2, 1, 1, 6, 5, 7, 3, 8, 6, 4, 3, 2, …
+$ species_id      &lt;chr&gt; "NL", "NL", "DM", "DM", "DM", "PF", "PE", "DM", "DM", …
+$ sex             &lt;chr&gt; "M", "M", "F", "M", "M", "M", "F", "M", "F", "F", "F",…
+$ hindfoot_length &lt;dbl&gt; 32, 33, 37, 36, 35, 14, NA, 37, 34, 20, 53, 38, 35, NA…
+$ weight          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ genus           &lt;chr&gt; "Neotoma", "Neotoma", "Dipodomys", "Dipodomys", "Dipod…
+$ species         &lt;chr&gt; "albigula", "albigula", "merriami", "merriami", "merri…
+$ taxa            &lt;chr&gt; "Rodent", "Rodent", "Rodent", "Rodent", "Rodent", "Rod…
+$ plot_type       &lt;chr&gt; "Control", "Long-term Krat Exclosure", "Control", "Rod…
+spc_tbl_ [16,878 × 13] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ record_id      : num [1:16878] 1 2 3 4 5 6 7 8 9 10 ...
+ $ month          : num [1:16878] 7 7 7 7 7 7 7 7 7 7 ...
+ $ day            : num [1:16878] 16 16 16 16 16 16 16 16 16 16 ...
+ $ year           : num [1:16878] 1977 1977 1977 1977 1977 ...
+ $ plot_id        : num [1:16878] 2 3 2 7 3 1 2 1 1 6 ...
+ $ species_id     : chr [1:16878] "NL" "NL" "DM" "DM" ...
+ $ sex            : chr [1:16878] "M" "M" "F" "M" ...
+ $ hindfoot_length: num [1:16878] 32 33 37 36 35 14 NA 37 34 20 ...
+ $ weight         : num [1:16878] NA NA NA NA NA NA NA NA NA NA ...
+ $ genus          : chr [1:16878] "Neotoma" "Neotoma" "Dipodomys" "Dipodomys" ...
+ $ species        : chr [1:16878] "albigula" "albigula" "merriami" "merriami" ...
+ $ taxa           : chr [1:16878] "Rodent" "Rodent" "Rodent" "Rodent" ...
+ $ plot_type      : chr [1:16878] "Control" "Long-term Krat Exclosure" "Control" "Rodent Exclosure" ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   record_id = col_double(),
+  ..   month = col_double(),
+  ..   day = col_double(),
+  ..   year = col_double(),
+  ..   plot_id = col_double(),
+  ..   species_id = col_character(),
+  ..   sex = col_character(),
+  ..   hindfoot_length = col_double(),
+  ..   weight = col_double(),
+  ..   genus = col_character(),
+  ..   species = col_character(),
+  ..   taxa = col_character(),
+  ..   plot_type = col_character()
+  .. )
+ - attr(*, "problems")=&lt;externalptr&gt; </code></pre>
 </div>
-<p>Remy explains that the dataset is made up of many individual rodent
-records (<code>record_id</code>). The date of each record is given by
-the <code>month</code>, <code>day</code>, and <code>year</code>
-columns.</p>
+<p>Looking over Mickey’s shoulder, Remy explains that the dataset is
+made up of many individual rodent records (<code>record_id</code>). The
+date of each record is given by the <code>month</code>,
+<code>day</code>, and <code>year</code> columns.</p>
 <p>The dataset includes data from a number of different study plots that
 had different treatments applied: plot IDs are given by the
 <code>plot_id</code> column, and the type of treatment is specified in
 <code>plot_type</code>.</p>
 <p>There is information about the <code>genus</code> and
-<code>species</code> of each individual caught, as well as higher-level
-<code>taxa</code> information and a short-form <code>species_id</code>
-code.</p>
+<code>species</code> of each individual caught. There is a
+<code>species_id</code> column that identifies the species of each
+individual caught.</p>
+<p>In addition, there is a column called <code>taxa</code> that contains
+higher-level taxonomic information. Most of the observations are
+rodents, but there are also some birds, rabbits, and reptiles.</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">table</span><span class="op">(</span><span class="va">surveys</span><span class="op">$</span><span class="va">taxa</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>
+   Bird  Rabbit Reptile  Rodent
+    300      69       4   16148 </code></pre>
+</div>
 <p>For each individual caught, the field crew took <code>weight</code>,
 <code>sex</code> and <code>hindfoot_length</code> measurements <em>when
-able</em>, so values are sometimes missing.</p>
-<p>The dataset contains 16,878 rodent observations ranging across years
-from 1977 through 1989.</p>
+possible</em>, so values are sometimes missing.</p>
+<p>Overall, the dataset contains 16,878 rodent observations ranging
+across years from 1977 through 1989.</p>
 <p>With a clear understanding of the data, Mickey is now free to explore
 on their own. However, Remy notices that Mickey still looks nervous and
 decides to share a tool they recently found useful: a roadmap to getting
 unstuck in R by making a reprex.</p>
-<figure><img src="Roadmap_Aug25.svg" class="figure mx-auto d-block"></figure><p>Remy explains that while the roadmap outlines four key steps for
-making a reprex, it is also intended to help the user better understand
-their problem and potentially find a solution along the way. Remy has
-found it very useful to follow the steps any time he gets stuck while
-coding. Indeed, the first step, which he likes to call “code first aid,”
-includes steps to help identify and diagnose the problem such as
-identifying the type of error, reading the function documentation,
-interpreting error messages, and running through code line by line.</p>
-<p>Sometimes, even these first aid steps are enough to solve your
-problem! If not, the rest of the roadmap outlines other strategies that
-help isolate the problem and better understand what is causing it.</p>
-<p>Remy emphasizes to Mickey that they are also happy to help, but they
-will be very busy trying to finish writing their dissertation. If Mickey
-can first follow the steps outlined in this roadmap, then Remy can more
-easily help with whatever Mickey is struggling to resolve.</p>
-<p>With an introduction to the dataset and a road map to guide them if
+<figure><img src="fig/Roadmap_Aug25.svg" class="figure mx-auto d-block"></figure><p>Remy’s roadmap outlines four key steps for making a reprex. It is
+also intended to help the user better understand their problem and
+potentially find a solution along the way. Remy follows these steps any
+time they get stuck while coding. Indeed, the first portion of the
+roadmap, which Remy likes to call “code first aid,” includes preliminary
+steps to help identify and diagnose the problem, such as determining the
+type of error, reading function documentation, interpreting error
+messages, and running through the code line by line.</p>
+<p>Remy explains that sometimes, these first aid steps are enough to
+solve code problems. But if not, the rest of the roadmap will lead
+Mickey through strategies to better understand the problem and
+demonstrate it to others in a minimal reproducible example
+(“reprex”).</p>
+<p>Remy emphasizes to Mickey that they are happy to keep helping, but
+they will be very busy trying to finish writing their dissertation. If
+Mickey can first follow the steps outlined in this roadmap, then Remy
+can more easily help with whatever Mickey is struggling to resolve.</p>
+<p>With an introduction to the dataset and a roadmap to guide them if
 they get stuck, Mickey feels ready to start coding!</p>
+
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -684,8 +778,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/R-help-reprexes/1-intro-reproducible-examples.html",
   "identifier": "https://carpentries-incubator.github.io/R-help-reprexes/1-intro-reproducible-examples.html",
   "dateCreated": "2024-05-14",
-  "dateModified": "2025-08-19",
-  "datePublished": "2025-08-19"
+  "dateModified": "2025-08-20",
+  "datePublished": "2025-08-20"
 }
 
   </script><script>

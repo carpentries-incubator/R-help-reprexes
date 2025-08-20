@@ -225,13 +225,14 @@
 
     <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
-        <ul><li><a href="#what-do-i-do-when-i-encounter-an-error-message">3.1 What do I do when I encounter an error message?</a></li>
-<li><a href="#stop-no.-1-on-our-roadmap-identifying-the-problem">Stop no. 1 on our roadmap: Identifying the problem</a></li>
-<li><a href="#what-do-i-do-when-my-code-outputs-something-i-dont-expect">3.2 What do I do when my code outputs something I don’t expect</a></li>
-<li><a href="#summary">Summary</a></li>
-<li><a href="#how-can-i-find-where-my-code-is-failing">3.3 How can I find where my code is failing?</a></li>
-<li><a href="#summary-1">Summary</a></li>
-<li><a href="#when-should-i-prepare-my-code-for-a-reprex">3.3 When should I prepare my code for a reprex?</a></li>
+        <ul><li><a href="#strategy-1-interpret-error-messages-and-change-function-inputs">Strategy 1: Interpret error messages and change function inputs</a></li>
+<li><a href="#strategy-2-read-function-documentation">Strategy 2: Read function documentation</a></li>
+<li><a href="#semantic-errors">Semantic errors</a></li>
+<li><a href="#identifying-the-problem">Identifying the problem</a></li>
+<li><a href="#strategy-4-using-print-to-show-information">Strategy 4: Using <code>print()</code> to show information</a></li>
+<li><a href="#summary-code-first-aid">Summary: Code first aid</a></li>
+<li><a href="#when-should-i-prepare-my-code-for-a-reprex">When should I prepare my code for a reprex?</a></li>
+<li><a href="#back-to-our-analysis-mickey-tries-to-get-unstuck">Back to our analysis: Mickey tries to get unstuck</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
 
@@ -323,7 +324,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Identify the problem and make a plan</h1>
-        <p>Last updated on 2025-08-19 |
+        <p>Last updated on 2025-08-20 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/2-identify-the-problem.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -376,55 +377,76 @@ help, including making a <code>reprex</code>
 </div>
 </div>
 </div>
-<p>The first step we’ll cover is what to do when encountering an error
-or other undesired output from your code. With this episode, we hope to
-teach you the basics about identifying errors, rectifying them if
-possible, and if not, how to isolate the problem for others to look at.
-This is the first step in our “roadmap” of how to solve coding problems
-– recognizing when something you don’t intend is happening with your
-code, and then identifying the problem (to a lesser or greater degree)
-in order to solve it yourself or be able to succinctly describe it to a
-helper.</p>
-<p>Then, we’ll return to Mickey’s analysis at the end of the lesson.</p>
-<section><h2 class="section-heading" id="what-do-i-do-when-i-encounter-an-error-message">3.1 What do I do when I encounter an error message?<a class="anchor" aria-label="anchor" href="#what-do-i-do-when-i-encounter-an-error-message"></a></h2>
-<hr class="half-width"><p>While sometimes frustrating to read, R will often let us know when a
-problem occurs by generating an error message that tells us exactly why
-R was unable to run our code. This type of ‘error’ is often referred to
-as a <strong>syntax</strong> error. When R is unable to run your code,
-it will return this type of error message, and stop the program (as
-opposed to a <strong>warning</strong> or attempting to run further lines
-despite the error). Error messages may happen for many reasons. However,
-deciphering the meaning of such error messages is not always as easy as
-we might hope. While we can’t review every type of reason your code
-generates an error, we will try to teach you some tools for you to
-interpret and figure out syntax errors for yourself.</p>
+<p>Let’s take a look in more detail at the first step of the
+roadmap.</p>
+<figure><img src="../fig/01_identify_problem.png" class="figure mx-auto d-block"></figure><p>In this episode, we’ll cover what to do when you first encounter an
+error or undesired output from your code. We’ll cover the basics of
+identifying errors, fixing them if possible, and determining when to
+create a reprex. At the end of the lesson, we’ll return to Mickey’s
+analysis.</p>
+<p>The first step in solving a problem is understanding what is going
+wrong. Sometimes R will help you out by displaying an error message when
+it is unable to run your code. This is a helpful diagnostic tool that,
+when interpreted correctly, can quickly lead you to a solution. Other
+times, R doesn’t encounter any problems running your code, but the
+output is not what you expected. These problems may require a few extra
+steps to properly diagnose. We will start with easier scenarios and
+provide helpful “code first aid” steps as we build up to harder
+challenges.</p>
+<section><h2 class="section-heading" id="strategy-1-interpret-error-messages-and-change-function-inputs">Strategy 1: Interpret error messages and change function inputs<a class="anchor" aria-label="anchor" href="#strategy-1-interpret-error-messages-and-change-function-inputs"></a></h2>
+<hr class="half-width"><p>R will often let us know there’s a problem by displaying an error
+message. An error that generates an error message is called a
+<strong>syntax error</strong>. Error messages happen when R is not able
+to run your code (this is in contrast to a <strong>warning</strong>
+message, which gives a hint that something could be wrong while the code
+keeps running). Error messages are sometimes straightforward, but other
+times they can be very tricky to decipher. In this lesson, will teach
+some tools for interpreting syntax errors for yourself.</p>
+<p>Here’s an example error message. In the last episode, we saw that the
+<code>taxa</code> column contains information about the higher-level
+taxon of each organism caught, such as “Rodent” or “Bird”. We decide to
+look at the distribution of taxa by creating a frequency table.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Make some plots</span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span>x <span class="op">=</span> <span class="va">taxa</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">table</span><span class="op">(</span><span class="va">taxa</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="error" tabindex="0"><code>Error: object 'taxa' not found</code></pre>
 </div>
-<p>Though we know somewhere there is an object called <code>taxa</code>
-(it is actually a column of the dataset <code>surveys</code>), R is
-trying to communicate that it cannot find any such object in the local
-environment. Let’s try again, appropriately pointing ggplot to the
-<code>surveys</code> dataset and <code>taxa</code> column using the
-<code>$</code> operator. However, an error R <em>didn’t</em> tell us was
-happening is that we forgot to add <code>aes</code>, pointing
-<code>ggplot</code> to the fact that we’re directly defining the
-aesthetic (e.g. what goes on the x axis) from data. Let’s add that fix
-now.</p>
+<p>This code produces an error. What’s going on?</p>
+<p>R is telling us that it can’t find <code>taxa</code> in the local
+environment. That’s because we haven’t told it where to look–recall that
+<code>taxa</code> is the name of a column in the <code>surveys</code>
+dataset.</p>
+<p>The information from the error message doesn’t specifically tell us
+how to solve the error, but it can help us realize what went wrong. In
+this case, we can look back at our previous code and see that we were
+able to point R to the column using the <code>$</code> operator:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">surveys</span><span class="op">$</span><span class="va">taxa</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">table</span><span class="op">(</span><span class="va">surveys</span><span class="op">$</span><span class="va">taxa</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>
+   Bird  Rabbit Reptile  Rodent
+    300      69       4   16148 </code></pre>
+</div>
+<p>That’s better! Now, let’s make a barplot of this column to show this
+same information.</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Make a plot of the different taxa in the rodents dataset</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">surveys</span><span class="op">$</span><span class="va">taxa</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -435,82 +457,104 @@ now.</p>
   &lt;uneval&gt; object.
 ℹ Did you accidentally pass `aes()` to the `data` argument?</code></pre>
 </div>
-<p>Whoops! Here we see another error message – this time, R responds
-with a perhaps more uninterpretable message.</p>
-<p>Let’s go over each part briefly. First, we see an error from a
-function called <code>fortify</code>, which we didn’t even call! Then,
-there’s a more helpful informational message: Did we accidentally pass
-<code>aes()</code> to the <code>data</code> argument? This does seem to
-relate to our line of code, as we do pass <code>aes</code> into the
-<code>ggplot</code> function. But what is this “<code>data</code>
-argument?” A helpful starting place when attempting to decipher an error
-message is checking the documentation for the function which caused the
-error:</p>
-<p><code>?ggplot</code></p>
-<p>Here, a Help window pops up in RStudio which provides some more
-information. Skipping the general description at the top, we see ggplot
-takes positional arguments of <code>data</code>, <em>then</em>
-<code>mapping</code>, which uses the <code>aes</code> call. We can see
-in “Arguments” that the <code>aes(x = surveys$taxa)</code> object we
-passed in is attempted by <code>fortify</code> to be converted to a
-data.frame: now the picture is clear! We accidentally passed our
-<code>mapping</code> argument (telling ggplot how to map variables to
-the plot) into the position it expected <code>data</code> in the form of
-a data frame. And if we scroll down to “Examples”, to “Pattern 1”, we
-can see exactly how ggplot expects these arguments in practice. Let’s
-amend our result:</p>
-<div class="codewrapper sourceCode" id="cb5">
+<p>It seems like that should have worked, but we got another error
+message, and this one seems harder to interpret. Once again, let’s go
+over each part of the error message and see if it provides any
+clues.</p>
+<p>First, we see an error from a function called <code>fortify</code>,
+which we didn’t even use! Then, there’s a more helpful informational
+message: “Did you accidentally pass <code>aes()</code> to the
+<code>data</code> argument?” This does seem to relate to our line of
+code, as we do pass <code>aes</code> into the <code>ggplot</code>
+function. But what is this “<code>data</code> argument?”</p>
+</section><section><h2 class="section-heading" id="strategy-2-read-function-documentation">Strategy 2: Read function documentation<a class="anchor" aria-label="anchor" href="#strategy-2-read-function-documentation"></a></h2>
+<hr class="half-width"><p>Reading the error message gave us some clues, but it wasn’t enough to
+fix the problem. Let’s try another strategy. Reading the function
+documentation can improve our understanding of how the function works,
+and often that can reveal problems with our code.</p>
+<p>Let’s access the documentation for the function
+<code>ggplot</code>:</p>
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">surveys</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">taxa</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="op">?</span><span class="va">ggplot</span></span></code></pre>
 </div>
-<figure><img src="../fig/2-identify-the-problem-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Here we see our desired plot. Lots of Rodents!</p>
-</section><section><h2 class="section-heading" id="stop-no--1-on-our-roadmap-identifying-the-problem">Stop no. 1 on our roadmap: Identifying the problem<a class="anchor" aria-label="anchor" href="#stop-no--1-on-our-roadmap-identifying-the-problem"></a></h2>
-<hr class="half-width"><p>Let’s pause here to highlight some patterns we’re starting to see in
-the course of fixing our code:</p>
-<ol style="list-style-type: decimal"><li><p>Seeing a problem arise in our code (in this case, R is explicitly
-telling us it has a problem running it).</p></li>
-<li><p>Reading and interpreting the error message R gives us.</p></li>
-</ol><p>Other steps we might take then include:</p>
-<ol start="3" style="list-style-type: decimal"><li><p>Acting on parts of the error we can understand, such as changing
-input to a function.</p></li>
-<li><p>Pulling up the R Documentation for that function, and reading the
-documentation’s Description, Usage, Arguments, Details and Examples
-entries for greater insight into our error.</p></li>
-<li><p>Copying and pasting the error message into a search engine /
-generative LLM for more interpretable explanations.</p></li>
-</ol><p>And, when all else fails, we can prepare our code into a reproducible
-example for expert help.</p>
-<p>While the above steps may be new or seem familiar, we abstract this a
-little bit to explicitly address something: recognizing when a problem
-arises and attempting to interpret <em>what</em> is going wrong is
-essential to fixing it. This is true whether you fix the problem on your
-own, or communicate it to an expert. The latter steps we listed might be
-categorized as attempts to immediately address the problem – we’ll call
-these <strong>code first aid</strong> – these steps might fix the
-problem, give you greater insight into what the problem is (and how R is
-interpreting your code), or not be helpful at all.</p>
-<p>In any case, we want to emphasize that these skill sets are essential
-to being a practiced coder able to effectively seek help. While the
-errors we’ve encountered so far may seem too trivial to warrant pull up
-a whole checklist, below we will see examples of problems that are
-trickier to both recognize and interpret. But in those cases, we’ll
-nonetheless apply the same framework.</p>
-<div id="challenge1" class="callout challenge">
+<p>A Help window pops up in RStudio. [Add discussion of the different
+sections of function documentation, in general terms, here?] The “Usage”
+and “Arguments” sections tell us that ggplot takes the argument
+<code>data</code>, followed by <code>mapping</code>, which uses
+<code>aes()</code>. The “Arguments” section tells us that if the object
+passed to that first <code>data</code> argument isn’t already a data
+frame, ggplot will try to convert it to a data frame using
+<code>fortify</code>. That function, <code>fortify</code>, sounds
+familiar from the error message! This gives us an important clue. It
+looks like we accidentally passed the <code>mapping</code> argument into
+the position where ggplot expected <code>data</code> in the form of a
+data frame.</p>
+<p>The “Examples” section of the function documentation can be
+particularly helpful because it shows how functions are used in context.
+The “Examples” section in the <code>ggplot</code> documentation, under
+“Pattern 1”, shows exactly how <code>ggplot</code> expects the
+<code>data</code> and <code>mapping</code> arguments to be written.</p>
+<p>Using this information, we can change our code to put the arguments
+in the right order–first the name of the dataset for the
+<code>data</code> argument, and then the <code>aes()</code> call for the
+<code>mapping</code> argument.</p>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">surveys</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">taxa</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="../fig/2-identify-the-problem-rendered-unnamed-chunk-6-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The error message is gone, and it works! Here we see our desired
+plot. What do you notice about the data?</p>
+<p><em>- Lots of rodents</em> <em>- Some missing values (NAs)</em></p>
+<p>Let’s take a moment to highlight some patterns we’re starting to see
+in the course of tinkering with our code.</p>
+<p>First, we <strong>noticed a problem</strong>. In this case, the
+problem was a <em>syntax error</em>, in which the code failed to run and
+we got an error message.</p>
+<p>We carefully <strong>read the error message</strong> and took a guess
+at what might be wrong. We <strong>changed the inputs to the
+function</strong> accordingly and tried again.</p>
+<p>When we encountered another error message, we <strong>looked through
+the function documentation</strong> to find more clues about how to fix
+the error. This helped us see that we were missing an argument.</p>
+<p>Another strategy we could have tried would be to copy and paste the
+error message into a <strong>search engine or a generative LLM</strong>
+for more interpretable explanations. And, when all else fails, we can
+prepare our code into a reproducible example for expert help.</p>
+<p>Let’s see if we can use the strategies we’ve learned so far to
+address a new problem. Here they are, for reference:</p>
+<div id="code-first-aid-strategies" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div id="code-first-aid-strategies" class="callout-inner">
+<h3 class="callout-title">Code first aid strategies</h3>
+<div class="callout-content">
+<ul><li>Interpret error messages and tweak inputs</li>
+<li>Look at the function documentation</li>
+<li>Put the error message into a search engine or a generative LLM</li>
+</ul></div>
+</div>
+</div>
+<div id="exercise-1-applying-code-first-aid" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <span class="callout-header">Challenge</span>
-<div class="callout-inner">
-<h3 class="callout-title">Challenge</h3>
+<div id="exercise-1-applying-code-first-aid" class="callout-inner">
+<h3 class="callout-title">Exercise 1: Applying code first aid</h3>
 <div class="callout-content">
 <p>Below we see an error message pop up when trying to quantify the
 counts of <code>genus</code> and <code>species</code> in our dataset.
 Which of the following interpretations of the error message most aptly
 describes the problem (hint: look at the <code>?tally</code>
 documentation if you’re stuck!)</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -549,7 +593,7 @@ to <code>group_by</code> two variables and a different function
 <div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>d is the correct answer!</p>
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -577,18 +621,12 @@ to <code>group_by</code> two variables and a different function
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="what-do-i-do-when-my-code-outputs-something-i-dont-expect">3.2 What do I do when my code outputs something I don’t expect<a class="anchor" aria-label="anchor" href="#what-do-i-do-when-my-code-outputs-something-i-dont-expect"></a></h2>
-<hr class="half-width"><p>Another type of problem you may encounter is when your R code runs
-without errors, but does not produce the desired output. You may
-sometimes see these called <strong>semantic errors</strong>. As with
-syntax errors, semantic errors may occur for a variety of non-intuitive
-reasons, and are often harder to solve as there is no description of the
-error – you must work out where your code is defective yourself!</p>
-<p>Let’s go back to our rodent analysis. The next step in the plan is to
-subset to just the <code>Rodent</code> taxa (as opposed to other taxa:
-Bird, Rabbit, Reptile or NA). Let’s quickly check to see how much data
-we’d be throwing out by doing so:</p>
-<div class="codewrapper sourceCode" id="cb10">
+</section><section><h2 class="section-heading" id="semantic-errors">Semantic errors<a class="anchor" aria-label="anchor" href="#semantic-errors"></a></h2>
+<hr class="half-width"><p>Let’s go back to our rodent analysis. We would like to subset the
+data to include only the <code>Rodent</code> taxon (as opposed to the
+other taxa included in the dataset: Bird, Rabbit, Reptile or NA). Let’s
+quickly check to see how much data we’d be throwing out by doing so:</p>
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -603,12 +641,16 @@ we’d be throwing out by doing so:</p>
 </div>
 <p>We’re interested in the rodents, and thankfully it seems like a
 majority of our observations will be maintained when subsetting to
-rodents. But wait… In our plot above, we can clearly see the presence of
-NA values. Why are we not seeing them here? Our command was correctly
-executed, but the output is not everything we intended. Having no error
-message to interpret, let’s jump straight to the function
-documentation:</p>
-<div class="codewrapper sourceCode" id="cb12">
+rodents. But wait… In the barplot above, we could clearly see that there
+were some NA values. Why don’t we see them here?</p>
+<p>This is a new type of problem, called a <strong>semantic
+error</strong>: the R code ran without any error messages, but it
+produced an unexpected output. Because there is no error message,
+semantic errors can be sneaky and hard to notice!</p>
+<p>We can’t use our first code first aid strategy here, since there is
+no error message to read. So let’s jump straight to strategy 2,
+<strong>reading the function documentation.</strong></p>
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -626,21 +668,22 @@ documentation:</p>
 
 Using the first match ...</code></pre>
 </div>
-<p>Here, the documentation provides some clues: there seems to be an
-argument called <code>useNA</code> that accepts “no”, “ifany”, and
-“always”, but it’s not immediately apparent which one we should use to
-show our NA values. Let’s set that aside and try something else. As a
-second approach, let’s go to <code>Examples</code> to see if we can find
-any quick fixes. Here we see a couple lines further down:</p>
-<div class="codewrapper sourceCode" id="cb14">
+<p>The documentation for <code>table</code> provides some clues. The
+“Usage” and “Arguments” sections show us an argument called
+<code>useNA</code> that accepts “no”, “ifany”, and “always”, but it’s
+not immediately apparent which one we should use to show our NA values.
+When we look at “Examples”, we find something else that looks
+helpful:</p>
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">table</span><span class="op">(</span><span class="va">a</span><span class="op">)</span>                 <span class="co"># does not report NA's</span></span>
 <span><span class="fu">table</span><span class="op">(</span><span class="va">a</span>, exclude <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="co"># reports NA's</span></span></code></pre>
 </div>
-<p>That seems like it should be inclusive. Let’s try again:</p>
-<div class="codewrapper sourceCode" id="cb15">
+<p>Aha! So it looks like we can use <code>exclude = NULL</code> to
+report NAs in our table. Let’s try that.</p>
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -653,24 +696,25 @@ any quick fixes. Here we see a couple lines further down:</p>
    Bird  Rabbit Reptile  Rodent    &lt;NA&gt;
     300      69       4   16148     357 </code></pre>
 </div>
-<p>Now our NA values show up in the table. We see that by subsetting to
-the “Rodent” taxa, we would losing about 357 NAs, which themselves could
-be rodents! However, in this case, it seems a small enough portion to
-safely omit. Let’s subset our data to the rodent taxon.</p>
-<div class="codewrapper sourceCode" id="cb17">
+<p>Problem solved! Now the NA values show up in the table. We see that
+by subsetting to the “Rodent” taxa, we would losing about 357 NAs, which
+themselves could be rodents! However, in this case, it seems a small
+enough portion to safely omit. Let’s subset our data to the rodent
+taxon.</p>
+<div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Just rodents</span></span>
 <span><span class="va">rodents</span> <span class="op">&lt;-</span> <span class="va">surveys</span> <span class="op">%&gt;%</span> <span class="fu">filter</span><span class="op">(</span><span class="va">taxa</span> <span class="op">==</span> <span class="st">"Rodent"</span><span class="op">)</span></span></code></pre>
 </div>
-<div id="challenge2" class="callout challenge">
+<div id="exercise-2-syntax-vs.-semantic-errors" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <span class="callout-header">Challenge</span>
-<div class="callout-inner">
-<h3 class="callout-title">Challenge</h3>
+<div id="exercise-2-syntax-vs.-semantic-errors" class="callout-inner">
+<h3 class="callout-title">Exercise 2: Syntax vs. semantic errors</h3>
 <div class="callout-content">
 <p>There are 3 lines of code below, and each attempts to create the same
 plot. Identify which produces a syntax error, which produces a semantic
@@ -692,7 +736,7 @@ inferring what type of graph we’re trying to create!)</p>
 <p>In this case, A correctly creates the graph, plotting as colors in
 the tile the number of times an observation is seen. It essentially runs
 the following lines of code:</p>
-<div class="codewrapper sourceCode" id="cb18">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -704,14 +748,14 @@ the following lines of code:</p>
 <pre class="output" tabindex="0"><code>`summarise()` has grouped output by 'plot_type'. You can override using the
 `.groups` argument.</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb20">
+<div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">rodents_summary</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_tile</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">month</span>, <span class="va">plot_type</span>, fill<span class="op">=</span><span class="va">count</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/2-identify-the-problem-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>B is a syntax error, and will produce the following error:</p>
-<div class="codewrapper sourceCode" id="cb21">
+<figure><img src="../fig/2-identify-the-problem-rendered-unnamed-chunk-13-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>B is a syntax error, and will produce the following error:</p>
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -728,40 +772,16 @@ Caused by error in `setup_params()`:
 </div>
 <p>Finally, C is a semantic error. It does produce a plot, which is
 rather meaningless:</p>
-<div class="codewrapper sourceCode" id="cb23">
+<div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">rodents</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_tile</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">month</span>, <span class="va">plot_type</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/2-identify-the-problem-rendered-unnamed-chunk-13-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<figure><img src="../fig/2-identify-the-problem-rendered-unnamed-chunk-15-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a></h2>
-<hr class="half-width"><p>In general, encountering semantic errors can make our job more
-difficult, but the roadmap remains the same:</p>
-<ol style="list-style-type: decimal"><li><p>Seeing a problem arise in our code.</p></li>
-<li><p>Interpreting the problem.</p></li>
-</ol><p>Let’s fill in more steps to our <strong>code first aid</strong> :</p>
-<ol style="list-style-type: decimal"><li>Acting on parts of the error we can understand</li>
-</ol><ul><li>changing input to a function</li>
-<li>checking on the control flow of code (e.g. for loops, if/else)</li>
-</ul><ol start="2" style="list-style-type: decimal"><li>Pulling up the R Documentation for relevant functions</li>
-</ol><ul><li>reading the documentation’s <strong>Description</strong>,
-<strong>Usage</strong>, <strong>Arguments</strong>,
-<strong>Details</strong>
-</li>
-<li>testing out <strong>Examples</strong> entries in the console for
-greater insight</li>
-</ul><ol start="3" style="list-style-type: decimal"><li>Quick online help with a search engine / generative LLM</li>
-</ol><ul><li>Copying error messages for more interpretable explanations</li>
-<li>Describing your error in the hopes of an already-solved
-solution</li>
-<li>Seeing if an LLM generates equivalent error-free code solving the
-same goal</li>
-</ul><p>And, when all else fails, we can prepare our code into a reproducible
-example for expert help.</p>
 <p>The steps to identifying the problem and in <strong>code first
 aid</strong> matches what we’ve seen above. However, here seeing the
 problem arise in our code may be much more subtle, and comes from us
@@ -772,7 +792,7 @@ up to the coder to be vigilant and be sure steps are running as they
 should. Interpreting the problem may also be more difficult as R gives
 us little or no indication about how it’s misinterpreting our
 intent.</p>
-<div id="callout1" class="callout">
+<div id="callout2" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -793,27 +813,39 @@ documentation improves over time.</p>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="how-can-i-find-where-my-code-is-failing">3.3 How can I find where my code is failing?<a class="anchor" aria-label="anchor" href="#how-can-i-find-where-my-code-is-failing"></a></h2>
-<hr class="half-width"><p>Isolating your problem may not be as simple as assessing the output
-from a single function call on the line of code which produces your
-error. Often, it may be difficult to determine which lines or logical
-sections of code (e.g. functions) are producing the error.</p>
-<p>Consider the example below, where we now are attempting to see which
-species of kangaroo rodents appear in different plot types over the
-years. To do so, we’ll filter our dataset to just include the genus
-<em>Dipodomys</em>, the kangaroo rats. Then we’ll plot a histogram of
-which how many observations are seen in each plot type over an x axis of
-years.</p>
-<div class="codewrapper sourceCode" id="cb24">
+</section><section><h2 class="section-heading" id="identifying-the-problem">Identifying the problem<a class="anchor" aria-label="anchor" href="#identifying-the-problem"></a></h2>
+<hr class="half-width"><p>In the previous section, it was evident which function was causing a
+syntax or semantic error. But sometimes, identifying the problem may be
+trickier. It may be difficult to determine which lines or sections of
+code are producing the error.</p>
+<p>Let’s take a look at another code example. Our goal: to see
+<strong>which k-rat species appear in different plot types over the
+years</strong>.</p>
+<div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
+  <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
+</button>
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div class="accordion-body">
+<p>The misspelling of “Dipodomys” below is deliberate!</p>
+</div>
+</div>
+</div>
+</div>
+<div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Just k-rats</span></span>
-<span><span class="va">krats</span> <span class="op">&lt;-</span> <span class="va">rodents</span> <span class="op">%&gt;%</span> <span class="fu">filter</span><span class="op">(</span><span class="va">genus</span> <span class="op">==</span> <span class="st">"Dipadomys"</span><span class="op">)</span> <span class="co">#kangaroo rat genus</span></span>
+<code class="sourceCode R"><span><span class="co"># Example: identifying a more complex error</span></span>
 <span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">krats</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">year</span>, fill<span class="op">=</span><span class="va">plot_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span><span class="fu">geom_histogram</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span><span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">species</span><span class="op">)</span></span></code></pre>
+<span><span class="co"># Just k-rats</span></span>
+<span><span class="va">krats</span> <span class="op">&lt;-</span> <span class="va">rodents</span> <span class="op">%&gt;%</span> <span class="fu">filter</span><span class="op">(</span><span class="va">genus</span> <span class="op">==</span> <span class="st">"Dipadomys"</span><span class="op">)</span> <span class="co">#filter the dataset to just include the kangaroo rat genus</span></span>
+<span></span>
+<span><span class="co"># plot a histogram of how many observations are seen in each plot type over an x axis of years.</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">krats</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">year</span>, fill <span class="op">=</span> <span class="va">plot_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">species</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -824,13 +856,15 @@ years.</p>
 <p>Uh-oh. Another error here, when we try to make a ggplot. But what is
 “combine_vars?” And then: “Faceting variables must have at least one
 value” What does that mean?</p>
-<p>This is not an easily-interpretable error message from ggplot, and
-our code looks like it <em>should</em> run. Perhaps we can take a step
-back and see whether our error is actually not in the ggplot code
-itself. Often, when trying to isolate the problem area, it is a good
-idea to look back at the original input. So let’s take a look at our
-<code>krats</code> dataset.</p>
-<div class="codewrapper sourceCode" id="cb26">
+<p>This is not an easily interpretable error message from
+<code>ggplot</code>, and our code looks like it <em>should</em> run.
+This time we put the <code>data</code> argument in the right place, we
+included <code>aes()</code>, and we didn’t misspell anything.</p>
+<p>Considering this chunk of code, let’s take a step back. Is it
+possible that we’re looking at the wrong code? What if the error isn’t
+in the ggplot code itself? Let’s look at the <code>krats</code> dataset
+to make sure it looks normal.</p>
+<div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -844,10 +878,13 @@ idea to look back at the original input. So let’s take a look at our
 <span><span class="co">#   plot_id &lt;dbl&gt;, species_id &lt;chr&gt;, sex &lt;chr&gt;, hindfoot_length &lt;dbl&gt;,</span></span>
 <span><span class="co">#   weight &lt;dbl&gt;, genus &lt;chr&gt;, species &lt;chr&gt;, taxa &lt;chr&gt;, plot_type &lt;chr&gt;</span></span></code></pre>
 </div>
-<p>It’s empty! What went wrong with our “Dipadomys” filter? Let’s use a
-print statement to see which genera are included in the original rodents
-dataset.</p>
-<div class="codewrapper sourceCode" id="cb28">
+<p>It’s empty! Something must have gone wrong not with
+<code>ggplot</code>, but with the code we used to create the
+<code>krats</code> object.</p>
+</section><section><h2 class="section-heading" id="strategy-4-using-print-to-show-information">Strategy 4: Using <code>print()</code> to show information<a class="anchor" aria-label="anchor" href="#strategy-4-using-print-to-show-information"></a></h2>
+<hr class="half-width"><p>We can use a <code>print</code> statement to see which genera are
+included in the original <code>rodents</code> dataset.</p>
+<div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -872,124 +909,113 @@ dataset.</p>
 11 Sigmodon           103
 12 Spermophilus       151</code></pre>
 </div>
-<p>We see two things here. For one, we’ve misspelled <em>Dipodomys</em>,
-which we can now amend. This quick function call also tells us we should
-expect a data frame with 9573 values resulting after subsetting to the
-genus <em>Dipodomys</em>.</p>
-<div class="codewrapper sourceCode" id="cb30">
+<p>This tells us two things. For one, we noticed that we have misspelled
+<em>Dipodomys</em>, which we can now fix.</p>
+<p>Our <code>print()</code> call also tells us that we should expect a
+data frame with 9573 values after subsetting to the genus
+<em>Dipodomys</em>. This will be useful to check our work after fixing
+the misspelling.</p>
+<div class="codewrapper sourceCode" id="cb33">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">krats</span> <span class="op">&lt;-</span> <span class="va">rodents</span> <span class="op">%&gt;%</span> <span class="fu">filter</span><span class="op">(</span><span class="va">genus</span> <span class="op">==</span> <span class="st">"Dipodomys"</span><span class="op">)</span> <span class="co">#kangaroo rat genus</span></span>
-<span><span class="fu">dim</span><span class="op">(</span><span class="va">krats</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Example: identifying a more complex error</span></span>
+<span></span>
+<span><span class="co"># Just k-rats</span></span>
+<span><span class="va">krats</span> <span class="op">&lt;-</span> <span class="va">rodents</span> <span class="op">%&gt;%</span> <span class="fu">filter</span><span class="op">(</span><span class="va">genus</span> <span class="op">==</span> <span class="st">"Dipodomys"</span><span class="op">)</span> <span class="co">#filter the dataset to just include the kangaroo rat genus (fixed misspelling)</span></span>
+<span></span>
+<span><span class="co"># check dimensions of krats</span></span>
+<span><span class="fu">dim</span><span class="op">(</span><span class="va">krats</span><span class="op">)</span> <span class="co"># 9573, as expected!</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>[1] 9573   13</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb32">
+<div class="codewrapper sourceCode" id="cb35">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">krats</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">year</span>, fill<span class="op">=</span><span class="va">plot_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span><span class="fu">geom_histogram</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span><span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">species</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># plot a histogram of how many observations are seen in each plot type over an x axis of years.</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">krats</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">year</span>, fill <span class="op">=</span> <span class="va">plot_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">species</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 </div>
-<figure><img src="../fig/2-identify-the-problem-rendered-unnamed-chunk-17-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Our improved code here looks good. Checking the dimensions of our
-subsetted data frame using the dim() function confirms we now have all
-the <em>Dipodomys</em> observations, and our plot is looking better. In
-general, having a ‘print’ statement or some other output after we
-manipulate data or other major steps can be a good way to check your
-code is producing intermediate results consistent with your
-expectations.</p>
-<div id="callout2" class="callout">
+<figure><img src="../fig/2-identify-the-problem-rendered-unnamed-chunk-19-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Our improved code here looks good. Checking the dimensions of our
+subsetted data frame using <code>dim()</code> function confirms we now
+have all the <em>Dipodomys</em> observations, and our plot is looking
+better.</p>
+<p>Routinely printing out information about your dataset can be a good
+way to check that your intermediate results make sense.</p>
+</section><section><h2 class="section-heading" id="summary-code-first-aid">Summary: Code first aid<a class="anchor" aria-label="anchor" href="#summary-code-first-aid"></a></h2>
+<hr class="half-width"><p>Let’s update our list of code first aid strategies:</p>
+<div id="code-first-aid-strategies-detailed-version" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <span class="callout-header">Callout</span>
-<div class="callout-inner">
+<div id="code-first-aid-strategies-detailed-version" class="callout-inner">
+<h3 class="callout-title">Code first aid strategies, detailed
+version</h3>
 <div class="callout-content">
-<p>Often, giving your expert helpers access to the entire problem, with
-a detailed description of your desired output, allows you to directly
-improve your coding skills and learn about new functions and
-techniques.</p>
-</div>
-</div>
-</div>
-</section><section><h2 class="section-heading" id="summary-1">Summary<a class="anchor" aria-label="anchor" href="#summary-1"></a></h2>
-<hr class="half-width"><p>With the length of a full script of code, it may be difficult to find
-exactly where our code is falling short, even if we can identify the
-proximal problem that arises (e.g. a plot not showing up).</p>
-<p>Our roadmap to identifying problems in our code may now look
-like:</p>
-<ol style="list-style-type: decimal"><li><p>Seeing a problem arise in our code.</p></li>
-<li><p>Isolating our code to the problem area.</p></li>
-<li><p>Interpreting the problem.</p></li>
-</ol><p>Now we can see the need to isolate the specific areas of code causing
-the bug or problem, even if that does not solve the problem itself.
-There is no general rule of thumb as to how large this needs to be. But,
-unless our problem occurs on the first line, and we don’t understand the
-error until the last line, we should be able to isolate our code a bit:
-Any early lines which we know run correctly and as intended may not need
-to be included, and by isolating the problem area as much as we can to
-make it understandable to others. We’ll go over this in more detail in
-the next episode.</p>
-<p>Let’s add to our code first aid:</p>
-<ol style="list-style-type: decimal"><li>Identify the problem area</li>
+<ol start="0" style="list-style-type: decimal"><li>Identify the problem area</li>
 </ol><ul><li>add print statements immediately upstream or downstream of problem
 areas</li>
 <li>check the desired output from functions</li>
 <li>see whether any intermediate output can be further isolated and
 examined separately</li>
-</ul><ol start="2" style="list-style-type: decimal"><li>Acting on parts of the error we can understand</li>
-</ol><ul><li>changing input to a function</li>
+</ul><ol style="list-style-type: decimal"><li>Act on parts of the error we can understand</li>
+</ol><ul><li>interpreting error messages</li>
+<li>changing input to a function</li>
 <li>checking on the control flow of code (e.g. for loops, if/else)</li>
-</ul><ol start="3" style="list-style-type: decimal"><li>Pulling up the R Documentation for relevant functions</li>
+</ul><ol start="2" style="list-style-type: decimal"><li>Reading the R documentation for relevant functions</li>
 </ol><ul><li>reading the documentation’s <strong>Description</strong>,
 <strong>Usage</strong>, <strong>Arguments</strong>,
 <strong>Details</strong>
 </li>
-<li>testing out <strong>Examples</strong> entries in the console for
-greater insight</li>
-</ul><ol start="4" style="list-style-type: decimal"><li>Quick online help with a search engine / generative LLM</li>
+<li>testing out code from the <strong>Examples</strong> section</li>
+</ul><ol start="3" style="list-style-type: decimal"><li>Quick online help with a search engine / generative LLM</li>
 </ol><ul><li>Copying error messages for more interpretable explanations</li>
 <li>Describing your error in the hopes of an already-solved
 solution</li>
 <li>Seeing if an LLM generates equivalent error-free code solving the
 same goal</li>
-</ul><p>And, when all else fails, we can prepare our code into a reproducible
-example for expert help.</p>
-<p>While this is similar to our previous checklists, we can now
-understand these steps as a continuous cycle of isolating the problem
-into more and more discrete chunks for a reproducible example. Any step
-in the above that helps us identify the specific areas or aspects of our
-code that are failing in particular, we can zoom in on and restart the
-checklist. We can stop as soon as we don’t understand anymore how our
-code fails. At this point, we can excise that area for further help
-using a reprex.</p>
-<div id="challenge3" class="callout challenge">
+</ul></div>
+</div>
+</div>
+<p>We can now understand these steps as a continuous cycle of zeroing in
+on the problem more and more precisely. Whenever one of the first aid
+steps helps us identify a part of the code that is failing, we can zoom
+in on that piece of code and restart the checklist.</p>
+<p>If the first aid steps are enough to solve the problem, great! If
+not, we can stop trying once we get stuck or don’t understand anymore
+how the code is failing. At that point, we can isolate the specific code
+area and use it to create a reprex in order to get help from someone
+else. <strong>We’ll delve more into the process of creating a reprex in
+the next episode.</strong></p>
+<div id="exercise-3-isolating-the-problem" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <span class="callout-header">Challenge</span>
-<div class="callout-inner">
-<h3 class="callout-title">Challenge</h3>
+<div id="exercise-3-isolating-the-problem" class="callout-inner">
+<h3 class="callout-title">Exercise 3: Isolating the problem</h3>
 <div class="callout-content">
-<p>With our new skills in mind, try to isolate the problem area as much
-as you can with the following lines of code. Here, we’re trying to see
-whether kangaroo rat observations in the <code>control</code> plot type
-differed significantly by plot id (hopefully not!).</p>
-<div class="codewrapper sourceCode" id="cb34">
+<p>The following lines of code are not working correctly.</p>
+<p>A. What type of error is this? B. Using the toolbox of code first aid
+strategies, can you isolate the problem area?</p>
+<div class="codewrapper sourceCode" id="cb37">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">control_plot_data</span> <span class="op">&lt;-</span>  <span class="va">krats</span> <span class="op">%&gt;%</span> <span class="fu">filter</span><span class="op">(</span><span class="va">plot_type</span> <span class="op">==</span> <span class="st">"Control"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># Goal: run a chi square test to see whether kangaroo rat observations in the `control` plot type differ significantly between different plot_ids (hopefully not!)</span></span>
+<span></span>
+<span><span class="va">control_plot_data</span> <span class="op">&lt;-</span>  <span class="va">krats</span> <span class="op">%&gt;%</span> <span class="fu">filter</span><span class="op">(</span><span class="va">plot_type</span> <span class="op">==</span> <span class="st">"Control"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">n_control_plots</span> <span class="op">&lt;-</span> <span class="fu">length</span><span class="op">(</span><span class="va">control_plot_data</span><span class="op">$</span><span class="va">plot_id</span><span class="op">)</span></span>
 <span><span class="va">exp_proportions</span> <span class="op">&lt;-</span> <span class="fu">rep</span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="va">n_control_plots</span>, <span class="va">n_control_plots</span><span class="op">)</span></span>
@@ -1016,7 +1042,7 @@ differed significantly by plot id (hopefully not!).</p>
 <div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>An isolated version of the problem area might look like:</p>
-<div class="codewrapper sourceCode" id="cb36">
+<div class="codewrapper sourceCode" id="cb39">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1037,7 +1063,7 @@ control_plot_data line, as plot_counts seems to be calculated correctly.
 Here, we can see there’s probably something wrong with the
 <code>p</code> argument: exp_proportions is very long, much longer than
 the number of control plots! Let’s solve the problem.</p>
-<div class="codewrapper sourceCode" id="cb38">
+<div class="codewrapper sourceCode" id="cb41">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1064,36 +1090,32 @@ plots seem to attract the kangaroo rats more than others.</p>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="when-should-i-prepare-my-code-for-a-reprex">3.3 When should I prepare my code for a reprex?<a class="anchor" aria-label="anchor" href="#when-should-i-prepare-my-code-for-a-reprex"></a></h2>
-<hr class="half-width"><p>There may be some point at which our <strong>code first aid</strong>
-does not help us anymore, and we still cannot figure out the problem our
-code is giving us, even if we’ve isolated it as much as we can – in that
-case, it may be time to turn to expert help, by asking a coworker,
-mentor, or someone online for aid.</p>
-<p>While in a classroom setting we may be used to raising our hand,
-pointing at our code, and saying “I’m not sure what’s wrong,” in
-reality, people have limited time, bandwidth, or requisite knowledge to
-be able to help out with any problem that might arise. That’s why
-reproducing the problem with a <strong>reproducible example</strong> is
-an essential skill to getting unstuck: it allows you to ask for expert
-help with a problem that’s clearly identified, self-contained, and
-reproducible, and allows the expert to quickly see whether they’ve got
-the requisite skills to answer your question! We’ve already covered
-skills pertaining to identifying the problem and some skills making sure
-it’s self-contained. We’ll see how to apply these below as we start to
-create a reproducible example.</p>
-<div class="section level3">
-<h3 id="back-to-our-analysis">Back to our Analysis…<a class="anchor" aria-label="anchor" href="#back-to-our-analysis"></a></h3>
+</section><section><h2 class="section-heading" id="when-should-i-prepare-my-code-for-a-reprex">When should I prepare my code for a reprex?<a class="anchor" aria-label="anchor" href="#when-should-i-prepare-my-code-for-a-reprex"></a></h2>
+<hr class="half-width"><p>If you’ve isolated the problem area and tried using <strong>code
+first aid</strong> strategies, but the error persists, it may be time to
+get some help.</p>
+<p>In a classroom setting, we may be used to raising our hand, pointing
+at our code, and saying “I’m not sure what’s wrong.” But outside of the
+classroom, helpers have limited time, bandwidth, and requisite knowledge
+to help. That’s why reproducing the problem with a <strong>reproducible
+example</strong> is an essential skill to getting unstuck: it allows you
+to ask for expert help with a problem that’s clearly identified,
+self-contained, and reproducible, and allows the expert to quickly see
+whether they’ve got the requisite skills to answer your question!</p>
+</section><section><h2 class="section-heading" id="back-to-our-analysis-mickey-tries-to-get-unstuck">Back to our analysis: Mickey tries to get unstuck<a class="anchor" aria-label="anchor" href="#back-to-our-analysis-mickey-tries-to-get-unstuck"></a></h2>
+<hr class="half-width"><p>Back in the lab, Mickey is happily coding along, exploring the data.
+Let’s follow their analysis and see how they use code first aid and
+prepare the code for a reprex.</p>
 <p>Mickey is interested in understanding how kangaroo rat weights differ
 across species and sexes, so they create a quick visualization.</p>
-<div class="codewrapper sourceCode" id="cb40">
+<div class="codewrapper sourceCode" id="cb43">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">rodents</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>, fill <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/2-identify-the-problem-rendered-unnamed-chunk-21-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Whoa, this is really overwhelming! Mickey forgot that the dataset
+<figure><img src="../fig/2-identify-the-problem-rendered-unnamed-chunk-23-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Whoa, this is really overwhelming! Mickey forgot that the dataset
 includes data for a lot of different rodent species, not just kangaroo
 rats. Mickey is only interested in two kangaroo rat species:
 <em>Dipodomys ordii</em> (Ord’s kangaroo rat) and <em>Dipodomys
@@ -1104,7 +1126,7 @@ available. For the purposes of comparing weights, Mickey wants to focus
 only rodents of known sex.</p>
 <p>Mickey filters the data to include only the two focal species and
 only rodents whose sex is F or M.</p>
-<div class="codewrapper sourceCode" id="cb41">
+<div class="codewrapper sourceCode" id="cb44">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1116,7 +1138,7 @@ only rodents whose sex is F or M.</p>
 common names to the dataset. They start by creating a data frame with
 the common names, which they will then join to the
 <code>rodents_subset</code> dataset:</p>
-<div class="codewrapper sourceCode" id="cb42">
+<div class="codewrapper sourceCode" id="cb45">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1153,7 +1175,7 @@ are unlikely to be helpful?</li>
 <p>Mickey re-orders the names and tries the code again. This time, it
 works! The common names are joined to the correct scientific names.
 Mickey joins the common names to <code>rodents_subset</code>.</p>
-<div class="codewrapper sourceCode" id="cb44">
+<div class="codewrapper sourceCode" id="cb47">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1164,7 +1186,7 @@ Mickey joins the common names to <code>rodents_subset</code>.</p>
 They start by running a quick linear regression to predict
 <code>weight</code> based on <code>species</code> and
 <code>sex</code>.</p>
-<div class="codewrapper sourceCode" id="cb45">
+<div class="codewrapper sourceCode" id="cb48">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1202,7 +1224,7 @@ Banner-tailed kangaroo rats.</p>
 <p>But something is wrong with the coefficients for sex. Why are there
 NA values for <code>sexM</code>? Let’s directly visualize weight by
 species and sex to see.</p>
-<div class="codewrapper sourceCode" id="cb47">
+<div class="codewrapper sourceCode" id="cb50">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1216,7 +1238,7 @@ species and sex to see.</p>
 <pre class="warning" tabindex="0"><code>Warning: Removed 35 rows containing non-finite outside the scale range
 (`stat_boxplot()`).</code></pre>
 </div>
-<figure><img src="../fig/2-identify-the-problem-rendered-unnamed-chunk-26-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>When Mickey visualizes the data, they see a problem in the graph,
+<figure><img src="../fig/2-identify-the-problem-rendered-unnamed-chunk-28-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>When Mickey visualizes the data, they see a problem in the graph,
 too. As the model showed, Ord’s kangaroo rats are significantly smaller
 than Banner-tailed kangaroo rats. But something is definitely wrong!
 Because the boxes are colored by sex, we can see that all of the
@@ -1228,7 +1250,7 @@ code, Mickey creates a two-way frequency table, which confirms that
 there are no observations of female <em>spectabilis</em> or male
 <em>ordii</em> in <code>rodents_subset</code>. Something definitely
 seems wrong. Those rows should not be missing.</p>
-<div class="codewrapper sourceCode" id="cb49">
+<div class="codewrapper sourceCode" id="cb52">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1244,7 +1266,7 @@ seems wrong. Those rows should not be missing.</p>
   M     0         626</code></pre>
 </div>
 <p>To double check, Mickey looks at the original dataset.</p>
-<div class="codewrapper sourceCode" id="cb51">
+<div class="codewrapper sourceCode" id="cb54">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1274,10 +1296,9 @@ lot of observations.</p>
 <p>While we don’t have the time today, let’s assume Mickey worked their
 way through the code first aid steps, but weren’t able to solve the
 problem.</p>
-<p>They decide to consult Remy’s road map to figure out what to do
+<p>They decide to return to Remy’s road map to figure out what to do
 next.</p>
-<p>(INSERT ROAD MAP PICTURE)</p>
-<p>Since code first aid was not enough to solve this problem, it looks
+<figure><img src="../fig/Roadmap_Aug25.svg" class="figure mx-auto d-block"></figure><p>Since code first aid was not enough to solve this problem, it looks
 like it’s time to ask for help using a <em>reprex</em>.</p>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
@@ -1303,7 +1324,6 @@ in future episodes.</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
-</div>
 </section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="../instructor/1-intro-reproducible-examples.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
@@ -1362,8 +1382,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/R-help-reprexes/instructor/2-identify-the-problem.html",
   "identifier": "https://carpentries-incubator.github.io/R-help-reprexes/instructor/2-identify-the-problem.html",
   "dateCreated": "2024-05-14",
-  "dateModified": "2025-08-19",
-  "datePublished": "2025-08-19"
+  "dateModified": "2025-08-20",
+  "datePublished": "2025-08-20"
 }
 
   </script><script>

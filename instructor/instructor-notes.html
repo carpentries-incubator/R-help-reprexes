@@ -406,30 +406,31 @@ any links that you are not going to use.
 <h3 id="1-intro-reproducible-examples-headingInstructor1">
 <a href="1-intro-reproducible-examples.html#headingInstructor1">Welcome and introductions</a><a class="anchor" aria-label="anchor" href="#1-intro-reproducible-examples-headingInstructor1"></a>
 </h3>
-<p>Welcome to “RRRR, I’m Stuck!” We’re glad you’re here! Let’s first
-take care of a few setup steps. You should have all followed the setup
+<p>Welcome to “RRRR, I’m Stuck!” We’re glad you’re here. Let’s first
+take care of a few setup steps. You should all have followed the setup
 instructions on the workshop website, and you should have both R and
 RStudio installed. You should also have the following packages
-installed: {reprex}, {dplyr}, and {ggplot2}. We have a range of levels
-of experience here. This workshop assumes that you are a researcher in
-ecology or biology who has some prior experience working with R in
-RStudio.</p>
+installed: {reprex}, {tidyverse}, and {ggplot2}. If you haven’t
+installed those packages, please take a moment to install them now. We
+have a range of levels of experience here. This workshop assumes that
+you are a researcher in ecology or biology who has some prior experience
+working with R in RStudio.</p>
 <p>This lesson will follow a fictional ecology grad student named Mickey
 as they explore a new dataset, deal with various common coding problems,
 and learn how to write a minimal reproducible example to ask for help in
 community forums. We will not spend much time discussing the code
-itself, as we will assume you have a basic background. [Reference
-guide?]</p>
-<p>It’s okay if you’re not an R expert–but even more experienced R
-coders may not always know how to get unstuck, so we hope this workshop
-will be useful to many levels of coding background.</p>
+itself, as we will assume you have a basic background.</p>
+<p>It’s okay if you’re not an R expert–-but even experienced coders may
+not always know how to get unstuck, so we hope this workshop will be
+useful to many levels of coding background.</p>
 <p>[MAYBE ADD SOMETHING ABOUT WHAT THE OVERALL LESSON OBKECTIVES
 ARE]</p>
-<p>In this first episode we will introduce what a minimal reproducible
-example is and how it can be a useful tool for getting unstuck while
-coding. We will provide you with a roadmap that highlights the key steps
-to follow as we move through the lesson. And we will take a look at the
-dataset we will be working with throughout.</p>
+<p>In this first episode we will introduce the concept of a <em>minimal
+reproducible example</em> and how it can be useful for getting unstuck
+while coding. We will provide you with a roadmap that highlights the key
+steps to follow as we move through the lesson. And we will take a look
+at the dataset that we’ll be using throughout the rest of the
+lesson.</p>
 <hr>
 <br><h3 id="1-intro-reproducible-examples-headingInstructor2">
 <a href="1-intro-reproducible-examples.html#headingInstructor2">Instructor Note</a><a class="anchor" aria-label="anchor" href="#1-intro-reproducible-examples-headingInstructor2"></a>
@@ -439,12 +440,13 @@ getting learners settled in. They could happen at the start of the
 lesson, to break the ice:</p>
 <p>“Before we begin, let’s take a moment to reflect on why we are
 here”</p>
-<p>Or they can happen after a first introduction to reprexes</p>
+<p>Or they can happen after a first introduction to reprexes.</p>
 <hr>
 <br><h3 id="1-intro-reproducible-examples-headingInstructor3">
 <a href="1-intro-reproducible-examples.html#headingInstructor3">Instructor Note</a><a class="anchor" aria-label="anchor" href="#1-intro-reproducible-examples-headingInstructor3"></a>
 </h3>
-<p>Or maybe the reflection exercises can happen here.</p>
+<p>If you didn’t take time for the reflection exercises at the
+beginning, you could also pause to do them here.</p>
 <hr>
 <br><h3 id="1-intro-reproducible-examples-headingInstructor4">
 <a href="1-intro-reproducible-examples.html#headingInstructor4">Instructor Note</a><a class="anchor" aria-label="anchor" href="#1-intro-reproducible-examples-headingInstructor4"></a>
@@ -457,8 +459,20 @@ already have a project and folders set up, with the data downloaded and
 in the “data” folder of the project.</p>
 <p>If necessary, here is the url for the data: <a href="https://raw.githubusercontent.com/carpentries-incubator/R-help-reprexes/refs/heads/main/episodes/data/surveys_complete_77_89.csv" class="external-link uri">https://raw.githubusercontent.com/carpentries-incubator/R-help-reprexes/refs/heads/main/episodes/data/surveys_complete_77_89.csv</a></p>
 <hr>
+<br><h3 id="1-intro-reproducible-examples-headingInstructor5">
+<a href="1-intro-reproducible-examples.html#headingInstructor5">Instructor Note</a><a class="anchor" aria-label="anchor" href="#1-intro-reproducible-examples-headingInstructor5"></a>
+</h3>
+<p>Mickey feels ready–do your learners also feel ready? This could be a
+good place to ask what questions they have :)</p>
+<hr>
 <br></section><section id="2-identify-the-problem"><h2 class="section-heading"><a href="2-identify-the-problem.html">Identify the problem and make a plan</a></h2>
-<hr class="half-width"></section><section id="3-minimal-reproducible-code"><h2 class="section-heading"><a href="3-minimal-reproducible-code.html">Minimal reproducible codeMaking a reprex<a class="anchor" aria-label="anchor" href="#making-a-reprex"></a></a></h2>
+<hr class="half-width">
+<h3 id="2-identify-the-problem-headingInstructor1">
+<a href="2-identify-the-problem.html#headingInstructor1">Instructor Note</a><a class="anchor" aria-label="anchor" href="#2-identify-the-problem-headingInstructor1"></a>
+</h3>
+<p>The misspelling of “Dipodomys” below is deliberate!</p>
+<hr>
+<br></section><section id="3-minimal-reproducible-code"><h2 class="section-heading"><a href="3-minimal-reproducible-code.html">Minimal reproducible codeMaking a reprex<a class="anchor" aria-label="anchor" href="#making-a-reprex"></a></a></h2>
 <hr class="half-width"></section><section id="4-minimal-reproducible-data"><h2 class="section-heading"><a href="4-minimal-reproducible-data.html">Minimal reproducible data</a></h2>
 <hr class="half-width">
 <h3 id="4-minimal-reproducible-data-headingInstructor1">
@@ -607,8 +621,8 @@ thoroughly unhelpful on this</p>
   "url": "https://carpentries-incubator.github.io/R-help-reprexes/instructor/instructor-notes.html",
   "identifier": "https://carpentries-incubator.github.io/R-help-reprexes/instructor/instructor-notes.html",
   "dateCreated": "2024-05-14",
-  "dateModified": "2025-08-19",
-  "datePublished": "2025-08-19"
+  "dateModified": "2025-08-20",
+  "datePublished": "2025-08-20"
 }
 
   </script><script>
