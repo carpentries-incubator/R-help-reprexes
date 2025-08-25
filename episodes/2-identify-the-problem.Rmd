@@ -428,7 +428,7 @@ Now, Mickey is ready to start learning about kangaroo rat weights. They start by
 
 ```{r}
 # Explore k-rat weights
-weight_model <- lm(weight ~ common_name + sex, data = rodents_subset)
+weight_model <- lm(weight ~ species + sex, data = rodents_subset)
 summary(weight_model) 
 ```
 
@@ -439,7 +439,7 @@ But something is wrong with the coefficients for sex. Why are there NA values fo
 ```{r}
 # Weight by species and sex
 rodents_subset %>%
-  ggplot(aes(y = weight, x = common_name, fill = sex)) +
+  ggplot(aes(y = weight, x = species, fill = sex)) +
   geom_boxplot()
 ```
 

@@ -30,16 +30,16 @@ common_names <- data.frame(species = sort(unique(rodents_subset$species)), commo
 rodents_subset <- left_join(rodents_subset, common_names, by = "species")
 
 # Explore k-rat weights
-weight_model <- lm(weight ~ common_name + sex, data = rodents_subset)
+weight_model <- lm(weight ~ species + sex, data = rodents_subset)
 summary(weight_model)
 
 # Weight by species and sex
 rodents_subset %>%
-  ggplot(aes(y = weight, x = common_name, fill = sex)) +
+  ggplot(aes(y = weight, x = species, fill = sex)) +
   geom_boxplot()
 
 # Subsetted dataset
 table(rodents_subset$sex, rodents_subset$species)
 
 # Original dataset
-table(rodents$sex, rodents$species)
+table(rodents$sex, rodents$species)  # there are no observations of female spectabilis or male ordii in `rodents_subset`, even though there were in the original dataset.
