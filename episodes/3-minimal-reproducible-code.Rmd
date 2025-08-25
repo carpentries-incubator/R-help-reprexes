@@ -25,7 +25,6 @@ library(dplyr)
 library(readr)
 library(ggplot2)
 surveys <- read_csv("https://raw.githubusercontent.com/carpentries-incubator/R-help-reprexes/refs/heads/main/episodes/data/surveys_complete_77_89.csv") 
-rodents <- surveys %>% filter(taxa == "Rodent")
 ```
 
 When we left off in the previous episode, Mickey had discovered a problem with their code--many kangaroo rat observations were missing from a subset of the data after they filtered the dataset down to the k-rat species of interest.
@@ -68,7 +67,7 @@ ggplot(rodents, aes(x = species, fill = sex)) +
   geom_bar()
 
 # Filter to focal species and known sex
-rodents_subset <- rodents %>%
+rodents_subset <- surveys %>%
   filter(species == c("ordii", "spectabilis"),
          sex == c("F", "M"))
 
@@ -93,7 +92,7 @@ rodents_subset %>%
 table(rodents_subset$sex, rodents_subset$species)
 
 # Original dataset
-table(rodents$sex, rodents$species)
+table(surveys$sex, surveys$species)
 ```
 
 :::::challenge
@@ -159,7 +158,7 @@ In particular, this comparison shows us that there are no observations of female
 table(rodents_subset$sex, rodents_subset$species)
 
 # Original dataset
-table(rodents$sex, rodents$species) # there are no observations of female spectabilis or male ordii in `rodents_subset`, even though there were in the original dataset.
+table(surveys$sex, surveys$species) # there are no observations of female spectabilis or male ordii in `rodents_subset`, even though there were in the original dataset.
 ```
 
 These two lines of code, and the observation we made about them, will be our guide as we simplify the script further.
@@ -229,7 +228,7 @@ rodents_subset %>%
 table(rodents_subset$sex, rodents_subset$species)
 
 # Original dataset
-table(rodents$sex, rodents$species)  # there are no observations of female spectabilis or male ordii in `rodents_subset`, even though there were in the original dataset.
+table(surveys$sex, surveys$species)  # there are no observations of female spectabilis or male ordii in `rodents_subset`, even though there were in the original dataset.
 ```
 
 ### C. Run the simplified code and make sure that the symptom is still present. *Does your example still reproduce the problem?*
@@ -245,7 +244,6 @@ Minimizing code is an iterative process. Repeat steps B and C above several more
 
 :::solution
 - Visualizing sex by species (ggplot) can be removed because it generates a plot but does not create any variables that are used later.
-- Filtering to only rodents can be removed because later we filter to only two species in particular
 - Adding common names can be removed because we didn't actually use those common names. This one is tricky because technically we did use the common names in the rodents_subset plot. But is that plot *really* necessary? We can still demonstrate the problem using the table() lines of code at the end. Also, we could still make the equivalent plot using the `species` column instead of the `common_name` column, and it would demonstrate the same thing!
 - The weight model and the summary can be removed
 - Any other informational functions that could have been run in the console, such as `table()` or `print()` or `head()` can be removed.
