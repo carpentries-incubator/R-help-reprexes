@@ -13,11 +13,11 @@ str(surveys)
 table(surveys$taxa)
 
 # Barplot of rodent species by sex
-ggplot(rodents, aes(x = species, fill = sex)) +
+ggplot(surveys, aes(x = species, fill = sex)) +
   geom_bar()
 
 # Filter to focal species and known sex
-rodents_subset <- rodents %>%
+rodents_subset <- surveys %>%
   filter(species == c("ordii", "spectabilis"),
          sex == c("F", "M"))
 
