@@ -13,6 +13,6 @@
 "episodes/5-asking-your-question.Rmd" "b23a24a50b2296545934e20ec4a33426" "site/built/5-asking-your-question.md" "2025-08-26"
 "instructors/instructor-notes.md" "984429120cb60a82d505b6110d255794" "site/built/instructor-notes.md" "2025-08-26"
 "learners/reference.md" "1c7cc4e229304d9806a13f69ca1b8ba4" "site/built/reference.md" "2025-08-26"
-"learners/setup.md" "19185fa1213fecc0b09a8cf2beb975e7" "site/built/setup.md" "2025-08-26"
+"learners/setup.md" "57007d44faa0de1bef5ef2a2ad8c5ae7" "site/built/setup.md" "2025-08-26"
 "profiles/learner-profiles.md" "60b93493cf1da06dfd63255d73854461" "site/built/learner-profiles.md" "2025-08-26"
 "renv/profiles/lesson-requirements/renv.lock" "64ae6ad3922234c216488e81845097b7" "site/built/renv.lock" "2025-08-26"
