@@ -27,21 +27,19 @@ library(ggplot2)
 surveys <- read_csv("https://raw.githubusercontent.com/carpentries-incubator/R-help-reprexes/refs/heads/main/episodes/data/surveys_complete_77_89.csv") 
 ```
 
-When we left off in the previous episode, Mickey had discovered a problem with their code--many kangaroo rat observations were missing from a subset of the data after they filtered the dataset down to the k-rat species of interest.
+When we left off in the previous episode, Mickey had discovered a problem with their code--many kangaroo rat observations were missing from a subset of the data after they filtered the dataset down to the kangaroo rat species of interest.
 
 Mickey tried some code first aid steps but wasn't able to solve the problem. They consulted Remy's road map and saw that the next step is to make a reprex.
 
 # Making a reprex
 
-## Step 1: Simplify the code
+![](fig/02_minimize_code.png)
+
+## Step 1: Minimize the code
 
 Mickey has written a lot of code so far. The code is also a little messy--for example, after fixing the previous errors, they sometimes commented out the old code and kept it for future reference.
 
 Let's take a look at the script as it stands so far.
-
-:::callout
-Depending on how closely you have been following the lesson and which challenges you have attempted, your script may not look exactly like Mickey's. That's okay!
-:::
 
 ::: instructor
 Share this file with learners and/or have them copy/paste it exactly into their RStudio sessions--do not try to re-type all this code line by line! There definitely will not be time.
@@ -80,12 +78,12 @@ common_names <- data.frame(species = sort(unique(rodents_subset$species)), commo
 rodents_subset <- left_join(rodents_subset, common_names, by = "species")
 
 # Explore k-rat weights
-weight_model <- lm(weight ~ common_name + sex, data = rodents_subset)
+weight_model <- lm(weight ~ species + sex, data = rodents_subset)
 summary(weight_model)
 
 # Weight by species and sex
 rodents_subset %>%
-  ggplot(aes(y = weight, x = common_name, fill = sex)) +
+  ggplot(aes(y = weight, x = species, fill = sex)) +
   geom_boxplot()
 
 # Subsetted dataset
@@ -330,11 +328,11 @@ We haven't yet included enough code to allow a helper, such as Remy, to run the 
 
 ### Include dependencies
 
-::: callout
-A **dependency** is a piece of code that other pieces of code **depend on** in order to function properly.
-:::
+That's why it's so important to include dependencies in your reprex.
 
-R code consists primarily of **functions** and **variables**. In order to make our minimal examples truly _reproducible_, we have to give our helpers access to all the functions and variables that are necessary to run our code.
+A **dependency** is a piece of code that other pieces of code **depend on** in order to function properly.
+
+R code consists primarily of **functions** and **variables**. In order to make our minimal examples truly _reproducible_, we have to give our helpers access to all the functions and all the variables that are necessary to run our code.
 
 First, let's talk about **functions**. Functions in R typically come from packages. You can access them by loading the package into your environment. 
 
@@ -343,48 +341,56 @@ To make sure that your helper has access to the packages necessary to run your r
 ::: callout
 ### Default packages
 
-Some packages, such as `{base}` and `{stats}`, are loaded in R by default, so you might not have realized that a lot of functions, such as `dim`, `colSums`, `factor`, and `length` actually come from those packages!
+Some packages, such as `{base}` and `{stats}`, are loaded in R by default, so you might not have realized that a lot of commonly-used functions, such as `dim`, `colSums`, `mean`, and `length` actually come from those packages!
 
-You can see a complete list of the functions that come from the `{base}` and `{stats}` packages by running `library(help = "base")` or `library(help = "stats")`.
+You can see a complete list of the functions that come from the `{base}` and `{stats}` packages by running `library(help = "base")` or `library(help = "stats")` in your console.
 :::
 
 Let's do this for our own reprex. We can start by identifying all the functions used, and then we can figure out where each function comes from to make sure that we tell our helper to load the right packages.
 
 :::challenge
-The functions used in our minimal example are `read.csv()`, `filter()`, `c()`, and `table()`.
+The functions used in our minimal example are `read_csv()`, `filter()`, `c()`, and `table()`.
 
 Identify the package that each of the functions comes from and modify the minimal example so that it explicitly loads those packages.
 :::solution
 `library(dplyr)`
+`library(readr)`
 
-`read.csv()` comes from `{utils}`, which is loaded by default. `c()` and `table()` come from `{base}`, which is also loaded by default.
+`filter()` comes from `{dplyr}`, and read_csv()` comes from `{readr}`. `c()` and `table()` come from `{base}`, which is  loaded by default, so we don't need to include a library() call for this.
 
-Bonus if you notice that we also use the `%>%` operator, which comes from `{dplyr}` too, so we definitely need to make sure that `{dplyr}` is loaded!
+Bonus if you notice that we also use the `%>%` operator, which comes from `{dplyr}` too, so we definitely need to make sure that `{dplyr}` is loaded! 
+
+*Extra challenge: did we use any other operators? Where do they come from?*
 :::
 :::
 
-We can update our minimal code to include that `library()` call.
+We can update our minimal code to include those `library()` call.
 
 ```{r eval = F}
+library(readr)
 library(dplyr)
 
-rodents <- read.csv("data/surveys_complete_77_89.csv")
+surveys <- read_csv("data/surveys_complete_77_89.csv")
 
-rodents_subset <- rodents %>%
-  filter(species == c("ordii", "spectabilis"))
+# Filter to known sex
+rodents_subset <- surveys %>%
+  filter(sex == c("F", "M"))
 
-table(rodents_subset$sex, rodents_subset$species) # there are fewer male and female ordii and spectabilis individuals in the subsetted dataset than there were in the original dataset, and we're not sure why.
-table(rodents$sex, rodents$species)
+# Subsetted dataset
+table(rodents_subset$sex, rodents_subset$species)
+
+# Original dataset
+table(surveys$sex, surveys$species) # still missing a lot of rows!
 ```
 
 ::::::::::::::::::::::::::::::::::::::::::: callout
 ### Installing vs. loading packages
 
-But what if our helper doesn't have all of these packages installed? Won't the code not be reproducible?
+We included calls to `library()` to load the packages we need. But what if our helper doesn't have all of these packages installed? Won't the code not be reproducible?
 
-Typically, we don't include `install.packages()` in our code for each of the packages that we include in the `library()` calls, because `install.packages()` is a one-time piece of code that doesn't need to be repeated every time the script is run. We assume that our helper will see `library(specialpackage)` and know that they need to go install "specialpackage" on their own.
+Packages need to be installed one time before they can be loaded with `library()`. Typically, we don't include `install.packages()` in our code for each of the packages that we include in the `library()` calls, because `install.packages()` doesn't need to be repeated every time the script is run. We assume that our helper will see `library(specialpackage)` and know that they need to go install "specialpackage" on their own.
 
-Technically, this makes that part of the code not reproducible! But it's also much more "polite". Our helper might have their own way of managing package versions, and forcing them to install a package when they run our code risks messing up our workflow. It is a common convention to stick with `library()` and let them figure it out from there.
+Technically, this does make that part of the code not reproducible! But it's also more "polite" than explicitly including `install.packages()`. Our helper might have their own way of managing package versions, and forcing them to install a package when they run our reprex risks messing up our workflow. It is a common convention to stick with `library()` and let the helper figure it out from there.
 :::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::: challenge
@@ -421,8 +427,6 @@ c. `process_rodents_data` is not from any package that we know of, so it was pro
 Including `library()` calls will definitely help Remy run the code. But this code still won't work as written because Remy does not have access to the same *objects* that Mickey used in the code.
 
 The code as written relies on `rodents_subset`, which Remy will not have access to if they try to run the code. That means that we've succeeded in making our example *minimal*, but it is not *reproducible*: it does not allow someone else to reproduce the problem!
-
-![](fig/02_minimize_code.png)
 
 :::::::::::::::::::::::::::::::::::::::::::challenge
 ### Exercise 5: Reflection
