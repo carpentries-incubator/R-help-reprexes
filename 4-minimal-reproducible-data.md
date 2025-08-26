@@ -308,7 +308,7 @@ x
 ```
 
 ``` output
- [1]  1  2  8  3  7  9 10  5  6  4
+ [1]  1  5  7  4 10  3  2  9  6  8
 ```
 
 Or you can randomly sample from a normal distribution
@@ -320,8 +320,8 @@ x
 ```
 
 ``` output
- [1]  0.2501875  0.4083273 -2.5416064  0.5771146 -3.0345198  2.2129546
- [7] -0.1737097 -0.1007789  0.6411650 -0.6584345
+ [1] -0.59669040  2.09573757  0.05709885 -0.49334833  0.27124331  0.47614501
+ [7] -0.82785885 -0.68234008 -0.12234170  1.00905239
 ```
 
 You can also use `letters` to create factors.
@@ -333,7 +333,7 @@ x
 ```
 
 ``` output
- [1] "a" "c" "c" "b" "b" "d" "c" "d" "c" "a" "b" "c" "b" "b" "c" "a" "d" "a" "d"
+ [1] "a" "a" "a" "c" "a" "b" "b" "b" "a" "d" "b" "d" "d" "b" "c" "a" "b" "a" "c"
 [20] "c"
 ```
 
@@ -349,12 +349,12 @@ head(data)
 
 ``` output
   x          y
-1 b  0.2720386
-2 a  0.2126463
-3 b -0.1276433
-4 c -0.6414049
-5 b -1.8312243
-6 c  0.7723894
+1 c  0.9563593
+2 c -1.5044673
+3 c -0.8386642
+4 b  0.8507054
+5 a -0.9841233
+6 a -0.8668617
 ```
 
 **However**, when sampling at random you must remember to `set.seed()` before sending it to someone to make sure you both get the same numbers!
@@ -591,7 +591,7 @@ species
 ```
 
 ``` output
-[1] "j" "z" "g"
+[1] "i" "h" "a"
 ```
 
 ``` r
@@ -631,16 +631,16 @@ sample_data
 
 ``` output
    record_id species  sex
-1          1       g <NA>
-2          2       z    F
-3          3       z    F
-4          4       g <NA>
-5          5       z <NA>
-6          6       g    M
-7          7       g    M
-8          8       j    M
-9          9       g    M
-10        10       g <NA>
+1          1       a    M
+2          2       a    M
+3          3       i    M
+4          4       h <NA>
+5          5       h    F
+6          6       i <NA>
+7          7       h    F
+8          8       a    M
+9          9       a <NA>
+10        10       h <NA>
 ```
 
 And just like that we helped Mickey create a mock dataset from scratch!
@@ -659,16 +659,16 @@ sample2_data
 
 ``` output
    record_id species  sex
-1          1       b    F
-2          2       a <NA>
-3          3       c    F
-4          4       a <NA>
-5          5       c    F
-6          6       c <NA>
+1          1       a    M
+2          2       a    F
+3          3       a <NA>
+4          4       c    F
+5          5       c <NA>
+6          6       c    M
 7          7       a    M
-8          8       a <NA>
-9          9       a    M
-10        10       a    F
+8          8       c <NA>
+9          9       b    M
+10        10       b    F
 ```
 
 **Important**: Notice that the outputs of the two datasets are not the same.

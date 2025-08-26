@@ -122,9 +122,12 @@ Switch over to the project from inside of RStudio by clicking on the blue cube i
 
 For more information and guidance on RStudio projects, see the [Posit support page](https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects).
 
-### Download the data
+### Download dataset
 
-For this lesson, we will be using a dataset called `surveys_complete_77_89.csv`, which contains rodent survey data from the [Portal Project]("LINK")
+For this lesson, we will be using a dataset called `surveys_complete_77_89.csv`, which contains rodent survey data from the [Portal Project]("https://portal.weecology.org/")
 
-Please download the data file and put it into the `data/` folder of your RStudio project.
- - [cleaned data](../episodes/data/surveys_complete_77_89.csv)
+Please download the [cleaned data](../episodes/data/surveys_complete_77_89.csv) and put it into the `data/` folder of your RStudio project.
+ 
+### Download analysis script
+
+For episode 3 of this lesson, we will be examining a pre-created [analysis script](../scripts/mickey_analysis.R). So that everyone is on the same page, please download the script "[mickey_analysis.R](../scripts/mickey_analysis.R)" and put it in the main folder of your RStudio project.

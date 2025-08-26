@@ -543,13 +543,14 @@ Mickey is interested in understanding how kangaroo rat weights differ across spe
 
 
 ``` r
-ggplot(rodents, aes(x = species, fill = sex)) +
+# Barplot of rodent species by sex
+ggplot(surveys, aes(x = species, fill = sex)) +
   geom_bar()
 ```
 
 <img src="fig/2-identify-the-problem-rendered-unnamed-chunk-23-1.png" style="display: block; margin: auto;" />
 
-Whoa, this is really overwhelming! Mickey forgot that the dataset includes data for a lot of different rodent species, not just kangaroo rats. Mickey is only interested in two kangaroo rat species: *Dipodomys ordii* (Ord's kangaroo rat) and *Dipodomys spectabilis* (Banner-tailed kangaroo rat).
+Whoa, this is really overwhelming! Mickey forgot that the dataset includes data for a lot of different species, not just kangaroo rats. Mickey is only interested in two kangaroo rat species: *Dipodomys ordii* (Ord's kangaroo rat) and *Dipodomys spectabilis* (Banner-tailed kangaroo rat).
 
 Mickey also notices that there are three categories for sex: F, M, and what looks like a blank field when there is no sex information available. For the purposes of comparing weights, Mickey wants to focus only rodents of known sex.
 
@@ -557,7 +558,8 @@ Mickey filters the data to include only the two focal species and only rodents w
 
 
 ``` r
-rodents_subset <- rodents %>%
+# Filter to focal species and known sex
+rodents_subset <- surveys %>%
   filter(species == c("ordii", "spectabilis"),
          sex == c("F", "M"))
 ```
@@ -588,6 +590,7 @@ Mickey re-orders the names and tries the code again. This time, it works! The co
 
 
 ``` r
+# Try again, re-ordering the common names
 common_names <- data.frame(species = sort(unique(rodents_subset$species)), common_name = c("Ord's", "Banner-Tailed"))
 rodents_subset <- left_join(rodents_subset, common_names, by = "species")
 ```
@@ -597,31 +600,31 @@ Now, Mickey is ready to start learning about kangaroo rat weights. They start by
 
 ``` r
 # Explore k-rat weights
-weight_model <- lm(weight ~ common_name + sex, data = rodents_subset)
+weight_model <- lm(weight ~ species + sex, data = rodents_subset)
 summary(weight_model) 
 ```
 
 ``` output
 
 Call:
-lm(formula = weight ~ common_name + sex, data = rodents_subset)
+lm(formula = weight ~ species + sex, data = rodents_subset)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--111.201   -6.466    2.534   10.799   45.799 
+-109.531   -7.991    3.239   11.469   48.469 
 
 Coefficients: (1 not defined because of singularities)
-                 Estimate Std. Error t value Pr(>|t|)    
-(Intercept)      123.2007     0.8061  152.83   <2e-16 ***
-common_nameOrd's -74.7342     1.3352  -55.97   <2e-16 ***
-sexM                   NA         NA      NA       NA    
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          47.991      1.136   42.23   <2e-16 ***
+speciesspectabilis   73.540      1.420   51.79   <2e-16 ***
+sexM                     NA         NA      NA       NA    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 19.71 on 939 degrees of freedom
-  (35 observations deleted due to missingness)
-Multiple R-squared:  0.7694,	Adjusted R-squared:  0.7691 
-F-statistic:  3133 on 1 and 939 DF,  p-value: < 2.2e-16
+Residual standard error: 20.58 on 910 degrees of freedom
+  (31 observations deleted due to missingness)
+Multiple R-squared:  0.7466,	Adjusted R-squared:  0.7464 
+F-statistic:  2682 on 1 and 910 DF,  p-value: < 2.2e-16
 ```
 
 The negative coefficient for `common_nameOrd's` tells Mickey that Ord's kangaroo rats are significantly less heavy than Banner-tailed kangaroo rats.
@@ -630,13 +633,14 @@ But something is wrong with the coefficients for sex. Why are there NA values fo
 
 
 ``` r
+# Weight by species and sex
 rodents_subset %>%
-  ggplot(aes(y = weight, x = common_name, fill = sex)) +
+  ggplot(aes(y = weight, x = species, fill = sex)) +
   geom_boxplot()
 ```
 
 ``` warning
-Warning: Removed 35 rows containing non-finite outside the scale range
+Warning: Removed 31 rows containing non-finite outside the scale range
 (`stat_boxplot()`).
 ```
 
@@ -655,8 +659,8 @@ table(rodents_subset$sex, rodents_subset$species)
 ``` output
    
     ordii spectabilis
-  F   350           0
-  M     0         626
+  F   333           0
+  M     0         610
 ```
 
 To double check, Mickey looks at the original dataset.
