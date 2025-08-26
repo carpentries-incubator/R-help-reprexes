@@ -149,7 +149,7 @@ To summarize, we have already determined:
 
 **The symptom (lines that show that something is wrong):** Comparison between the species and sex counts in the original and subsetted datasets.
 
-In particular, this comparison shows us that there are no observations of female *spectabilis* or male *ordii* in `rodents_subset`, but there *were* plenty in the original dataset.
+In particular, this comparison shows us that there are no observations of female *spectabilis* or male *ordii* in `rodents_subset`, but there *were* plenty in the original dataset, and that in general, there were many fewer rows for both species in the subset than the original.
 
 ```{r}
 # Subsetted dataset
@@ -158,7 +158,6 @@ table(rodents_subset$sex, rodents_subset$species)
 # Original dataset
 table(surveys$sex, surveys$species) # there are no observations of female spectabilis or male ordii in `rodents_subset`, even though there were in the original dataset.
 ```
-
 These two lines of code, and the observation we made about them, will be our guide as we simplify the script further.
 
 We can now start removing pieces of code that we believe are not central to our problem. After each removal, we can re-run the code and make sure that our symptom persists. If the symptom changes, we have either solved our problem (yay for rubber duck debugging!) or we removed a line of code that was actually essential to reproducing our problem.
@@ -177,7 +176,7 @@ Code to remove:
 # common_names
 ```
 
-Actually, now that we think about it, those common names are not directly related to the problem! The column might be useful later on, but for our reprex we can probably remove that part of the code without changing the outcome.
+Actually, now that we think about it, those common names are not directly related to the problem at all! The "common_name" column might be useful later on, but for our reprex we can probably remove that part of the code without changing the outcome.
 
 Code to remove:
 
@@ -231,7 +230,7 @@ table(surveys$sex, surveys$species)  # there are no observations of female spect
 
 ### C. Run the simplified code and make sure that the symptom is still present. *Does your example still reproduce the problem?*
 
-Now it's time to re-run the script to make sure we haven't removed anything essential. Remember to pay attention to the symptom of the problem at the end and make sure that our essential observation hasn't changed. Sure enough, those observations are still missing. We have succeeded in simplifying our code while still demonstrating the problem!
+Now it's time to re-run the script to make sure we haven't removed anything essential. Remember to pay attention to the symptom of the problem at the end and make sure that the essential observation hasn't changed. Sure enough, those observations are still missing. We have succeeded in simplifying our code while still demonstrating the problem!
 
 Great progress, but this script is still pretty long and complicated. Can we remove more things?
 
@@ -287,10 +286,10 @@ table(rodents_subset$sex, rodents_subset$species)
 table(surveys$sex, surveys$species) # still missing a lot of rows!
 ```
 
-Something is different--we no longer have zero rows for two of the species/sex combos. But this example still demonstrates our problem. Remember, we previously stated the problem as "There are many observations missing from `rodents_subset` that should not have been removed." And sure enough, if we look closely here, we can see that our species/sex counts have changed from 690 F ordii/792 M ordii and 1135 F spectabilis/1232 M spectabilis to 333/339 and 567/610, respectively. The problem persists! We are still mysteriously missing rows.
+Something is different--we no longer have zero rows for two of the species/sex combos. But this example still demonstrates our problem. Remember, we previously stated the problem as "There are many observations missing from `rodents_subset` that should not have been removed." And sure enough, if we look closely here, we can see that our species/sex counts have changed from 690 F ordii/792 M ordii and 1135 F spectabilis/1232 M spectabilis to 333/393 and 568/610, respectively. The problem persists! We are still mysteriously missing rows.
 
 :::callout
-If you had chosen to remove the species filter instead of removing the sex filter, the same point would be made. The numbers would be different, but we would still see fewer rows in the subsetted data frame. Either one works!
+If you had chosen to remove the sex filter instead of removing the species filter, the same point would be made. The numbers would be different, but we would still see fewer rows in the subsetted data frame. Either one works!
 :::
 
 :::callout
@@ -313,22 +312,23 @@ table(rodents_subset$sex, rodents_subset$species)
 table(surveys$sex, surveys$species) # still missing a lot of rows!
 ```
 
-This is great progress! A helper will find this minimal code snippet much more approachable than the long script we started with. However, we're not done yet. 
+This is great progress! Remy will find this minimal code snippet much more approachable than the long script that Mickey started with. 
 
 :::challenge
-### Exercise 3
+### Exercise 3: Have we made a reprex?
 
-Mickey emails the minimal code script to Remy. Remy notices immediately that this code is much easier to read and understand. They open up the script and try to run it in R.
+Mickey is really proud of their efforts to minimize the code! They email the minimal code snippet to Remy to ask for help. Remy notices immediately that this code is much easier to read and understand. They open up the script and try to run it in R.
 
 1. What do you think will happen when Remy tries to run the code from this reprex script?
+
 2. What should Mickey do next to improve the minimal reproducible example?
 :::
 
-We haven't yet included enough code to allow a helper, such as Remy, to run the code on their own computer. If Remy tries to run the reprex script in its current state, they will encounter errors because they don't have access to the same R environment that Mickey does. 
-
-### Include dependencies
+We haven't yet included enough code to allow a helper, such as Remy, to run the code on their own computer. If Remy tries to run the reprex script in its current state, they will encounter errors because they don't have access to the same R environment that Mickey does.
 
 That's why it's so important to include dependencies in your reprex.
+
+### Include dependencies
 
 A **dependency** is a piece of code that other pieces of code **depend on** in order to function properly.
 
@@ -344,11 +344,15 @@ To make sure that your helper has access to the packages necessary to run your r
 Some packages, such as `{base}` and `{stats}`, are loaded in R by default, so you might not have realized that a lot of commonly-used functions, such as `dim`, `colSums`, `mean`, and `length` actually come from those packages!
 
 You can see a complete list of the functions that come from the `{base}` and `{stats}` packages by running `library(help = "base")` or `library(help = "stats")` in your console.
+
+But, you actually don't need to worry too much about this because your helpers' RStudio versions will also have `{base}` and `{stats}` preinstalled!
 :::
 
 Let's do this for our own reprex. We can start by identifying all the functions used, and then we can figure out where each function comes from to make sure that we tell our helper to load the right packages.
 
 :::challenge
+### Exercise 4: Which packages should we load?
+
 The functions used in our minimal example are `read_csv()`, `filter()`, `c()`, and `table()`.
 
 Identify the package that each of the functions comes from and modify the minimal example so that it explicitly loads those packages.
@@ -364,7 +368,7 @@ Bonus if you notice that we also use the `%>%` operator, which comes from `{dply
 :::
 :::
 
-We can update our minimal code to include those `library()` call.
+We can update our minimal code to include those  `library()` calls.
 
 ```{r eval = F}
 library(readr)
@@ -388,13 +392,13 @@ table(surveys$sex, surveys$species) # still missing a lot of rows!
 
 We included calls to `library()` to load the packages we need. But what if our helper doesn't have all of these packages installed? Won't the code not be reproducible?
 
-Packages need to be installed one time before they can be loaded with `library()`. Typically, we don't include `install.packages()` in our code for each of the packages that we include in the `library()` calls, because `install.packages()` doesn't need to be repeated every time the script is run. We assume that our helper will see `library(specialpackage)` and know that they need to go install "specialpackage" on their own.
+Packages need to be installed one time before they can be loaded with `library()`. Typically, we don't include `install.packages()` in our code for each of the packages that we include in the `library()` calls, because `install.packages()` doesn't need to be repeated every time the script is run. We can assume that our helper will see `library(specialpackage)` and know that they need to go install "specialpackage" on their own.
 
-Technically, this does make that part of the code not reproducible! But it's also more "polite" than explicitly including `install.packages()`. Our helper might have their own way of managing package versions, and forcing them to install a package when they run our reprex risks messing up our workflow. It is a common convention to stick with `library()` and let the helper figure it out from there.
+Technically, this does make that part of the code not reproducible! But it's also more "polite" than explicitly including `install.packages()`. Our helper might have their own way of managing package versions, and forcing them to install a package when they run our reprex risks messing up their workflow. It is a common convention to stick with `library()` and let the helper figure it out from there.
 :::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::: challenge
-### Exercise 4: Which packages are essential?
+### Exercise 5: Which packages are essential?
 
 In each of the following code snippets, identify the necessary packages (or other code) to make the example reproducible.
 
@@ -424,12 +428,14 @@ c. `process_rodents_data` is not from any package that we know of, so it was pro
 :::
 :::::::::::::::::::::::::::::::::::::::::::
 
-Including `library()` calls will definitely help Remy run the code. But this code still won't work as written because Remy does not have access to the same *objects* that Mickey used in the code.
+Including `library()` calls will definitely help Remy run the code. But this code still won't work as written because Remy does not have access to the same *objects* that Mickey used in the code. Along with functions, objects are the second type of dependency we need to watch out for when writing reprexes.
 
 The code as written relies on `rodents_subset`, which Remy will not have access to if they try to run the code. That means that we've succeeded in making our example *minimal*, but it is not *reproducible*: it does not allow someone else to reproduce the problem!
 
+In the next episode, we will learn how to handle perhaps the most thorny part of creating reprexes: dealing with datasets.
+
 :::::::::::::::::::::::::::::::::::::::::::challenge
-### Exercise 5: Reflection
+### Exercise 6: Reflection
 
 Let's take a moment to reflect on this process.
 
