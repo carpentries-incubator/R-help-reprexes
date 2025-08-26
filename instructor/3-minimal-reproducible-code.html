@@ -354,24 +354,32 @@ not, identify what is missing.</li>
 </div>
 </div>
 </div>
+<p>When we left off in the previous episode, Mickey had discovered a
+problem with their code–many kangaroo rat observations were missing from
+a subset of the data after they filtered the dataset down to the
+kangaroo rat species of interest.</p>
+<p>Mickey tried some code first aid steps but wasn’t able to solve the
+problem. They consulted Remy’s road map and saw that the next step is to
+make a reprex.</p>
 <div class="section level1">
 <h1 id="making-a-reprex">Making a reprex<a class="anchor" aria-label="anchor" href="#making-a-reprex"></a></h1>
-<div class="section level2">
-<h2 id="step-1-simplify-the-code">Step 1: Simplify the code<a class="anchor" aria-label="anchor" href="#step-1-simplify-the-code"></a></h2>
+<figure><img src="../fig/02_minimize_code.png" class="figure mx-auto d-block"></figure><div class="section level2">
+<h2 id="step-1-minimize-the-code">Step 1: Minimize the code<a class="anchor" aria-label="anchor" href="#step-1-minimize-the-code"></a></h2>
 <p>Mickey has written a lot of code so far. The code is also a little
 messy–for example, after fixing the previous errors, they sometimes
 commented out the old code and kept it for future reference.</p>
 <p>Let’s take a look at the script as it stands so far.</p>
-<div id="callout1" class="callout">
-<div class="callout-square">
-<i class="callout-icon" data-feather="bell"></i>
+<div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
+  <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
+</button>
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div class="accordion-body">
+<p>Share this file with learners and/or have them copy/paste it exactly
+into their RStudio sessions–do not try to re-type all this code line by
+line! There definitely will not be time.</p>
 </div>
-<span class="callout-header">Callout</span>
-<div class="callout-inner">
-<div class="callout-content">
-<p>Depending on how closely you have been following the lesson and which
-challenges you have attempted, your script may not look exactly like
-Mickey’s. That’s okay!</p>
 </div>
 </div>
 </div>
@@ -380,51 +388,50 @@ Mickey’s. That’s okay!</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Minimal reproducible example script</span></span>
-<span><span class="co"># Load packages and data</span></span>
+<span><span class="co"># Loading the tidyverse package</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span>
+<span><span class="co"># Uploading the dataset that is currently saved in the project's data folder</span></span>
 <span><span class="va">surveys</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/surveys_complete_77_89.csv"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Take a look at the data</span></span>
 <span><span class="fu">glimpse</span><span class="op">(</span><span class="va">surveys</span><span class="op">)</span></span>
-<span><span class="fu">min</span><span class="op">(</span><span class="va">surveys</span><span class="op">$</span><span class="va">year</span><span class="op">)</span></span>
-<span><span class="fu">max</span><span class="op">(</span><span class="va">surveys</span><span class="op">$</span><span class="va">year</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Make some plots</span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">surveys</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">taxa</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># or you can use</span></span>
+<span><span class="fu">str</span><span class="op">(</span><span class="va">surveys</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">table</span><span class="op">(</span><span class="va">surveys</span><span class="op">$</span><span class="va">taxa</span><span class="op">)</span></span>
-<span><span class="op">?</span><span class="va">table</span></span>
-<span><span class="fu">table</span><span class="op">(</span><span class="va">surveys</span><span class="op">$</span><span class="va">taxa</span>, exclude <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Just rodents</span></span>
-<span><span class="va">rodents</span> <span class="op">&lt;-</span> <span class="va">surveys</span> <span class="op">%&gt;%</span> <span class="fu">filter</span><span class="op">(</span><span class="va">taxa</span> <span class="op">==</span> <span class="st">"Rodent"</span><span class="op">)</span></span>
-<span><span class="va">rodents_summary</span> <span class="op">&lt;-</span> <span class="va">rodents</span> <span class="op">%&gt;%</span> <span class="fu">group_by</span><span class="op">(</span><span class="va">plot_type</span>, <span class="va">month</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">summarize</span><span class="op">(</span>count<span class="op">=</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">rodents_summary</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_tile</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">month</span>, <span class="va">plot_type</span>, fill<span class="op">=</span><span class="va">count</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Just k-rats</span></span>
-<span><span class="va">krats</span> <span class="op">&lt;-</span><span class="va">rodents</span> <span class="op">%&gt;%</span> <span class="fu">filter</span><span class="op">(</span><span class="va">genus</span> <span class="op">==</span> <span class="st">"Dipodomys"</span><span class="op">)</span> <span class="co">#kangaroo rat genus</span></span>
-<span><span class="fu">dim</span><span class="op">(</span><span class="va">krats</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">krats</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">year</span>, fill<span class="op">=</span><span class="va">plot_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">species</span><span class="op">)</span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">rodents</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>, fill <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span><span class="co"># Barplot of rodent species by sex</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">rodents</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>, fill <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">rodents_subset</span> <span class="op">&lt;-</span> <span class="va">rodents</span> <span class="op">%&gt;%</span></span>
+<span></span>
+<span><span class="co"># Filter to focal species and known sex</span></span>
+<span><span class="va">rodents_subset</span> <span class="op">&lt;-</span> <span class="va">surveys</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">filter</span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="fu">c</span><span class="op">(</span><span class="st">"ordii"</span>, <span class="st">"spectabilis"</span><span class="op">)</span>,</span>
 <span>         <span class="va">sex</span> <span class="op">==</span> <span class="fu">c</span><span class="op">(</span><span class="st">"F"</span>, <span class="st">"M"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Add common names</span></span>
+<span><span class="co"># common_names &lt;- data.frame(species = unique(rodents_subset$species), common_name = c("Ord's", "Banner-tailed"))</span></span>
+<span><span class="co"># common_names</span></span>
+<span></span>
+<span><span class="co"># Try again, re-ordering the common names</span></span>
 <span><span class="va">common_names</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span>species <span class="op">=</span> <span class="fu">sort</span><span class="op">(</span><span class="fu">unique</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span><span class="op">)</span>, common_name <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Ord's"</span>, <span class="st">"Banner-Tailed"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">rodents_subset</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">rodents_subset</span>, <span class="va">common_names</span>, by <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Explore k-rat weights</span></span>
-<span><span class="va">weight_model</span> <span class="op">&lt;-</span> <span class="fu">lm</span><span class="op">(</span><span class="va">weight</span> <span class="op">~</span> <span class="va">common_name</span> <span class="op">+</span> <span class="va">sex</span>, data <span class="op">=</span> <span class="va">rodents_subset</span><span class="op">)</span></span>
-<span><span class="fu">summary</span><span class="op">(</span><span class="va">weight_model</span><span class="op">)</span> <span class="co"># this looks weird</span></span>
+<span><span class="va">weight_model</span> <span class="op">&lt;-</span> <span class="fu">lm</span><span class="op">(</span><span class="va">weight</span> <span class="op">~</span> <span class="va">species</span> <span class="op">+</span> <span class="va">sex</span>, data <span class="op">=</span> <span class="va">rodents_subset</span><span class="op">)</span></span>
+<span><span class="fu">summary</span><span class="op">(</span><span class="va">weight_model</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Weight by species and sex</span></span>
 <span><span class="va">rodents_subset</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">weight</span>, x <span class="op">=</span> <span class="va">common_name</span>, fill <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span> <span class="co"># still looks weird</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">weight</span>, x <span class="op">=</span> <span class="va">species</span>, fill <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Subsetted dataset</span></span>
 <span><span class="fu">table</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span>
-<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></code></pre>
+<span></span>
+<span><span class="co"># Original dataset</span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">surveys</span><span class="op">$</span><span class="va">sex</span>, <span class="va">surveys</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></code></pre>
 </div>
 <div id="exercise-1-reflection" class="callout discussion">
 <div class="callout-square">
@@ -436,10 +443,12 @@ Mickey’s. That’s okay!</p>
 <div class="callout-content">
 <ol style="list-style-type: decimal"><li><p>As you look at this script and think through trying to debug it,
 how do you feel?</p></li>
-<li><p>Imagine you are Remy, an advanced grad student whose priority is
-finishing your dissertation. Your labmate Mickey has just sent you this
-script, asking for help debugging it. How do you feel when you get
-Mickey’s email? What advice might you give Mickey?</p></li>
+<li><p>Mickey’s first instinct is to send the script to Remy and tell
+them about the error. Imagine that you are Remy, an advanced graduate
+student whose priority is finishing your dissertation. Your new labmate
+Mickey has just sent you this script, asking for help debugging it. How
+do you feel when you get Mickey’s email? What advice might you give
+Mickey?</p></li>
 </ol></div>
 </div>
 </div>
@@ -448,9 +457,10 @@ code as much as possible to make it easier for the helper to understand
 what is wrong. Simplifying code helps to reduce frustration and
 overwhelm when debugging an error in a complicated script. The more that
 we can make the process of helping easy and painless for the helper, the
-more likely that they will take the time to help.</p>
+more likely it is that they will take the time to help.</p>
 <div class="section level3">
 <h3 id="create-a-new-script">Create a new script<a class="anchor" aria-label="anchor" href="#create-a-new-script"></a></h3>
+<p>Why do you think it’s a good idea to create a new script?</p>
 <p>To make the task of simplifying the code less overwhelming, let’s
 create a separate script for our reprex. This will let us experiment
 with simplifying our code while keeping the original script intact.</p>
@@ -521,13 +531,14 @@ original and subsetted datasets.</p>
 <p>In particular, this comparison shows us that there are no
 observations of female <em>spectabilis</em> or male <em>ordii</em> in
 <code>rodents_subset</code>, but there <em>were</em> plenty in the
-original dataset.</p>
+original dataset, and that in general, there were many fewer rows for
+both species in the subset than the original.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Subsetted dataset</span></span>
-<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span> </span></code></pre>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -539,23 +550,27 @@ original dataset.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Original dataset</span></span>
-<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents</span><span class="op">$</span><span class="va">species</span><span class="op">)</span> <span class="co"># there are no observations of female spectabilis or male ordii in `rodents_subset`, even though there were in the original dataset.</span></span></code></pre>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">surveys</span><span class="op">$</span><span class="va">sex</span>, <span class="va">surveys</span><span class="op">$</span><span class="va">species</span><span class="op">)</span> <span class="co"># there are no observations of female spectabilis or male ordii in `rodents_subset`, even though there were in the original dataset.</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>
-    albigula eremicus flavus fulvescens fulviventer harrisi hispidus
-  F      474      372    222         46           3       0       68
-  M      368      468    302         16           2       0       42
+    albigula audubonii bilineata brunneicapillus chlorurus clarki eremicus
+  F      474         0         0               0         0      0      372
+  M      368         0         0               0         0      0      468
 
-    leucogaster maniculatus megalotis merriami ordii penicillatus  sp.
-  F         373         160       637     2522   690          221    4
-  M         397         248       680     3108   792          155    5
+    flavus fulvescens fulviventer fuscus gramineus harrisi hispidus leucogaster
+  F    222         46           3      0         0       0       68         373
+  M    302         16           2      0         0       0       42         397
 
-    spectabilis spilosoma taylori torridus
-  F        1135         1       0      390
-  M        1232         1       3      441</code></pre>
+    leucophrys maniculatus megalotis melanocorys merriami ordii penicillatus
+  F          0         160       637           0     2522   690          221
+  M          0         248       680           0     3108   792          155
+
+    scutalatus  sp. spectabilis spilosoma squamata taylori torridus viridis
+  F          0    4        1135         1        0       0      390       0
+  M          0    5        1232         1        0       3      441       0</code></pre>
 </div>
 <p>These two lines of code, and the observation we made about them, will
 be our guide as we simplify the script further.</p>
@@ -576,68 +591,73 @@ exploratory plots, models, or descriptive functions such as
 code that adds complexity to the analysis that is not relevant to the
 problem at hand.</p>
 <p>Let’s start by removing the broken code that we commented out
-earlier. Also, we created a <code>date</code> column by combining the
-<code>month</code>, <code>day</code>, and <code>year</code> columns.
-This column might be useful for analysis later, but it doesn’t seem
-relevant to the problem we’re facing now with the sex and species
-columns. We can probably get rid of that part while still reproducing
-our problem.</p>
-<p>Let’s go ahead and remove those pieces of code. Now our script looks
-like this:</p>
+earlier, back when we tried to join the common names and it didn’t work
+because they were in the wrong order.</p>
+<p>Code to remove:</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Add common names</span></span>
+<span><span class="co"># common_names &lt;- data.frame(species = unique(rodents_subset$species), common_name = c("Ord's", "Banner-tailed"))</span></span>
+<span><span class="co"># common_names</span></span></code></pre>
+</div>
+<p>Actually, now that we think about it, those common names are not
+directly related to the problem at all! The “common_name” column might
+be useful later on, but for our reprex we can probably remove that part
+of the code without changing the outcome.</p>
+<p>Code to remove:</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Try again, re-ordering the common names</span></span>
+<span><span class="va">common_names</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span>species <span class="op">=</span> <span class="fu">sort</span><span class="op">(</span><span class="fu">unique</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span><span class="op">)</span>, common_name <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Ord's"</span>, <span class="st">"Banner-Tailed"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">rodents_subset</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">rodents_subset</span>, <span class="va">common_names</span>, by <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span></span></code></pre>
+</div>
+<p>After removing both of those pieces of code, our script is a little
+shorter:</p>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Minimal reproducible example script</span></span>
+<span><span class="co"># Loading the tidyverse package</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span>
+<span><span class="co"># Uploading the dataset that is currently saved in the project's data folder</span></span>
 <span><span class="va">surveys</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/surveys_complete_77_89.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Take a look at the data</span></span>
 <span><span class="fu">glimpse</span><span class="op">(</span><span class="va">surveys</span><span class="op">)</span></span>
-<span><span class="fu">min</span><span class="op">(</span><span class="va">surveys</span><span class="op">$</span><span class="va">year</span><span class="op">)</span></span>
-<span><span class="fu">max</span><span class="op">(</span><span class="va">surveys</span><span class="op">$</span><span class="va">year</span><span class="op">)</span></span>
-<span><span class="co"># Read in the data</span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span>x <span class="op">=</span> <span class="va">taxa</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">surveys</span><span class="op">$</span><span class="va">taxa</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">surveys</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">taxa</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># or you can use</span></span>
+<span><span class="fu">str</span><span class="op">(</span><span class="va">surveys</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">table</span><span class="op">(</span><span class="va">surveys</span><span class="op">$</span><span class="va">taxa</span><span class="op">)</span></span>
-<span><span class="op">?</span><span class="va">table</span></span>
-<span><span class="fu">table</span><span class="op">(</span><span class="va">surveys</span><span class="op">$</span><span class="va">taxa</span>, exclude <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
-<span><span class="va">rodents</span> <span class="op">&lt;-</span> <span class="va">surveys</span> <span class="op">%&gt;%</span> <span class="fu">filter</span><span class="op">(</span><span class="va">taxa</span> <span class="op">==</span> <span class="st">"Rodent"</span><span class="op">)</span></span>
-<span><span class="va">rodents_summary</span> <span class="op">&lt;-</span> <span class="va">rodents</span> <span class="op">%&gt;%</span> <span class="fu">group_by</span><span class="op">(</span><span class="va">plot_type</span>, <span class="va">month</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">summarize</span><span class="op">(</span>count<span class="op">=</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">rodents_summary</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_tile</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">month</span>, <span class="va">plot_type</span>, fill<span class="op">=</span><span class="va">count</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">rodents</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_tile</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">month</span>, <span class="va">plot_type</span><span class="op">)</span>, stat <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">rodents</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_tile</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">month</span>, <span class="va">plot_type</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">krats</span> <span class="op">&lt;-</span> <span class="va">rodents</span> <span class="op">%&gt;%</span> <span class="fu">filter</span><span class="op">(</span><span class="va">genus</span> <span class="op">==</span> <span class="st">"Dipadomys"</span><span class="op">)</span> <span class="co">#kangaroo rat genus</span></span>
 <span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">krats</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">year</span>, fill<span class="op">=</span><span class="va">plot_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">species</span><span class="op">)</span></span>
-<span><span class="va">krats</span></span>
-<span><span class="fu">print</span><span class="op">(</span><span class="va">rodents</span> <span class="op">%&gt;%</span> <span class="fu">count</span><span class="op">(</span><span class="va">genus</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">krats</span> <span class="op">&lt;-</span> <span class="va">rodents</span> <span class="op">%&gt;%</span> <span class="fu">filter</span><span class="op">(</span><span class="va">genus</span> <span class="op">==</span> <span class="st">"Dipodomys"</span><span class="op">)</span> <span class="co">#kangaroo rat genus</span></span>
-<span><span class="fu">dim</span><span class="op">(</span><span class="va">krats</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">krats</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">year</span>, fill<span class="op">=</span><span class="va">plot_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">species</span><span class="op">)</span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">rodents</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>, fill <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span><span class="co"># Barplot of rodent species by sex</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">surveys</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>, fill <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">rodents_subset</span> <span class="op">&lt;-</span> <span class="va">rodents</span> <span class="op">%&gt;%</span></span>
+<span></span>
+<span><span class="co"># Filter to focal species and known sex</span></span>
+<span><span class="va">rodents_subset</span> <span class="op">&lt;-</span> <span class="va">surveys</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">filter</span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="fu">c</span><span class="op">(</span><span class="st">"ordii"</span>, <span class="st">"spectabilis"</span><span class="op">)</span>,</span>
 <span>         <span class="va">sex</span> <span class="op">==</span> <span class="fu">c</span><span class="op">(</span><span class="st">"F"</span>, <span class="st">"M"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">## Adding common names</span></span>
-<span><span class="va">common_names</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span>species <span class="op">=</span> <span class="fu">unique</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span>, common_name <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Ord's"</span>, <span class="st">"Banner-tailed"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">common_names</span></span>
-<span><span class="va">common_names</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span>species <span class="op">=</span> <span class="fu">sort</span><span class="op">(</span><span class="fu">unique</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span><span class="op">)</span>, common_name <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Ord's"</span>, <span class="st">"Banner-Tailed"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">rodents_subset</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">rodents_subset</span>, <span class="va">common_names</span>, by <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span></span>
-<span><span class="va">weight_model</span> <span class="op">&lt;-</span> <span class="fu">lm</span><span class="op">(</span><span class="va">weight</span> <span class="op">~</span> <span class="va">common_name</span> <span class="op">+</span> <span class="va">sex</span>, data <span class="op">=</span> <span class="va">rodents_subset</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Explore k-rat weights</span></span>
+<span><span class="va">weight_model</span> <span class="op">&lt;-</span> <span class="fu">lm</span><span class="op">(</span><span class="va">weight</span> <span class="op">~</span> <span class="va">species</span> <span class="op">+</span> <span class="va">sex</span>, data <span class="op">=</span> <span class="va">rodents_subset</span><span class="op">)</span></span>
 <span><span class="fu">summary</span><span class="op">(</span><span class="va">weight_model</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Weight by species and sex</span></span>
 <span><span class="va">rodents_subset</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">weight</span>, x <span class="op">=</span> <span class="va">common_name</span>, fill <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">weight</span>, x <span class="op">=</span> <span class="va">species</span>, fill <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
 <span><span class="co"># Subsetted dataset</span></span>
-<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span> </span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span>
+<span></span>
 <span><span class="co"># Original dataset</span></span>
-<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents</span><span class="op">$</span><span class="va">species</span><span class="op">)</span> <span class="co"># there are no observations of female spectabilis or male ordii in `rodents_subset`, even though there were in the original dataset.</span></span></code></pre>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">surveys</span><span class="op">$</span><span class="va">sex</span>, <span class="va">surveys</span><span class="op">$</span><span class="va">species</span><span class="op">)</span>  <span class="co"># there are no observations of female spectabilis or male ordii in `rodents_subset`, even though there were in the original dataset.</span></span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -646,7 +666,7 @@ present. <em>Does your example still reproduce the problem?</em>
 <a class="anchor" aria-label="anchor" href="#c--run-the-simplified-code-and-make-sure-that-the-symptom-is-still-present--does-your-example-still-reproduce-the-problem"></a></h3>
 <p>Now it’s time to re-run the script to make sure we haven’t removed
 anything essential. Remember to pay attention to the symptom of the
-problem at the end and make sure that our essential observation hasn’t
+problem at the end and make sure that the essential observation hasn’t
 changed. Sure enough, those observations are still missing. We have
 succeeded in simplifying our code while still demonstrating the
 problem!</p>
@@ -672,25 +692,17 @@ the code to make sure that it still reproduces the error.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
-<ul><li>Visualizing sex by species (ggplot) can be removed because it
+<ul><li>The barplot of species and sex (ggplot) can be removed because it
 generates a plot but does not create any variables that are used
 later.</li>
-<li>Filtering to only rodents can be removed because later we filter to
-only two species in particular</li>
-<li>Adding common names can be removed because we didn’t actually use
-those common names. This one is tricky because technically we did use
-the common names in the rodents_subset plot. But is that plot
-<em>really</em> necessary? We can still demonstrate the problem using
-the table() lines of code at the end. Also, we could still make the
-equivalent plot using the <code>species</code> column instead of the
-<code>common_name</code> column, and it would demonstrate the same
-thing!</li>
+<li>Similarly, our end visualization of weight by species and sex
+(boxplot) can be removed.</li>
 <li>The weight model and the summary can be removed</li>
 <li>Any other informational functions that could have been run in the
-console, such as <code>table()</code> or <code>print()</code> or
-<code>head()</code> can be removed.</li>
+console, such as <code>table()</code> or <code>print()</code>,
+<code>head()</code>, or <code>str()</code> can be removed.</li>
 <li>The essential parts to keep are the lines that access the dataset in
 the first place, subset it down to rodents_subset, and then diagnose the
 problem (the <code>table()</code> calls at the end).</li>
@@ -700,34 +712,49 @@ problem (the <code>table()</code> calls at the end).</li>
 </div>
 <p>After repeating steps B and C over and over again, we arrive at a
 much more minimal script.</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">rodents</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"data/surveys_complete_77_89.csv"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># Loading the tidyverse package</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">rodents_subset</span> <span class="op">&lt;-</span> <span class="va">rodents</span> <span class="op">%&gt;%</span></span>
+<span><span class="va">surveys</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/surveys_complete_77_89.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Filter to focal species and known sex</span></span>
+<span><span class="va">rodents_subset</span> <span class="op">&lt;-</span> <span class="va">surveys</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">filter</span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="fu">c</span><span class="op">(</span><span class="st">"ordii"</span>, <span class="st">"spectabilis"</span><span class="op">)</span>,</span>
 <span>         <span class="va">sex</span> <span class="op">==</span> <span class="fu">c</span><span class="op">(</span><span class="st">"F"</span>, <span class="st">"M"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co"># Subsetted dataset</span></span>
 <span><span class="fu">table</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span>
-<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></code></pre>
+<span></span>
+<span><span class="co"># Original dataset</span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">surveys</span><span class="op">$</span><span class="va">sex</span>, <span class="va">surveys</span><span class="op">$</span><span class="va">species</span><span class="op">)</span> <span class="co"># there are no observations of female spectabilis or male ordii in `rodents_subset`, even though there were in the original dataset.</span></span></code></pre>
 </div>
-<p>Maybe we can narrow our example down even more! Let’s try removing
-the species filter and only filtering by sex.</p>
-<div class="codewrapper sourceCode" id="cb10">
+<p>Mickey is really getting the hang of this! They scrutinize the
+example to see if there’s anything else that can be cut. They realize
+that the code still runs perfectly fine if they remove
+<code><a href="https://tidyverse.tidyverse.org" class="external-link">library(tidyverse)</a></code>–since they already loaded the
+{tidyverse} package, there should be no need to load it again!</p>
+<p>Mickey realizes that they might be able to narrow the example down
+eeeeeeven more. They try removing the species filter and only filtering
+by sex. Now the minimal example looks like this:</p>
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">rodents</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"data/surveys_complete_77_89.csv"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">surveys</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/surveys_complete_77_89.csv"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">rodents_subset</span> <span class="op">&lt;-</span> <span class="va">rodents</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="fu">c</span><span class="op">(</span><span class="st">"ordii"</span>, <span class="st">"spectabilis"</span><span class="op">)</span>,</span>
-<span>         <span class="co">#sex == c("F", "M")</span></span>
-<span>         <span class="op">)</span></span>
+<span><span class="co"># Filter to known sex</span></span>
+<span><span class="va">rodents_subset</span> <span class="op">&lt;-</span> <span class="va">surveys</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">sex</span> <span class="op">==</span> <span class="fu">c</span><span class="op">(</span><span class="st">"F"</span>, <span class="st">"M"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co"># Subsetted dataset</span></span>
 <span><span class="fu">table</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span>
-<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></code></pre>
+<span></span>
+<span><span class="co"># Original dataset</span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">surveys</span><span class="op">$</span><span class="va">sex</span>, <span class="va">surveys</span><span class="op">$</span><span class="va">species</span><span class="op">)</span> <span class="co"># still missing a lot of rows!</span></span></code></pre>
 </div>
 <p>Something is different–we no longer have zero rows for two of the
 species/sex combos. But this example still demonstrates our problem.
@@ -735,24 +762,24 @@ Remember, we previously stated the problem as “There are many
 observations missing from <code>rodents_subset</code> that should not
 have been removed.” And sure enough, if we look closely here, we can see
 that our species/sex counts have changed from 690 F ordii/792 M ordii
-and 1135 F spectabilis/1232 M spectabilis to 333/339 and 567/610,
+and 1135 F spectabilis/1232 M spectabilis to 333/393 and 568/610,
 respectively. The problem persists! We are still mysteriously missing
 rows.</p>
-<div id="callout3" class="callout">
+<div id="callout2" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <span class="callout-header">Callout</span>
 <div class="callout-inner">
 <div class="callout-content">
-<p>If you had chosen to remove the species filter instead of removing
-the sex filter, the same point would be made. The numbers would be
+<p>If you had chosen to remove the sex filter instead of removing the
+species filter, the same point would be made. The numbers would be
 different, but we would still see fewer rows in the subsetted data
 frame. Either one works!</p>
 </div>
 </div>
 </div>
-<div id="callout4" class="callout">
+<div id="callout3" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -769,50 +796,58 @@ down 100%. Don’t let the perfect be the enemy of the good!</p>
 </div>
 </div>
 <p>Okay, so our minimal snippet looks like this:</p>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">rodents</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"data/surveys_complete_77_89.csv"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">surveys</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/surveys_complete_77_89.csv"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">rodents_subset</span> <span class="op">&lt;-</span> <span class="va">rodents</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="fu">c</span><span class="op">(</span><span class="st">"ordii"</span>, <span class="st">"spectabilis"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># Filter to known sex</span></span>
+<span><span class="va">rodents_subset</span> <span class="op">&lt;-</span> <span class="va">surveys</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">sex</span> <span class="op">==</span> <span class="fu">c</span><span class="op">(</span><span class="st">"F"</span>, <span class="st">"M"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span> <span class="co"># there are fewer male and female ordii and spectabilis individuals in the subsetted dataset than there were in the original dataset, and we're not sure why.</span></span>
-<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></code></pre>
+<span><span class="co"># Subsetted dataset</span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Original dataset</span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">surveys</span><span class="op">$</span><span class="va">sex</span>, <span class="va">surveys</span><span class="op">$</span><span class="va">species</span><span class="op">)</span> <span class="co"># still missing a lot of rows!</span></span></code></pre>
 </div>
-<p>This is great progress! A helper will find this minimal code snippet
-much more approachable than the long script we started with. However,
-we’re not done yet.</p>
-<div id="exercise-3" class="callout discussion">
+<p>This is great progress! Remy will find this minimal code snippet much
+more approachable than the long script that Mickey started with.</p>
+<div id="exercise-3-have-we-made-a-reprex" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <span class="callout-header">Discussion</span>
-<div id="exercise-3" class="callout-inner">
-<h3 class="callout-title">Exercise 3</h3>
+<div id="exercise-3-have-we-made-a-reprex" class="callout-inner">
+<h3 class="callout-title">Exercise 3: Have we made a reprex?</h3>
 <div class="callout-content">
-<p>Mickey emails the minimal code script to Remy. Remy notices
+<p>Mickey is really proud of their efforts to minimize the code! They
+email the minimal code snippet to Remy to ask for help. Remy notices
 immediately that this code is much easier to read and understand. They
 open up the script and try to run it in R.</p>
-<ul><li>What do you think will happen when Remy tries to run the code from
-this reprex script?</li>
-<li>What should Mickey do next to improve the minimal reproducible
-example?</li>
-</ul></div>
+<ol style="list-style-type: decimal"><li><p>What do you think will happen when Remy tries to run the code
+from this reprex script?</p></li>
+<li><p>What should Mickey do next to improve the minimal reproducible
+example?</p></li>
+</ol></div>
 </div>
 </div>
 <p>We haven’t yet included enough code to allow a helper, such as Remy,
 to run the code on their own computer. If Remy tries to run the reprex
 script in its current state, they will encounter errors because they
 don’t have access to the same R environment that Mickey does.</p>
+<p>That’s why it’s so important to include dependencies in your
+reprex.</p>
 </div>
 <div class="section level3">
 <h3 id="include-dependencies">Include dependencies<a class="anchor" aria-label="anchor" href="#include-dependencies"></a></h3>
+<p>A <strong>dependency</strong> is a piece of code that other pieces of
+code <strong>depend on</strong> in order to function properly.</p>
 <p>R code consists primarily of <strong>functions</strong> and
 <strong>variables</strong>. In order to make our minimal examples truly
 <em>reproducible</em>, we have to give our helpers access to all the
-functions and variables that are necessary to run our code.</p>
+functions and all the variables that are necessary to run our code.</p>
 <p>First, let’s talk about <strong>functions</strong>. Functions in R
 typically come from packages. You can access them by loading the package
 into your environment.</p>
@@ -834,13 +869,16 @@ code.</p>
 <div class="callout-content">
 <p>Some packages, such as <code>{base}</code> and <code>{stats}</code>,
 are loaded in R by default, so you might not have realized that a lot of
-functions, such as <code>dim</code>, <code>colSums</code>,
-<code>factor</code>, and <code>length</code> actually come from those
+commonly-used functions, such as <code>dim</code>, <code>colSums</code>,
+<code>mean</code>, and <code>length</code> actually come from those
 packages!</p>
 <p>You can see a complete list of the functions that come from the
 <code>{base}</code> and <code>{stats}</code> packages by running
 <code>library(help = "base")</code> or
-<code>library(help = "stats")</code>.</p>
+<code>library(help = "stats")</code> in your console.</p>
+<p>But, you actually don’t need to worry too much about this because
+your helpers’ RStudio versions will also have <code>{base}</code> and
+<code>{stats}</code> preinstalled!</p>
 </div>
 </div>
 </div>
@@ -848,45 +886,54 @@ packages!</p>
 functions used, and then we can figure out where each function comes
 from to make sure that we tell our helper to load the right
 packages.</p>
-<div id="discussion3" class="callout discussion">
+<div id="exercise-4-which-packages-should-we-load" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <span class="callout-header">Discussion</span>
-<div class="callout-inner">
-<h3 class="callout-title">Challenge</h3>
+<div id="exercise-4-which-packages-should-we-load" class="callout-inner">
+<h3 class="callout-title">Exercise 4: Which packages should we
+load?</h3>
 <div class="callout-content">
 <p>The functions used in our minimal example are
-<code>read.csv()</code>, <code>filter()</code>, <code>c()</code>, and
+<code>read_csv()</code>, <code>filter()</code>, <code>c()</code>, and
 <code>table()</code>.</p>
 <p>Identify the package that each of the functions comes from and modify
 the minimal example so that it explicitly loads those packages.
-:::solution <code><a href="https://dplyr.tidyverse.org" class="external-link">library(dplyr)</a></code></p>
-<p><code>read.csv()</code> comes from <code>{utils}</code>, which is
-loaded by default. <code>c()</code> and <code>table()</code> come from
-<code>{base}</code>, which is also loaded by default.</p>
+:::solution <code><a href="https://dplyr.tidyverse.org" class="external-link">library(dplyr)</a></code> <code><a href="https://readr.tidyverse.org" class="external-link">library(readr)</a></code></p>
+<p><code>filter()</code> comes from <a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a>, and
+read_csv()<code>comes from</code>{readr}<code>.</code>c()<code>and</code>table()<code>come from</code>{base}`,
+which is loaded by default, so we don’t need to include a library() call
+for this.</p>
 <p>Bonus if you notice that we also use the <code>%&gt;%</code>
 operator, which comes from <a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a> too, so we definitely
 need to make sure that <a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a> is loaded!</p>
+<p><em>Extra challenge: did we use any other operators? Where do they
+come from?</em></p>
 </div>
 </div>
 </div>
 <p>:::</p>
-<p>We can update our minimal code to include that <code>library()</code>
-call.</p>
-<div class="codewrapper sourceCode" id="cb12">
+<p>We can update our minimal code to include those
+<code>library()</code> calls.</p>
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">readr</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">rodents</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"data/surveys_complete_77_89.csv"</span><span class="op">)</span></span>
+<span><span class="va">surveys</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/surveys_complete_77_89.csv"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">rodents_subset</span> <span class="op">&lt;-</span> <span class="va">rodents</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="fu">c</span><span class="op">(</span><span class="st">"ordii"</span>, <span class="st">"spectabilis"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># Filter to known sex</span></span>
+<span><span class="va">rodents_subset</span> <span class="op">&lt;-</span> <span class="va">surveys</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">sex</span> <span class="op">==</span> <span class="fu">c</span><span class="op">(</span><span class="st">"F"</span>, <span class="st">"M"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span> <span class="co"># there are fewer male and female ordii and spectabilis individuals in the subsetted dataset than there were in the original dataset, and we're not sure why.</span></span>
-<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></code></pre>
+<span><span class="co"># Subsetted dataset</span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Original dataset</span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">surveys</span><span class="op">$</span><span class="va">sex</span>, <span class="va">surveys</span><span class="op">$</span><span class="va">species</span><span class="op">)</span> <span class="co"># still missing a lot of rows!</span></span></code></pre>
 </div>
 <div id="installing-vs.-loading-packages" class="callout">
 <div class="callout-square">
@@ -896,31 +943,34 @@ call.</p>
 <div id="installing-vs.-loading-packages" class="callout-inner">
 <h3 class="callout-title">Installing vs. loading packages</h3>
 <div class="callout-content">
-<p>But what if our helper doesn’t have all of these packages installed?
-Won’t the code not be reproducible?</p>
-<p>Typically, we don’t include <code>install.packages()</code> in our
-code for each of the packages that we include in the
-<code>library()</code> calls, because <code>install.packages()</code> is
-a one-time piece of code that doesn’t need to be repeated every time the
-script is run. We assume that our helper will see
+<p>We included calls to <code>library()</code> to load the packages we
+need. But what if our helper doesn’t have all of these packages
+installed? Won’t the code not be reproducible?</p>
+<p>Packages need to be installed one time before they can be loaded with
+<code>library()</code>. Typically, we don’t include
+<code>install.packages()</code> in our code for each of the packages
+that we include in the <code>library()</code> calls, because
+<code>install.packages()</code> doesn’t need to be repeated every time
+the script is run. We can assume that our helper will see
 <code>library(specialpackage)</code> and know that they need to go
 install “specialpackage” on their own.</p>
-<p>Technically, this makes that part of the code not reproducible! But
-it’s also much more “polite”. Our helper might have their own way of
+<p>Technically, this does make that part of the code not reproducible!
+But it’s also more “polite” than explicitly including
+<code>install.packages()</code>. Our helper might have their own way of
 managing package versions, and forcing them to install a package when
-they run our code risks messing up our workflow. It is a common
-convention to stick with <code>library()</code> and let them figure it
-out from there.</p>
+they run our reprex risks messing up their workflow. It is a common
+convention to stick with <code>library()</code> and let the helper
+figure it out from there.</p>
 </div>
 </div>
 </div>
-<div id="exercise-4-which-packages-are-essential" class="callout discussion">
+<div id="exercise-5-which-packages-are-essential" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <span class="callout-header">Discussion</span>
-<div id="exercise-4-which-packages-are-essential" class="callout-inner">
-<h3 class="callout-title">Exercise 4: Which packages are essential?</h3>
+<div id="exercise-5-which-packages-are-essential" class="callout-inner">
+<h3 class="callout-title">Exercise 5: Which packages are essential?</h3>
 <div class="callout-content">
 <p>In each of the following code snippets, identify the necessary
 packages (or other code) to make the example reproducible.</p>
@@ -957,19 +1007,22 @@ error!</p>
 <p>Including <code>library()</code> calls will definitely help Remy run
 the code. But this code still won’t work as written because Remy does
 not have access to the same <em>objects</em> that Mickey used in the
-code.</p>
+code. Along with functions, objects are the second type of dependency we
+need to watch out for when writing reprexes.</p>
 <p>The code as written relies on <code>rodents_subset</code>, which Remy
 will not have access to if they try to run the code. That means that
 we’ve succeeded in making our example <em>minimal</em>, but it is not
 <em>reproducible</em>: it does not allow someone else to reproduce the
 problem!</p>
-<figure><img src="../fig/02_minimize_code.png" class="figure mx-auto d-block"></figure><div id="exercise-5-reflection" class="callout discussion">
+<p>In the next episode, we will learn how to handle perhaps the most
+thorny part of creating reprexes: dealing with datasets.</p>
+<div id="exercise-6-reflection" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <span class="callout-header">Discussion</span>
-<div id="exercise-5-reflection" class="callout-inner">
-<h3 class="callout-title">Exercise 5: Reflection</h3>
+<div id="exercise-6-reflection" class="callout-inner">
+<h3 class="callout-title">Exercise 6: Reflection</h3>
 <div class="callout-content">
 <p>Let’s take a moment to reflect on this process.</p>
 <ul><li><p>What’s one thing you learned in this episode? An insight; a new

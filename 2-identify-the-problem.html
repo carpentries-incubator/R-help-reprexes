@@ -1099,14 +1099,15 @@ across species and sexes, so they create a quick visualization.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">rodents</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>, fill <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<code class="sourceCode R"><span><span class="co"># Barplot of rodent species by sex</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">surveys</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>, fill <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/2-identify-the-problem-rendered-unnamed-chunk-23-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Whoa, this is really overwhelming! Mickey forgot that the dataset
-includes data for a lot of different rodent species, not just kangaroo
-rats. Mickey is only interested in two kangaroo rat species:
-<em>Dipodomys ordii</em> (Ord’s kangaroo rat) and <em>Dipodomys
-spectabilis</em> (Banner-tailed kangaroo rat).</p>
+includes data for a lot of different species, not just kangaroo rats.
+Mickey is only interested in two kangaroo rat species: <em>Dipodomys
+ordii</em> (Ord’s kangaroo rat) and <em>Dipodomys spectabilis</em>
+(Banner-tailed kangaroo rat).</p>
 <p>Mickey also notices that there are three categories for sex: F, M,
 and what looks like a blank field when there is no sex information
 available. For the purposes of comparing weights, Mickey wants to focus
@@ -1117,7 +1118,8 @@ only rodents whose sex is F or M.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">rodents_subset</span> <span class="op">&lt;-</span> <span class="va">rodents</span> <span class="op">%&gt;%</span></span>
+<code class="sourceCode R"><span><span class="co"># Filter to focal species and known sex</span></span>
+<span><span class="va">rodents_subset</span> <span class="op">&lt;-</span> <span class="va">surveys</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">filter</span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="fu">c</span><span class="op">(</span><span class="st">"ordii"</span>, <span class="st">"spectabilis"</span><span class="op">)</span>,</span>
 <span>         <span class="va">sex</span> <span class="op">==</span> <span class="fu">c</span><span class="op">(</span><span class="st">"F"</span>, <span class="st">"M"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
@@ -1166,7 +1168,8 @@ Mickey joins the common names to <code>rodents_subset</code>.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">common_names</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span>species <span class="op">=</span> <span class="fu">sort</span><span class="op">(</span><span class="fu">unique</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span><span class="op">)</span>, common_name <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Ord's"</span>, <span class="st">"Banner-Tailed"</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># Try again, re-ordering the common names</span></span>
+<span><span class="va">common_names</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span>species <span class="op">=</span> <span class="fu">sort</span><span class="op">(</span><span class="fu">unique</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span><span class="op">)</span>, common_name <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Ord's"</span>, <span class="st">"Banner-Tailed"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">rodents_subset</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">rodents_subset</span>, <span class="va">common_names</span>, by <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Now, Mickey is ready to start learning about kangaroo rat weights.
@@ -1178,7 +1181,7 @@ They start by running a quick linear regression to predict
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Explore k-rat weights</span></span>
-<span><span class="va">weight_model</span> <span class="op">&lt;-</span> <span class="fu">lm</span><span class="op">(</span><span class="va">weight</span> <span class="op">~</span> <span class="va">common_name</span> <span class="op">+</span> <span class="va">sex</span>, data <span class="op">=</span> <span class="va">rodents_subset</span><span class="op">)</span></span>
+<span><span class="va">weight_model</span> <span class="op">&lt;-</span> <span class="fu">lm</span><span class="op">(</span><span class="va">weight</span> <span class="op">~</span> <span class="va">species</span> <span class="op">+</span> <span class="va">sex</span>, data <span class="op">=</span> <span class="va">rodents_subset</span><span class="op">)</span></span>
 <span><span class="fu">summary</span><span class="op">(</span><span class="va">weight_model</span><span class="op">)</span> </span></code></pre>
 </div>
 <div class="codewrapper">
@@ -1186,24 +1189,24 @@ They start by running a quick linear regression to predict
 </h3>
 <pre class="output" tabindex="0"><code>
 Call:
-lm(formula = weight ~ common_name + sex, data = rodents_subset)
+lm(formula = weight ~ species + sex, data = rodents_subset)
 
 Residuals:
      Min       1Q   Median       3Q      Max
--111.201   -6.466    2.534   10.799   45.799
+-109.531   -7.991    3.239   11.469   48.469
 
 Coefficients: (1 not defined because of singularities)
-                 Estimate Std. Error t value Pr(&gt;|t|)
-(Intercept)      123.2007     0.8061  152.83   &lt;2e-16 ***
-common_nameOrd's -74.7342     1.3352  -55.97   &lt;2e-16 ***
-sexM                   NA         NA      NA       NA
+                   Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)          47.991      1.136   42.23   &lt;2e-16 ***
+speciesspectabilis   73.540      1.420   51.79   &lt;2e-16 ***
+sexM                     NA         NA      NA       NA
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 19.71 on 939 degrees of freedom
-  (35 observations deleted due to missingness)
-Multiple R-squared:  0.7694,	Adjusted R-squared:  0.7691
-F-statistic:  3133 on 1 and 939 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 20.58 on 910 degrees of freedom
+  (31 observations deleted due to missingness)
+Multiple R-squared:  0.7466,	Adjusted R-squared:  0.7464
+F-statistic:  2682 on 1 and 910 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <p>The negative coefficient for <code>common_nameOrd's</code> tells
 Mickey that Ord’s kangaroo rats are significantly less heavy than
@@ -1215,14 +1218,15 @@ species and sex to see.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">rodents_subset</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">weight</span>, x <span class="op">=</span> <span class="va">common_name</span>, fill <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<code class="sourceCode R"><span><span class="co"># Weight by species and sex</span></span>
+<span><span class="va">rodents_subset</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">weight</span>, x <span class="op">=</span> <span class="va">species</span>, fill <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="warning" tabindex="0"><code>Warning: Removed 35 rows containing non-finite outside the scale range
+<pre class="warning" tabindex="0"><code>Warning: Removed 31 rows containing non-finite outside the scale range
 (`stat_boxplot()`).</code></pre>
 </div>
 <figure><img src="fig/2-identify-the-problem-rendered-unnamed-chunk-28-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>When Mickey visualizes the data, they see a problem in the graph,
@@ -1249,8 +1253,8 @@ seems wrong. Those rows should not be missing.</p>
 </h3>
 <pre class="output" tabindex="0"><code>
     ordii spectabilis
-  F   350           0
-  M     0         626</code></pre>
+  F   333           0
+  M     0         610</code></pre>
 </div>
 <p>To double check, Mickey looks at the original dataset.</p>
 <div class="codewrapper sourceCode" id="cb54">
