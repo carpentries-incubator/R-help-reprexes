@@ -25,68 +25,72 @@ library(dplyr)
 library(readr)
 library(ggplot2)
 surveys <- read_csv("https://raw.githubusercontent.com/carpentries-incubator/R-help-reprexes/refs/heads/main/episodes/data/surveys_complete_77_89.csv") 
-rodents <- surveys %>% filter(taxa == "Rodent")
 ```
+
+When we left off in the previous episode, Mickey had discovered a problem with their code--many kangaroo rat observations were missing from a subset of the data after they filtered the dataset down to the kangaroo rat species of interest.
+
+Mickey tried some code first aid steps but wasn't able to solve the problem. They consulted Remy's road map and saw that the next step is to make a reprex.
 
 # Making a reprex
 
-## Step 1: Simplify the code
+![](fig/02_minimize_code.png)
+
+## Step 1: Minimize the code
 
 Mickey has written a lot of code so far. The code is also a little messy--for example, after fixing the previous errors, they sometimes commented out the old code and kept it for future reference.
 
 Let's take a look at the script as it stands so far.
 
-:::callout
-Depending on how closely you have been following the lesson and which challenges you have attempted, your script may not look exactly like Mickey's. That's okay!
+::: instructor
+Share this file with learners and/or have them copy/paste it exactly into their RStudio sessions--do not try to re-type all this code line by line! There definitely will not be time.
 :::
 
 ```{r eval = F}
 # Minimal reproducible example script
-# Load packages and data
+# Loading the tidyverse package
 library(tidyverse)
+# Uploading the dataset that is currently saved in the project's data folder
 surveys <- read_csv("data/surveys_complete_77_89.csv")
 
 # Take a look at the data
 glimpse(surveys)
-min(surveys$year)
-max(surveys$year)
 
-# Make some plots
-ggplot(surveys, aes(x = taxa)) + geom_bar()
+# or you can use
+str(surveys)
+
 table(surveys$taxa)
-?table
-table(surveys$taxa, exclude = NULL)
 
-# Just rodents
-rodents <- surveys %>% filter(taxa == "Rodent")
-rodents_summary <- rodents %>% group_by(plot_type, month) %>% summarize(count=n())
-ggplot(rodents_summary) + geom_tile(aes(month, plot_type, fill=count))
-
-# Just k-rats
-krats <-rodents %>% filter(genus == "Dipodomys") #kangaroo rat genus
-dim(krats)
-
-ggplot(krats, aes(year, fill=plot_type)) +
-  geom_histogram() +
-  facet_wrap(~species)
-ggplot(rodents, aes(x = species, fill = sex))+
+# Barplot of rodent species by sex
+ggplot(rodents, aes(x = species, fill = sex)) +
   geom_bar()
-rodents_subset <- rodents %>%
+
+# Filter to focal species and known sex
+rodents_subset <- surveys %>%
   filter(species == c("ordii", "spectabilis"),
          sex == c("F", "M"))
 
 # Add common names
+# common_names <- data.frame(species = unique(rodents_subset$species), common_name = c("Ord's", "Banner-tailed"))
+# common_names
+
+# Try again, re-ordering the common names
 common_names <- data.frame(species = sort(unique(rodents_subset$species)), common_name = c("Ord's", "Banner-Tailed"))
 rodents_subset <- left_join(rodents_subset, common_names, by = "species")
 
 # Explore k-rat weights
-weight_model <- lm(weight ~ common_name + sex, data = rodents_subset)
-summary(weight_model) # this looks weird
+weight_model <- lm(weight ~ species + sex, data = rodents_subset)
+summary(weight_model)
+
+# Weight by species and sex
 rodents_subset %>%
-  ggplot(aes(y = weight, x = common_name, fill = sex)) +
-  geom_boxplot() # still looks weird
+  ggplot(aes(y = weight, x = species, fill = sex)) +
+  geom_boxplot()
+
+# Subsetted dataset
 table(rodents_subset$sex, rodents_subset$species)
-table(rodents$sex, rodents$species)
+
+# Original dataset
+table(surveys$sex, surveys$species)
 ```
 
 :::::challenge
@@ -94,12 +98,14 @@ table(rodents$sex, rodents$species)
 
 1. As you look at this script and think through trying to debug it, how do you feel?
 
-2. Imagine you are Remy, an advanced grad student whose priority is finishing your dissertation. Your labmate Mickey has just sent you this script, asking for help debugging it. How do you feel when you get Mickey's email? What advice might you give Mickey?
+2. Mickey's first instinct is to send the script to Remy and tell them about the error. Imagine that you are Remy, an advanced graduate student whose priority is finishing your dissertation. Your new labmate Mickey has just sent you this script, asking for help debugging it. How do you feel when you get Mickey's email? What advice might you give Mickey?
 :::
 
-When asking someone else for help, it is important to simplify your code as much as possible to make it easier for the helper to understand what is wrong. Simplifying code helps to reduce frustration and overwhelm when debugging an error in a complicated script. The more that we can make the process of helping easy and painless for the helper, the more likely that they will take the time to help.
+When asking someone else for help, it is important to simplify your code as much as possible to make it easier for the helper to understand what is wrong. Simplifying code helps to reduce frustration and overwhelm when debugging an error in a complicated script. The more that we can make the process of helping easy and painless for the helper, the more likely it is that they will take the time to help.
 
 ### Create a new script
+
+Why do you think it's a good idea to create a new script?
 
 To make the task of simplifying the code less overwhelming, let's create a separate script for our reprex. This will let us experiment with simplifying our code while keeping the original script intact.
 
@@ -143,15 +149,15 @@ To summarize, we have already determined:
 
 **The symptom (lines that show that something is wrong):** Comparison between the species and sex counts in the original and subsetted datasets.
 
-In particular, this comparison shows us that there are no observations of female *spectabilis* or male *ordii* in `rodents_subset`, but there *were* plenty in the original dataset.
+In particular, this comparison shows us that there are no observations of female *spectabilis* or male *ordii* in `rodents_subset`, but there *were* plenty in the original dataset, and that in general, there were many fewer rows for both species in the subset than the original.
 
 ```{r}
 # Subsetted dataset
-table(rodents_subset$sex, rodents_subset$species) 
-# Original dataset
-table(rodents$sex, rodents$species) # there are no observations of female spectabilis or male ordii in `rodents_subset`, even though there were in the original dataset.
-```
+table(rodents_subset$sex, rodents_subset$species)
 
+# Original dataset
+table(surveys$sex, surveys$species) # there are no observations of female spectabilis or male ordii in `rodents_subset`, even though there were in the original dataset.
+```
 These two lines of code, and the observation we made about them, will be our guide as we simplify the script further.
 
 We can now start removing pieces of code that we believe are not central to our problem. After each removal, we can re-run the code and make sure that our symptom persists. If the symptom changes, we have either solved our problem (yay for rubber duck debugging!) or we removed a line of code that was actually essential to reproducing our problem.
@@ -160,66 +166,71 @@ We can now start removing pieces of code that we believe are not central to our 
 
 Let's start identifying pieces of code to remove. In general, we can remove code that does not create variables for later use (for example, exploratory plots, models, or descriptive functions such as `head()` or `summary()`). We can also get rid of code that adds complexity to the analysis that is not relevant to the problem at hand. 
 
-Let's start by removing the broken code that we commented out earlier. Also, we created a `date` column by combining the `month`, `day`, and `year` columns. This column might be useful for analysis later, but it doesn't seem relevant to the problem we're facing now with the sex and species columns. We can probably get rid of that part while still reproducing our problem.
+Let's start by removing the broken code that we commented out earlier, back when we tried to join the common names and it didn't work because they were in the wrong order.
 
-Let's go ahead and remove those pieces of code. Now our script looks like this:
+Code to remove:
+
+```{r eval = F}
+# Add common names
+# common_names <- data.frame(species = unique(rodents_subset$species), common_name = c("Ord's", "Banner-tailed"))
+# common_names
+```
+
+Actually, now that we think about it, those common names are not directly related to the problem at all! The "common_name" column might be useful later on, but for our reprex we can probably remove that part of the code without changing the outcome.
+
+Code to remove:
+
+```{r eval = F}
+# Try again, re-ordering the common names
+common_names <- data.frame(species = sort(unique(rodents_subset$species)), common_name = c("Ord's", "Banner-Tailed"))
+rodents_subset <- left_join(rodents_subset, common_names, by = "species")
+```
+
+After removing both of those pieces of code, our script is a little shorter:
 
 ```{r eval = F}
 # Minimal reproducible example script
+# Loading the tidyverse package
 library(tidyverse)
+# Uploading the dataset that is currently saved in the project's data folder
 surveys <- read_csv("data/surveys_complete_77_89.csv")
+
+# Take a look at the data
 glimpse(surveys)
-min(surveys$year)
-max(surveys$year)
-# Read in the data
-ggplot(x = taxa) + geom_bar()
-ggplot(aes(x = surveys$taxa)) + geom_bar()
-ggplot(surveys, aes(x = taxa)) + geom_bar()
+
+# or you can use
+str(surveys)
+
 table(surveys$taxa)
-?table
-table(surveys$taxa, exclude = NULL)
-rodents <- surveys %>% filter(taxa == "Rodent")
-rodents_summary <- rodents %>% group_by(plot_type, month) %>% summarize(count=n())
-ggplot(rodents_summary) + geom_tile(aes(month, plot_type, fill=count))
-ggplot(rodents) + geom_tile(aes(month, plot_type), stat = "count")
-ggplot(rodents) + geom_tile(aes(month, plot_type))
-krats <- rodents %>% filter(genus == "Dipadomys") #kangaroo rat genus
 
-ggplot(krats, aes(year, fill=plot_type)) +
-  geom_histogram() +
-  facet_wrap(~species)
-krats
-print(rodents %>% count(genus))
-krats <- rodents %>% filter(genus == "Dipodomys") #kangaroo rat genus
-dim(krats)
-
-ggplot(krats, aes(year, fill=plot_type)) +
-  geom_histogram() +
-  facet_wrap(~species)
-ggplot(rodents, aes(x = species, fill = sex))+
+# Barplot of rodent species by sex
+ggplot(surveys, aes(x = species, fill = sex)) +
   geom_bar()
-rodents_subset <- rodents %>%
+
+# Filter to focal species and known sex
+rodents_subset <- surveys %>%
   filter(species == c("ordii", "spectabilis"),
          sex == c("F", "M"))
-## Adding common names
-common_names <- data.frame(species = unique(rodents_subset$species), common_name = c("Ord's", "Banner-tailed"))
-common_names
-common_names <- data.frame(species = sort(unique(rodents_subset$species)), common_name = c("Ord's", "Banner-Tailed"))
-rodents_subset <- left_join(rodents_subset, common_names, by = "species")
-weight_model <- lm(weight ~ common_name + sex, data = rodents_subset)
+
+# Explore k-rat weights
+weight_model <- lm(weight ~ species + sex, data = rodents_subset)
 summary(weight_model)
+
+# Weight by species and sex
 rodents_subset %>%
-  ggplot(aes(y = weight, x = common_name, fill = sex)) +
+  ggplot(aes(y = weight, x = species, fill = sex)) +
   geom_boxplot()
+
 # Subsetted dataset
-table(rodents_subset$sex, rodents_subset$species) 
+table(rodents_subset$sex, rodents_subset$species)
+
 # Original dataset
-table(rodents$sex, rodents$species) # there are no observations of female spectabilis or male ordii in `rodents_subset`, even though there were in the original dataset.
+table(surveys$sex, surveys$species)  # there are no observations of female spectabilis or male ordii in `rodents_subset`, even though there were in the original dataset.
 ```
 
 ### C. Run the simplified code and make sure that the symptom is still present. *Does your example still reproduce the problem?*
 
-Now it's time to re-run the script to make sure we haven't removed anything essential. Remember to pay attention to the symptom of the problem at the end and make sure that our essential observation hasn't changed. Sure enough, those observations are still missing. We have succeeded in simplifying our code while still demonstrating the problem!
+Now it's time to re-run the script to make sure we haven't removed anything essential. Remember to pay attention to the symptom of the problem at the end and make sure that the essential observation hasn't changed. Sure enough, those observations are still missing. We have succeeded in simplifying our code while still demonstrating the problem!
 
 Great progress, but this script is still pretty long and complicated. Can we remove more things?
 
@@ -229,11 +240,10 @@ Great progress, but this script is still pretty long and complicated. Can we rem
 Minimizing code is an iterative process. Repeat steps B and C above several more times. Which other lines of code can you remove to make this script more minimal? After removing each part, be sure to re-run the code to make sure that it still reproduces the error.
 
 :::solution
-- Visualizing sex by species (ggplot) can be removed because it generates a plot but does not create any variables that are used later.
-- Filtering to only rodents can be removed because later we filter to only two species in particular
-- Adding common names can be removed because we didn't actually use those common names. This one is tricky because technically we did use the common names in the rodents_subset plot. But is that plot *really* necessary? We can still demonstrate the problem using the table() lines of code at the end. Also, we could still make the equivalent plot using the `species` column instead of the `common_name` column, and it would demonstrate the same thing!
+- The barplot of species and sex (ggplot) can be removed because it generates a plot but does not create any variables that are used later.
+- Similarly, our end visualization of weight by species and sex (boxplot) can be removed.
 - The weight model and the summary can be removed
-- Any other informational functions that could have been run in the console, such as `table()` or `print()` or `head()` can be removed.
+- Any other informational functions that could have been run in the console, such as `table()` or `print()`, `head()`, or `str()` can be removed.
 - The essential parts to keep are the lines that access the dataset in the first place, subset it down to rodents_subset, and then diagnose the problem (the `table()` calls at the end).
 :::
 :::
@@ -241,34 +251,45 @@ Minimizing code is an iterative process. Repeat steps B and C above several more
 After repeating steps B and C over and over again, we arrive at a much more minimal script.
 
 ```{r eval = F}
-rodents <- read.csv("data/surveys_complete_77_89.csv")
+# Loading the tidyverse package
+library(tidyverse)
 
-rodents_subset <- rodents %>%
+surveys <- read_csv("data/surveys_complete_77_89.csv")
+
+# Filter to focal species and known sex
+rodents_subset <- surveys %>%
   filter(species == c("ordii", "spectabilis"),
          sex == c("F", "M"))
 
+# Subsetted dataset
 table(rodents_subset$sex, rodents_subset$species)
-table(rodents$sex, rodents$species)
+
+# Original dataset
+table(surveys$sex, surveys$species) # there are no observations of female spectabilis or male ordii in `rodents_subset`, even though there were in the original dataset.
 ```
 
-Maybe we can narrow our example down even more! Let's try removing the species filter and only filtering by sex.
+Mickey is really getting the hang of this! They scrutinize the example to see if there's anything else that can be cut. They realize that the code still runs perfectly fine if they remove `library(tidyverse)`--since they already loaded the {tidyverse} package, there should be no need to load it again!
+
+Mickey realizes that they might be able to narrow the example down eeeeeeven more. They try removing the species filter and only filtering by sex. Now the minimal example looks like this:
 
 ```{r eval = F}
-rodents <- read.csv("data/surveys_complete_77_89.csv")
+surveys <- read_csv("data/surveys_complete_77_89.csv")
 
-rodents_subset <- rodents %>%
-  filter(species == c("ordii", "spectabilis"),
-         #sex == c("F", "M")
-         )
+# Filter to known sex
+rodents_subset <- surveys %>%
+  filter(sex == c("F", "M"))
 
+# Subsetted dataset
 table(rodents_subset$sex, rodents_subset$species)
-table(rodents$sex, rodents$species)
+
+# Original dataset
+table(surveys$sex, surveys$species) # still missing a lot of rows!
 ```
 
-Something is different--we no longer have zero rows for two of the species/sex combos. But this example still demonstrates our problem. Remember, we previously stated the problem as "There are many observations missing from `rodents_subset` that should not have been removed." And sure enough, if we look closely here, we can see that our species/sex counts have changed from 690 F ordii/792 M ordii and 1135 F spectabilis/1232 M spectabilis to 333/339 and 567/610, respectively. The problem persists! We are still mysteriously missing rows.
+Something is different--we no longer have zero rows for two of the species/sex combos. But this example still demonstrates our problem. Remember, we previously stated the problem as "There are many observations missing from `rodents_subset` that should not have been removed." And sure enough, if we look closely here, we can see that our species/sex counts have changed from 690 F ordii/792 M ordii and 1135 F spectabilis/1232 M spectabilis to 333/393 and 568/610, respectively. The problem persists! We are still mysteriously missing rows.
 
 :::callout
-If you had chosen to remove the species filter instead of removing the sex filter, the same point would be made. The numbers would be different, but we would still see fewer rows in the subsetted data frame. Either one works!
+If you had chosen to remove the sex filter instead of removing the species filter, the same point would be made. The numbers would be different, but we would still see fewer rows in the subsetted data frame. Either one works!
 :::
 
 :::callout
@@ -278,31 +299,40 @@ If you hadn't noticed that you could simplify this example even further, that wo
 Okay, so our minimal snippet looks like this:
 
 ```{r eval = F}
-rodents <- read.csv("data/surveys_complete_77_89.csv")
+surveys <- read_csv("data/surveys_complete_77_89.csv")
 
-rodents_subset <- rodents %>%
-  filter(species == c("ordii", "spectabilis"))
+# Filter to known sex
+rodents_subset <- surveys %>%
+  filter(sex == c("F", "M"))
 
-table(rodents_subset$sex, rodents_subset$species) # there are fewer male and female ordii and spectabilis individuals in the subsetted dataset than there were in the original dataset, and we're not sure why.
-table(rodents$sex, rodents$species)
+# Subsetted dataset
+table(rodents_subset$sex, rodents_subset$species)
+
+# Original dataset
+table(surveys$sex, surveys$species) # still missing a lot of rows!
 ```
 
-This is great progress! A helper will find this minimal code snippet much more approachable than the long script we started with. However, we're not done yet. 
+This is great progress! Remy will find this minimal code snippet much more approachable than the long script that Mickey started with. 
 
 :::challenge
-### Exercise 3
+### Exercise 3: Have we made a reprex?
 
-Mickey emails the minimal code script to Remy. Remy notices immediately that this code is much easier to read and understand. They open up the script and try to run it in R.
+Mickey is really proud of their efforts to minimize the code! They email the minimal code snippet to Remy to ask for help. Remy notices immediately that this code is much easier to read and understand. They open up the script and try to run it in R.
 
-- What do you think will happen when Remy tries to run the code from this reprex script?
-- What should Mickey do next to improve the minimal reproducible example?
+1. What do you think will happen when Remy tries to run the code from this reprex script?
+
+2. What should Mickey do next to improve the minimal reproducible example?
 :::
 
-We haven't yet included enough code to allow a helper, such as Remy, to run the code on their own computer. If Remy tries to run the reprex script in its current state, they will encounter errors because they don't have access to the same R environment that Mickey does. 
+We haven't yet included enough code to allow a helper, such as Remy, to run the code on their own computer. If Remy tries to run the reprex script in its current state, they will encounter errors because they don't have access to the same R environment that Mickey does.
+
+That's why it's so important to include dependencies in your reprex.
 
 ### Include dependencies
 
-R code consists primarily of **functions** and **variables**. In order to make our minimal examples truly _reproducible_, we have to give our helpers access to all the functions and variables that are necessary to run our code.
+A **dependency** is a piece of code that other pieces of code **depend on** in order to function properly.
+
+R code consists primarily of **functions** and **variables**. In order to make our minimal examples truly _reproducible_, we have to give our helpers access to all the functions and all the variables that are necessary to run our code.
 
 First, let's talk about **functions**. Functions in R typically come from packages. You can access them by loading the package into your environment. 
 
@@ -311,52 +341,64 @@ To make sure that your helper has access to the packages necessary to run your r
 ::: callout
 ### Default packages
 
-Some packages, such as `{base}` and `{stats}`, are loaded in R by default, so you might not have realized that a lot of functions, such as `dim`, `colSums`, `factor`, and `length` actually come from those packages!
+Some packages, such as `{base}` and `{stats}`, are loaded in R by default, so you might not have realized that a lot of commonly-used functions, such as `dim`, `colSums`, `mean`, and `length` actually come from those packages!
 
-You can see a complete list of the functions that come from the `{base}` and `{stats}` packages by running `library(help = "base")` or `library(help = "stats")`.
+You can see a complete list of the functions that come from the `{base}` and `{stats}` packages by running `library(help = "base")` or `library(help = "stats")` in your console.
+
+But, you actually don't need to worry too much about this because your helpers' RStudio versions will also have `{base}` and `{stats}` preinstalled!
 :::
 
 Let's do this for our own reprex. We can start by identifying all the functions used, and then we can figure out where each function comes from to make sure that we tell our helper to load the right packages.
 
 :::challenge
-The functions used in our minimal example are `read.csv()`, `filter()`, `c()`, and `table()`.
+### Exercise 4: Which packages should we load?
+
+The functions used in our minimal example are `read_csv()`, `filter()`, `c()`, and `table()`.
 
 Identify the package that each of the functions comes from and modify the minimal example so that it explicitly loads those packages.
 :::solution
 `library(dplyr)`
+`library(readr)`
 
-`read.csv()` comes from `{utils}`, which is loaded by default. `c()` and `table()` come from `{base}`, which is also loaded by default.
+`filter()` comes from `{dplyr}`, and read_csv()` comes from `{readr}`. `c()` and `table()` come from `{base}`, which is  loaded by default, so we don't need to include a library() call for this.
 
-Bonus if you notice that we also use the `%>%` operator, which comes from `{dplyr}` too, so we definitely need to make sure that `{dplyr}` is loaded!
+Bonus if you notice that we also use the `%>%` operator, which comes from `{dplyr}` too, so we definitely need to make sure that `{dplyr}` is loaded! 
+
+*Extra challenge: did we use any other operators? Where do they come from?*
 :::
 :::
 
-We can update our minimal code to include that `library()` call.
+We can update our minimal code to include those  `library()` calls.
 
 ```{r eval = F}
+library(readr)
 library(dplyr)
 
-rodents <- read.csv("data/surveys_complete_77_89.csv")
+surveys <- read_csv("data/surveys_complete_77_89.csv")
 
-rodents_subset <- rodents %>%
-  filter(species == c("ordii", "spectabilis"))
+# Filter to known sex
+rodents_subset <- surveys %>%
+  filter(sex == c("F", "M"))
 
-table(rodents_subset$sex, rodents_subset$species) # there are fewer male and female ordii and spectabilis individuals in the subsetted dataset than there were in the original dataset, and we're not sure why.
-table(rodents$sex, rodents$species)
+# Subsetted dataset
+table(rodents_subset$sex, rodents_subset$species)
+
+# Original dataset
+table(surveys$sex, surveys$species) # still missing a lot of rows!
 ```
 
 ::::::::::::::::::::::::::::::::::::::::::: callout
 ### Installing vs. loading packages
 
-But what if our helper doesn't have all of these packages installed? Won't the code not be reproducible?
+We included calls to `library()` to load the packages we need. But what if our helper doesn't have all of these packages installed? Won't the code not be reproducible?
 
-Typically, we don't include `install.packages()` in our code for each of the packages that we include in the `library()` calls, because `install.packages()` is a one-time piece of code that doesn't need to be repeated every time the script is run. We assume that our helper will see `library(specialpackage)` and know that they need to go install "specialpackage" on their own.
+Packages need to be installed one time before they can be loaded with `library()`. Typically, we don't include `install.packages()` in our code for each of the packages that we include in the `library()` calls, because `install.packages()` doesn't need to be repeated every time the script is run. We can assume that our helper will see `library(specialpackage)` and know that they need to go install "specialpackage" on their own.
 
-Technically, this makes that part of the code not reproducible! But it's also much more "polite". Our helper might have their own way of managing package versions, and forcing them to install a package when they run our code risks messing up our workflow. It is a common convention to stick with `library()` and let them figure it out from there.
+Technically, this does make that part of the code not reproducible! But it's also more "polite" than explicitly including `install.packages()`. Our helper might have their own way of managing package versions, and forcing them to install a package when they run our reprex risks messing up their workflow. It is a common convention to stick with `library()` and let the helper figure it out from there.
 :::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::: challenge
-### Exercise 4: Which packages are essential?
+### Exercise 5: Which packages are essential?
 
 In each of the following code snippets, identify the necessary packages (or other code) to make the example reproducible.
 
@@ -386,14 +428,14 @@ c. `process_rodents_data` is not from any package that we know of, so it was pro
 :::
 :::::::::::::::::::::::::::::::::::::::::::
 
-Including `library()` calls will definitely help Remy run the code. But this code still won't work as written because Remy does not have access to the same *objects* that Mickey used in the code.
+Including `library()` calls will definitely help Remy run the code. But this code still won't work as written because Remy does not have access to the same *objects* that Mickey used in the code. Along with functions, objects are the second type of dependency we need to watch out for when writing reprexes.
 
 The code as written relies on `rodents_subset`, which Remy will not have access to if they try to run the code. That means that we've succeeded in making our example *minimal*, but it is not *reproducible*: it does not allow someone else to reproduce the problem!
 
-![](fig/02_minimize_code.png)
+In the next episode, we will learn how to handle perhaps the most thorny part of creating reprexes: dealing with datasets.
 
 :::::::::::::::::::::::::::::::::::::::::::challenge
-### Exercise 5: Reflection
+### Exercise 6: Reflection
 
 Let's take a moment to reflect on this process.
 

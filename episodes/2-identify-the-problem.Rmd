@@ -383,18 +383,20 @@ Back in the lab, Mickey is happily coding along, exploring the data. Let's follo
 Mickey is interested in understanding how kangaroo rat weights differ across species and sexes, so they create a quick visualization.
 
 ```{r}
-ggplot(rodents, aes(x = species, fill = sex)) +
+# Barplot of rodent species by sex
+ggplot(surveys, aes(x = species, fill = sex)) +
   geom_bar()
 ```
 
-Whoa, this is really overwhelming! Mickey forgot that the dataset includes data for a lot of different rodent species, not just kangaroo rats. Mickey is only interested in two kangaroo rat species: *Dipodomys ordii* (Ord's kangaroo rat) and *Dipodomys spectabilis* (Banner-tailed kangaroo rat).
+Whoa, this is really overwhelming! Mickey forgot that the dataset includes data for a lot of different species, not just kangaroo rats. Mickey is only interested in two kangaroo rat species: *Dipodomys ordii* (Ord's kangaroo rat) and *Dipodomys spectabilis* (Banner-tailed kangaroo rat).
 
 Mickey also notices that there are three categories for sex: F, M, and what looks like a blank field when there is no sex information available. For the purposes of comparing weights, Mickey wants to focus only rodents of known sex.
 
 Mickey filters the data to include only the two focal species and only rodents whose sex is F or M.
 
 ```{r}
-rodents_subset <- rodents %>%
+# Filter to focal species and known sex
+rodents_subset <- surveys %>%
   filter(species == c("ordii", "spectabilis"),
          sex == c("F", "M"))
 ```
@@ -417,6 +419,7 @@ But looking at the `common names` dataset reveals a problem! The common names ar
 Mickey re-orders the names and tries the code again. This time, it works! The common names are joined to the correct scientific names. Mickey joins the common names to `rodents_subset`.
 
 ```{r}
+# Try again, re-ordering the common names
 common_names <- data.frame(species = sort(unique(rodents_subset$species)), common_name = c("Ord's", "Banner-Tailed"))
 rodents_subset <- left_join(rodents_subset, common_names, by = "species")
 ```
@@ -425,7 +428,7 @@ Now, Mickey is ready to start learning about kangaroo rat weights. They start by
 
 ```{r}
 # Explore k-rat weights
-weight_model <- lm(weight ~ common_name + sex, data = rodents_subset)
+weight_model <- lm(weight ~ species + sex, data = rodents_subset)
 summary(weight_model) 
 ```
 
@@ -434,8 +437,9 @@ The negative coefficient for `common_nameOrd's` tells Mickey that Ord's kangaroo
 But something is wrong with the coefficients for sex. Why are there NA values for `sexM`? Let's directly visualize weight by species and sex to see.
 
 ```{r}
+# Weight by species and sex
 rodents_subset %>%
-  ggplot(aes(y = weight, x = common_name, fill = sex)) +
+  ggplot(aes(y = weight, x = species, fill = sex)) +
   geom_boxplot()
 ```
 
