@@ -1,0 +1,53 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 # Minimal reproducible example script\
+# Loading the tidyverse package\
+library(tidyverse)\
+# Uploading the dataset that is currently saved in the project's data folder\
+surveys <- read_csv("data/surveys_complete_77_89.csv")\
+\
+# Take a look at the data\
+glimpse(surveys)\
+\
+# or you can use\
+str(surveys)\
+\
+table(surveys$taxa)\
+\
+# Barplot of rodent species by sex\
+ggplot(surveys, aes(x = species, fill = sex)) +\
+  geom_bar()\
+\
+# Filter to focal species and known sex\
+rodents_subset <- surveys %>%\
+  filter(species == c("ordii", "spectabilis"),\
+         sex == c("F", "M"))\
+\
+# Add common names\
+# common_names <- data.frame(species = unique(rodents_subset$species), common_name = c("Ord's", "Banner-tailed"))\
+# common_names\
+\
+# Try again, re-ordering the common names\
+common_names <- data.frame(species = sort(unique(rodents_subset$species)), common_name = c("Ord's", "Banner-Tailed"))\
+rodents_subset <- left_join(rodents_subset, common_names, by = "species")\
+\
+# Explore k-rat weights\
+weight_model <- lm(weight ~ species + sex, data = rodents_subset)\
+summary(weight_model)\
+\
+# Weight by species and sex\
+rodents_subset %>%\
+  ggplot(aes(y = weight, x = species, fill = sex)) +\
+  geom_boxplot()\
+\
+# Subsetted dataset\
+table(rodents_subset$sex, rodents_subset$species)\
+\
+# Original dataset\
+table(surveys$sex, surveys$species)\
+}
