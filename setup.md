@@ -128,4 +128,4 @@ Please download the [cleaned data](../episodes/data/surveys_complete_77_89.csv) 
  
 ### Download analysis script
 
-For episode 3 of this lesson, we will be examining a pre-created [analysis script](../scripts/mickey_analysis.R). So that everyone is on the same page, please download the script "[mickey_analysis.R](../scripts/mickey_analysis.R)" and put it in the main folder of your RStudio project.
+For episode 3 of this lesson, we will be examining a pre-created [analysis script](../scripts/mickey_analysis.rtf). So that everyone is on the same page, please download the text file "[mickey_analysis.R](../scripts/mickey_analysis.rtf)" and copy it into a new script in the main folder of your RStudio project.
