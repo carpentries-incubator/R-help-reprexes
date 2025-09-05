@@ -19,10 +19,11 @@ editor_options:
 
 ::: objectives
 -   Describe a minimal reproducible dataset
--   Appreciate the different approaches and viewpoints on providing example data
+-   Appreciate why it is important to provide example data that is minimal and reproducible
+-   Recognize that there are different approaches to providing example data
 -   Identify the relevant aspects of your data
 -   Create a suitable reprex dataset from scratch
--   Share your own dataset in a way that is minimal, accessible, and reproducible
+-   Share your original dataset in a way that is minimal and reproducible
 -   Subset a built-in dataset to use in your reprex
 :::
 
@@ -33,41 +34,134 @@ Development note: Previous episodes should have already introduced the concept o
 This data episode is part of being reproducible and should perhaps be followed-up with more details on reproducibility if not previously mentioned (e.g., reprex needs minimal code - check - dependencies, which include minimal data - check - and other basic information like your system and R version as well as contextual information on your data?).
 :::
 
-![](4-minimal-reproducible-data.Rmd)
+Mickey has now (1) narrowed down their problem area *(they are losing observations during filtering)*, (2) stripped down their code to make it minimal, and have been working on making it reproducible by including all necessary dependencies (so anyone can simply copy-paste the code into their system to replicate their problem).
+They have done a good job so far, but there is still one dependency missing, can you guess what it is?
 
-Now that Mickey has narrowed down their problem area and stripped down their code to make it minimal, they need to ensure it is **reproducible**; this means it needs to be accessible and executable such that anyone else can simoly copy-paste the code into their system and replicate their issue.
-Importantly, a **code snippet will usually require data objects** in order to run!
-Therefore, **every reprex requires a minimal reproducible dataset to use with the code**.
+:::: challenge
+### Exercise 1
 
-Furthermore, as we have seen previously, sometimes the source of the problem isn't actually the code, but rather the data!
-Providing an appropriate example, or mock dataset **allows a helper to better investigate and manipulate that data** to fix the problem.
+If Remy received the current script and tried to run it as-is, would it work? If not, why?
+
+Below is a reminder of what Mickey's script currently looks like.
+
+
+``` r
+# Mickey's current minimal code
+
+library(readr)
+library(dplyr)
+
+surveys <- read_csv("data/surveys_complete_77_89.csv")
+```
+
+``` output
+Rows: 16878 Columns: 13
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (6): species_id, sex, genus, species, taxa, plot_type
+dbl (7): record_id, month, day, year, plot_id, hindfoot_length, weight
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+```
+
+``` r
+# Filter to known sex
+rodents_subset <- surveys %>%
+  filter(sex == c("F", "M"))
+
+# Subsetted dataset
+table(rodents_subset$sex)
+```
+
+``` output
+
+   F    M 
+3656 4145 
+```
+
+``` r
+# Original dataset
+table(surveys$sex) # the numbers don't match!
+```
+
+``` output
+
+   F    M 
+7318 8260 
+```
+
+::: solution
+The code would fail to run because Remy probably doesn't have the "surveys_complete_77_89.csv" file, or, more specifically doesn't have that file in the specified "data" folder.
+Indeed, we have no idea what Remy's file management system looks like!
+:::
+::::
+
+A **reprex code will always require a data object** in order to run!
+
+To make sure Remy can work on the reprex anywhere, Mickey needs to ensure Remy has the required dataset to run it.
+
+As with the code, a reprex's dataset should also be **minimal--free of unnecessary information** and **reproducible--such that anyone can recreate it**.
+
+Indeed, Step 3 on the roadmap tells us to create a minimal reproducible dataset.
+However, Mickey figures it would be faster and easier to send Remy the current minimal code along with the original csv file.
+After all, the code already includes how to read-in the csv file, right?
+There is no need to create another dataset.
+
+:::: challenge
+### Exercise 2: Reflect
+
+Mickey feels like sharing the original data file would be easier, but who would find it easier, Mickey or Remy?
+
+::: solution
+Mickey is thinking that it would be easier for themselves, not necessarily for Remy.
+
+**Remember:** one of the goals of creating a reprex is to **help the helpers**.
+They don't have to help, they are volunteering their time.
+As such, they deserve to be treated with kindness and respect.
+If you send a code with a separate file, not only is the code not reproducible, but you are creating extra work for the helper.
+Extra unnecessary and potentially time-consuming steps are more likely to make helpers frustrated rather than happy to help.
+
+If you find yourself getting frustrated at how much time and effort creating a reprex might be taking, remember that (1) **trusting the process may reveal the solution along the way**; and (2) **being kind, clear, and helpful will reward you with a quicker, more accurate solution** (and will make it more likely that a helper will help again in the future).
+:::
+::::
+
+Remy's feelings aside, while this strategy could still work in this particular instance, there are many reasons why sharing original data may not be possible or recommended.
+Can you think of any?
+See callout below for examples.
 
 ::: callout
-### Remember: your helper may not have access to your computer and files!
+### Think twice before sharing your data!
 
-You might be used to always uploading data from separate files, but helpers can't access those files.
-Even if you sent someone a file, they would need to put it in the right directory, make sure to load it in exactly the same way, make sure their computer can open it, etc.
-Since the goal is to make everyone's lives as easy as possible, we need to think about our data in a different way--as a mock object created in the script itself.
+Even though there are times when sharing your original dataset seems like the easiest approach, there are several reasons why sharing original data may not be possible or recommended.
+
+The original dataset may be:
+
+-   too large - the Portal dataset is \~35,000 rows with 13 columns and contains data for decades. That's a lot!
+-   private - the dataset might not be published yet, it may not be yours to share, or maybe it includes protected information such as personal medical information or the location of endangered species.
+-   hard to send - on most online forums, you can't attach supplemental files (more on this later). Even if you are just sending data to a colleague, file paths can get complicated, the data might be too large to attach, etc.
+-   complicated - it would be hard to locate the relevant information. One example to steer away from are needing a 'data dictionary' to understand all the meanings of the columns (e.g. what is "plot type" in `ratdat`?) We don't our helper to waste valuable time to figure out what everything means.
+-   highly derived/modified from the original file. You may have already done a bunch of preliminary data wrangling you don't want to include when you send the example, so you would need to provide the intermediate dataset directly to your helper.
 :::
+
+While Mickey does not have to create a brand new example dataset, they should at least work to make their original data minimal and reproducible (see the reflection exercise above).
+
+While it may sometimes feel like unnecessary effort, the process of creating a minimal dataset will not only help others help you, but also allow you to **better understand your data** and often **discover the source of the problem** without the need for external help.
+By removing extraneous information and only keeping what is required to replicate the issue, we can ensure both we and our helper are be able to easily see how the data is structured and where the problem arises.
+Furthermore, we have already seen how sometimes the source of the problem isn't actually the code, but rather the data!
+Providing an appropriate example, or mock dataset **allows a helper to better investigate and manipulate that data** to fix the problem (as if they were working directly on your computer).
+
+See what the mock dataset of a reprex can look like in the callout below.
 
 ::: instructor
-Idea for future edits: the above callout could be rephrased using Mickey and a narrative example (e.g., Mickey tries to just send their data to Remy but it doesn't work out).
+While formatted as a callout, the pro-tip content is critical for students to develop the right mental model of what an example dataset looks like.
 :::
 
-As with the code, a reprex dataset should also be **minimal--free of unnecessary information**.
-By removing extraneous information and only keeping what is required to replicate the issue, we can ensure our helper will be able to easily see how the data is structured and where the problem arises.
-While it may sometimes feel like unnecessary effort, the process of creating a minimal dataset will not only help others help you, but also allow you to **better understand your data** and often **discover the source of the problem** without the need for external help.
-
-In summary, just like with the code, **a minimal reproducible dataset must be:**
-
--   **minimal**: it only contains information required to run your minimal code. You can also think of this as being **relevant** to the problem (keep only what is necessary).
--   **reproducible**: it must be **accessible** to someone without your computer, and it must consistently **replicate your problem**. This means it also needs to be **complete**, meaning there are no dependencies that have been omitted (e.g., packages).
-
 ::: callout
-### Pro-tip
+### Pro-tip: documentation examples are a reprex
 
-An example of what minimal reproducible examples look like can also be found in the `?help` section, in R Studio.
-Just scroll all the way down to where there are examples listed.
+An example of what minimal reproducible examples look like can be found in the `?help` section, in R Studio.
+When looking at the documentation for any function, scroll all the way down to where they list examples.
 These will usually be minimal and reproducible, since they are intended to be directly copy-pasted and run by anyone.
 
 For example, let's look at the function `mean`:
@@ -77,7 +171,29 @@ For example, let's look at the function `mean`:
 ?mean
 ```
 
-We see examples that can be run directly on the console, with no additional code.
+When we scroll all the way down, we see examples that can be run directly on the console, with no additional code.
+Try to copy-paste the following in your script.
+Does it run?
+
+
+``` r
+xm <- mean(x)
+```
+
+``` error
+Error: object 'x' not found
+```
+
+``` r
+c(xm, mean(x, trim = 0.10))
+```
+
+``` error
+Error: object 'xm' not found
+```
+
+It is missing the first line which actually creates the dataset `x`.
+Try again with the new line.
 
 
 ``` r
@@ -90,48 +206,36 @@ c(xm, mean(x, trim = 0.10))
 [1] 8.75 5.50
 ```
 
-In this case, **x is the mock dataset** consisting of just 1 variable.
+Now it should run as intended!
+
+In this example, **x is the mock dataset** consisting of just 1 variable.
 **Notice how it was created as part of the example.** This will be your goal with your reprex.
+
+When your data is uploaded from a separate file, that file becomes a dependency in your code–it cannot run without it.
+Since a reprex needs to be reproducible by anyone, **we need to think about our data in a different way–as a mock object created in the script itself**.
 :::
 
+In summary, just like with the code, **a minimal reproducible dataset must be:**
+
+-   **minimal**: it only contains information required to run your minimal code and replicate the problem. You can also think of this as being **relevant** to the problem.
+-   **reproducible**: it must be **accessible** to someone without your computer, and it must consistently **replicate your problem**. This means it also needs to be **complete**, meaning there are no dependencies that have been omitted (e.g., packages).
+
 ::: instructor
-Section 4.1, Exercise 1, and the extra practice exercise that follows are all intended to address the LO "Describe a minimal reproducible dataset." The extra practice exercise better targets the learner's ability to identify the appropriate reprex dataset.
+This exercise is intended to address the LO "Describe a minimal reproducible dataset" although it better targets the learner's ability to *identify* an appropriate reprex dataset.
 :::
 
 :::: challenge
-### Exercise 1: Test your knowledge! (3 mins)
+### Ecercise 3: Test your knowledge!
 
-The datasets listed below are **not** well suited for use in a reprex.
-Can you explain why?
-Copy each one onto your own R script to check whether they are reproducible.
-What did you find?
-
-A)  ![](fig/data_screenshot.png){alt="Screenshot of the ratdat comple_old dataset."}
-B)  `sample_data <- read_csv(“/Users/kaija/Desktop/RProjects/ResearchProject/data/sample_dataset.csv”)`
-C)  `sample_data <- data.frame(species = species_vector, weight = c(10, 25, 14, 26, 30, 17))`
-
-::: solution
-### Solution
-
-A)  Not reproducible because it is a screenshot.
-B)  Not reproducible because it is a path to a file that only exists on someone else’s computer and therefore you do not have access to it using that path.
-C)  Not reproducible because we are not given the source for `species_vector`.
-:::
-::::
-
-::: instructor
-The lesson develoepers recommend you skip the exercise below to stay within the lesson's time estimate.
-You can provide it as extra practice for quicker learners or during breaks.
-:::
-
-:::: challenge
-### Extra Practice (optional)
-
-Let's say we want to know the average weight of all the species in our `rodents` dataset.
+Let's say we want to know the average weight of all the species in our `rodents` dataset from episode 2 (also below if you no longer have it).
 We try to use the following code...
 
 
 ``` r
+# The previously created "rodents" dataset
+rodents <- surveys %>% filter(taxa == "Rodent")
+
+# Mean rodent weight
 mean(rodents$weight)
 ```
 
@@ -142,14 +246,17 @@ mean(rodents$weight)
 ...but it returns NA!
 We don't know why that is happening and we want to ask for help.
 
-Which of the following represents a minimal reproducible dataset for this code?
+Which of the following represents a minimal reproducible dataset for the minimal code `mean(rodents$weight)`?
 Can you describe why the other ones are not?
 
 A)  `sample_data <- data.frame(month = rep(7:9, each = 2), hindfoot_length = c(10, 25, 14, 26, 30, 17))`
 B)  `sample_data <- data.frame(weight = rnorm(10))`
 C)  `sample_data <- data.frame(weight = c(100, NA, 30, 60, 40, NA))`
-D)  `sample_data <- sample(rodents$weight, 10)`
-E)  `sample_data <- rodents_modified[1:20,]`
+D)  `sample_data <- rodents_modified[1:20,]`
+
+**Hint:** the data needs to (1) run within your code, and (2) replicate the problem.
+To test whether each new `sample_data` works, try inputting it back into the function that is giving you problems.
+E.g., use `mean(sample_data$weight)`
 
 ::: solution
 ### Solution
@@ -157,56 +264,28 @@ E)  `sample_data <- rodents_modified[1:20,]`
 The correct answer is C!
 
 A)  does not include the variable of interest (weight).
-B)  does not produce the same problem (NA result with a warning message)--the code runs just fine.
+B)  does not replicate the problem (NA result with a warning message)--the code runs just fine.
 C)  minimal and reproducible.
-D)  is not reproducible. Sample randomly samples 10 items; sometimes it may include NAs, sometime it may not (not guaranteed to reproduce the error). It can be used if a seed is set (see next section for more info).
+D)  is not reproducible. Sample randomly samples 10 items; sometimes it may include NAs, sometime it may not (not guaranteed to replicate the error). It can be used if a seed is set (see next section for more info).
 E)  uses a dataset that isn't accessible without previous data wrangling code–the object rodents_modified doesn't exist.
+F)  Inaccessible data. It provides the path to a file on someone else's computer.
 :::
 ::::
 
-## 4.2 Can I just use my own data?
+::: callout
+### Don't use screenshots
 
-While Mickey is grateful to Remy for providing them with a roadmap to follow when they need help, they still feel it would be much easier and faster to just send Remy their whole dataset rather than creating a different one.
-If they give Remy access to everything, can't he still help?
-
-:::: challenge
-### Exercise 2: Reflect (3 mins)
-
-1.  When Mickey feels like sharing their own data would be easier, for whom do you think they are referring?
-    Who would find it easier, Mickey or Remy?
-
-2.  Can you think of any reasons why sharing the original data may not be possible or recommended?
-
-::: solution
-1.  Mickey is thinking that it would be easier for themselves, not necessarily for Remy.
-
-    **Remember:** one of the goals of creating a reprex is to **help the helpers**. They don't have to help, they are volunteering their time. As such, they deserve to be treated with kindness and respect. If you find yourself getting frustrated at how much time and effort creating a reprex might be taking, remember that (1) **trusting the process may reveal the solution along the way**; and (2) **being kind, clear, and helpful will reward you with a quicker, more accurate solution**.
-
-2.  There are several reasons why sharing the original data may not be possible or recommended. The original dataset may be:
-
--   too large - the Portal dataset is \~35,000 rows with 13 columns and contains data for decades. That's a lot!
--   private - the dataset might not be published yet, it may not be yours to share, or maybe it includes protected information such as personal medical information or the location of endangered species.
--   hard to send - on most online forums, you can't attach supplemental files (more on this later). Even if you are just sending data to a colleague, file paths can get complicated, the data might be too large to attach, etc.
--   complicated - it would be hard to locate the relevant information. One example to steer away from are needing a 'data dictionary' to understand all the meanings of the columns (e.g. what is "plot type" in `ratdat`?) We don't our helper to waste valuable time to figure out what everything means.
--   highly derived/modified from the original file. You may have already done a bunch of preliminary data wrangling you don't want to include when you send the example, so you would need to provide the intermediate dataset directly to your helper.
+Screenshots are another example of an inappropriate and unhelpful way to share your data with a helper.
+While they can be used as a quick snapshot of what the data looks like, the data within a screenshot cannot be manipulated and a helper would have to create their own mock dataset to run the code.
 :::
-::::
 
-Mickey is not entirely wrong.
-While there are instances when it is not possible or advisable to share original data, there are also many ways around such challenges and some instances may indeed benefit from keeping the original data.
-However, it is still important to provide helpers with data that is minimal and reproducible.
-Therefore, while Mickey does not have to create a brand new example dataset, they should at least work to make their original data minimal and accessible (see the above reflection exercise), and this may not end up being easier or faster than creating a mock dataset from scratch.
-
-In summary, there are multiple ways to provide a minimal, reproducible dataset for a reprex, including using a simplified version of the original dataset.
-In the following section we will highlight 3 common approaches.
-
-## 4.3 Three different approaches
+## 4.2 Three different approaches
 
 In general, there are 3 common ways to provide minimal reproducible data for a reprex.
 
--   Add a few lines of code to create a mock dataset with the same key characteristics as the original data.
+-   Add a few lines of code to create a mock dataset with the same key characteristics as the original data (like in the example sections of documentations).
 
--   Subset the original data to be minimal and reproducible.
+-   Subset the original data to be minimal and reproducible, then use  function like `dput()`.
 
 -   Subset a dataset that is already provided by R (e.g., `cars`, `npk`, `penguins`, etc.).
     For a complete list, use `library(help = "datasets")`.
@@ -269,10 +348,10 @@ Below is a summary table of advantages and disadvantages of each approach based 
 +-----------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
 :::
 
-## 4.4 Creating a mock dataset from scratch
+## 4.3 Creating a mock dataset from scratch
 
 While starting from scratch can be daunting at first, it becomes easier and faster with practice.
-Once you are familiar with the basic building blocks, it is a very straight-forward method of creating a minimal reproducible dataset.
+Once you are familiar with the basic building blocks, it is a straight-forward method of creating a minimal reproducible dataset.
 This is also the preferred method for other activities that require a reprex (e.g., teaching, collaborating, developing, etc.), and it often provides valuable problem-solving insights.
 So let's breakdown this process to be more digestible!
 
@@ -303,12 +382,12 @@ For example you can sample numbers 1 through 10 in a random order
 
 
 ``` r
-x <- sample(1:10)
+x <- sample(1:10, 5)
 x
 ```
 
 ``` output
- [1] 10  2  7  1  5  4  8  9  6  3
+[1]  8 10  1  3  6
 ```
 
 Or you can randomly sample from a normal distribution
@@ -320,11 +399,11 @@ x
 ```
 
 ``` output
- [1] -0.5441265  0.2645041  1.2707541 -0.8324056 -0.8087300 -1.7129828
- [7] -1.4387597  0.2983990  1.4493968  0.8220291
+ [1] -1.5001816  0.1593857  0.7379909  1.2520692  0.2379895  1.5929670
+ [7]  0.5463290  0.5472963 -1.2966618  1.1079677
 ```
 
-You can also use `letters` to create factors.
+You can also use built-in vectors like `letters` to create factors.
 
 
 ``` r
@@ -333,8 +412,8 @@ x
 ```
 
 ``` output
- [1] "b" "d" "a" "b" "d" "a" "c" "a" "a" "c" "a" "c" "a" "d" "a" "b" "d" "a" "c"
-[20] "c"
+ [1] "d" "b" "c" "c" "c" "d" "d" "c" "d" "d" "d" "c" "a" "b" "b" "d" "c" "a" "d"
+[20] "b"
 ```
 
 Remember that **a data frame is just a collection of vectors**.
@@ -349,12 +428,12 @@ head(data)
 
 ``` output
   x          y
-1 b  1.2081456
-2 a  1.4990897
-3 c  0.7298116
-4 a -1.1811818
-5 b -0.1209291
-6 b -0.6971374
+1 c  2.0922138
+2 a  0.4717067
+3 c  1.0194869
+4 b -0.8042742
+5 c  1.4898227
+6 a  1.7809030
 ```
 
 **However**, when sampling at random you must remember to `set.seed()` before sending it to someone to make sure you both get the same numbers!
@@ -375,7 +454,7 @@ You can skip giving the solution for C, expecting quicker learners to have tried
 :::
 
 ::: challenge
-### Exercise 3: You try! (5 mins)
+### Exercise 4: You try! 
 
 Create a data frame with:
 
@@ -401,101 +480,73 @@ Let's check back with Mickey and the minimal code they settled on:
 
 
 ``` r
-# Mickey's minimal code [ UPDATE AS NEEDED ]
+# Mickey's current minimal code
 
+library(readr)
 library(dplyr)
-library(ggplot2)
 
-rodents<-read.csv('data/surveys_complete_77_89.csv')
-
-rodents_subset <- rodents %>%
-  filter(species == c("ordii", "spectabilis"),
-         sex == c("F", "M"))
-
-table(rodents_subset$sex, rodents_subset$species)
+surveys <- read_csv("data/surveys_complete_77_89.csv")
 ```
 
 ``` output
-   
-    ordii spectabilis
-  F   333           0
-  M     0         610
+Rows: 16878 Columns: 13
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (6): species_id, sex, genus, species, taxa, plot_type
+dbl (7): record_id, month, day, year, plot_id, hindfoot_length, weight
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 ``` r
-table(rodents$sex, rodents$species)
+# Filter to known sex
+rodents_subset <- surveys %>%
+  filter(sex == c("F", "M"))
+
+# Subsetted dataset
+table(rodents_subset$sex)
 ```
 
 ``` output
-   
-    albigula audubonii bilineata brunneicapillus chlorurus clarki eremicus
-          62        69       223              23        11      1       14
-  F      474         0         0               0         0      0      372
-  M      368         0         0               0         0      0      468
-   
-    flavus fulvescens fulviventer fuscus gramineus harrisi hispidus leucogaster
-        15          0           0      2         3     136        2          16
-  F    222         46           3      0         0       0       68         373
-  M    302         16           2      0         0       0       42         397
-   
-    leucophrys maniculatus megalotis melanocorys merriami ordii penicillatus
-             2           9        33          13       45     3            6
-  F          0         160       637           0     2522   690          221
-  M          0         248       680           0     3108   792          155
-   
-    scutalatus  sp. spectabilis spilosoma squamata taylori torridus viridis
-             1   18          42       149       16       0       28       1
-  F          0    4        1135         1        0       0      390       0
-  M          0    5        1232         1        0       3      441       0
+
+   F    M 
+3656 4145 
 ```
 
-To make sure Remy can work on this anywhere, Mickey needs to ensure he has the required dataset to run the code.
+``` r
+# Original dataset
+table(surveys$sex) # the numbers don't match!
+```
 
-:::: challenge
-### Exercise 4: Quick, think! (2 mins)
+``` output
 
-Based on the current minimal code, which dataset does Mickey need to recreate?
-Hint: they currently have two datasets, `rodents` and `rodents_subset`.
-
-::: solution
-### Solution
-
-Mickey needs to provide a mock dataset to replace the original `rodents` dataset.
-:::
-::::
-
-::: instructor
-Make sure participants understand the distinction we are trying to make and why it matters.
-It may not be straightforward.
-While it does not address a specific LO, it is relevant to being able to create a dataset for a given reprex.
-:::
+   F    M 
+7318 8260 
+```
 
 Let's take a closer look at the dataset we need to substitute and then answer the questions outlined earlier.
 
 
 ``` r
-head(rodents)
+head(surveys)
 ```
 
 ``` output
-  record_id month day year plot_id species_id sex hindfoot_length weight
-1         1     7  16 1977       2         NL   M              32     NA
-2         2     7  16 1977       3         NL   M              33     NA
-3         3     7  16 1977       2         DM   F              37     NA
-4         4     7  16 1977       7         DM   M              36     NA
-5         5     7  16 1977       3         DM   M              35     NA
-6         6     7  16 1977       1         PF   M              14     NA
-        genus  species   taxa                plot_type
-1     Neotoma albigula Rodent                  Control
-2     Neotoma albigula Rodent Long-term Krat Exclosure
-3   Dipodomys merriami Rodent                  Control
-4   Dipodomys merriami Rodent         Rodent Exclosure
-5   Dipodomys merriami Rodent Long-term Krat Exclosure
-6 Perognathus   flavus Rodent        Spectab exclosure
+# A tibble: 6 × 13
+  record_id month   day  year plot_id species_id sex   hindfoot_length weight
+      <dbl> <dbl> <dbl> <dbl>   <dbl> <chr>      <chr>           <dbl>  <dbl>
+1         1     7    16  1977       2 NL         M                  32     NA
+2         2     7    16  1977       3 NL         M                  33     NA
+3         3     7    16  1977       2 DM         F                  37     NA
+4         4     7    16  1977       7 DM         M                  36     NA
+5         5     7    16  1977       3 DM         M                  35     NA
+6         6     7    16  1977       1 PF         M                  14     NA
+# ℹ 4 more variables: genus <chr>, species <chr>, taxa <chr>, plot_type <chr>
 ```
 
 ::: challenge
-### Exercise 5: Your turn! (5 mins)
+### Exercise 5: Your turn! 
 
 Try to answer the following questions on your own to determine what we need to include in our minimal reproducible dataset:
 
@@ -519,14 +570,12 @@ Begin creating the dataset with the information gained from each question, then 
 
 1.  How many variables does Mickey need to reproduce their problem?
 
-They need species, sex, and maybe a third identifier like record_id.
-This means they potentially need 3 vectors (remember, each column in a dataframe is essentially a vector, and in "tidy data" should correspond with a variable; each row is then an observation).
+They really just sex, and maybe an identifier like record_id.
+This means they potentially only need 1 vector, maybe 2 (remember, each column in a dataframe is essentially a vector, and in "tidy data" should correspond with a variable; each row is then an observation).
 
 
 ``` r
-# create 3 variables: species, sex, and maybe record_id
-
-# a vector for species:
+# create 2 variables: sex, and maybe record_id
 
 # a vector for sex:
 
@@ -535,13 +584,11 @@ This means they potentially need 3 vectors (remember, each column in a dataframe
 
 2.  What data type (discrete or continuous) is each variable?
 
-Species and sex are both discrete (categorical) variables, while record ID would be more continuous.
+Sex is a discrete (categorical) variable, while record ID would be continuous.
 
 
 ``` r
-# create 3 variables: species, sex, and maybe record_id
-
-# a vector for species: categorical 
+# create 2 variables: sex, and maybe record_id
 
 # a vector for sex: categorical
 
@@ -550,15 +597,13 @@ Species and sex are both discrete (categorical) variables, while record ID would
 
 3.  How many levels and/or observations are necessary?
 
-Since Mickey is filtering their dataset down to 2 categories for both species and sex, that means they need at least 3 levels in each to start with.
-In terms of number of observations there don't seem to be specific restrictions other than they probably want at least 1 observation per original category, so 2\*3=6, or they can just pick a generally nice number like 10.
+Since Mickey is filtering their dataset down to 2 categories for sex, that means they need at least 3 levels to start with.
+In terms of number of observations there don't seem to be specific restrictions so they can just pick a generally nice number like 10.
 This is where creating a reprex dataset becomes a bit more of an art than a science; it is common to use trial and error until the problem is replicated accurately.
 
 
 ``` r
-# create 3 variables: species, sex, and maybe record_id
-
-# a vector for species: categorical with 3 levels 
+# create 2 variables: sex, and maybe record_id
 
 # a vector for sex: categorical with 3 levels 
 
@@ -582,19 +627,8 @@ It might not matter or it could be important, so let's have them put in NAs in t
 
 
 ``` r
-# create 3 variables: species, sex, and maybe record_id
+# create 2 variables: sex, and maybe record_id
 
-# a vector for species: categorical with 3 levels
-species <- sample(letters, 3, replace=F) 
-          # or name 3 categories like we do with sex below
-species
-```
-
-``` output
-[1] "u" "t" "e"
-```
-
-``` r
 # a vector for sex: categorical with 3 levels, one of which is NA 
 sex <- c('M','F',NA)
 sex
@@ -619,8 +653,6 @@ record_id
 sample_data <- data.frame(
   # record_id stays the same, since these are our 10 "observations"
   record_id = record_id,
-  # randomly select 10 observations from our list of species
-  species = sample(species, 10, replace=T),
   # randomly select 10 observations from our list of sexes
   sex = sample(sex, 10, replace=T)
 )
@@ -630,17 +662,17 @@ sample_data
 ```
 
 ``` output
-   record_id species  sex
-1          1       t    F
-2          2       e <NA>
-3          3       e    F
-4          4       t    F
-5          5       e <NA>
-6          6       t    F
-7          7       t <NA>
-8          8       e    F
-9          9       t    F
-10        10       u <NA>
+   record_id  sex
+1          1    F
+2          2    M
+3          3 <NA>
+4          4    M
+5          5    F
+6          6    F
+7          7 <NA>
+8          8    M
+9          9    F
+10        10 <NA>
 ```
 
 And just like that we helped Mickey create a mock dataset from scratch!
@@ -650,7 +682,6 @@ Notice that they could also have compiled the same type of dataset in a single l
 ``` r
 sample2_data <- data.frame(
   record_id = 1:10,
-  species = sample(letters[1:3], 10, replace=T),
   sex = sample(c('M','F', NA), 10, replace=T)
 )
 
@@ -658,17 +689,17 @@ sample2_data
 ```
 
 ``` output
-   record_id species  sex
-1          1       a    F
-2          2       b <NA>
-3          3       b <NA>
-4          4       b    M
-5          5       a <NA>
-6          6       a <NA>
-7          7       c <NA>
-8          8       c    M
-9          9       a <NA>
-10        10       a    M
+   record_id  sex
+1          1    F
+2          2    F
+3          3 <NA>
+4          4 <NA>
+5          5 <NA>
+6          6    F
+7          7    F
+8          8    M
+9          9    F
+10        10    M
 ```
 
 **Important**: Notice that the outputs of the two datasets are not the same.
@@ -679,24 +710,23 @@ If you want the outputs to be EXACTLY the same each time, but you are using `sam
 set.seed(1) # set seed before recreating the sample
 sample_data <- data.frame(
   record_id = 1:10,
-  species = sample(letters[1:3], 10, replace=T),
   sex = sample(c('M','F', NA), 10, replace=T)
 )
 sample_data
 ```
 
 ``` output
-   record_id species  sex
-1          1       a <NA>
-2          2       c    M
-3          3       a    M
-4          4       b    M
-5          5       a    F
-6          6       c    F
-7          7       c    F
-8          8       b    F
-9          9       b <NA>
-10        10       c    M
+   record_id  sex
+1          1    M
+2          2 <NA>
+3          3    M
+4          4    F
+5          5    M
+6          6 <NA>
+7          7 <NA>
+8          8    F
+9          9    F
+10        10 <NA>
 ```
 
 ::: callout
@@ -732,19 +762,43 @@ Does it replicate the problem they were having?
 
 
 ``` r
-# Minimal code [or whatever we end up with] 
-sample_subset <- sample_data %>% # replace rodents with our sample dataset
-  filter(species == c("a", "b"), # replace species with those from our sample dataset
-         sex == c("F", "M")) # this can stay the same because we recreated it the same
+# Mickey's reprex (1 approach) 
 
-table(sample_subset$sex, sample_subset$species)
+# Required packages to run the code
+library(readr)
+library(dplyr)
+
+set.seed(1) # ensures accurate data replication
+
+# Create a mock dataset
+sample_data <- data.frame(
+  record_id = 1:10,
+  sex = sample(c('M','F', NA), 10, replace=T)
+)
+
+# The problematic code snippet
+sample_subset <- sample_data %>% # replace rodents with our sample dataset
+  filter(sex == c("F", "M")) # this can stay the same because we recreated it the same
+
+# Subsetted sample dataset - how many individuals for each sex?
+table(sample_subset$sex)
 ```
 
 ``` output
-   
-    a b
-  F 1 0
-  M 0 1
+
+F 
+1 
+```
+
+``` r
+# Original sample dataset - how many individuals for each sex?
+table(sample_data$sex) # the numbers don't match!
+```
+
+``` output
+
+F M 
+3 3 
 ```
 
 It works!
@@ -793,56 +847,53 @@ If not, go check it out!
 
 
 ``` r
-# Mickey's minimal code [ UPDATE AS NEEDED ]
+# Mickey's current script
 
+library(readr)
 library(dplyr)
-library(ggplot2)
 
-rodents<-read.csv('data/surveys_complete_77_89.csv')
-
-rodents_subset <- rodents %>%
-  filter(species == c("ordii", "spectabilis"),
-         sex == c("F", "M"))
-
-table(rodents_subset$sex, rodents_subset$species)
+surveys <- read_csv("data/surveys_complete_77_89.csv")
 ```
 
 ``` output
-   
-    ordii spectabilis
-  F   333           0
-  M     0         610
+Rows: 16878 Columns: 13
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (6): species_id, sex, genus, species, taxa, plot_type
+dbl (7): record_id, month, day, year, plot_id, hindfoot_length, weight
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 ``` r
-table(rodents$sex, rodents$species)
+# Filter to known sex
+rodents_subset <- surveys %>%
+  filter(sex == c("F", "M"))
+
+# Subsetted dataset
+table(rodents_subset$sex)
 ```
 
 ``` output
-   
-    albigula audubonii bilineata brunneicapillus chlorurus clarki eremicus
-          62        69       223              23        11      1       14
-  F      474         0         0               0         0      0      372
-  M      368         0         0               0         0      0      468
-   
-    flavus fulvescens fulviventer fuscus gramineus harrisi hispidus leucogaster
-        15          0           0      2         3     136        2          16
-  F    222         46           3      0         0       0       68         373
-  M    302         16           2      0         0       0       42         397
-   
-    leucophrys maniculatus megalotis melanocorys merriami ordii penicillatus
-             2           9        33          13       45     3            6
-  F          0         160       637           0     2522   690          221
-  M          0         248       680           0     3108   792          155
-   
-    scutalatus  sp. spectabilis spilosoma squamata taylori torridus viridis
-             1   18          42       149       16       0       28       1
-  F          0    4        1135         1        0       0      390       0
-  M          0    5        1232         1        0       3      441       0
+
+   F    M 
+3656 4145 
 ```
 
-Given that the code that is going wrong is that which creates rodents_subset, we need to create a minimal reproducible version of rodents!
-We can then insert our new_rodents dataset in place of the original rodents one.
+``` r
+# Original dataset
+table(surveys$sex) # the numbers don't match!
+```
+
+``` output
+
+   F    M 
+7318 8260 
+```
+
+Given that the code that is going wrong is that which creates rodents_subset, we need to create a minimal reproducible version of surveys!
+We can then insert our new_surveys dataset in place of the original rodents one.
 
 **Step 1: select the variables of interest**
 
@@ -850,49 +901,28 @@ We can then insert our new_rodents dataset in place of the original rodents one.
 ``` r
 # subset rodent into new_rodent to make it minimal
 # Note: there are many ways you could do this!
-new_rodents <- rodents %>% 
+new_surveys <- surveys %>% 
   # 1. select the variables of interest
-  select(record_id, species, sex)
+  select(record_id, sex)
   # PAUSE. Does this work so far?
-new_rodents
+new_surveys
 ```
 
 ``` output
-   record_id      species sex
-1          1     albigula   M
-2          2     albigula   M
-3          3     merriami   F
-4          4     merriami   M
-5          5     merriami   M
-6          6       flavus   M
-7          7     eremicus   F
-8          8     merriami   M
-9          9     merriami   F
-10        10       flavus   F
-11        11  spectabilis   F
-12        12     merriami   M
-13        13     merriami   M
-14        14     merriami    
-15        15     merriami   F
-16        16     merriami   F
-17        17  spectabilis   F
-18        18 penicillatus   M
-19        19       flavus    
-20        20  spectabilis   F
-21        21     merriami   F
-22        22     albigula   F
-23        23     merriami   M
-24        24     hispidus   M
-25        25     merriami   M
-26        26     merriami   M
-27        27     merriami   M
-28        28     merriami   M
-29        29 penicillatus   M
-30        30  spectabilis   F
-31        31     merriami   F
-32        32     merriami   F
-33        33     merriami   F
- [ reached 'max' / getOption("max.print") -- omitted 16845 rows ]
+# A tibble: 16,878 × 2
+   record_id sex  
+       <dbl> <chr>
+ 1         1 M    
+ 2         2 M    
+ 3         3 F    
+ 4         4 M    
+ 5         5 M    
+ 6         6 M    
+ 7         7 F    
+ 8         8 M    
+ 9         9 F    
+10        10 F    
+# ℹ 16,868 more rows
 ```
 
 **Step 2-5: reduce the number of observations to \~10 while making sure the dataset still contains at least 3 species and at least 3 sexes**
@@ -903,7 +933,7 @@ While the rest is just one step, it is the trickiest, because this is where we w
 ### Exercise 6: Your Turn! (5 mins)
 
 How would you continue the subsetting pipeline?
-How could you reduce the number of observations while **making sure you still have at least 3 species and 3 sexes left**?
+How could you reduce the number of observations while **making sure you still have at least 3 sexes left**?
 Hint: there is no single right answer!
 Trial and error works wonders.
 :::
@@ -911,35 +941,37 @@ Trial and error works wonders.
 
 ``` r
 set.seed(1)
-new_rodents <- rodents %>% 
-  # 1. select the variables of interest
-  select(record_id, species, sex) %>%
-  slice_sample(n=4, replace = F, by='sex')
-new_rodents
+new_surveys <- surveys %>% 
+  # select the variables of interest
+  select(record_id, sex) %>%
+  # randomly select 4 rows from each sex category
+  slice_sample(n=4, replace = F, by='sex') # use ?slice_sample to check the documentation
+new_surveys
 ```
 
 ``` output
-   record_id     species sex
-1       2359    merriami   M
-2      16335    albigula   M
-3       9910       ordii   M
-4       8278       ordii   M
-5      12038    merriami   F
-6       7862   megalotis   F
-7       9221    albigula   F
-8       1335 spectabilis   F
-9       3320 melanocorys    
-10       343      flavus    
-11     14482        <NA>    
-12      9376   spilosoma    
+# A tibble: 12 × 2
+   record_id sex  
+       <dbl> <chr>
+ 1      2359 M    
+ 2     16335 M    
+ 3      9910 M    
+ 4      8278 M    
+ 5     12038 F    
+ 6      7862 F    
+ 7      9221 F    
+ 8      1335 F    
+ 9      3320 <NA> 
+10       343 <NA> 
+11     14482 <NA> 
+12      9376 <NA> 
 ```
 
 The code ran without issues, hooray!
 But do we end up with what we were looking for?
 
-1.  Do we have \~10 observations? Yes! 9 seems good enough
-2.  Do we have at least 3 species? Yes! We have 7 (we could choose to reduce this further)
-3.  Do we have at least 3 sexes? Yes! M, F, and blank
+1.  Do we have \~10 observations? Yes! 12 sounds good
+2.  Do we have at least 3 sexes? Yes! M, F, and NA
 
 Great!
 All of our requirements are fulfilled.
@@ -949,63 +981,22 @@ Now let's see if it replicates Mickey's problem when we add it to their minimal 
 For example, you can specify a proportion of rows to select, specify how to order variables, whether ties **[may require more explanation]** should be kept together, or even whether to weigh certain variables.
 All of this allows you to keep aspects of your dataset that may be relevant and hard to replicate otherwise.
 
-Remember the minimal code:
+Remember the problematic code snippet:
 
 
 ``` r
-rodents_subset <- rodents %>%
-  filter(species == c("ordii", "spectabilis"),
-         sex == c("F", "M"))
-
-table(rodents_subset$sex, rodents_subset$species)
+# Filter to known sex
+rodents_subset <- surveys %>%
+  filter(sex == c("F", "M"))
 ```
 
-``` output
-   
-    ordii spectabilis
-  F   333           0
-  M     0         610
-```
-
-``` r
-table(rodents$sex, rodents$species)
-```
-
-``` output
-   
-    albigula audubonii bilineata brunneicapillus chlorurus clarki eremicus
-          62        69       223              23        11      1       14
-  F      474         0         0               0         0      0      372
-  M      368         0         0               0         0      0      468
-   
-    flavus fulvescens fulviventer fuscus gramineus harrisi hispidus leucogaster
-        15          0           0      2         3     136        2          16
-  F    222         46           3      0         0       0       68         373
-  M    302         16           2      0         0       0       42         397
-   
-    leucophrys maniculatus megalotis melanocorys merriami ordii penicillatus
-             2           9        33          13       45     3            6
-  F          0         160       637           0     2522   690          221
-  M          0         248       680           0     3108   792          155
-   
-    scutalatus  sp. spectabilis spilosoma squamata taylori torridus viridis
-             1   18          42       149       16       0       28       1
-  F          0    4        1135         1        0       0      390       0
-  M          0    5        1232         1        0       3      441       0
-```
-
-We now want to replace `rodents` with our `new_rodents`.
-Do we need to change anything else?
-
-We actually still have ordii and spectabilis as species in our list, so we can keep it as is.
-Same for sex.
-So we're all set!
+We now want replace `surveys` with `new_surveys`, and let's change the name of the `rodents_subset` too so we can compare them. Does that problematic code snippet work or do we need to change anything else? 
 
 
 ``` r
-new_subset <- new_rodents %>%
-  filter(species == c("ordii", "spectabilis"),
-         sex == c("F", "M"))
+# Filter to known sex
+new_subset <- new_surveys %>%
+  filter(sex == c("F", "M"))
 ```
 
 The code ran without any errors!
@@ -1023,18 +1014,35 @@ What was the problem we had identified?
 So what would we expect to see with this new dataset?
 Since it is nice and short, this makes it a lot easier to predict the outcome.
 
--   We are asking for the 2 ordii rows, both males, and the 1 spectabilis row, which is female.
+-   We should find that both tables list 4 females and 4 males.
 
 
 ``` r
-table(new_subset$sex, new_subset$species)
+# Before the filter
+table(new_surveys$sex) # as expected!
 ```
 
 ``` output
-< table of extent 0 x 0 >
+
+F M 
+4 4 
 ```
 
-Instead we end up with nothing!
+``` r
+# After the filter
+table(new_subset$sex) # oh no! The numbers listed are not what we expect...
+```
+
+``` output
+
+F M 
+2 2 
+```
+
+``` r
+# ...which is exactly the problem we were trying to replicate!
+```
+
 Why aren't we getting the rows we are asking for?
 
 Maybe our table is just wrong, let's look at the actual dataset we end up with
@@ -1045,11 +1053,16 @@ new_subset
 ```
 
 ``` output
-[1] record_id species   sex      
-<0 rows> (or 0-length row.names)
+# A tibble: 4 × 2
+  record_id sex  
+      <dbl> <chr>
+1     16335 M    
+2      8278 M    
+3     12038 F    
+4      9221 F    
 ```
 
-Still nothing!
+Still wrong!
 What is going on??
 We don't have an answer, but we certainly replicated a problem that occurs when we filter the data.
 Time to ask for help!
@@ -1070,16 +1083,14 @@ Let's try it and see what happens.
 
 
 ``` r
-dput(new_rodents)
+dput(new_surveys)
 ```
 
 ``` output
-structure(list(record_id = c(2359L, 16335L, 9910L, 8278L, 12038L, 
-7862L, 9221L, 1335L, 3320L, 343L, 14482L, 9376L), species = c("merriami", 
-"albigula", "ordii", "ordii", "merriami", "megalotis", "albigula", 
-"spectabilis", "melanocorys", "flavus", NA, "spilosoma"), sex = c("M", 
-"M", "M", "M", "F", "F", "F", "F", "", "", "", "")), class = "data.frame", row.names = c(NA, 
--12L))
+structure(list(record_id = c(2359, 16335, 9910, 8278, 12038, 
+7862, 9221, 1335, 3320, 343, 14482, 9376), sex = c("M", "M", 
+"M", "M", "F", "F", "F", "F", NA, NA, NA, NA)), row.names = c(NA, 
+-12L), class = c("tbl_df", "tbl", "data.frame"))
 ```
 
 It spit out a hard-to-read but not excessively long chunk of code.
@@ -1089,35 +1100,41 @@ We can also break it down and label it further to help the reader.
 
 ``` r
 reprex_data <- structure(list(
-  
-# a unique identifier
-record_id = c(2359L, 16335L, 9910L, 8278L, 12038L, 7862L, 9221L, 1335L, 9862L, 14979L, 11333L, 351L), 
 
-# a list of species
-species = c("merriami", "albigula", "ordii", "ordii", "merriami", "megalotis", "albigula", "spectabilis", "harrisi", "merriami", "spilosoma", "leucogaster"), 
+  # a unique identifier (not actually necessary)
+record_id = c(2359, 16335, 9910, 8278, 12038, 
+7862, 9221, 1335, 3320, 343, 14482, 9376), 
 
-# a list of sexes. Note: this includes some blanks!
-sex = c("M", "M", "M", "M", "F", "F", "F", "F", "", "", "", "")),
+# A list of sexes. Note: this includes NAs!
+sex = c("M", "M", 
+"M", "M", "F", "F", "F", "F", NA, NA, NA, NA)), 
 
-class = "data.frame", row.names = c(NA, -12L))
+# no row names
+row.names = c(NA, -12L), 
 
+# type of data
+class = c("tbl_df", "tbl", "data.frame"))
+
+# see the dataset
 print(reprex_data)
 ```
 
 ``` output
-   record_id     species sex
-1       2359    merriami   M
-2      16335    albigula   M
-3       9910       ordii   M
-4       8278       ordii   M
-5      12038    merriami   F
-6       7862   megalotis   F
-7       9221    albigula   F
-8       1335 spectabilis   F
-9       9862     harrisi    
-10     14979    merriami    
-11     11333   spilosoma    
-12       351 leucogaster    
+# A tibble: 12 × 2
+   record_id sex  
+       <dbl> <chr>
+ 1      2359 M    
+ 2     16335 M    
+ 3      9910 M    
+ 4      8278 M    
+ 5     12038 F    
+ 6      7862 F    
+ 7      9221 F    
+ 8      1335 F    
+ 9      3320 <NA> 
+10       343 <NA> 
+11     14482 <NA> 
+12      9376 <NA> 
 ```
 
 Ta-da!
@@ -1131,7 +1148,7 @@ But that wouldn't be very considerate to those who are trying to help.
 ::: challenge
 ### Exercise 7: Try it! (1 min)
 
-Try running `dput(rodents)` in your script.
+Try running `dput(surveys)` in your script.
 :::
 
 It becomes a huge chunk of code!
@@ -1183,7 +1200,7 @@ The following is 1 possible solution:
 
 We selected Hair and Eye as replacements for species and sex because they are both categorical and have at least 3 levels.
 We don't strictly need anything else.
-We will call our new `rodents` replacement `hyc`.
+We will call our new `survyes` replacement `hyc`.
 We set a seed because we want a random sample.
 
 
@@ -1257,7 +1274,7 @@ table(hyc$Hair, hyc$Eye) # Reds have 2 Blue and 1 Brown, and Blonds have 1 Brown
 ::::
 
 ::: callout
-### *What about NAs?* 
+### *What about NAs?*
 
 If your data has NAs and they may be causing the problem, it is important to include them in your example dataset.
 You can find where there are NAs in your dataset by using `is.na`, for example: `is.na(krats$weight)`.
