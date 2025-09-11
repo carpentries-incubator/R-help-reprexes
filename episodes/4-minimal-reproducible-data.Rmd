@@ -998,3 +998,28 @@ C)  **?? + what's really the point of this one?**
 D)  `sample_data <- data.frame(x = factor(1:3), y = 4:6)`
 :::
 ::::
+
+At the end of the episode, here is our final reprex. In the next episode, we will learn how to test whether this reprex is fully reproducible, and also how to share it with others.
+
+```{r}
+# Mickey's reprex (1 approach) 
+
+# Required packages to run the code
+library(readr)
+library(dplyr)
+
+set.seed(1) # ensures accurate data replication
+
+# Create a mock dataset
+sample_data <- data.frame(
+  record_id = 1:10,
+  sex = sample(c('M','F', NA), 10, replace=T)
+)
+
+# The problematic code snippet
+sample_subset <- sample_data %>% # replace rodents with our sample dataset
+  filter(sex == c("F", "M")) # this can stay the same because we recreated it the same
+
+# Subsetted sample dataset - how many individuals for each sex?
+table(sample_subset$sex)
+```
