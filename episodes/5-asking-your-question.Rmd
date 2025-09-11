@@ -8,72 +8,64 @@ exercises: 2
 
 - How can I verify that my example is reproducible?
 - How can I easily share a reproducible example with a mentor or helper, or online?
-- How do I ask a good question?
+- What information should I include when asking a question?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
-- Use the reprex package to test whether an example is reproducible.
-- Use the reprex package to format reprexes for posting online.
+- Use the {reprex} package to test whether an example is reproducible.
+- Use the {reprex} package to format reprexes for posting online.
 - Understand the benefits and drawbacks of different help forums.
 - Have a road map to follow when posting a question to make sure it's a good question.
 - Understand what the {reprex} package does and doesn't do.
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-Congratulations on finishing your reprex! In this episode, we will introduce a tool, the `{reprex}` package. This package will help you check that your example is truly reproducible and format it nicely to make it easy to present to a helper, either in person or online.
+In the previous episodes, we have worked on creating a minimal reproducible example, also known as a "reprex", to help our researcher friend Mickey debug a problem with their code.
 
-![](5-asking-your-question.Rmd)
+We learned how to 1) identify the problem and try some preliminary fixes, 2) minimize the code, and 3) include a minimal dataset.
 
-There are three principles to remember when you think about sharing your reprex with other people: **Reproducibility**, **formatting**, and **context**.
+In this episode, we will introduce a tool, the `{reprex}` package, that we can use to verify that we've successfully created a minimal reproducible example. The {reprex} package will also help format the code nicely for posting online or sending to a colleague.
+
+![](fig/04_share_reprex.png)
+
+When preparing to share a reprex with other people, it is important to remember three principles:
+
+- Reproducibility
+- Formatting
+- Context
 
 ## 1. Reproducibility
 
 Haven't we already talked a lot about reproducibility? 
 
-Yes! We have discussed variables and packages, minimal datasets, and making sure that the problem is meaningfully reproduced by the data that you choose. But there are some reasons that a code snippet that appears reproducible in your own R session might not actually be runnable by someone else.
+Yes! We have discussed variables and packages, minimal datasets, and making sure that the problem is meaningfully replicated by the data that you choose. But there are some reasons that a code snippet that appears reproducible in your own R session might not actually be runnable by someone else.
 
 - You forgot to account for the origins of some functions and/or variables. We went through our code methodically, but what if we missed something? It would be nice to confirm that the code is as self-contained as we thought it was.
 
-- Your code accidentally relies on objects in your R environment that won't exist for other people. For example, imagine you defined a function `my_awesome_custom_function()` in a project-specific `functions.R` script, and your code calls that function. 
+- Your code depends on some particular characteristic of your R or RStudio environment that is not the same as your helper's environment. For example, you might be using an older version of a package, and the problem could be fixed by reinstalling a newer version. Another package you have loaded could have a function with a conflicting name. Maybe something is up with your operating system, time zone, R version, or RStudio preferences that a helper can't necessarily replicate.
 
-![A function called `"my_awesome_custom_function"` is lurking in my R environment. I must have defined it a while ago and forgotten! Code that includes this function will not run for someone else unless the function definition is also included in the reprex.](fig/custom_function.png)
+Checking all of these possible causes of errors feels overwhelming, and it may not be obvious how to do it. Even experienced R coders do not always feel comfortable changing their RStudio settings, managing package versions, or accessing hidden configuration files.
 
-```{r error = T}
-my_awesome_custom_function("the kangaroo rat dataset")
-```
+Especially for complex problems, it is useful to have a way to double check that our painstakingly-prepared reprexes are actually minimal and reproducible, without manually testing out every contingency in R!
 
-I might conclude that this code is reproducible--after all, it works when I run it! But unless I remembered to include the function definition in the reprex itself, nobody will be able to run the code.
+Luckily, the {reprex} package will help you test your reprexes in a clean, isolated environment to make sure they're actually reproducible.
 
-A corrected reprex would look like this:
+The most important function in the `reprex` package is called `reprex()`, and using it looks a little different from functions in many other packages. `reprex()` automatically recognizes code that you have copied to your computer's **clipboard** and uses it to create a nicely formatted reprex, which it puts onto the clipboard for you to paste elsewhere. Because this happens invisibly, it can be a little hard to keep track of. Here's what's happening behind the scenes.
 
-```{r}
-my_awesome_custom_function <- function(x){print(paste0(x, " is awesome!"))}
-my_awesome_custom_function("the kangaroo rat dataset")
-```
+[DIAGRAM OF THE CLIPBOARD HERE]
 
-- Your code depends on some particular characteristic of your R or RStudio environment that is not the same as your helper's environment. [more details here]
+Your computer uses the clipboard every time you copy and paste something! What makes `reprex()` different is that it automatically reads and writes from the keyboard; you don't have to manually paste the code into the `reprex()` function.
 
-There are so many components to remember when thinking about reproducibility, especially for more complex problems. Wouldn't it be nice if we had a way to double check our examples? Luckily, the `reprex` package will help you test your reprexes in a clean, isolated environment to make sure they're actually reproducible.
-
-The most important function in the `reprex` package is called `reprex()`. Here's how to use it.
-
-First, install and load the `reprex` package.
-
-```{r message = FALSE}
-#install.packages("reprex")
-library(reprex)
-```
-
-Second, write some code. This is your reproducible example.
+Let's try it out. We'll first create a *very* minimal reproducible example, such as this one from the [reprex package documentation](https://reprex.tidyverse.org/reference/reprex.html).
 
 ```{r}
-(y <- 1:4)
+y <- 1:4
 mean(y)
 ```
 
-Third, highlight that code and copy it to your clipboard (e.g. `Cmd + C` on Mac, or `Ctrl + C` on Windows). 
+To turn this code into a reprex, we can highlight the code and copy it to your clipboard. (e.g. `Cmd + C` on Mac, or `Ctrl + C` on Windows). 
 
-Finally, type `reprex()` into your console.
+Finally, in your console, type `reprex()`. Leave the parentheses empty. You don't have to paste anything. Hit Enter/Return.
 
 ```
 # (with the target code snippet copied to your clipboard already...)
@@ -83,8 +75,6 @@ reprex()
 
 `reprex` will grab the code that you copied to your clipboard and run that code in an _isolated environment_. It will return a nicely formatted reproducible example that includes your code and and any results, plots, warnings, or errors generated.
 
-The generated output will be on your computer's clipboard by default. Then, you can paste it into GitHub, StackOverflow, Slack, or another venue.
-
 ::: callout
 ### Callout: The `reprex` package workflow
 
@@ -93,7 +83,7 @@ The `reprex` package workflow takes some getting used to. Instead of copying you
 And then the completed, rendered reprex replaces the original code on the clipboard and all you need to do is paste, not copy and paste. 
 :::
 
-Let's practice this one more time. Here's some very simple code:
+Let's practice this one more time. Here's some code that makes a boxplot:
 
 ```{r message = FALSE}
 library(ggplot2)
@@ -103,7 +93,7 @@ mpg %>%
   geom_boxplot()
 ```
 
-Let's highlight the code snippet, copy it to the clipboard, and then run `reprex()` in the console. 
+Once again, we can highlight the code snippet, copy it to the clipboard, and then run `reprex()` in the console. 
 
 ```
 # In the console:
@@ -132,25 +122,19 @@ mpg %>%
 
 <sup>Created on 2024-12-29 with [reprex v2.1.1](https://reprex.tidyverse.org)</sup>
 
-Nice and neat! It even includes the plot produced, so I don't have to take screenshots and figure out how to attach them to an email or something.
+Nice and neat! It even includes the plot produced, so I don't have to take screenshots and figure out how to attach them to an email.
 
-The formatting is great, but `reprex` really shines when you treat it as a helpful collaborator in your process of building a reproducible example (including all dependencies, providing minimal data, etc.)
+## 2. {reprex} as a debugging collaborator
 
-Let's see what happens if we forget to include `library(ggplot2)` in our small reprex above.
+The formatting is great, but {reprex} really shines when you treat it as a helpful collaborator in your process of building a reproducible example.
 
-```{r message = FALSE}
-library(dplyr)
-mpg %>% 
-  ggplot(aes(x = factor(cyl), y = displ))+
-  geom_boxplot()
-```
+::: challenge
+### Exercise 1: Using {reprex} to find problems with a minimal reproducible example
 
-As before, let's copy that code to the clipboard, run `reprex()` in the console, and paste the result here.
+1. If you run the code from the previous example without running the `library(ggplot2)` line, does it still work? Why?
 
-```
-# In the console:
-reprex()
-```
+2. Make a prediction: What will happen if you forget to include `library(ggplot2)` in your minimal reproducible example? Try it with the {reprex} package and see. Why did this happen?
+::: solution
 
 ``` r
 library(dplyr)
@@ -167,50 +151,14 @@ mpg %>%
   geom_boxplot()
 #> Error in ggplot(., aes(x = factor(cyl), y = displ)): could not find function "ggplot"
 ```
-
 <sup>Created on 2024-12-29 with [reprex v2.1.1](https://reprex.tidyverse.org)</sup>
 
-Now we get an error message indicating that R cannot find the function `ggplot`! That's because we forgot to load the `ggplot2` package in the reprex.
+::: 
+:::
+
+We get an error message indicating that R cannot find the function `ggplot`! That's because we forgot to load the `ggplot2` package in the reprex.
 
 This happened even though we had `ggplot2` already loaded in our own current RStudio session. `reprex` deliberately ignores any packages already loaded, running the code in a clean, isolated R session that's *different from the R session we've been working in*. This simulates the experience of someone else trying to run your reprex on their own computer. 
-
-Let's return to our previous example with the custom function.
-
-```{r}
-my_awesome_custom_function("the kangaroo rat dataset")
-```
-
-```
-# In the console:
-reprex()
-```
-
-``` r
-my_awesome_custom_function("the kangaroo rat dataset")
-#> Error in my_awesome_custom_function("the kangaroo rat dataset"): could not find function "my_awesome_custom_function"
-```
-
-<sup>Created on 2024-12-29 with [reprex v2.1.1](https://reprex.tidyverse.org)</sup>
-
-By contrast, if we include the function definition:
-
-```{r}
-my_awesome_custom_function <- function(x){print(paste0(x, " is awesome!"))}
-my_awesome_custom_function("the kangaroo rat dataset")
-```
-
-```
-# In the console:
-reprex()
-```
-
-``` r
-my_awesome_custom_function <- function(x){print(paste0(x, " is awesome!"))}
-my_awesome_custom_function("the kangaroo rat dataset")
-#> [1] "the kangaroo rat dataset is awesome!"
-```
-
-<sup>Created on 2024-12-29 with [reprex v2.1.1](https://reprex.tidyverse.org)</sup>
 
 ## Testing it out
 
@@ -219,40 +167,78 @@ Now that we've met our new reprex-making collaborator, let's use it to test out 
 Here's the code we wrote:
 
 ```{r eval = FALSE}
-# Mickey's reprex script
-# XXX THIS IS NOT FINISHED--NEED TO INSERT FINAL DATA EXAMPLE!
+# Mickey's reprex (1 approach) 
 
-# Load necessary packages to run the code
-library(ggplot2)
+# Required packages to run the code
+library(readr)
+library(dplyr)
 
-rodents_subset %>% # XXX replace with simulated dataset
-  ggplot(aes(y = weight, x = common_name, fill = sex)) +
-  geom_boxplot() # wait, why does this look weird?
+set.seed(1) # ensures accurate data replication
 
-# Investigate
-table(rodents_subset$sex, rodents_subset$species)
-table(rodents$sex, rodents$species)
+# Create a mock dataset
+sample_data <- data.frame(
+  record_id = 1:10,
+  sex = sample(c('M','F', NA), 10, replace=T)
+)
+
+# The problematic code snippet
+sample_subset <- sample_data %>% 
+  filter(sex == c("F", "M")) 
+
+# Subsetted sample dataset - how many individuals for each sex?
+table(sample_subset$sex)
 ```
 
-Time to find out if our example is actually reproducible! Let's copy it to the clipboard and run `reprex()`. Since we want to give Jordan a runnable R script, we can use `venue = "r"`.
+It's time to verify if our example is actually reproducible! Let's copy it to the clipboard and run `reprex()`.
 
 ```
 # In the console:
-reprex(venue = "r")
+reprex()
 ```
 
 It worked!
 
-```{r}
-#replace with final output
+``` r
+# Mickey's reprex (1 approach) 
+
+# Required packages to run the code
+library(readr)
+library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
+
+set.seed(1) # ensures accurate data replication
+
+# Create a mock dataset
+sample_data <- data.frame(
+  record_id = 1:10,
+  sex = sample(c('M','F', NA), 10, replace=T)
+)
+
+# The problematic code snippet
+sample_subset <- sample_data %>% 
+  filter(sex == c("F", "M")) 
+
+# Subsetted sample dataset - how many individuals for each sex?
+table(sample_subset$sex)
+#> 
+#> F 
+#> 1
 ```
+
+<sup>Created on 2025-09-11 with [reprex v2.1.1](https://reprex.tidyverse.org)</sup>
 
 Now we have a beautifully-formatted reprex that includes runnable code and all the context needed to reproduce the problem.
 
-:::callout
-### Callout: Including information about your R session
+## Including information about your R session
 
-Another nice thing about `reprex` is that you can choose to include information about your R session, in case your error has something to do with your R settings rather than the code itself. You can do that using the `session_info` argument to `reprex()`.
+Another nice thing about {reprex} is that you can choose to include information about your R session, in case your error has something to do with your R settings rather than the code itself. You can do that using the `session_info` argument to `reprex()`.
 
 For example, try running the following reprex, setting session_info = TRUE, and observe what happens.
 
@@ -268,8 +254,7 @@ mpg %>%
 # In the console:
 reprex(session_info = TRUE)
 ```
-:::
-
+ START HERE WITH KAIJA EDITS 2025-09-11
 ### Formatting
 
 The output of `reprex()` is markdown, which can easily be copied and pasted into many sites/apps. However, different places have slightly different formatting conventions for markdown. `{reprex}` lets you customize the output of your reprex according to where you're planning to post it.
