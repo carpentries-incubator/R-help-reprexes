@@ -124,7 +124,7 @@ mpg %>%
 
 Nice and neat! It even includes the plot produced, so I don't have to take screenshots and figure out how to attach them to an email.
 
-## 2. {reprex} as a debugging collaborator
+### {reprex} as a debugging collaborator
 
 The formatting is great, but {reprex} really shines when you treat it as a helpful collaborator in your process of building a reproducible example.
 
@@ -160,7 +160,7 @@ We get an error message indicating that R cannot find the function `ggplot`! Tha
 
 This happened even though we had `ggplot2` already loaded in our own current RStudio session. `reprex` deliberately ignores any packages already loaded, running the code in a clean, isolated R session that's *different from the R session we've been working in*. This simulates the experience of someone else trying to run your reprex on their own computer. 
 
-## Testing it out
+### Testing it out
 
 Now that we've met our new reprex-making collaborator, let's use it to test out the reproducible example we created in the previous episode.
 
@@ -236,6 +236,42 @@ table(sample_subset$sex)
 
 Now we have a beautifully-formatted reprex that includes runnable code and all the context needed to reproduce the problem.
 
+::: callout
+This also would have been a good way for Mickey to discover that they needed to create minimal data earlier! Look what would have happened if we had put the example from the end of episode 3 into {reprex}:
+
+``` r
+library(readr)
+library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
+
+surveys <- read_csv("data/surveys_complete_77_89.csv")
+#> Error: 'data/surveys_complete_77_89.csv' does not exist in current working directory ('/private/var/folders/xy/lqbp515s27q8v1drkll9gynw0000gr/T/RtmpJX7W20/reprex-76216582aaa-irate-booby').
+
+# Filter to known sex
+rodents_subset <- surveys %>%
+  filter(sex == c("F", "M"))
+#> Error: object 'surveys' not found
+
+# Subsetted dataset
+table(rodents_subset$sex, rodents_subset$species)
+#> Error: object 'rodents_subset' not found
+
+# Original dataset
+table(surveys$sex, surveys$species) # still missing a lot of rows!
+#> Error: object 'surveys' not found
+```
+
+<sup>Created on 2025-09-11 with [reprex v2.1.1](https://reprex.tidyverse.org)</sup>
+
+:::
+
 ## Including information about your R session
 
 Another nice thing about {reprex} is that you can choose to include information about your R session, in case your error has something to do with your R settings rather than the code itself. You can do that using the `session_info` argument to `reprex()`.
@@ -254,79 +290,144 @@ mpg %>%
 # In the console:
 reprex(session_info = TRUE)
 ```
- START HERE WITH KAIJA EDITS 2025-09-11
-### Formatting
 
-The output of `reprex()` is markdown, which can easily be copied and pasted into many sites/apps. However, different places have slightly different formatting conventions for markdown. `{reprex}` lets you customize the output of your reprex according to where you're planning to post it.
+## 2. Formatting
 
-The default, `venue = "gh"`, gives you "[GitHub-Flavored Markdown](https://github.github.com/gfm/)", which is a particular type of markdown that works well when posted on GitHub. Another format you might want is "r", which gives you a runnable R script, with commented output interleaved with pieces of code.
+Two things about the formatting of the {reprex} output make it even easier to ask for help.
 
-Check out the formatting options in the help file with `?reprex`, and try out a few depending on the destination of your reprex!
+### Displaying output
+
+First, you'll notice that the formatted reprex contains not only the lines of code, but also their output. The output lines are commented out and prefaced with a `>`, to differentiate them from the code.
+
+For example:
+
+``` r
+y <- 1:4
+mean(y)
+#> [1] 2.5
+```
+
+<sup>Created on 2025-09-11 with [reprex v2.1.1](https://reprex.tidyverse.org)</sup>
+
+The whole point of a reprex is to allow the helper to run the code for themselves--if they need or want to. But when we also display the output, we make things even easier for the helper, by giving them as many tools as possible to understand our code. In some cases, the helper might even be able to diagnose the problem *without* running the code, just by seeing the output.
+
+### Different output formats
+
+Second, {reprex} can provide the output in several different formats. By default, the reprex is rendered in markdown, which can easily be copied and pasted into many sites or apps. However, different places have slightly different formatting conventions for markdown. {reprex} allows you to customize the output of your reprex according to where you're planning to post it.
+
+The default, `venue = "gh"`, gives you "[GitHub-Flavored Markdown](https://github.github.com/gfm/)", perfect for posting on GitHub. There are other markdown "flavors" for Slack, StackOverflow, and others.
+
+There are some other formats, too. Specifying `venue = "r"` gives you a runnable R script, with commented output interleaved with pieces of code.
+
+Mickey isn't planning to post their reprex on any forums; they just want to send it to Remy as an R script. Therefore, they render their reprex using `venue = "r"`.
+
+```
+# Mickey's reprex (1 approach) 
+
+# Required packages to run the code
+library(readr)
+library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
+
+set.seed(1) # ensures accurate data replication
+
+# Create a mock dataset
+sample_data <- data.frame(
+  record_id = 1:10,
+  sex = sample(c('M','F', NA), 10, replace=T)
+)
+
+# The problematic code snippet
+sample_subset <- sample_data %>% 
+  filter(sex == c("F", "M")) 
+
+# Subsetted sample dataset - how many individuals for each sex?
+table(sample_subset$sex)
+#> 
+#> F 
+#> 1
+```
+
+::: challenge
+### Exercise 2: Exploring reprex formatting
+
+Prepare a simple reprex. Render it using `reprex(venue = )`. Try a few different formats. You can find more information about the different formats in the help file: `?reprex`.
+:::
 
 :::callout
 ### Callout: `reprex` can't do everything for you
 
-People often mention `reprex` as a useful tool for creating reproducible examples, but it can't do the work of crafting the example for you! The package doesn't locate the problem, pare down the code, create a minimal dataset, or automatically include package dependencies.
+People often mention {reprex} as a useful tool for creating reproducible examples, but it can't do the work of crafting the example for you! The package doesn't locate the problem, pare down the code, create a minimal dataset, or automatically include package dependencies.
 
-A better way to think of `reprex` is as a tool to check your work as you go through the process of creating a reproducible example, and to help you polish up the result.
+A better way to think of {reprex} is as a tool to check your work as you go through the process of creating a reproducible example, and to help you polish up the result.
 :::
 
-### Context
+## 3. Context
 
-The final thing to consider when preparing your reproducible example is adding some context so that helpers know a little about your problem and what you're trying to achieve. 
+So, we've established that a good minimal reproducible example should be minimal, reproducible, and formatted nicely so that helpers can easily access and read it.
 
-Some context to include:
-1. Tell us *a little bit* about your problem. One sentence should be enough. What domain are you working in? What are these data about? What do the relevant variables mean?
+But there's one more thing to consider. Helpers won't be thrilled if they're presented with some code without any indication of what you're trying to do, what went wrong, and what kind of help you need. 
+
+Let's give them some context!
+
+When providing context with your reprex, you should:
+
+1. Tell the helper *a little bit* about your problem. One sentence should be enough. What domain are you working in? What are these data about? What do the relevant variables mean?
 
 This is particularly important if you have provided a subset of your own data instead of creating a minimal dataset from scratch. Your helper will need to interpret the column names and understand what type of data they are looking at.
 
+Make sure to keep it minimal. Provide only the information that's necessary to understand the problem at hand.
+
 2. Explain *what you expected to happen*, or what you were trying to achieve, and how it is different from *what happened instead*.
+
+Remember how we diagnosed the problem in the previous episodes, identifying which lines of code *showed us that something was wrong*? Let's explain to the helper what has gone wrong.
 
 The contrast between what happened and what was supposed to happen is particularly important for semantic errors, in which the "error" is not always obvious when running the code. The code ran--but you have decided that the output is "wrong" somehow, or that it "didn't work". Why? How do you know that? Your helper needs to know that what you got was not what you expected, and they need to know what you expected in order to help you achieve that outcome.
 
-```{r echo = FALSE}
-# Chunk included here to load the `rodents` dataset for use
+Here's an example where context is key. Imagine you're a helper, and someone sends you the following reprex, which includes the code to make a boxplot from the `mpg` dataset.
+
+``` r
 library(ggplot2)
 library(dplyr)
-rodents <- read.csv("data/surveys_complete_77_89.csv")
-rodents <- rodents %>% filter(taxa == "Rodent")
-```
-
-For example, let's say you made the following plot:
-
-```{r}
-rodents %>%
-  ggplot(aes(x = plot_type, y = hindfoot_length, color = plot_type))+
-  geom_boxplot()
-```
-
-This plot doesn't look the way you want it to look, and you're not sure why, so you decide to make a reprex. You load the required packages (`ggplot2` and `dplyr`), and you substitute an existing dataset, `mtcars`, instead of `rodents`, which you know your helpers won't have access to. Your reprex looks like this:
-
-```{r}
-library(ggplot2)
-library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
 mpg %>%
   ggplot(aes(x = class, y = displ, color = class))+
   geom_boxplot()
 ```
-It's minimal! It's reproducible! But... what is the problem? This is a perfectly reasonable plot, so without context, your helper won't know what's wrong. Let's explain it to them.
 
-```{r}
-library(ggplot2)
-library(dplyr)
-mpg %>%
-  ggplot(aes(x = class, y = displ, color = class))+
-  geom_boxplot()
+![](https://i.imgur.com/VhVS9l0.png)<!-- -->
 
-# I want to make a boxplot where each of the categories has its own color. But even though I set color = class here, only the outlines of the boxplots got colored in, and the inside is still white. How do I change this so that the whole box is colored in?
-```
+<sup>Created on 2025-09-11 with [reprex v2.1.1](https://reprex.tidyverse.org)</sup>
+
+This example is minimal and reproducible--it's brief, it loads all necessary packages, it uses a built-in dataset, and it is formatted nicely. But there is no obvious error! Clearly, the person asking for help has encountered a semantic error; their code runs, but it doesn't produce what they expect. But unless they tell you how this plot differs from what they wanted, you won't be able to help.
+
+You ask for further context, and eventually the person seeking help replies: "I want to make a boxplot where each of the categories has its own color. But even though I set color = class here, only the outlines of the boxplots got colored in, and the inside is still white. How do I change this so that the whole box is colored in?"
+
+Now that you know what the problem is, you can start trying to help.
 
 :::challenge
-### Exercise 1: What makes a good description?
+### Exercise 3: What makes a good description?
 
 For each of the following reprexes, improve the description given.
+
 a. 
-I'm trying to plot the displacements of different cars. I made this boxplot, but the boxes are showing up in the wrong order. How do I fix this? Here is my minimal reproducible example.
+
+"I'm trying to plot the displacements of different cars. I made this boxplot, but the boxes are showing up in the wrong order. How do I fix this? Here is my minimal reproducible example."
+
 ```{r}
 library(ggplot2)
 library(dplyr)
@@ -336,7 +437,9 @@ mpg %>%
 ```
 
 b. 
-I'm working with this data about cars. The `class` column refers to the type of car--for example, "compact" class means that the car is quite small, while "pickup" would be a pickup truck. For each car, I also have information about the city and highway mileage, and the transmission, and the number of cylinders, as well as the displacement. This dataset has 234 rows and 11 columns, although this is an example dataset because my real dataset is much larger and has more like 500,000 rows. Anyway, in this example, I want to make a boxplot of displacement where each of the categories has its own color. But even though I set color = class here, only the outlines of the boxplots got colored in, and the inside is still white. How do I make the inside a different color? Here's a reprex.
+
+"I'm working with this data about cars. The `class` column refers to the type of car--for example, "compact" class means that the car is quite small, while "pickup" would be a pickup truck. For each car, I also have information about the city and highway mileage, and the transmission, and the number of cylinders, as well as the displacement. This dataset has 234 rows and 11 columns, although this is an example dataset because my real dataset is much larger and has more like 500,000 rows. Anyway, in this example, I want to make a boxplot of displacement where each of the categories has its own color. But even though I set color = class here, only the outlines of the boxplots got colored in, and the inside is still white. How do I make the inside a different color? Here's a reprex."
+
 ```{r}
 library(ggplot2)
 library(dplyr)
@@ -346,23 +449,47 @@ mpg %>%
 ```
 
 c. 
-Help, my code isn't working! It says I have too many elements. I made a reprex so you can see the data and the error message. I hope that's helpful. Thank you so much!
+
+"Help, my code isn't working! It says I have too many elements. I made a reprex so you can see the data and the error message. I hope that's helpful. Thank you so much!"
+
 ```{r}
 library(ggplot2)
 table(mpg)
 ```
 :::
 
-As we wrap up this lesson, let's work on adding some context for Mickey's reprex so they'll be ready to send it to Remy or post it online. 
+Let's help Mickey add some context to their reprex so they'll be ready to send it to Remy. 
 
 :::challenge
-### Exercise 2: Adding context
+### Exercise 4: Adding context
 
 Working with the person next to you, write a brief description of Mickey's problem that they could include with their reprex when they post it online.
 
 Make sure that the description gives a little bit of background, describes what Mickey was trying to achieve, and describes what happened instead.
 
 When you're done, compare notes between the groups and see if you can come up with a final reprex for Mickey!
+:::
+
+::: instructor
+For the following exercise, you will need to choose a method for your learners to practice posting their reprexes. You should set this up before doing this exercise.
+
+Some ideas:
+
+- Create a discussion or an issue on Github and have learners post their reprex as a response. This will require that they make a Github account.
+
+- If you have a Slack channel for your course or workshop, have learners post them there. Alternatively, post to one of the chat channels of the [Data Science Learning Community](https://dslc.io/join). Make sure to have students respond to a thread you create, and clarify your purpose in the first post.
+
+- Create a thread on Posit Community; learners respond to the thread. See [this one](https://forum.posit.co/t/thread-for-jr-best-practices-attendees-to-practice-reprexes-no-need-to-answer-them/108506) for example. Please be respectful--clarify the thread's purpose at the beginning, tag it as "teaching" and "reprex-practice" or similar, and ask that others not response. Requires learners to sign up for Posit Community (free).
+
+- Have learners create rtf or R script formatted reprexes and email them to each other, then try to run each other's reprexes in their own RStudio sessions.
+
+- We do NOT recommend posting reprexes on StackOverflow for the purpose of this exercise--StackOverflow seeks to minimize duplicate posts and would not welcome a thread like this.
+:::
+
+:::challenge
+### Exercise 5: Putting it all together
+
+Create a reprex (using Mickey's example or your own brief idea). Post it, following your instructor's directions. Be sure to provide appropriate context and use the appropriate `venue` argument.
 :::
 
 ::::::::::::::::::::::::::::::::::::: keypoints
