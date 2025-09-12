@@ -387,7 +387,7 @@ x
 ```
 
 ``` output
-[1]  6 10  4  9  7
+[1] 10  5  6  1  9
 ```
 
 Or you can randomly sample from a normal distribution
@@ -399,8 +399,8 @@ x
 ```
 
 ``` output
- [1]  0.5771296 -0.5422908 -0.6440283  0.5940126 -0.6223443  0.5940153
- [7] -0.6682587  0.7865710 -0.7313907  1.6156361
+ [1] -0.20824156  0.49970612  2.57149310  0.66824811 -0.82295861  0.31894033
+ [7]  0.04703593 -1.33676815 -0.28820645  0.22620139
 ```
 
 You can also use built-in vectors like `letters` to create factors.
@@ -412,8 +412,8 @@ x
 ```
 
 ``` output
- [1] "a" "d" "b" "a" "d" "c" "a" "c" "c" "a" "a" "b" "b" "a" "d" "d" "d" "d" "c"
-[20] "a"
+ [1] "b" "b" "b" "c" "d" "c" "d" "b" "b" "b" "a" "c" "b" "c" "d" "a" "b" "d" "a"
+[20] "b"
 ```
 
 Remember that **a data frame is just a collection of vectors**.
@@ -428,12 +428,12 @@ head(data)
 
 ``` output
   x          y
-1 a -0.6027609
-2 c -0.3735196
-3 b  0.3942844
-4 b  0.6527062
-5 b  1.1802225
-6 a  2.7977413
+1 b  1.5040195
+2 a -0.1995433
+3 a -1.8742752
+4 b -0.5683280
+5 b  0.1528315
+6 c  1.1181352
 ```
 
 **However**, when sampling at random you must remember to `set.seed()` before sending it to someone to make sure you both get the same numbers!
@@ -665,14 +665,14 @@ sample_data
    record_id  sex
 1          1 <NA>
 2          2 <NA>
-3          3    F
-4          4 <NA>
-5          5    M
-6          6    M
-7          7    F
+3          3    M
+4          4    F
+5          5    F
+6          6    F
+7          7 <NA>
 8          8    F
-9          9    M
-10        10    F
+9          9    F
+10        10    M
 ```
 
 And just like that we helped Mickey create a mock dataset from scratch!
@@ -690,16 +690,16 @@ sample2_data
 
 ``` output
    record_id  sex
-1          1    F
-2          2    M
-3          3    F
+1          1    M
+2          2    F
+3          3    M
 4          4    F
-5          5 <NA>
-6          6    F
-7          7    M
+5          5    F
+6          6 <NA>
+7          7 <NA>
 8          8 <NA>
-9          9    F
-10        10    F
+9          9 <NA>
+10        10    M
 ```
 
 **Important**: Notice that the outputs of the two datasets are not the same.
@@ -1357,3 +1357,35 @@ C)  **?? + what's really the point of this one?**
 D)  `sample_data <- data.frame(x = factor(1:3), y = 4:6)`
 :::
 ::::
+
+At the end of the episode, here is our final reprex. In the next episode, we will learn how to test whether this reprex is fully reproducible, and also how to share it with others.
+
+
+``` r
+# Mickey's reprex (1 approach) 
+
+# Required packages to run the code
+library(readr)
+library(dplyr)
+
+set.seed(1) # ensures accurate data replication
+
+# Create a mock dataset
+sample_data <- data.frame(
+  record_id = 1:10,
+  sex = sample(c('M','F', NA), 10, replace=T)
+)
+
+# The problematic code snippet
+sample_subset <- sample_data %>% # replace rodents with our sample dataset
+  filter(sex == c("F", "M")) # this can stay the same because we recreated it the same
+
+# Subsetted sample dataset - how many individuals for each sex?
+table(sample_subset$sex)
+```
+
+``` output
+
+F 
+1 
+```
