@@ -324,7 +324,7 @@ it?</a></li>
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Minimal reproducible data</h1>
-        <p>Last updated on 2025-09-09 |
+        <p>Last updated on 2025-09-12 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/4-minimal-reproducible-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -942,7 +942,7 @@ Visualization in R for Ecologists</a>).</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1]  6 10  4  9  7</code></pre>
+<pre class="output" tabindex="0"><code>[1] 10  5  6  1  9</code></pre>
 </div>
 <p>Or you can randomly sample from a normal distribution</p>
 <div class="codewrapper sourceCode" id="cb20">
@@ -955,8 +955,8 @@ Visualization in R for Ecologists</a>).</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1]  0.5771296 -0.5422908 -0.6440283  0.5940126 -0.6223443  0.5940153
- [7] -0.6682587  0.7865710 -0.7313907  1.6156361</code></pre>
+<pre class="output" tabindex="0"><code> [1] -0.20824156  0.49970612  2.57149310  0.66824811 -0.82295861  0.31894033
+ [7]  0.04703593 -1.33676815 -0.28820645  0.22620139</code></pre>
 </div>
 <p>You can also use built-in vectors like <code>letters</code> to create
 factors.</p>
@@ -970,8 +970,8 @@ factors.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1] "a" "d" "b" "a" "d" "c" "a" "c" "c" "a" "a" "b" "b" "a" "d" "d" "d" "d" "c"
-[20] "a"</code></pre>
+<pre class="output" tabindex="0"><code> [1] "b" "b" "b" "c" "d" "c" "d" "b" "b" "b" "a" "c" "b" "c" "d" "a" "b" "d" "a"
+[20] "b"</code></pre>
 </div>
 <p>Remember that <strong>a data frame is just a collection of
 vectors</strong>. You can create a data frame using
@@ -990,12 +990,12 @@ variable.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>  x          y
-1 a -0.6027609
-2 c -0.3735196
-3 b  0.3942844
-4 b  0.6527062
-5 b  1.1802225
-6 a  2.7977413</code></pre>
+1 b  1.5040195
+2 a -0.1995433
+3 a -1.8742752
+4 b -0.5683280
+5 b  0.1528315
+6 c  1.1181352</code></pre>
 </div>
 <p><strong>However</strong>, when sampling at random you must remember
 to <code>set.seed()</code> before sending it to someone to make sure you
@@ -1302,14 +1302,14 @@ dataset just in case.</p>
 <pre class="output" tabindex="0"><code>   record_id  sex
 1          1 &lt;NA&gt;
 2          2 &lt;NA&gt;
-3          3    F
-4          4 &lt;NA&gt;
-5          5    M
-6          6    M
-7          7    F
+3          3    M
+4          4    F
+5          5    F
+6          6    F
+7          7 &lt;NA&gt;
 8          8    F
-9          9    M
-10        10    F</code></pre>
+9          9    F
+10        10    M</code></pre>
 </div>
 <p>And just like that we helped Mickey create a mock dataset from
 scratch! Notice that they could also have compiled the same type of
@@ -1330,16 +1330,16 @@ dataset in a single line by creating each vector within
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>   record_id  sex
-1          1    F
-2          2    M
-3          3    F
+1          1    M
+2          2    F
+3          3    M
 4          4    F
-5          5 &lt;NA&gt;
-6          6    F
-7          7    M
+5          5    F
+6          6 &lt;NA&gt;
+7          7 &lt;NA&gt;
 8          8 &lt;NA&gt;
-9          9    F
-10        10    F</code></pre>
+9          9 &lt;NA&gt;
+10        10    M</code></pre>
 </div>
 <p><strong>Important</strong>: Notice that the outputs of the two
 datasets are not the same. If you want the outputs to be EXACTLY the
@@ -2183,6 +2183,41 @@ specified:
 </div>
 </div>
 </div>
+<p>At the end of the episode, here is our final reprex. In the next
+episode, we will learn how to test whether this reprex is fully
+reproducible, and also how to share it with others.</p>
+<div class="codewrapper sourceCode" id="cb90">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Mickey's reprex (1 approach) </span></span>
+<span></span>
+<span><span class="co"># Required packages to run the code</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">readr</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">set.seed</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="co"># ensures accurate data replication</span></span>
+<span></span>
+<span><span class="co"># Create a mock dataset</span></span>
+<span><span class="va">sample_data</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span></span>
+<span>  record_id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,</span>
+<span>  sex <span class="op">=</span> <span class="fu">sample</span><span class="op">(</span><span class="fu">c</span><span class="op">(</span><span class="st">'M'</span>,<span class="st">'F'</span>, <span class="cn">NA</span><span class="op">)</span>, <span class="fl">10</span>, replace<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># The problematic code snippet</span></span>
+<span><span class="va">sample_subset</span> <span class="op">&lt;-</span> <span class="va">sample_data</span> <span class="op">%&gt;%</span> <span class="co"># replace rodents with our sample dataset</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">sex</span> <span class="op">==</span> <span class="fu">c</span><span class="op">(</span><span class="st">"F"</span>, <span class="st">"M"</span><span class="op">)</span><span class="op">)</span> <span class="co"># this can stay the same because we recreated it the same</span></span>
+<span></span>
+<span><span class="co"># Subsetted sample dataset - how many individuals for each sex?</span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">sample_subset</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code><span></span>
+<span><span class="cn">F</span></span>
+<span><span class="fl">1</span> </span></code></pre>
+</div>
 <!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
@@ -2245,8 +2280,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/R-help-reprexes/instructor/4-minimal-reproducible-data.html",
   "identifier": "https://carpentries-incubator.github.io/R-help-reprexes/instructor/4-minimal-reproducible-data.html",
   "dateCreated": "2024-05-14",
-  "dateModified": "2025-09-09",
-  "datePublished": "2025-09-09"
+  "dateModified": "2025-09-12",
+  "datePublished": "2025-09-12"
 }
 
   </script><script>

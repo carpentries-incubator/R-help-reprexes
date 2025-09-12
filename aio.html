@@ -356,7 +356,7 @@
         
 <section id="aio-1-intro-reproducible-examples"><p>Content from <a href="1-intro-reproducible-examples.html">What is a reprex and why is it useful?</a></p>
 <hr>
-<p>Last updated on 2025-09-09 |
+<p>Last updated on 2025-09-12 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/1-intro-reproducible-examples.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -765,7 +765,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-2-identify-the-problem"><p>Content from <a href="2-identify-the-problem.html">Identify the problem and make a plan</a></p>
 <hr>
-<p>Last updated on 2025-09-09 |
+<p>Last updated on 2025-09-12 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/2-identify-the-problem.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1799,7 +1799,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-3-minimal-reproducible-code"><p>Content from <a href="3-minimal-reproducible-code.html">Minimal reproducible code</a></p>
 <hr>
-<p>Last updated on 2025-09-09 |
+<p>Last updated on 2025-09-12 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/3-minimal-reproducible-code.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -2174,7 +2174,7 @@ the code to make sure that it still reproduces the error.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <ul>
 <li>The barplot of species and sex (ggplot) can be removed because it
@@ -2552,7 +2552,7 @@ any links that you are not going to use.
 </div>
 </div></section><section id="aio-4-minimal-reproducible-data"><p>Content from <a href="4-minimal-reproducible-data.html">Minimal reproducible data</a></p>
 <hr>
-<p>Last updated on 2025-09-09 |
+<p>Last updated on 2025-09-12 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/4-minimal-reproducible-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -3150,7 +3150,7 @@ Visualization in R for Ecologists</a>).</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1]  6 10  4  9  7</code></pre>
+<pre class="output" tabindex="0"><code>[1] 10  5  6  1  9</code></pre>
 </div>
 <p>Or you can randomly sample from a normal distribution</p>
 <div class="codewrapper sourceCode" id="cb20">
@@ -3163,8 +3163,8 @@ Visualization in R for Ecologists</a>).</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1]  0.5771296 -0.5422908 -0.6440283  0.5940126 -0.6223443  0.5940153
- [7] -0.6682587  0.7865710 -0.7313907  1.6156361</code></pre>
+<pre class="output" tabindex="0"><code> [1] -0.20824156  0.49970612  2.57149310  0.66824811 -0.82295861  0.31894033
+ [7]  0.04703593 -1.33676815 -0.28820645  0.22620139</code></pre>
 </div>
 <p>You can also use built-in vectors like <code>letters</code> to create
 factors.</p>
@@ -3178,8 +3178,8 @@ factors.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1] "a" "d" "b" "a" "d" "c" "a" "c" "c" "a" "a" "b" "b" "a" "d" "d" "d" "d" "c"
-[20] "a"</code></pre>
+<pre class="output" tabindex="0"><code> [1] "b" "b" "b" "c" "d" "c" "d" "b" "b" "b" "a" "c" "b" "c" "d" "a" "b" "d" "a"
+[20] "b"</code></pre>
 </div>
 <p>Remember that <strong>a data frame is just a collection of
 vectors</strong>. You can create a data frame using
@@ -3198,12 +3198,12 @@ variable.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>  x          y
-1 a -0.6027609
-2 c -0.3735196
-3 b  0.3942844
-4 b  0.6527062
-5 b  1.1802225
-6 a  2.7977413</code></pre>
+1 b  1.5040195
+2 a -0.1995433
+3 a -1.8742752
+4 b -0.5683280
+5 b  0.1528315
+6 c  1.1181352</code></pre>
 </div>
 <p><strong>However</strong>, when sampling at random you must remember
 to <code>set.seed()</code> before sending it to someone to make sure you
@@ -3479,14 +3479,14 @@ dataset just in case.</p>
 <pre class="output" tabindex="0"><code>   record_id  sex
 1          1 &lt;NA&gt;
 2          2 &lt;NA&gt;
-3          3    F
-4          4 &lt;NA&gt;
-5          5    M
-6          6    M
-7          7    F
+3          3    M
+4          4    F
+5          5    F
+6          6    F
+7          7 &lt;NA&gt;
 8          8    F
-9          9    M
-10        10    F</code></pre>
+9          9    F
+10        10    M</code></pre>
 </div>
 <p>And just like that we helped Mickey create a mock dataset from
 scratch! Notice that they could also have compiled the same type of
@@ -3507,16 +3507,16 @@ dataset in a single line by creating each vector within
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>   record_id  sex
-1          1    F
-2          2    M
-3          3    F
+1          1    M
+2          2    F
+3          3    M
 4          4    F
-5          5 &lt;NA&gt;
-6          6    F
-7          7    M
+5          5    F
+6          6 &lt;NA&gt;
+7          7 &lt;NA&gt;
 8          8 &lt;NA&gt;
-9          9    F
-10        10    F</code></pre>
+9          9 &lt;NA&gt;
+10        10    M</code></pre>
 </div>
 <p><strong>Important</strong>: Notice that the outputs of the two
 datasets are not the same. If you want the outputs to be EXACTLY the
@@ -4353,13 +4353,48 @@ specified:
 </div>
 </div>
 </div>
+<p>At the end of the episode, here is our final reprex. In the next
+episode, we will learn how to test whether this reprex is fully
+reproducible, and also how to share it with others.</p>
+<div class="codewrapper sourceCode" id="cb90">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Mickey's reprex (1 approach) </span></span>
+<span></span>
+<span><span class="co"># Required packages to run the code</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">readr</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">set.seed</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="co"># ensures accurate data replication</span></span>
+<span></span>
+<span><span class="co"># Create a mock dataset</span></span>
+<span><span class="va">sample_data</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span></span>
+<span>  record_id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,</span>
+<span>  sex <span class="op">=</span> <span class="fu">sample</span><span class="op">(</span><span class="fu">c</span><span class="op">(</span><span class="st">'M'</span>,<span class="st">'F'</span>, <span class="cn">NA</span><span class="op">)</span>, <span class="fl">10</span>, replace<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># The problematic code snippet</span></span>
+<span><span class="va">sample_subset</span> <span class="op">&lt;-</span> <span class="va">sample_data</span> <span class="op">%&gt;%</span> <span class="co"># replace rodents with our sample dataset</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">sex</span> <span class="op">==</span> <span class="fu">c</span><span class="op">(</span><span class="st">"F"</span>, <span class="st">"M"</span><span class="op">)</span><span class="op">)</span> <span class="co"># this can stay the same because we recreated it the same</span></span>
+<span></span>
+<span><span class="co"># Subsetted sample dataset - how many individuals for each sex?</span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">sample_subset</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code><span></span>
+<span><span class="cn">F</span></span>
+<span><span class="fl">1</span> </span></code></pre>
+</div>
 <!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
 </section></section><section id="aio-5-asking-your-question"><p>Content from <a href="5-asking-your-question.html">Asking your question</a></p>
 <hr>
-<p>Last updated on 2025-09-09 |
+<p>Last updated on 2025-09-12 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/5-asking-your-question.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -4376,7 +4411,7 @@ any links that you are not going to use.
 <li>How can I verify that my example is reproducible?</li>
 <li>How can I easily share a reproducible example with a mentor or
 helper, or online?</li>
-<li>How do I ask a good question?</li>
+<li>What information should I include when asking a question?</li>
 </ul>
 </div>
 </div>
@@ -4386,9 +4421,9 @@ helper, or online?</li>
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul>
-<li>Use the reprex package to test whether an example is
+<li>Use the {reprex} package to test whether an example is
 reproducible.</li>
-<li>Use the reprex package to format reprexes for posting online.</li>
+<li>Use the {reprex} package to format reprexes for posting online.</li>
 <li>Understand the benefits and drawbacks of different help forums.</li>
 <li>Have a road map to follow when posting a question to make sure it’s
 a good question.</li>
@@ -4399,21 +4434,28 @@ a good question.</li>
 </div>
 </div>
 </div>
-<p>Congratulations on finishing your reprex! In this episode, we will
-introduce a tool, the <a href="https://reprex.tidyverse.org" class="external-link">reprex</a> package. This package will
-help you check that your example is truly reproducible and format it
-nicely to make it easy to present to a helper, either in person or
-online.</p>
-<p><embed src="5-asking-your-question.html"></embed></p>
-<p>There are three principles to remember when you think about sharing
-your reprex with other people: <strong>Reproducibility</strong>,
-<strong>formatting</strong>, and <strong>context</strong>.</p>
+<p>In the previous episodes, we have worked on creating a minimal
+reproducible example, also known as a “reprex”, to help our researcher
+friend Mickey debug a problem with their code.</p>
+<p>We learned how to 1) identify the problem and try some preliminary
+fixes, 2) minimize the code, and 3) include a minimal dataset.</p>
+<p>In this episode, we will introduce a tool, the <a href="https://reprex.tidyverse.org" class="external-link">reprex</a>
+package, that we can use to verify that we’ve successfully created a
+minimal reproducible example. The {reprex} package will also help format
+the code nicely for posting online or sending to a colleague.</p>
+<figure><img src="fig/04_share_reprex.png" class="figure mx-auto d-block"></figure><p>When preparing to share a reprex with other people, it is important
+to remember three principles:</p>
+<ul>
+<li>Reproducibility</li>
+<li>Formatting</li>
+<li>Context</li>
+</ul>
 <section><h2 class="section-heading" id="reproducibility">1. Reproducibility<a class="anchor" aria-label="anchor" href="#reproducibility"></a>
 </h2>
 <hr class="half-width">
 <p>Haven’t we already talked a lot about reproducibility?</p>
 <p>Yes! We have discussed variables and packages, minimal datasets, and
-making sure that the problem is meaningfully reproduced by the data that
+making sure that the problem is meaningfully replicated by the data that
 you choose. But there are some reasons that a code snippet that appears
 reproducible in your own R session might not actually be runnable by
 someone else.</p>
@@ -4422,92 +4464,58 @@ someone else.</p>
 variables. We went through our code methodically, but what if we missed
 something? It would be nice to confirm that the code is as
 self-contained as we thought it was.</p></li>
-<li><p>Your code accidentally relies on objects in your R environment
-that won’t exist for other people. For example, imagine you defined a
-function <code>my_awesome_custom_function()</code> in a project-specific
-<code>functions.R</code> script, and your code calls that
-function.</p></li>
-</ul>
-<figure><img src="fig/custom_function.png" alt='A function called "my_awesome_custom_function" is lurking in my R environment. I must have defined it a while ago and forgotten! Code that includes this function will not run for someone else unless the function definition is also included in the reprex.' class="figure mx-auto d-block"><div class="figcaption">A function called
-<code>"my_awesome_custom_function"</code> is lurking in my R
-environment. I must have defined it a while ago and forgotten! Code that
-includes this function will not run for someone else unless the function
-definition is also included in the reprex.</div>
-</figure><div class="codewrapper sourceCode" id="cb1">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">my_awesome_custom_function</span><span class="op">(</span><span class="st">"the kangaroo rat dataset"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in my_awesome_custom_function("the kangaroo rat dataset"): could not find function "my_awesome_custom_function"</code></pre>
-</div>
-<p>I might conclude that this code is reproducible–after all, it works
-when I run it! But unless I remembered to include the function
-definition in the reprex itself, nobody will be able to run the
-code.</p>
-<p>A corrected reprex would look like this:</p>
-<div class="codewrapper sourceCode" id="cb3">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">my_awesome_custom_function</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="fu">print</span><span class="op">(</span><span class="fu">paste0</span><span class="op">(</span><span class="va">x</span>, <span class="st">" is awesome!"</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span>
-<span><span class="fu">my_awesome_custom_function</span><span class="op">(</span><span class="st">"the kangaroo rat dataset"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>[1] "the kangaroo rat dataset is awesome!"</code></pre>
-</div>
-<ul>
-<li>Your code depends on some particular characteristic of your R or
+<li><p>Your code depends on some particular characteristic of your R or
 RStudio environment that is not the same as your helper’s environment.
-[more details here]</li>
+For example, you might be using an older version of a package, and the
+problem could be fixed by reinstalling a newer version. Another package
+you have loaded could have a function with a conflicting name. Maybe
+something is up with your operating system, time zone, R version, or
+RStudio preferences that a helper can’t necessarily replicate.</p></li>
 </ul>
-<p>There are so many components to remember when thinking about
-reproducibility, especially for more complex problems. Wouldn’t it be
-nice if we had a way to double check our examples? Luckily, the
-<code>reprex</code> package will help you test your reprexes in a clean,
-isolated environment to make sure they’re actually reproducible.</p>
+<p>Checking all of these possible causes of errors feels overwhelming,
+and it may not be obvious how to do it. Even experienced R coders do not
+always feel comfortable changing their RStudio settings, managing
+package versions, or accessing hidden configuration files.</p>
+<p>Especially for complex problems, it is useful to have a way to double
+check that our painstakingly-prepared reprexes are actually minimal and
+reproducible, without manually testing out every contingency in R!</p>
+<p>Luckily, the {reprex} package will help you test your reprexes in a
+clean, isolated environment to make sure they’re actually
+reproducible.</p>
 <p>The most important function in the <code>reprex</code> package is
-called <code>reprex()</code>. Here’s how to use it.</p>
-<p>First, install and load the <code>reprex</code> package.</p>
-<div class="codewrapper sourceCode" id="cb5">
+called <code>reprex()</code>, and using it looks a little different from
+functions in many other packages. <code>reprex()</code> automatically
+recognizes code that you have copied to your computer’s
+<strong>clipboard</strong> and uses it to create a nicely formatted
+reprex, which it puts onto the clipboard for you to paste elsewhere.
+Because this happens invisibly, it can be a little hard to keep track
+of. Here’s what’s happening behind the scenes.</p>
+<p>[DIAGRAM OF THE CLIPBOARD HERE]</p>
+<p>Your computer uses the clipboard every time you copy and paste
+something! What makes <code>reprex()</code> different is that it
+automatically reads and writes from the keyboard; you don’t have to
+manually paste the code into the <code>reprex()</code> function.</p>
+<p>Let’s try it out. We’ll first create a <em>very</em> minimal
+reproducible example, such as this one from the <a href="https://reprex.tidyverse.org/reference/reprex.html" class="external-link">reprex package
+documentation</a>.</p>
+<div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#install.packages("reprex")</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">reprex</span><span class="op">)</span></span></code></pre>
-</div>
-<p>Second, write some code. This is your reproducible example.</p>
-<div class="codewrapper sourceCode" id="cb6">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="op">(</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>[1] 1 2 3 4</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb8">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">mean</span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span></span>
+<span><span class="fu">mean</span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>[1] 2.5</code></pre>
 </div>
-<p>Third, highlight that code and copy it to your clipboard
-(e.g. <code>Cmd + C</code> on Mac, or <code>Ctrl + C</code> on
-Windows).</p>
-<p>Finally, type <code>reprex()</code> into your console.</p>
+<p>To turn this code into a reprex, we can highlight the code and copy
+it to your clipboard. (e.g. <code>Cmd + C</code> on Mac, or
+<code>Ctrl + C</code> on Windows).</p>
+<p>Finally, in your console, type <code>reprex()</code>. Leave the
+parentheses empty. You don’t have to paste anything. Hit
+Enter/Return.</p>
 <pre><code><span><span class="co"># (with the target code snippet copied to your clipboard already...)</span></span>
 <span><span class="co"># In the console:</span></span>
 <span><span class="fu">reprex</span><span class="op">(</span><span class="op">)</span></span></code></pre>
@@ -4515,9 +4523,6 @@ Windows).</p>
 clipboard and run that code in an <em>isolated environment</em>. It will
 return a nicely formatted reproducible example that includes your code
 and and any results, plots, warnings, or errors generated.</p>
-<p>The generated output will be on your computer’s clipboard by default.
-Then, you can paste it into GitHub, StackOverflow, Slack, or another
-venue.</p>
 <div id="callout-the-reprex-package-workflow" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
@@ -4537,8 +4542,9 @@ the clipboard and all you need to do is paste, not copy and paste.</p>
 </div>
 </div>
 </div>
-<p>Let’s practice this one more time. Here’s some very simple code:</p>
-<div class="codewrapper sourceCode" id="cb11">
+<p>Let’s practice this one more time. Here’s some code that makes a
+boxplot:</p>
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -4548,13 +4554,13 @@ the clipboard and all you need to do is paste, not copy and paste.</p>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">displ</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/5-asking-your-question-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Let’s highlight the code snippet, copy it to the clipboard, and then
-run <code>reprex()</code> in the console.</p>
+<figure><img src="fig/5-asking-your-question-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Once again, we can highlight the code snippet, copy it to the
+clipboard, and then run <code>reprex()</code> in the console.</p>
 <pre><code><span><span class="co"># In the console:</span></span>
 <span><span class="fu">reprex</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 <p>The result, which was automatically placed onto my clipboard and
 which I pasted here, looks like this:</p>
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -4574,28 +4580,31 @@ which I pasted here, looks like this:</p>
 </div>
 <figure><img src="https://i.imgur.com/bOA0BAS.png" class="figure mx-auto d-block"><!-- --></figure><p><sup>Created on 2024-12-29 with <a href="https://reprex.tidyverse.org" class="external-link">reprex v2.1.1</a></sup></p>
 <p>Nice and neat! It even includes the plot produced, so I don’t have to
-take screenshots and figure out how to attach them to an email or
-something.</p>
-<p>The formatting is great, but <code>reprex</code> really shines when
-you treat it as a helpful collaborator in your process of building a
-reproducible example (including all dependencies, providing minimal
-data, etc.)</p>
-<p>Let’s see what happens if we forget to include
-<code><a href="https://ggplot2.tidyverse.org" class="external-link">library(ggplot2)</a></code> in our small reprex above.</p>
-<div class="codewrapper sourceCode" id="cb14">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+take screenshots and figure out how to attach them to an email.</p>
+<div class="section level3">
+<h3 id="reprex-as-a-debugging-collaborator">{reprex} as a debugging collaborator<a class="anchor" aria-label="anchor" href="#reprex-as-a-debugging-collaborator"></a>
 </h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
-<span><span class="va">mpg</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">displ</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
-<span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<p>The formatting is great, but {reprex} really shines when you treat it
+as a helpful collaborator in your process of building a reproducible
+example.</p>
+<div id="exercise-1-using-reprex-to-find-problems-with-a-minimal-reproducible-example" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
 </div>
-<figure><img src="fig/5-asking-your-question-rendered-unnamed-chunk-6-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>As before, let’s copy that code to the clipboard, run
-<code>reprex()</code> in the console, and paste the result here.</p>
-<pre><code><span><span class="co"># In the console:</span></span>
-<span><span class="fu">reprex</span><span class="op">(</span><span class="op">)</span></span></code></pre>
-<div class="codewrapper sourceCode" id="cb16">
+<span class="callout-header">Discussion</span>
+<div id="exercise-1-using-reprex-to-find-problems-with-a-minimal-reproducible-example" class="callout-inner">
+<h3 class="callout-title">Exercise 1: Using {reprex} to find problems
+with a minimal reproducible example</h3>
+<div class="callout-content">
+<ol style="list-style-type: decimal">
+<li><p>If you run the code from the previous example without running the
+<code><a href="https://ggplot2.tidyverse.org" class="external-link">library(ggplot2)</a></code> line, does it still work? Why?</p></li>
+<li><p>Make a prediction: What will happen if you forget to include
+<code><a href="https://ggplot2.tidyverse.org" class="external-link">library(ggplot2)</a></code> in your minimal reproducible example? Try
+it with the {reprex} package and see. Why did this happen? :::
+solution</p></li>
+</ol>
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -4614,8 +4623,12 @@ data, etc.)</p>
 <span><span class="co">#&gt; Error in ggplot(., aes(x = factor(cyl), y = displ)): could not find function "ggplot"</span></span></code></pre>
 </div>
 <p><sup>Created on 2024-12-29 with <a href="https://reprex.tidyverse.org" class="external-link">reprex v2.1.1</a></sup></p>
-<p>Now we get an error message indicating that R cannot find the
-function <code>ggplot</code>! That’s because we forgot to load the
+</div>
+</div>
+</div>
+<p>:::</p>
+<p>We get an error message indicating that R cannot find the function
+<code>ggplot</code>! That’s because we forgot to load the
 <code>ggplot2</code> package in the reprex.</p>
 <p>This happened even though we had <code>ggplot2</code> already loaded
 in our own current RStudio session. <code>reprex</code> deliberately
@@ -4623,108 +4636,139 @@ ignores any packages already loaded, running the code in a clean,
 isolated R session that’s <em>different from the R session we’ve been
 working in</em>. This simulates the experience of someone else trying to
 run your reprex on their own computer.</p>
-<p>Let’s return to our previous example with the custom function.</p>
-<div class="codewrapper sourceCode" id="cb17">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">my_awesome_custom_function</span><span class="op">(</span><span class="st">"the kangaroo rat dataset"</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<div class="section level3">
+<h3 id="testing-it-out">Testing it out<a class="anchor" aria-label="anchor" href="#testing-it-out"></a>
 </h3>
-<pre class="output" tabindex="0"><code>[1] "the kangaroo rat dataset is awesome!"</code></pre>
-</div>
-<pre><code><span><span class="co"># In the console:</span></span>
-<span><span class="fu">reprex</span><span class="op">(</span><span class="op">)</span></span></code></pre>
-<div class="codewrapper sourceCode" id="cb20">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">my_awesome_custom_function</span><span class="op">(</span><span class="st">"the kangaroo rat dataset"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in my_awesome_custom_function("the kangaroo rat dataset"): could not find function "my_awesome_custom_function"</span></span></code></pre>
-</div>
-<p><sup>Created on 2024-12-29 with <a href="https://reprex.tidyverse.org" class="external-link">reprex v2.1.1</a></sup></p>
-<p>By contrast, if we include the function definition:</p>
-<div class="codewrapper sourceCode" id="cb21">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">my_awesome_custom_function</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="fu">print</span><span class="op">(</span><span class="fu">paste0</span><span class="op">(</span><span class="va">x</span>, <span class="st">" is awesome!"</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span>
-<span><span class="fu">my_awesome_custom_function</span><span class="op">(</span><span class="st">"the kangaroo rat dataset"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>[1] "the kangaroo rat dataset is awesome!"</code></pre>
-</div>
-<pre><code><span><span class="co"># In the console:</span></span>
-<span><span class="fu">reprex</span><span class="op">(</span><span class="op">)</span></span></code></pre>
-<div class="codewrapper sourceCode" id="cb24">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">my_awesome_custom_function</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="fu">print</span><span class="op">(</span><span class="fu">paste0</span><span class="op">(</span><span class="va">x</span>, <span class="st">" is awesome!"</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span>
-<span><span class="fu">my_awesome_custom_function</span><span class="op">(</span><span class="st">"the kangaroo rat dataset"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "the kangaroo rat dataset is awesome!"</span></span></code></pre>
-</div>
-<p><sup>Created on 2024-12-29 with <a href="https://reprex.tidyverse.org" class="external-link">reprex v2.1.1</a></sup></p>
-</section><section><h2 class="section-heading" id="testing-it-out">Testing it out<a class="anchor" aria-label="anchor" href="#testing-it-out"></a>
-</h2>
-<hr class="half-width">
 <p>Now that we’ve met our new reprex-making collaborator, let’s use it
 to test out the reproducible example we created in the previous
 episode.</p>
 <p>Here’s the code we wrote:</p>
-<div class="codewrapper sourceCode" id="cb25">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Mickey's reprex script</span></span>
-<span><span class="co"># XXX THIS IS NOT FINISHED--NEED TO INSERT FINAL DATA EXAMPLE!</span></span>
+<code class="sourceCode R"><span><span class="co"># Mickey's reprex (1 approach) </span></span>
 <span></span>
-<span><span class="co"># Load necessary packages to run the code</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">ggplot2</span><span class="op">)</span></span>
+<span><span class="co"># Required packages to run the code</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">readr</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">rodents_subset</span> <span class="op">%&gt;%</span> <span class="co"># XXX replace with simulated dataset</span></span>
-<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">weight</span>, x <span class="op">=</span> <span class="va">common_name</span>, fill <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span> <span class="co"># wait, why does this look weird?</span></span>
+<span><span class="fu">set.seed</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="co"># ensures accurate data replication</span></span>
 <span></span>
-<span><span class="co"># Investigate</span></span>
-<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span>
-<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></code></pre>
+<span><span class="co"># Create a mock dataset</span></span>
+<span><span class="va">sample_data</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span></span>
+<span>  record_id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,</span>
+<span>  sex <span class="op">=</span> <span class="fu">sample</span><span class="op">(</span><span class="fu">c</span><span class="op">(</span><span class="st">'M'</span>,<span class="st">'F'</span>, <span class="cn">NA</span><span class="op">)</span>, <span class="fl">10</span>, replace<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># The problematic code snippet</span></span>
+<span><span class="va">sample_subset</span> <span class="op">&lt;-</span> <span class="va">sample_data</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">sex</span> <span class="op">==</span> <span class="fu">c</span><span class="op">(</span><span class="st">"F"</span>, <span class="st">"M"</span><span class="op">)</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># Subsetted sample dataset - how many individuals for each sex?</span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">sample_subset</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span></span></code></pre>
 </div>
-<p>Time to find out if our example is actually reproducible! Let’s copy
-it to the clipboard and run <code>reprex()</code>. Since we want to give
-Jordan a runnable R script, we can use <code>venue = "r"</code>.</p>
+<p>It’s time to verify if our example is actually reproducible! Let’s
+copy it to the clipboard and run <code>reprex()</code>.</p>
 <pre><code><span><span class="co"># In the console:</span></span>
-<span><span class="fu">reprex</span><span class="op">(</span>venue <span class="op">=</span> <span class="st">"r"</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">reprex</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 <p>It worked!</p>
-<div class="codewrapper sourceCode" id="cb27">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#replace with final output</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Mickey's reprex (1 approach) </span></span>
+<span></span>
+<span><span class="co"># Required packages to run the code</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">readr</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     filter, lag</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span>
+<span></span>
+<span><span class="fu">set.seed</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="co"># ensures accurate data replication</span></span>
+<span></span>
+<span><span class="co"># Create a mock dataset</span></span>
+<span><span class="va">sample_data</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span></span>
+<span>  record_id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,</span>
+<span>  sex <span class="op">=</span> <span class="fu">sample</span><span class="op">(</span><span class="fu">c</span><span class="op">(</span><span class="st">'M'</span>,<span class="st">'F'</span>, <span class="cn">NA</span><span class="op">)</span>, <span class="fl">10</span>, replace<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># The problematic code snippet</span></span>
+<span><span class="va">sample_subset</span> <span class="op">&lt;-</span> <span class="va">sample_data</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">sex</span> <span class="op">==</span> <span class="fu">c</span><span class="op">(</span><span class="st">"F"</span>, <span class="st">"M"</span><span class="op">)</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># Subsetted sample dataset - how many individuals for each sex?</span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">sample_subset</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; F </span></span>
+<span><span class="co">#&gt; 1</span></span></code></pre>
 </div>
+<p><sup>Created on 2025-09-11 with <a href="https://reprex.tidyverse.org" class="external-link">reprex v2.1.1</a></sup></p>
 <p>Now we have a beautifully-formatted reprex that includes runnable
 code and all the context needed to reproduce the problem.</p>
-<div id="callout-including-information-about-your-r-session" class="callout">
+<div id="callout2" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <span class="callout-header">Callout</span>
-<div id="callout-including-information-about-your-r-session" class="callout-inner">
-<h3 class="callout-title">Callout: Including information about your R
-session</h3>
+<div class="callout-inner">
 <div class="callout-content">
-<p>Another nice thing about <code>reprex</code> is that you can choose
-to include information about your R session, in case your error has
-something to do with your R settings rather than the code itself. You
-can do that using the <code>session_info</code> argument to
-<code>reprex()</code>.</p>
+<p>This also would have been a good way for Mickey to discover that they
+needed to create minimal data earlier! Look what would have happened if
+we had put the example from the end of episode 3 into {reprex}:</p>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">readr</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     filter, lag</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span>
+<span></span>
+<span><span class="va">surveys</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/surveys_complete_77_89.csv"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error: 'data/surveys_complete_77_89.csv' does not exist in current working directory ('/private/var/folders/xy/lqbp515s27q8v1drkll9gynw0000gr/T/RtmpJX7W20/reprex-76216582aaa-irate-booby').</span></span>
+<span></span>
+<span><span class="co"># Filter to known sex</span></span>
+<span><span class="va">rodents_subset</span> <span class="op">&lt;-</span> <span class="va">surveys</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">sex</span> <span class="op">==</span> <span class="fu">c</span><span class="op">(</span><span class="st">"F"</span>, <span class="st">"M"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error: object 'surveys' not found</span></span>
+<span></span>
+<span><span class="co"># Subsetted dataset</span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">rodents_subset</span><span class="op">$</span><span class="va">sex</span>, <span class="va">rodents_subset</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error: object 'rodents_subset' not found</span></span>
+<span></span>
+<span><span class="co"># Original dataset</span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">surveys</span><span class="op">$</span><span class="va">sex</span>, <span class="va">surveys</span><span class="op">$</span><span class="va">species</span><span class="op">)</span> <span class="co"># still missing a lot of rows!</span></span>
+<span><span class="co">#&gt; Error: object 'surveys' not found</span></span></code></pre>
+</div>
+<p><sup>Created on 2025-09-11 with <a href="https://reprex.tidyverse.org" class="external-link">reprex v2.1.1</a></sup></p>
+</div>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="including-information-about-your-r-session">Including information about your R session<a class="anchor" aria-label="anchor" href="#including-information-about-your-r-session"></a>
+</h2>
+<hr class="half-width">
+<p>Another nice thing about {reprex} is that you can choose to include
+information about your R session, in case your error has something to do
+with your R settings rather than the code itself. You can do that using
+the <code>session_info</code> argument to <code>reprex()</code>.</p>
 <p>For example, try running the following reprex, setting session_info =
 TRUE, and observe what happens.</p>
-<div class="codewrapper sourceCode" id="cb28">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -4734,26 +4778,101 @@ TRUE, and observe what happens.</p>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">displ</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/5-asking-your-question-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><pre><code><span><span class="co"># In the console:</span></span>
+<figure><img src="fig/5-asking-your-question-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><pre><code><span><span class="co"># In the console:</span></span>
 <span><span class="fu">reprex</span><span class="op">(</span>session_info <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+</section><section><h2 class="section-heading" id="formatting">2. Formatting<a class="anchor" aria-label="anchor" href="#formatting"></a>
+</h2>
+<hr class="half-width">
+<p>Two things about the formatting of the {reprex} output make it even
+easier to ask for help.</p>
+<div class="section level3">
+<h3 id="displaying-output">Displaying output<a class="anchor" aria-label="anchor" href="#displaying-output"></a>
+</h3>
+<p>First, you’ll notice that the formatted reprex contains not only the
+lines of code, but also their output. The output lines are commented out
+and prefaced with a <code>&gt;</code>, to differentiate them from the
+code.</p>
+<p>For example:</p>
+<div class="codewrapper sourceCode" id="cb14">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span></span>
+<span><span class="fu">mean</span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 2.5</span></span></code></pre>
 </div>
-</div>
+<p><sup>Created on 2025-09-11 with <a href="https://reprex.tidyverse.org" class="external-link">reprex v2.1.1</a></sup></p>
+<p>The whole point of a reprex is to allow the helper to run the code
+for themselves–if they need or want to. But when we also display the
+output, we make things even easier for the helper, by giving them as
+many tools as possible to understand our code. In some cases, the helper
+might even be able to diagnose the problem <em>without</em> running the
+code, just by seeing the output.</p>
 </div>
 <div class="section level3">
-<h3 id="formatting">Formatting<a class="anchor" aria-label="anchor" href="#formatting"></a>
+<h3 id="different-output-formats">Different output formats<a class="anchor" aria-label="anchor" href="#different-output-formats"></a>
 </h3>
-<p>The output of <code>reprex()</code> is markdown, which can easily be
-copied and pasted into many sites/apps. However, different places have
-slightly different formatting conventions for markdown.
-<a href="https://reprex.tidyverse.org" class="external-link">reprex</a> lets you customize the output of your reprex
-according to where you’re planning to post it.</p>
+<p>Second, {reprex} can provide the output in several different formats.
+By default, the reprex is rendered in markdown, which can easily be
+copied and pasted into many sites or apps. However, different places
+have slightly different formatting conventions for markdown. {reprex}
+allows you to customize the output of your reprex according to where
+you’re planning to post it.</p>
 <p>The default, <code>venue = "gh"</code>, gives you “<a href="https://github.github.com/gfm/" class="external-link">GitHub-Flavored Markdown</a>”,
-which is a particular type of markdown that works well when posted on
-GitHub. Another format you might want is “r”, which gives you a runnable
-R script, with commented output interleaved with pieces of code.</p>
-<p>Check out the formatting options in the help file with
-<code>?reprex</code>, and try out a few depending on the destination of
-your reprex!</p>
+perfect for posting on GitHub. There are other markdown “flavors” for
+Slack, StackOverflow, and others.</p>
+<p>There are some other formats, too. Specifying
+<code>venue = "r"</code> gives you a runnable R script, with commented
+output interleaved with pieces of code.</p>
+<p>Mickey isn’t planning to post their reprex on any forums; they just
+want to send it to Remy as an R script. Therefore, they render their
+reprex using <code>venue = "r"</code>.</p>
+<pre><code><span><span class="co"># Mickey's reprex (1 approach)</span></span>
+<span></span>
+<span><span class="co"># Required packages to run the code</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">readr</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
+<span><span class="co">#&gt;</span></span>
+<span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
+<span><span class="co">#&gt;</span></span>
+<span><span class="co">#&gt;     filter, lag</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt;</span></span>
+<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span>
+<span></span>
+<span><span class="fu">set.seed</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="co"># ensures accurate data replication</span></span>
+<span></span>
+<span><span class="co"># Create a mock dataset</span></span>
+<span><span class="va">sample_data</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span></span>
+<span>  record_id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,</span>
+<span>  sex <span class="op">=</span> <span class="fu">sample</span><span class="op">(</span><span class="fu">c</span><span class="op">(</span><span class="st">'M'</span>,<span class="st">'F'</span>, <span class="cn">NA</span><span class="op">)</span>, <span class="fl">10</span>, replace<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># The problematic code snippet</span></span>
+<span><span class="va">sample_subset</span> <span class="op">&lt;-</span> <span class="va">sample_data</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">sex</span> <span class="op">==</span> <span class="fu">c</span><span class="op">(</span><span class="st">"F"</span>, <span class="st">"M"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Subsetted sample dataset - how many individuals for each sex?</span></span>
+<span><span class="fu">table</span><span class="op">(</span><span class="va">sample_subset</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span></span>
+<span><span class="co">#&gt;</span></span>
+<span><span class="co">#&gt; F</span></span>
+<span><span class="co">#&gt; 1</span></span></code></pre>
+<div id="exercise-2-exploring-reprex-formatting" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<span class="callout-header">Discussion</span>
+<div id="exercise-2-exploring-reprex-formatting" class="callout-inner">
+<h3 class="callout-title">Exercise 2: Exploring reprex formatting</h3>
+<div class="callout-content">
+<p>Prepare a simple reprex. Render it using
+<code>reprex(venue = )</code>. Try a few different formats. You can find
+more information about the different formats in the help file:
+<code>?reprex</code>.</p>
+</div>
+</div>
+</div>
 <div id="callout-reprex-cant-do-everything-for-you" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
@@ -4763,36 +4882,48 @@ your reprex!</p>
 <h3 class="callout-title">Callout: <code>reprex</code> can’t do
 everything for you</h3>
 <div class="callout-content">
-<p>People often mention <code>reprex</code> as a useful tool for
-creating reproducible examples, but it can’t do the work of crafting the
-example for you! The package doesn’t locate the problem, pare down the
-code, create a minimal dataset, or automatically include package
+<p>People often mention {reprex} as a useful tool for creating
+reproducible examples, but it can’t do the work of crafting the example
+for you! The package doesn’t locate the problem, pare down the code,
+create a minimal dataset, or automatically include package
 dependencies.</p>
-<p>A better way to think of <code>reprex</code> is as a tool to check
-your work as you go through the process of creating a reproducible
-example, and to help you polish up the result.</p>
+<p>A better way to think of {reprex} is as a tool to check your work as
+you go through the process of creating a reproducible example, and to
+help you polish up the result.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="section level3">
-<h3 id="context">Context<a class="anchor" aria-label="anchor" href="#context"></a>
-</h3>
-<p>The final thing to consider when preparing your reproducible example
-is adding some context so that helpers know a little about your problem
-and what you’re trying to achieve.</p>
-<p>Some context to include: 1. Tell us <em>a little bit</em> about your
-problem. One sentence should be enough. What domain are you working in?
-What are these data about? What do the relevant variables mean?</p>
+</section><section><h2 class="section-heading" id="context">3. Context<a class="anchor" aria-label="anchor" href="#context"></a>
+</h2>
+<hr class="half-width">
+<p>So, we’ve established that a good minimal reproducible example should
+be minimal, reproducible, and formatted nicely so that helpers can
+easily access and read it.</p>
+<p>But there’s one more thing to consider. Helpers won’t be thrilled if
+they’re presented with some code without any indication of what you’re
+trying to do, what went wrong, and what kind of help you need.</p>
+<p>Let’s give them some context!</p>
+<p>When providing context with your reprex, you should:</p>
+<ol style="list-style-type: decimal">
+<li>Tell the helper <em>a little bit</em> about your problem. One
+sentence should be enough. What domain are you working in? What are
+these data about? What do the relevant variables mean?</li>
+</ol>
 <p>This is particularly important if you have provided a subset of your
 own data instead of creating a minimal dataset from scratch. Your helper
 will need to interpret the column names and understand what type of data
 they are looking at.</p>
+<p>Make sure to keep it minimal. Provide only the information that’s
+necessary to understand the problem at hand.</p>
 <ol start="2" style="list-style-type: decimal">
 <li>Explain <em>what you expected to happen</em>, or what you were
 trying to achieve, and how it is different from <em>what happened
 instead</em>.</li>
 </ol>
+<p>Remember how we diagnosed the problem in the previous episodes,
+identifying which lines of code <em>showed us that something was
+wrong</em>? Let’s explain to the helper what has gone wrong.</p>
 <p>The contrast between what happened and what was supposed to happen is
 particularly important for semantic errors, in which the “error” is not
 always obvious when running the code. The code ran–but you have decided
@@ -4800,71 +4931,58 @@ that the output is “wrong” somehow, or that it “didn’t work”. Why? How
 do you know that? Your helper needs to know that what you got was not
 what you expected, and they need to know what you expected in order to
 help you achieve that outcome.</p>
-<p>For example, let’s say you made the following plot:</p>
-<div class="codewrapper sourceCode" id="cb30">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">rodents</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">plot_type</span>, y <span class="op">=</span> <span class="va">hindfoot_length</span>, color <span class="op">=</span> <span class="va">plot_type</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
-<span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning: Removed 2003 rows containing non-finite outside the scale range
-(`stat_boxplot()`).</code></pre>
-</div>
-<figure><img src="fig/5-asking-your-question-rendered-unnamed-chunk-13-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>This plot doesn’t look the way you want it to look, and you’re not
-sure why, so you decide to make a reprex. You load the required packages
-(<code>ggplot2</code> and <code>dplyr</code>), and you substitute an
-existing dataset, <code>mtcars</code>, instead of <code>rodents</code>,
-which you know your helpers won’t have access to. Your reprex looks like
-this:</p>
-<div class="codewrapper sourceCode" id="cb32">
+<p>Here’s an example where context is key. Imagine you’re a helper, and
+someone sends you the following reprex, which includes the code to make
+a boxplot from the <code>mpg</code> dataset.</p>
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">ggplot2</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     filter, lag</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span>
 <span><span class="va">mpg</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">class</span>, y <span class="op">=</span> <span class="va">displ</span>, color <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<p><img src="fig/5-asking-your-question-rendered-unnamed-chunk-14-1.png" style="display: block; margin: auto;" class="figure">
-It’s minimal! It’s reproducible! But… what is the problem? This is a
-perfectly reasonable plot, so without context, your helper won’t know
-what’s wrong. Let’s explain it to them.</p>
-<div class="codewrapper sourceCode" id="cb33">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">ggplot2</span><span class="op">)</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
-<span><span class="va">mpg</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">class</span>, y <span class="op">=</span> <span class="va">displ</span>, color <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
-<span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span></code></pre>
-</div>
-<figure><img src="fig/5-asking-your-question-rendered-unnamed-chunk-15-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb34">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># I want to make a boxplot where each of the categories has its own color. But even though I set color = class here, only the outlines of the boxplots got colored in, and the inside is still white. How do I change this so that the whole box is colored in?</span></span></code></pre>
-</div>
-<div id="exercise-1-what-makes-a-good-description" class="callout discussion">
+<figure><img src="https://i.imgur.com/VhVS9l0.png" class="figure mx-auto d-block"><!-- --></figure><p><sup>Created on 2025-09-11 with <a href="https://reprex.tidyverse.org" class="external-link">reprex v2.1.1</a></sup></p>
+<p>This example is minimal and reproducible–it’s brief, it loads all
+necessary packages, it uses a built-in dataset, and it is formatted
+nicely. But there is no obvious error! Clearly, the person asking for
+help has encountered a semantic error; their code runs, but it doesn’t
+produce what they expect. But unless they tell you how this plot differs
+from what they wanted, you won’t be able to help.</p>
+<p>You ask for further context, and eventually the person seeking help
+replies: “I want to make a boxplot where each of the categories has its
+own color. But even though I set color = class here, only the outlines
+of the boxplots got colored in, and the inside is still white. How do I
+change this so that the whole box is colored in?”</p>
+<p>Now that you know what the problem is, you can start trying to
+help.</p>
+<div id="exercise-3-what-makes-a-good-description" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <span class="callout-header">Discussion</span>
-<div id="exercise-1-what-makes-a-good-description" class="callout-inner">
-<h3 class="callout-title">Exercise 1: What makes a good
+<div id="exercise-3-what-makes-a-good-description" class="callout-inner">
+<h3 class="callout-title">Exercise 3: What makes a good
 description?</h3>
 <div class="callout-content">
-<p>For each of the following reprexes, improve the description given. a.
-I’m trying to plot the displacements of different cars. I made this
+<p>For each of the following reprexes, improve the description
+given.</p>
+<ol style="list-style-type: lower-alpha"><li>
+</li></ol>
+<p>“I’m trying to plot the displacements of different cars. I made this
 boxplot, but the boxes are showing up in the wrong order. How do I fix
-this? Here is my minimal reproducible example.</p>
-<div class="codewrapper sourceCode" id="cb35">
+this? Here is my minimal reproducible example.”</p>
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -4874,11 +4992,12 @@ this? Here is my minimal reproducible example.</p>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">class</span>, y <span class="op">=</span> <span class="va">displ</span>, color <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/5-asking-your-question-rendered-unnamed-chunk-16-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><ol start="2" style="list-style-type: lower-alpha">
-<li>I’m working with this data about cars. The <code>class</code> column
-refers to the type of car–for example, “compact” class means that the
-car is quite small, while “pickup” would be a pickup truck. For each
-car, I also have information about the city and highway mileage, and the
+<figure><img src="fig/5-asking-your-question-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><ol start="2" style="list-style-type: lower-alpha"><li>
+</li></ol>
+<p>“I’m working with this data about cars. The <code>class</code> column
+refers to the type of car–for example,”compact” class means that the car
+is quite small, while “pickup” would be a pickup truck. For each car, I
+also have information about the city and highway mileage, and the
 transmission, and the number of cylinders, as well as the displacement.
 This dataset has 234 rows and 11 columns, although this is an example
 dataset because my real dataset is much larger and has more like 500,000
@@ -4886,9 +5005,8 @@ rows. Anyway, in this example, I want to make a boxplot of displacement
 where each of the categories has its own color. But even though I set
 color = class here, only the outlines of the boxplots got colored in,
 and the inside is still white. How do I make the inside a different
-color? Here’s a reprex.</li>
-</ol>
-<div class="codewrapper sourceCode" id="cb36">
+color? Here’s a reprex.”</p>
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -4898,12 +5016,12 @@ color? Here’s a reprex.</li>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">class</span>, y <span class="op">=</span> <span class="va">displ</span>, color <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/5-asking-your-question-rendered-unnamed-chunk-17-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><ol start="3" style="list-style-type: lower-alpha">
-<li>Help, my code isn’t working! It says I have too many elements. I
+<figure><img src="fig/5-asking-your-question-rendered-unnamed-chunk-6-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><ol start="3" style="list-style-type: lower-alpha"><li>
+</li></ol>
+<p>“Help, my code isn’t working! It says I have too many elements. I
 made a reprex so you can see the data and the error message. I hope
-that’s helpful. Thank you so much!</li>
-</ol>
-<div class="codewrapper sourceCode" id="cb37">
+that’s helpful. Thank you so much!”</p>
+<div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -4918,16 +5036,15 @@ that’s helpful. Thank you so much!</li>
 </div>
 </div>
 </div>
-<p>As we wrap up this lesson, let’s work on adding some context for
-Mickey’s reprex so they’ll be ready to send it to Remy or post it
-online.</p>
-<div id="exercise-2-adding-context" class="callout discussion">
+<p>Let’s help Mickey add some context to their reprex so they’ll be
+ready to send it to Remy.</p>
+<div id="exercise-4-adding-context" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <span class="callout-header">Discussion</span>
-<div id="exercise-2-adding-context" class="callout-inner">
-<h3 class="callout-title">Exercise 2: Adding context</h3>
+<div id="exercise-4-adding-context" class="callout-inner">
+<h3 class="callout-title">Exercise 4: Adding context</h3>
 <div class="callout-content">
 <p>Working with the person next to you, write a brief description of
 Mickey’s problem that they could include with their reprex when they
@@ -4937,6 +5054,22 @@ describes what Mickey was trying to achieve, and describes what happened
 instead.</p>
 <p>When you’re done, compare notes between the groups and see if you can
 come up with a final reprex for Mickey!</p>
+</div>
+</div>
+</div>
+
+<div id="exercise-5-putting-it-all-together" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<span class="callout-header">Discussion</span>
+<div id="exercise-5-putting-it-all-together" class="callout-inner">
+<h3 class="callout-title">Exercise 5: Putting it all together</h3>
+<div class="callout-content">
+<p>Create a reprex (using Mickey’s example or your own brief idea). Post
+it, following your instructor’s directions. Be sure to provide
+appropriate context and use the appropriate <code>venue</code>
+argument.</p>
 </div>
 </div>
 </div>
@@ -4963,7 +5096,6 @@ and likelier to get answered.</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
-</div>
 </section></section>
 </div>
     </main>
@@ -5012,8 +5144,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/R-help-reprexes/aio.html",
   "identifier": "https://carpentries-incubator.github.io/R-help-reprexes/aio.html",
   "dateCreated": "2024-05-14",
-  "dateModified": "2025-09-09",
-  "datePublished": "2025-09-09"
+  "dateModified": "2025-09-12",
+  "datePublished": "2025-09-12"
 }
 
   </script><script>
