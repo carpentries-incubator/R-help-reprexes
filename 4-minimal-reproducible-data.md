@@ -387,7 +387,7 @@ x
 ```
 
 ``` output
-[1] 10  5  6  1  9
+[1] 10  9  4  1  2
 ```
 
 Or you can randomly sample from a normal distribution
@@ -399,8 +399,8 @@ x
 ```
 
 ``` output
- [1] -0.20824156  0.49970612  2.57149310  0.66824811 -0.82295861  0.31894033
- [7]  0.04703593 -1.33676815 -0.28820645  0.22620139
+ [1] -1.765269313  1.182347836 -0.004901493 -0.457520909 -0.490951978
+ [6]  0.477337724  0.387422167 -0.731640772  1.428920435  0.448181467
 ```
 
 You can also use built-in vectors like `letters` to create factors.
@@ -412,8 +412,8 @@ x
 ```
 
 ``` output
- [1] "b" "b" "b" "c" "d" "c" "d" "b" "b" "b" "a" "c" "b" "c" "d" "a" "b" "d" "a"
-[20] "b"
+ [1] "b" "b" "c" "b" "d" "a" "b" "b" "c" "b" "c" "d" "c" "c" "b" "d" "d" "c" "d"
+[20] "a"
 ```
 
 Remember that **a data frame is just a collection of vectors**.
@@ -427,13 +427,13 @@ head(data)
 ```
 
 ``` output
-  x          y
-1 b  1.5040195
-2 a -0.1995433
-3 a -1.8742752
-4 b -0.5683280
-5 b  0.1528315
-6 c  1.1181352
+  x           y
+1 c  2.85660227
+2 c -1.10995440
+3 c -0.82801122
+4 b -1.07911240
+5 c  0.05904723
+6 a -0.21094128
 ```
 
 **However**, when sampling at random you must remember to `set.seed()` before sending it to someone to make sure you both get the same numbers!
@@ -666,13 +666,13 @@ sample_data
 1          1 <NA>
 2          2 <NA>
 3          3    M
-4          4    F
-5          5    F
-6          6    F
+4          4 <NA>
+5          5 <NA>
+6          6    M
 7          7 <NA>
 8          8    F
-9          9    F
-10        10    M
+9          9 <NA>
+10        10    F
 ```
 
 And just like that we helped Mickey create a mock dataset from scratch!
@@ -689,17 +689,17 @@ sample2_data
 ```
 
 ``` output
-   record_id  sex
-1          1    M
-2          2    F
-3          3    M
-4          4    F
-5          5    F
-6          6 <NA>
-7          7 <NA>
-8          8 <NA>
-9          9 <NA>
-10        10    M
+   record_id sex
+1          1   F
+2          2   M
+3          3   M
+4          4   M
+5          5   F
+6          6   M
+7          7   F
+8          8   F
+9          9   M
+10        10   F
 ```
 
 **Important**: Notice that the outputs of the two datasets are not the same.
