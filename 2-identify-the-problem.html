@@ -324,7 +324,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Identify the problem and make a plan</h1>
-        <p>Last updated on 2025-09-16 |
+        <p>Last updated on 2025-09-23 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/2-identify-the-problem.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -449,7 +449,7 @@ same information.</p>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in `fortify()`:
+<pre class="error" tabindex="0"><code>Error in `fortify()` at ggplot2/R/plot.R:121:3:
 ! `data` must be a &lt;data.frame&gt;, or an object coercible by `fortify()`,
   or a valid &lt;data.frame&gt;-like object coercible by `as.data.frame()`, not a
   &lt;uneval&gt; object.
@@ -561,7 +561,7 @@ documentation if you’re stuck!)</p>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in `tally()`:
+<pre class="error" tabindex="0"><code>Error in `tally()` at magrittr/R/pipe.R:136:3:
 ℹ In argument: `n = sum(genus, na.rm = TRUE)`.
 Caused by error in `sum()`:
 ! invalid 'type' (character) of argument</code></pre>
@@ -588,7 +588,7 @@ to <code>group_by</code> two variables and a different function
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>d is the correct answer!</p>
 <div class="codewrapper sourceCode" id="cb11">
@@ -729,7 +729,7 @@ inferring what type of graph we’re trying to create!)</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>In this case, A correctly creates the graph, plotting as colors in
 the tile the number of times an observation is seen. It essentially runs
@@ -765,7 +765,7 @@ the following lines of code:</p>
 <pre class="error" tabindex="0"><code>Error in `geom_tile()`:
 ! Problem while computing stat.
 ℹ Error occurred in the 1st layer.
-Caused by error in `setup_params()`:
+Caused by error in `setup_params()` at ggplot2/R/ggproto.R:197:17:
 ! `stat_count()` must only have an x or y aesthetic.</code></pre>
 </div>
 <p>Finally, C is a semantic error. It does produce a plot, which is
@@ -837,7 +837,7 @@ years</strong>.</p>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in `combine_vars()`:
+<pre class="error" tabindex="0"><code>Error in `combine_vars()` at ggplot2/R/facet-wrap.R:186:5:
 ! Faceting variables must have at least one value.</code></pre>
 </div>
 <p>Uh-oh. Another error here, when we try to make a ggplot. But what is
@@ -1026,7 +1026,7 @@ strategies, can you isolate the problem area?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>An isolated version of the problem area might look like:</p>
 <div class="codewrapper sourceCode" id="cb39">
@@ -1373,8 +1373,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/R-help-reprexes/2-identify-the-problem.html",
   "identifier": "https://carpentries-incubator.github.io/R-help-reprexes/2-identify-the-problem.html",
   "dateCreated": "2024-05-14",
-  "dateModified": "2025-09-16",
-  "datePublished": "2025-09-16"
+  "dateModified": "2025-09-23",
+  "datePublished": "2025-09-23"
 }
 
   </script><script>
