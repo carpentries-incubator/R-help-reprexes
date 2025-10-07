@@ -324,7 +324,7 @@ it?</a></li>
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Minimal reproducible data</h1>
-        <p>Last updated on 2025-09-30 |
+        <p>Last updated on 2025-10-07 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/4-minimal-reproducible-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -451,7 +451,7 @@ dbl (7): record_id, month, day, year, plot_id, hindfoot_length, weight
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>The code would fail to run because Remy probably doesn’t have the
 “surveys_complete_77_89.csv” file, or, more specifically doesn’t have
@@ -491,7 +491,7 @@ who would find it easier, Mickey or Remy?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>Mickey is thinking that it would be easier for themselves, not
 necessarily for Remy.</p>
@@ -701,7 +701,7 @@ that is giving you problems. E.g., use
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>The correct answer is C!</p>
 <ol style="list-style-type: upper-alpha"><li>does not include the variable of interest (weight).</li>
@@ -880,7 +880,7 @@ Visualization in R for Ecologists</a>).</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1] 9 6 2 1 5</code></pre>
+<pre class="output" tabindex="0"><code>[1] 3 9 1 8 2</code></pre>
 </div>
 <p>Or you can randomly sample from a normal distribution</p>
 <div class="codewrapper sourceCode" id="cb20">
@@ -893,8 +893,8 @@ Visualization in R for Ecologists</a>).</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1]  0.01031316  1.97567808  2.50625292  0.56852144  0.16557043 -0.61591511
- [7] -1.08625252 -0.15952972 -0.24781356 -0.63542672</code></pre>
+<pre class="output" tabindex="0"><code> [1]  0.5643031 -0.8684606  0.9389153 -1.7241739  0.4306884 -0.7945675
+ [7]  0.8437805 -0.4463761 -2.6310248 -0.3980536</code></pre>
 </div>
 <p>You can also use built-in vectors like <code>letters</code> to create
 factors.</p>
@@ -908,8 +908,8 @@ factors.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1] "d" "d" "b" "a" "c" "c" "d" "b" "a" "a" "d" "d" "c" "c" "c" "c" "d" "d" "b"
-[20] "c"</code></pre>
+<pre class="output" tabindex="0"><code> [1] "a" "b" "d" "d" "a" "a" "b" "c" "c" "a" "d" "d" "a" "a" "c" "d" "b" "b" "b"
+[20] "d"</code></pre>
 </div>
 <p>Remember that <strong>a data frame is just a collection of
 vectors</strong>. You can create a data frame using
@@ -927,13 +927,13 @@ variable.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>  x           y
-1 c  0.91016956
-2 c -0.52404032
-3 a  0.06121102
-4 a  0.35005406
-5 a  0.43832994
-6 c -0.02987849</code></pre>
+<pre class="output" tabindex="0"><code>  x          y
+1 c  0.3854433
+2 c -0.6463129
+3 a  1.6648891
+4 a  1.7153159
+5 c  0.5004990
+6 b  1.3109465</code></pre>
 </div>
 <p><strong>However</strong>, when sampling at random you must remember
 to <code>set.seed()</code> before sending it to someone to make sure you
@@ -1191,16 +1191,16 @@ dataset just in case.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>   record_id  sex
-1          1    F
-2          2    F
+1          1    M
+2          2 &lt;NA&gt;
 3          3 &lt;NA&gt;
-4          4    F
-5          5 &lt;NA&gt;
+4          4    M
+5          5    F
 6          6 &lt;NA&gt;
-7          7    M
-8          8 &lt;NA&gt;
+7          7 &lt;NA&gt;
+8          8    M
 9          9 &lt;NA&gt;
-10        10    F</code></pre>
+10        10    M</code></pre>
 </div>
 <p>And just like that we helped Mickey create a mock dataset from
 scratch! Notice that they could also have compiled the same type of
@@ -1222,13 +1222,13 @@ dataset in a single line by creating each vector within
 </h3>
 <pre class="output" tabindex="0"><code>   record_id  sex
 1          1 &lt;NA&gt;
-2          2    M
-3          3 &lt;NA&gt;
-4          4 &lt;NA&gt;
+2          2 &lt;NA&gt;
+3          3    M
+4          4    F
 5          5    F
 6          6 &lt;NA&gt;
-7          7 &lt;NA&gt;
-8          8    F
+7          7    M
+8          8    M
 9          9    F
 10        10 &lt;NA&gt;</code></pre>
 </div>
@@ -1793,7 +1793,7 @@ replicate our issue?</p></li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <p>Remember, there are many possible solutions! The most important
 feature is that the example dataset can replicate the issue when used
@@ -2023,7 +2023,7 @@ logical: returning NA</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
   <h4 class="accordion-header" id="headingSolution5"> Show me the solution </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
 <div class="accordion-body">
 <ol style="list-style-type: upper-alpha"><li>“fruit” needs to be a factor and the order of the levels must be
 specified:
@@ -2133,8 +2133,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/R-help-reprexes/4-minimal-reproducible-data.html",
   "identifier": "https://carpentries-incubator.github.io/R-help-reprexes/4-minimal-reproducible-data.html",
   "dateCreated": "2024-05-14",
-  "dateModified": "2025-09-30",
-  "datePublished": "2025-09-30"
+  "dateModified": "2025-10-07",
+  "datePublished": "2025-10-07"
 }
 
   </script><script>
