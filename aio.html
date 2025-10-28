@@ -356,7 +356,7 @@
         
 <section id="aio-1-intro-reproducible-examples"><p>Content from <a href="1-intro-reproducible-examples.html">What is a reprex and why is it useful?</a></p>
 <hr>
-<p>Last updated on 2025-10-21 |
+<p>Last updated on 2025-10-28 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/1-intro-reproducible-examples.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -765,7 +765,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-2-identify-the-problem"><p>Content from <a href="2-identify-the-problem.html">Identify the problem and make a plan</a></p>
 <hr>
-<p>Last updated on 2025-10-21 |
+<p>Last updated on 2025-10-28 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/2-identify-the-problem.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1799,7 +1799,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-3-minimal-reproducible-code"><p>Content from <a href="3-minimal-reproducible-code.html">Minimal reproducible code</a></p>
 <hr>
-<p>Last updated on 2025-10-21 |
+<p>Last updated on 2025-10-28 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/3-minimal-reproducible-code.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -2174,7 +2174,7 @@ the code to make sure that it still reproduces the error.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ul>
 <li>The barplot of species and sex (ggplot) can be removed because it
@@ -2552,7 +2552,7 @@ any links that you are not going to use.
 </div>
 </div></section><section id="aio-4-minimal-reproducible-data"><p>Content from <a href="4-minimal-reproducible-data.html">Minimal reproducible data</a></p>
 <hr>
-<p>Last updated on 2025-10-21 |
+<p>Last updated on 2025-10-28 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/4-minimal-reproducible-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -3150,7 +3150,7 @@ Visualization in R for Ecologists</a>).</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1]  6  2  7 10  1</code></pre>
+<pre class="output" tabindex="0"><code>[1] 5 4 1 9 2</code></pre>
 </div>
 <p>Or you can randomly sample from a normal distribution</p>
 <div class="codewrapper sourceCode" id="cb20">
@@ -3163,8 +3163,8 @@ Visualization in R for Ecologists</a>).</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1] -0.07142142  2.30778474 -1.30159483 -0.24794628  1.11404171  0.43144331
- [7]  1.66619696 -0.63298558 -0.68140184 -0.79690762</code></pre>
+<pre class="output" tabindex="0"><code> [1]  0.2982636 -0.8139442  0.2172050 -0.4688721  1.8289147  0.8557650
+ [7]  0.1387323  1.2702114  0.0691053  1.5377552</code></pre>
 </div>
 <p>You can also use built-in vectors like <code>letters</code> to create
 factors.</p>
@@ -3178,7 +3178,7 @@ factors.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1] "b" "b" "b" "a" "b" "b" "c" "a" "d" "c" "d" "a" "a" "c" "d" "d" "d" "a" "b"
+<pre class="output" tabindex="0"><code> [1] "d" "c" "a" "d" "a" "c" "b" "b" "b" "b" "a" "d" "c" "c" "a" "a" "b" "c" "b"
 [20] "a"</code></pre>
 </div>
 <p>Remember that <strong>a data frame is just a collection of
@@ -3197,13 +3197,13 @@ variable.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>  x          y
-1 c -0.6842282
-2 a -1.3284376
-3 c  0.1926708
-4 b -1.1413310
-5 b  0.2898761
-6 b -0.4226256</code></pre>
+<pre class="output" tabindex="0"><code>  x            y
+1 a  0.007438686
+2 c -0.431129572
+3 c -2.015849209
+4 a  0.230728121
+5 a  0.663005732
+6 c -0.347802539</code></pre>
 </div>
 <p><strong>However</strong>, when sampling at random you must remember
 to <code>set.seed()</code> before sending it to someone to make sure you
@@ -3478,15 +3478,15 @@ dataset just in case.</p>
 </h3>
 <pre class="output" tabindex="0"><code>   record_id  sex
 1          1    F
-2          2    F
-3          3 &lt;NA&gt;
-4          4    F
+2          2    M
+3          3    M
+4          4    M
 5          5 &lt;NA&gt;
-6          6    F
+6          6    M
 7          7    M
-8          8    F
-9          9    M
-10        10 &lt;NA&gt;</code></pre>
+8          8 &lt;NA&gt;
+9          9 &lt;NA&gt;
+10        10    M</code></pre>
 </div>
 <p>And just like that we helped Mickey create a mock dataset from
 scratch! Notice that they could also have compiled the same type of
@@ -3507,16 +3507,16 @@ dataset in a single line by creating each vector within
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>   record_id  sex
-1          1 &lt;NA&gt;
-2          2 &lt;NA&gt;
+1          1    F
+2          2    M
 3          3 &lt;NA&gt;
-4          4    M
+4          4    F
 5          5    F
 6          6    F
-7          7    M
+7          7 &lt;NA&gt;
 8          8 &lt;NA&gt;
 9          9 &lt;NA&gt;
-10        10    F</code></pre>
+10        10    M</code></pre>
 </div>
 <p><strong>Important</strong>: Notice that the outputs of the two
 datasets are not the same. If you want the outputs to be EXACTLY the
@@ -4394,7 +4394,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-5-asking-your-question"><p>Content from <a href="5-asking-your-question.html">Asking your question</a></p>
 <hr>
-<p>Last updated on 2025-10-21 |
+<p>Last updated on 2025-10-28 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/5-asking-your-question.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -5144,8 +5144,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/R-help-reprexes/aio.html",
   "identifier": "https://carpentries-incubator.github.io/R-help-reprexes/aio.html",
   "dateCreated": "2024-05-14",
-  "dateModified": "2025-10-21",
-  "datePublished": "2025-10-21"
+  "dateModified": "2025-10-28",
+  "datePublished": "2025-10-28"
 }
 
   </script><script>
