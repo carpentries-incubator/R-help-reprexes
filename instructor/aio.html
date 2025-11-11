@@ -358,7 +358,7 @@
         
 <section id="aio-1-intro-reproducible-examples"><p>Content from <a href="1-intro-reproducible-examples.html">What is a reprex and why is it useful?</a></p>
 <hr>
-<p>Last updated on 2025-11-04 |
+<p>Last updated on 2025-11-11 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/1-intro-reproducible-examples.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 25 minutes</p>
@@ -863,7 +863,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-2-identify-the-problem"><p>Content from <a href="2-identify-the-problem.html">Identify the problem and make a plan</a></p>
 <hr>
-<p>Last updated on 2025-11-04 |
+<p>Last updated on 2025-11-11 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/2-identify-the-problem.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 70 minutes</p>
@@ -1909,7 +1909,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-3-minimal-reproducible-code"><p>Content from <a href="3-minimal-reproducible-code.html">Minimal reproducible code</a></p>
 <hr>
-<p>Last updated on 2025-11-04 |
+<p>Last updated on 2025-11-11 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/3-minimal-reproducible-code.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 75 minutes</p>
@@ -2676,7 +2676,7 @@ any links that you are not going to use.
 </div>
 </div></section><section id="aio-4-minimal-reproducible-data"><p>Content from <a href="4-minimal-reproducible-data.html">Minimal reproducible data</a></p>
 <hr>
-<p>Last updated on 2025-11-04 |
+<p>Last updated on 2025-11-11 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/4-minimal-reproducible-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 94 minutes</p>
@@ -3335,7 +3335,7 @@ Visualization in R for Ecologists</a>).</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1] 9 1 7 3 5</code></pre>
+<pre class="output" tabindex="0"><code>[1] 7 2 3 4 6</code></pre>
 </div>
 <p>Or you can randomly sample from a normal distribution</p>
 <div class="codewrapper sourceCode" id="cb20">
@@ -3348,8 +3348,8 @@ Visualization in R for Ecologists</a>).</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1]  1.12980985  1.05993488 -0.36067051 -0.07346534  2.30615815  0.48242337
- [7] -0.27103116 -1.76377942  0.25630475 -0.17438502</code></pre>
+<pre class="output" tabindex="0"><code> [1]  0.73266653 -1.03966099 -0.02611954  0.33274495 -0.37451701 -0.23648756
+ [7] -0.07609148  0.91170439 -0.55043023  0.00747700</code></pre>
 </div>
 <p>You can also use built-in vectors like <code>letters</code> to create
 factors.</p>
@@ -3363,7 +3363,7 @@ factors.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1] "d" "c" "c" "d" "d" "a" "c" "b" "b" "d" "c" "b" "b" "b" "b" "b" "d" "d" "a"
+<pre class="output" tabindex="0"><code> [1] "b" "d" "d" "a" "c" "a" "b" "c" "c" "b" "d" "c" "a" "d" "a" "b" "b" "a" "d"
 [20] "c"</code></pre>
 </div>
 <p>Remember that <strong>a data frame is just a collection of
@@ -3383,12 +3383,12 @@ variable.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>  x          y
-1 a  0.3091404
-2 a  1.3346579
-3 a  0.4753437
-4 c -0.9663703
-5 b -0.7598545
-6 a  1.2569712</code></pre>
+1 a  0.1149174
+2 b -0.2064682
+3 a  0.6862153
+4 b -0.1627588
+5 b -1.4376728
+6 b -2.2363003</code></pre>
 </div>
 <p><strong>However</strong>, when sampling at random you must remember
 to <code>set.seed()</code> before sending it to someone to make sure you
@@ -3710,15 +3710,15 @@ dataset just in case.</p>
 </h3>
 <pre class="output" tabindex="0"><code>   record_id  sex
 1          1 &lt;NA&gt;
-2          2 &lt;NA&gt;
-3          3 &lt;NA&gt;
+2          2    F
+3          3    M
 4          4    M
-5          5    F
-6          6    M
-7          7    F
-8          8    F
+5          5 &lt;NA&gt;
+6          6 &lt;NA&gt;
+7          7 &lt;NA&gt;
+8          8    M
 9          9 &lt;NA&gt;
-10        10 &lt;NA&gt;</code></pre>
+10        10    M</code></pre>
 </div>
 <p>And just like that we helped Mickey create a mock dataset from
 scratch! Notice that they could also have compiled the same type of
@@ -3741,14 +3741,14 @@ dataset in a single line by creating each vector within
 <pre class="output" tabindex="0"><code>   record_id  sex
 1          1 &lt;NA&gt;
 2          2 &lt;NA&gt;
-3          3 &lt;NA&gt;
-4          4 &lt;NA&gt;
-5          5    M
+3          3    M
+4          4    F
+5          5    F
 6          6    M
-7          7    M
-8          8 &lt;NA&gt;
-9          9    M
-10        10    M</code></pre>
+7          7 &lt;NA&gt;
+8          8    M
+9          9 &lt;NA&gt;
+10        10 &lt;NA&gt;</code></pre>
 </div>
 <p><strong>Important</strong>: Notice that the outputs of the two
 datasets are not the same. If you want the outputs to be EXACTLY the
@@ -4664,7 +4664,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-5-asking-your-question"><p>Content from <a href="5-asking-your-question.html">Asking your question</a></p>
 <hr>
-<p>Last updated on 2025-11-04 |
+<p>Last updated on 2025-11-11 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/5-asking-your-question.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
@@ -5333,7 +5333,7 @@ come up with a final reprex for Mickey!</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>For the following exercise, you will need to choose a method for your
 learners to practice posting their reprexes. You should set this up
@@ -5451,8 +5451,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/R-help-reprexes/instructor/aio.html",
   "identifier": "https://carpentries-incubator.github.io/R-help-reprexes/instructor/aio.html",
   "dateCreated": "2024-05-14",
-  "dateModified": "2025-11-04",
-  "datePublished": "2025-11-04"
+  "dateModified": "2025-11-11",
+  "datePublished": "2025-11-11"
 }
 
   </script><script>
