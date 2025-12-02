@@ -324,7 +324,7 @@ it?</a></li>
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Minimal reproducible data</h1>
-        <p>Last updated on 2025-11-25 |
+        <p>Last updated on 2025-12-02 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/4-minimal-reproducible-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -942,7 +942,7 @@ Visualization in R for Ecologists</a>).</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1] 2 6 5 7 1</code></pre>
+<pre class="output" tabindex="0"><code>[1]  1  9  2  8 10</code></pre>
 </div>
 <p>Or you can randomly sample from a normal distribution</p>
 <div class="codewrapper sourceCode" id="cb20">
@@ -955,8 +955,8 @@ Visualization in R for Ecologists</a>).</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1]  1.7042889 -0.2451440 -0.2334991  1.1788131 -1.8344005 -2.0647376
- [7]  0.4732789  0.1498928 -0.4179565 -1.3169670</code></pre>
+<pre class="output" tabindex="0"><code> [1]  1.3155295 -1.4867014 -0.7915341 -0.2838512 -0.5240631 -0.9139134
+ [7]  1.4427995 -0.9454473  1.0992743 -1.6904656</code></pre>
 </div>
 <p>You can also use built-in vectors like <code>letters</code> to create
 factors.</p>
@@ -970,7 +970,7 @@ factors.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1] "d" "d" "b" "a" "d" "c" "d" "a" "d" "d" "a" "a" "b" "a" "a" "c" "b" "a" "a"
+<pre class="output" tabindex="0"><code> [1] "d" "a" "c" "a" "c" "d" "a" "d" "d" "c" "b" "a" "c" "b" "c" "d" "d" "b" "d"
 [20] "a"</code></pre>
 </div>
 <p>Remember that <strong>a data frame is just a collection of
@@ -990,12 +990,12 @@ variable.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>  x          y
-1 a -0.2761286
-2 c  0.6920554
-3 a  0.1536655
-4 c -0.6717194
-5 c -1.0611593
-6 c -0.7255127</code></pre>
+1 a -0.5735020
+2 c  0.1712790
+3 c  1.9072295
+4 c  0.6732779
+5 b  1.1722150
+6 c -1.5764026</code></pre>
 </div>
 <p><strong>However</strong>, when sampling at random you must remember
 to <code>set.seed()</code> before sending it to someone to make sure you
@@ -1301,14 +1301,14 @@ dataset just in case.</p>
 </h3>
 <pre class="output" tabindex="0"><code>   record_id  sex
 1          1 &lt;NA&gt;
-2          2 &lt;NA&gt;
-3          3 &lt;NA&gt;
-4          4 &lt;NA&gt;
-5          5    M
+2          2    M
+3          3    F
+4          4    F
+5          5    F
 6          6    M
-7          7 &lt;NA&gt;
-8          8    F
-9          9    F
+7          7    M
+8          8    M
+9          9    M
 10        10    F</code></pre>
 </div>
 <p>And just like that we helped Mickey create a mock dataset from
@@ -1331,12 +1331,12 @@ dataset in a single line by creating each vector within
 </h3>
 <pre class="output" tabindex="0"><code>   record_id  sex
 1          1 &lt;NA&gt;
-2          2    M
-3          3    F
+2          2    F
+3          3 &lt;NA&gt;
 4          4 &lt;NA&gt;
-5          5    M
+5          5 &lt;NA&gt;
 6          6    F
-7          7 &lt;NA&gt;
+7          7    M
 8          8    M
 9          9    M
 10        10    M</code></pre>
@@ -2280,8 +2280,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/R-help-reprexes/instructor/4-minimal-reproducible-data.html",
   "identifier": "https://carpentries-incubator.github.io/R-help-reprexes/instructor/4-minimal-reproducible-data.html",
   "dateCreated": "2024-05-14",
-  "dateModified": "2025-11-25",
-  "datePublished": "2025-11-25"
+  "dateModified": "2025-12-02",
+  "datePublished": "2025-12-02"
 }
 
   </script><script>
