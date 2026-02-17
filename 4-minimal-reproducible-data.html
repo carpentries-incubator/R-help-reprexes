@@ -325,7 +325,7 @@ it?</a></li>
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Minimal reproducible data</h1>
-        <p>Last updated on 2026-02-10 |
+        <p>Last updated on 2026-02-17 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/4-minimal-reproducible-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -452,7 +452,7 @@ dbl (7): record_id, month, day, year, plot_id, hindfoot_length, weight
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>The code would fail to run because Remy probably doesn’t have the
 “surveys_complete_77_89.csv” file, or, more specifically doesn’t have
@@ -492,7 +492,7 @@ who would find it easier, Mickey or Remy?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>Mickey is thinking that it would be easier for themselves, not
 necessarily for Remy.</p>
@@ -702,7 +702,7 @@ that is giving you problems. E.g., use
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>The correct answer is C!</p>
 <ol style="list-style-type: upper-alpha"><li>does not include the variable of interest (weight).</li>
@@ -881,7 +881,7 @@ Visualization in R for Ecologists</a>).</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1] 2 9 8 3 1</code></pre>
+<pre class="output" tabindex="0"><code>[1] 10  5  8  4  7</code></pre>
 </div>
 <p>Or you can randomly sample from a normal distribution</p>
 <div class="codewrapper sourceCode" id="cb20">
@@ -894,8 +894,8 @@ Visualization in R for Ecologists</a>).</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1]  0.7373281 -0.2274249 -0.5180390 -0.4258817  2.3077674  0.4731192
- [7] -0.6040897 -2.2753657 -1.4153636  1.4213673</code></pre>
+<pre class="output" tabindex="0"><code> [1]  0.4201279  1.5420417  1.5802185  1.0322359 -0.2429538  1.9334962
+ [7] -0.2679033  1.0883836 -0.2394150  0.6218471</code></pre>
 </div>
 <p>You can also use built-in vectors like <code>letters</code> to create
 factors.</p>
@@ -909,8 +909,8 @@ factors.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1] "a" "d" "a" "b" "b" "d" "b" "a" "d" "c" "c" "d" "d" "c" "d" "c" "b" "c" "d"
-[20] "b"</code></pre>
+<pre class="output" tabindex="0"><code> [1] "c" "a" "a" "d" "a" "c" "d" "a" "c" "d" "a" "d" "d" "d" "d" "b" "c" "c" "b"
+[20] "a"</code></pre>
 </div>
 <p>Remember that <strong>a data frame is just a collection of
 vectors</strong>. You can create a data frame using
@@ -929,12 +929,12 @@ variable.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>  x           y
-1 b  2.09163174
-2 b -1.42797862
-3 b -0.58127697
-4 c -1.49597144
-5 b  0.08617993
-6 b  0.26996775</code></pre>
+1 a  1.11020274
+2 b -1.69732648
+3 b -0.22731443
+4 a -0.39154431
+5 a  0.31857671
+6 c -0.08900591</code></pre>
 </div>
 <p><strong>However</strong>, when sampling at random you must remember
 to <code>set.seed()</code> before sending it to someone to make sure you
@@ -1192,14 +1192,14 @@ dataset just in case.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>   record_id  sex
-1          1    M
+1          1    F
 2          2    M
-3          3 &lt;NA&gt;
+3          3    M
 4          4    M
-5          5    F
-6          6    M
+5          5    M
+6          6 &lt;NA&gt;
 7          7    M
-8          8 &lt;NA&gt;
+8          8    F
 9          9 &lt;NA&gt;
 10        10 &lt;NA&gt;</code></pre>
 </div>
@@ -1223,15 +1223,15 @@ dataset in a single line by creating each vector within
 </h3>
 <pre class="output" tabindex="0"><code>   record_id  sex
 1          1 &lt;NA&gt;
-2          2    M
+2          2    F
 3          3    F
 4          4    M
-5          5    F
+5          5    M
 6          6    M
-7          7 &lt;NA&gt;
-8          8 &lt;NA&gt;
-9          9    M
-10        10    M</code></pre>
+7          7    M
+8          8    M
+9          9 &lt;NA&gt;
+10        10 &lt;NA&gt;</code></pre>
 </div>
 <p><strong>Important</strong>: Notice that the outputs of the two
 datasets are not the same. If you want the outputs to be EXACTLY the
@@ -1794,7 +1794,7 @@ replicate our issue?</p></li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>Remember, there are many possible solutions! The most important
 feature is that the example dataset can replicate the issue when used
@@ -2024,7 +2024,7 @@ logical: returning NA</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
   <h4 class="accordion-header" id="headingSolution5"> Show me the solution </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
 <div class="accordion-body">
 <ol style="list-style-type: upper-alpha"><li>“fruit” needs to be a factor and the order of the levels must be
 specified:
@@ -2136,8 +2136,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/R-help-reprexes/4-minimal-reproducible-data.html",
   "identifier": "https://carpentries-incubator.github.io/R-help-reprexes/4-minimal-reproducible-data.html",
   "dateCreated": "2024-05-14",
-  "dateModified": "2026-02-10",
-  "datePublished": "2026-02-10"
+  "dateModified": "2026-02-17",
+  "datePublished": "2026-02-17"
 }
 
   </script><script>
