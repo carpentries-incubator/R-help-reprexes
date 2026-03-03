@@ -357,7 +357,7 @@
         
 <section id="aio-1-intro-reproducible-examples"><p>Content from <a href="1-intro-reproducible-examples.html">What is a reprex and why is it useful?</a></p>
 <hr>
-<p>Last updated on 2026-02-24 |
+<p>Last updated on 2026-03-03 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/1-intro-reproducible-examples.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -766,7 +766,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-2-identify-the-problem"><p>Content from <a href="2-identify-the-problem.html">Identify the problem and make a plan</a></p>
 <hr>
-<p>Last updated on 2026-02-24 |
+<p>Last updated on 2026-03-03 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/2-identify-the-problem.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1800,7 +1800,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-3-minimal-reproducible-code"><p>Content from <a href="3-minimal-reproducible-code.html">Minimal reproducible code</a></p>
 <hr>
-<p>Last updated on 2026-02-24 |
+<p>Last updated on 2026-03-03 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/3-minimal-reproducible-code.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -2553,7 +2553,7 @@ any links that you are not going to use.
 </div>
 </div></section><section id="aio-4-minimal-reproducible-data"><p>Content from <a href="4-minimal-reproducible-data.html">Minimal reproducible data</a></p>
 <hr>
-<p>Last updated on 2026-02-24 |
+<p>Last updated on 2026-03-03 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/4-minimal-reproducible-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -3151,7 +3151,7 @@ Visualization in R for Ecologists</a>).</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1] 9 1 2 6 7</code></pre>
+<pre class="output" tabindex="0"><code>[1]  7  5 10  8  6</code></pre>
 </div>
 <p>Or you can randomly sample from a normal distribution</p>
 <div class="codewrapper sourceCode" id="cb20">
@@ -3164,8 +3164,8 @@ Visualization in R for Ecologists</a>).</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1] -1.09661389 -0.38641709 -0.02238582  0.11590507 -0.49023878 -1.33091769
- [7] -0.03217919 -0.30498972  0.53778249 -0.78195417</code></pre>
+<pre class="output" tabindex="0"><code> [1] -1.2311440 -0.7106349  0.1027417 -0.1388955  0.8053133 -0.1985295
+ [7] -1.7818852  0.4200242 -0.2093956  0.9908945</code></pre>
 </div>
 <p>You can also use built-in vectors like <code>letters</code> to create
 factors.</p>
@@ -3179,8 +3179,8 @@ factors.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1] "c" "b" "c" "a" "a" "c" "d" "b" "d" "b" "b" "c" "c" "b" "c" "c" "a" "b" "c"
-[20] "d"</code></pre>
+<pre class="output" tabindex="0"><code> [1] "b" "a" "c" "c" "c" "d" "c" "b" "a" "b" "d" "d" "b" "a" "a" "d" "a" "c" "c"
+[20] "c"</code></pre>
 </div>
 <p>Remember that <strong>a data frame is just a collection of
 vectors</strong>. You can create a data frame using
@@ -3199,12 +3199,12 @@ variable.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>  x          y
-1 b  1.7434602
-2 c -1.0455049
-3 c  0.1794809
-4 c -1.4669104
-5 b -0.3858596
-6 c  0.2545273</code></pre>
+1 b  1.5682361
+2 b  0.8845246
+3 b -0.2087533
+4 c  1.2684623
+5 a -0.8560415
+6 b -0.5820175</code></pre>
 </div>
 <p><strong>However</strong>, when sampling at random you must remember
 to <code>set.seed()</code> before sending it to someone to make sure you
@@ -3479,14 +3479,14 @@ dataset just in case.</p>
 </h3>
 <pre class="output" tabindex="0"><code>   record_id  sex
 1          1 &lt;NA&gt;
-2          2 &lt;NA&gt;
-3          3 &lt;NA&gt;
-4          4    F
-5          5    M
-6          6    M
-7          7    M
-8          8    F
-9          9 &lt;NA&gt;
+2          2    M
+3          3    M
+4          4 &lt;NA&gt;
+5          5 &lt;NA&gt;
+6          6 &lt;NA&gt;
+7          7 &lt;NA&gt;
+8          8    M
+9          9    M
 10        10    F</code></pre>
 </div>
 <p>And just like that we helped Mickey create a mock dataset from
@@ -3508,16 +3508,16 @@ dataset in a single line by creating each vector within
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>   record_id  sex
-1          1    F
+1          1 &lt;NA&gt;
 2          2 &lt;NA&gt;
-3          3    F
-4          4    F
-5          5    F
-6          6    M
+3          3    M
+4          4 &lt;NA&gt;
+5          5 &lt;NA&gt;
+6          6 &lt;NA&gt;
 7          7    M
-8          8    M
-9          9    M
-10        10 &lt;NA&gt;</code></pre>
+8          8 &lt;NA&gt;
+9          9    F
+10        10    F</code></pre>
 </div>
 <p><strong>Important</strong>: Notice that the outputs of the two
 datasets are not the same. If you want the outputs to be EXACTLY the
@@ -4395,7 +4395,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-5-asking-your-question"><p>Content from <a href="5-asking-your-question.html">Asking your question</a></p>
 <hr>
-<p>Last updated on 2026-02-24 |
+<p>Last updated on 2026-03-03 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/5-asking-your-question.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -5124,7 +5124,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.18.5" class="external-link">sandpaper (0.18.5)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.9" class="external-link">varnish (1.0.9)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.20.0" class="external-link">sandpaper (0.20.0)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.9" class="external-link">varnish (1.0.9)</a></p>
 		</div>
 		</footer>
 </div> <!-- / div.container -->
@@ -5147,8 +5147,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/R-help-reprexes/aio.html",
   "identifier": "https://carpentries-incubator.github.io/R-help-reprexes/aio.html",
   "dateCreated": "2024-05-14",
-  "dateModified": "2026-02-24",
-  "datePublished": "2026-02-24"
+  "dateModified": "2026-03-03",
+  "datePublished": "2026-03-03"
 }
 
   </script><script>
