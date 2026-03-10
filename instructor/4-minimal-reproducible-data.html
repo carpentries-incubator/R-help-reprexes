@@ -325,7 +325,7 @@ it?</a></li>
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Minimal reproducible data</h1>
-        <p>Last updated on 2026-03-03 |
+        <p>Last updated on 2026-03-10 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/4-minimal-reproducible-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -943,7 +943,7 @@ Visualization in R for Ecologists</a>).</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1]  7  5 10  8  6</code></pre>
+<pre class="output" tabindex="0"><code>[1] 6 8 9 1 7</code></pre>
 </div>
 <p>Or you can randomly sample from a normal distribution</p>
 <div class="codewrapper sourceCode" id="cb20">
@@ -956,8 +956,8 @@ Visualization in R for Ecologists</a>).</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1] -1.2311440 -0.7106349  0.1027417 -0.1388955  0.8053133 -0.1985295
- [7] -1.7818852  0.4200242 -0.2093956  0.9908945</code></pre>
+<pre class="output" tabindex="0"><code> [1]  0.75099876 -1.32903956 -0.34242893  0.02048091  0.41611303  0.31587350
+ [7]  0.85063630  0.29433535  0.64858172  0.08244144</code></pre>
 </div>
 <p>You can also use built-in vectors like <code>letters</code> to create
 factors.</p>
@@ -971,8 +971,8 @@ factors.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1] "b" "a" "c" "c" "c" "d" "c" "b" "a" "b" "d" "d" "b" "a" "a" "d" "a" "c" "c"
-[20] "c"</code></pre>
+<pre class="output" tabindex="0"><code> [1] "b" "a" "b" "b" "c" "b" "d" "a" "b" "d" "a" "a" "c" "d" "a" "b" "a" "c" "c"
+[20] "b"</code></pre>
 </div>
 <p>Remember that <strong>a data frame is just a collection of
 vectors</strong>. You can create a data frame using
@@ -990,13 +990,13 @@ variable.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>  x          y
-1 b  1.5682361
-2 b  0.8845246
-3 b -0.2087533
-4 c  1.2684623
-5 a -0.8560415
-6 b -0.5820175</code></pre>
+<pre class="output" tabindex="0"><code>  x           y
+1 c -0.06026005
+2 c  0.96915419
+3 c  1.84446589
+4 a  2.30856046
+5 c  0.92262817
+6 c -0.45992020</code></pre>
 </div>
 <p><strong>However</strong>, when sampling at random you must remember
 to <code>set.seed()</code> before sending it to someone to make sure you
@@ -1301,16 +1301,16 @@ dataset just in case.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>   record_id  sex
-1          1 &lt;NA&gt;
-2          2    M
+1          1    F
+2          2 &lt;NA&gt;
 3          3    M
 4          4 &lt;NA&gt;
-5          5 &lt;NA&gt;
-6          6 &lt;NA&gt;
+5          5    M
+6          6    M
 7          7 &lt;NA&gt;
-8          8    M
+8          8    F
 9          9    M
-10        10    F</code></pre>
+10        10    M</code></pre>
 </div>
 <p>And just like that we helped Mickey create a mock dataset from
 scratch! Notice that they could also have compiled the same type of
@@ -1331,16 +1331,16 @@ dataset in a single line by creating each vector within
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>   record_id  sex
-1          1 &lt;NA&gt;
+1          1    F
 2          2 &lt;NA&gt;
 3          3    M
-4          4 &lt;NA&gt;
-5          5 &lt;NA&gt;
+4          4    F
+5          5    M
 6          6 &lt;NA&gt;
-7          7    M
-8          8 &lt;NA&gt;
-9          9    F
-10        10    F</code></pre>
+7          7 &lt;NA&gt;
+8          8    M
+9          9 &lt;NA&gt;
+10        10    M</code></pre>
 </div>
 <p><strong>Important</strong>: Notice that the outputs of the two
 datasets are not the same. If you want the outputs to be EXACTLY the
@@ -2283,8 +2283,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/R-help-reprexes/instructor/4-minimal-reproducible-data.html",
   "identifier": "https://carpentries-incubator.github.io/R-help-reprexes/instructor/4-minimal-reproducible-data.html",
   "dateCreated": "2024-05-14",
-  "dateModified": "2026-03-03",
-  "datePublished": "2026-03-03"
+  "dateModified": "2026-03-10",
+  "datePublished": "2026-03-10"
 }
 
   </script><script>
