@@ -321,7 +321,7 @@ it?</a></li>
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Minimal reproducible data</h1>
-        <p>Last updated on 2026-04-28 |
+        <p>Last updated on 2026-05-05 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/4-minimal-reproducible-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -758,10 +758,10 @@ each of the 3 approaches listed above. However, within the data science
 community, opinions differ on which method is best recommended. Below is
 a summary table of advantages and disadvantages of each approach based
 on many conversations with several data science groups.</p>
-<table style="width:100%;" class="table"><colgroup><col width="6%"><col width="57%"><col width="35%"></colgroup><tbody><tr class="odd"><td></td>
+<table style="width:100%;" class="table"><colgroup><col width="6%"><col width="57%"><col width="35%"></colgroup><tbody><tr><td></td>
 <td><strong>Advantages</strong></td>
 <td><strong>Disadvantages</strong></td>
-</tr><tr class="even"><td><strong>Data from Scratch</strong></td>
+</tr><tr><td><strong>Data from Scratch</strong></td>
 <td><ul><li><p>Often the most concise</p></li>
 <li><p>Easiest for helpers</p></li>
 <li><p>Helps problem-solve along the way (e.g., identify what data
@@ -786,7 +786,7 @@ more likely to require greater context</p></li>
 <li><p>Risks generating XY problems–make sure you are asking the right
 question/replicating the right problem</p></li>
 </ul></td>
-</tr><tr class="odd"><td><strong>R-built Data</strong></td>
+</tr><tr><td><strong>R-built Data</strong></td>
 <td><ul><li><p>Simple and easy to share–no need to provide additional
 data</p></li>
 <li><p>Familiar–helpers already know the data structure</p></li>
@@ -807,7 +807,7 @@ and context–mental gymnastics</p></li>
 <li><p>Still need to choose which dataset and variables are more
 appropriate</p></li>
 </ul></td>
-</tr><tr class="even"><td><strong>Your Data</strong></td>
+</tr><tr><td><strong>Your Data</strong></td>
 <td><ul><li><p>Can require the least mental effort</p></li>
 <li><p>Problem is easy to replicate even if you don’t understand it at
 all</p></li>
@@ -877,7 +877,7 @@ Visualization in R for Ecologists</a>).</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1] 5 6 7 2 8</code></pre>
+<pre class="output" tabindex="0"><code>[1]  6  8  7 10  1</code></pre>
 </div>
 <p>Or you can randomly sample from a normal distribution</p>
 <div class="codewrapper sourceCode" id="cb20">
@@ -890,8 +890,8 @@ Visualization in R for Ecologists</a>).</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1]  0.6393861 -0.3661940 -0.7358510 -0.7617969 -1.6431893  1.0636932
- [7]  0.5282957 -0.7718131  0.1350156 -0.5403711</code></pre>
+<pre class="output" tabindex="0"><code> [1]  0.83685293 -0.96118825  0.28925271  0.29514377 -0.15162519  1.35640779
+ [7]  0.43782147 -0.44863751 -0.09601767  0.38563029</code></pre>
 </div>
 <p>You can also use built-in vectors like <code>letters</code> to create
 factors.</p>
@@ -905,7 +905,7 @@ factors.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1] "a" "a" "c" "d" "a" "b" "b" "d" "b" "b" "b" "a" "b" "a" "b" "c" "a" "c" "b"
+<pre class="output" tabindex="0"><code> [1] "d" "d" "c" "c" "b" "a" "b" "c" "d" "a" "b" "b" "b" "d" "a" "b" "c" "d" "c"
 [20] "a"</code></pre>
 </div>
 <p>Remember that <strong>a data frame is just a collection of
@@ -924,13 +924,13 @@ variable.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>  x           y
-1 a  0.09507370
-2 c  0.06866973
-3 c -0.36638527
-4 b  0.07909557
-5 b -0.16485322
-6 c -0.53707200</code></pre>
+<pre class="output" tabindex="0"><code>  x          y
+1 a -1.6519591
+2 b -1.2199314
+3 b -0.5019876
+4 a -0.9420107
+5 a  2.5028013
+6 b -0.4228049</code></pre>
 </div>
 <p><strong>However</strong>, when sampling at random you must remember
 to <code>set.seed()</code> before sending it to someone to make sure you
@@ -1189,15 +1189,15 @@ dataset just in case.</p>
 </h3>
 <pre class="output" tabindex="0"><code>   record_id  sex
 1          1    F
-2          2    F
+2          2    M
 3          3    F
-4          4    F
-5          5    F
-6          6    M
-7          7    M
-8          8    F
-9          9 &lt;NA&gt;
-10        10 &lt;NA&gt;</code></pre>
+4          4 &lt;NA&gt;
+5          5 &lt;NA&gt;
+6          6    F
+7          7 &lt;NA&gt;
+8          8 &lt;NA&gt;
+9          9    M
+10        10    F</code></pre>
 </div>
 <p>And just like that we helped Mickey create a mock dataset from
 scratch! Notice that they could also have compiled the same type of
@@ -1219,15 +1219,15 @@ dataset in a single line by creating each vector within
 </h3>
 <pre class="output" tabindex="0"><code>   record_id  sex
 1          1 &lt;NA&gt;
-2          2 &lt;NA&gt;
-3          3 &lt;NA&gt;
-4          4 &lt;NA&gt;
+2          2    F
+3          3    F
+4          4    F
 5          5    F
-6          6 &lt;NA&gt;
-7          7    M
-8          8    F
+6          6    F
+7          7    F
+8          8 &lt;NA&gt;
 9          9    M
-10        10 &lt;NA&gt;</code></pre>
+10        10    M</code></pre>
 </div>
 <p><strong>Important</strong>: Notice that the outputs of the two
 datasets are not the same. If you want the outputs to be EXACTLY the
@@ -2132,8 +2132,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/R-help-reprexes/4-minimal-reproducible-data.html",
   "identifier": "https://carpentries-incubator.github.io/R-help-reprexes/4-minimal-reproducible-data.html",
   "dateCreated": "2024-05-14",
-  "dateModified": "2026-04-28",
-  "datePublished": "2026-04-28"
+  "dateModified": "2026-05-05",
+  "datePublished": "2026-05-05"
 }
 
   </script><script>
