@@ -30,7 +30,6 @@ In this **first episode**, we will introduce the concept of a *minimal reproduci
 ::: objectives
 -   Describe a minimal reproducible example and its requirements.
 -   Recognize how creating a minimal reproducible example can help you solve problems in your code.
--   List the key steps to creating a minimal reproducible example.
 -   Explain the benefits of creating a minimal reproducible example both for you and for others.
 -   Load in the rodent survey data and briefly explain its contents.
 :::
