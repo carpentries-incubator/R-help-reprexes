@@ -62,7 +62,7 @@ Luckily, there are many people in the R and data science communities who are hap
 
 Many helpers or forums may ask you to provide example data or a **minimal reproducible example** (commonly abbreviated as a "**reprex**"). What even is that? Wouldn’t it be nice if you could just hand over your computer so a helper can see exactly what is happening? That's exactly what the reprex is for.
 
-## What is a reprex?
+## What is a minimal reproducible example ("reprex")?
 
 A reprex is essentially a **simplified** version of your problematic code that clearly demonstrates the problem you are facing (includes **only** the necessary information to show the problem, nothing more) and **will run easily on anyone's computer**.
 
@@ -173,10 +173,6 @@ The dataset includes data from a number of different study plots that had differ
 There is information about the `genus` and `species` of each individual caught. There is a `species_id` column that identifies the species of each individual caught.
 
 In addition, there is a column called `taxa` that contains higher-level taxonomic information. Most of the observations are rodents, but there are also some birds, rabbits, and reptiles.
-
-```{r}
-table(surveys$taxa)
-```
 
 For each individual caught, the field crew took `weight`, `sex` and `hindfoot_length` measurements *when possible*, so values are sometimes missing.
 
