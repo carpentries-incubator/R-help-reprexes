@@ -4,19 +4,21 @@ teaching: 15
 exercises: 10
 ---
 
-::: instructor
 ## Welcome and introductions
 
-Welcome to "RRRR, I’m Stuck!" We’re glad you’re here. Let’s first take care of a few setup steps. You should all have followed the setup instructions on the workshop website, and you should have both R and RStudio installed. You should also have the following packages installed: {reprex}, {tidyverse}, and {ggplot2}. If you haven't installed those packages, please take a moment to install them now. We have a range of levels of experience here. This workshop assumes that you are a researcher in ecology or biology who has some prior experience working with R in RStudio.
+Welcome to "RRRR, I’m Stuck!" We’re glad you’re here. Let’s first take care of a few setup steps. You should all have followed the setup instructions on the workshop website, and you should have both R and RStudio installed. You should also have the following packages installed: {reprex}, {tidyverse}, and {ggplot2}. If you haven't installed those packages, please take a moment to install them now. 
+
+We have a range of levels of experience here. This workshop assumes that you are a researcher in ecology or biology who has some prior experience working with R in RStudio. 
 
 This lesson will follow a fictional ecology grad student named Mickey as they explore a new dataset, deal with various common coding problems, and learn how to write a minimal reproducible example to ask for help in community forums. We will not spend much time discussing the code itself, as we will assume you have a basic background.
 
-It’s okay if you’re not an R expert–-but even experienced coders may not always know how to get unstuck, so we hope this workshop will be useful to many levels of coding background.
+It’s okay if you’re not an R expert. But even experienced coders may not always know how to get unstuck, so we hope this workshop will be useful to many levels of coding background.
 
-[MAYBE ADD SOMETHING ABOUT WHAT THE OVERALL LESSON OBKECTIVES ARE]
+At the end of this lesson, we are hoping that you will have achieved two main things.
 
-In this first episode we will introduce the concept of a *minimal reproducible example* and how it can be useful for getting unstuck while coding. We will provide you with a roadmap that highlights the key steps to follow as we move through the lesson. And we will take a look at the dataset that we'll be using throughout the rest of the lesson.
-:::
+First, you will understand the importance of minimal reproducible examples for getting unstuck. Second, you will be equipped with a "road map" for breaking down your problem and constructing a minimal reproducible example. This road map can be applied broadly to various problems that you might encounter with your code in the future.
+
+In this **first episode**, we will introduce the concept of a *minimal reproducible example* and how it can be useful for getting unstuck while coding. We will introduce the road map that highlights the key steps we will follow as we move through the lesson. Finally, we will take a look at the dataset that we'll be using throughout the rest of the lesson.
 
 ::: questions
 -   What steps can you take to solve problems in your code?
@@ -36,10 +38,12 @@ In this first episode we will introduce the concept of a *minimal reproducible e
 ::: instructor
 The following exercises are optional, but they can are useful for getting learners settled in. They could happen at the start of the lesson, to break the ice:
 
-"Before we begin, let's take a moment to reflect on why we are here"
+"Before we begin, let's take a moment to reflect on why we are here,"
 
-Or they can happen after a first introduction to reprexes.
+...or they can happen after a first introduction to reprexes.
 :::
+
+Let's start out with a quick brainstorm.
 
 ::: challenge
 ### Exercise 1 (think, pair, share): When you get stuck
