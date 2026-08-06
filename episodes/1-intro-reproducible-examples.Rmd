@@ -117,7 +117,17 @@ This workshop assumes some prior experience with working in R and RStudio. We wi
 If you're much more experienced in R, this workshop is still for you! Even expert coders may not always know how to get unstuck. We hope this workshop will be useful to people with a variety of coding backgrounds.
 :::
 
-Mickey starts by loading the data so they can begin to explore it. They also load the {tidyverse}, a set of packages that will be useful for wrangling and visualizing the data.
+So, we've been talking about the theory behind reprexes and introducing you to the workshop. From now on, we're going to shift over to live coding. At this point, you should go ahead and open RStudio. Make sure that you're in the RStudio project that you created for this lesson, and that you've downloaded the data as a csv and saved it in the "data/" folder. Let's take a few moments to get set up here.
+
+::: callout
+As a reminder: Make sure you're coding in your RStudio project. You can open the project you created by double-clicking the ".Rproj" file from your Finder/File Explorer. Or, from inside of RStudio, navigate to the upper right corner of the screen, click on the blue cube icon, choose "Open Project", and then select your project to open a new session of RStudio.
+:::
+
+::: instructor
+This would be a great time to do a sticky note or reaction check to make sure that everyone is ready to go before proceeding.
+:::
+
+Okay, so let's follow along with Mickey as they begin to explore the data. Mickey opens RStudio and starts by loading the {tidyverse}, a set of packages that will be useful for wrangling and visualizing the data.
 
 ::: instructor
 Loading the entire {tidyverse} here, rather than a few component packages, is an intentional over-complication so that we can teach learners to simplify their packages later. Learners should have {tidyverse} installed, as per the setup instructions. They should also already have a project and folders set up, with the data downloaded and in the "data" folder of the project.
@@ -125,31 +135,25 @@ Loading the entire {tidyverse} here, rather than a few component packages, is an
 If necessary, here is the url for the data: <https://raw.githubusercontent.com/carpentries-incubator/R-help-reprexes/refs/heads/main/episodes/data/surveys_complete_77_89.csv>
 :::
 
-Let's go over to RStudio. Make sure that you're in the RStudio project that you created for this lesson, and that you've downloaded the data as a csv and saved it in the "data/" folder. 
-
-::: callout
-As a reminder: Make sure you're coding in your RStudio project. You can open the project you created by double-clicking the ".Rproj" file from your Finder/File Explorer. Or, from inside of RStudio, navigate to the upper right corner of the screen, click on the blue cube icon, choose "Open Project", and then select your project to open a new session of RStudio.
-:::
-
-Now, we can load in the dataset with the following code:
-
 ```{r eval = F, message = F, warning = F}
 # Loading the tidyverse package
 library(tidyverse)
 ```
 
 ```{r echo = F, message = F, warning = F}
-# actually loading readr and dplyr, instead of loading the entire tidyverse, so that the lesson page renders correctly
+# NOT FOR DISPLAY! actually loading readr and dplyr, instead of loading the entire tidyverse, so that the lesson page renders correctly
 library(readr)
 library(dplyr)
 ```
+
+Next, we can use the read_csv function from one of those tidyverse packages to load in the dataset. This line of code assumes that you have stored the surveys dataset in the data/ folder, according to the setup instructions.
 
 ```{r}
 # Uploading the dataset that is currently saved in the project's data folder
 surveys <- read_csv("data/surveys_complete_77_89.csv") 
 ```
 
-Mickey loads in the dataset and takes a look at it to find out what type of data was collected during these surveys.
+Let's follow along with Mickey as they examine the dataset. Mickey wants to get familiar with the dataset and find out what type of data was collected during these surveys.
 
 ```{r results='hold'}
 # Take a look at the data
@@ -175,17 +179,17 @@ For each individual caught, the field crew took `weight`, `sex` and `hindfoot_le
 
 Overall, the dataset contains 16,878 rodent observations ranging across years from 1977 through 1989.
 
-With a clear understanding of the data, Mickey is now free to explore on their own. However, Remy notices that Mickey still looks nervous and decides to share a tool they recently found useful: a roadmap to getting unstuck in R by making a reprex.
+With a clear understanding of the data, Mickey is now free to explore on their own. However, Remy notices that Mickey still looks nervous, hesitating to write any code for fear of messing things up. Remy decides to share a tool they recently found useful: a roadmap to getting unstuck in R by making a reprex. Let's take a quick break from our own RStudio sessions and look through this road map together before we get back to coding.
 
 ![](fig/Roadmap_Aug25.svg)
 
-Remy's roadmap outlines four key steps for making a reprex. It is also intended to help the user better understand their problem and potentially find a solution along the way. Remy follows these steps any time they get stuck while coding. Indeed, the first portion of the roadmap, which Remy likes to call "code first aid," includes preliminary steps to help identify and diagnose the problem, such as determining the type of error, reading function documentation, interpreting error messages, and running through the code line by line.
+Remy's roadmap outlines four key steps for making a reprex. It is also intended to help the user better understand their problem and potentially find a solution along the way. Remy explains that they follow these steps any time they get stuck while coding. Indeed, the first portion of the roadmap, which Remy likes to call "Code First Aid," includes preliminary steps to help identify and diagnose the problem, such as determining the type of error, reading function documentation, interpreting error messages, and running through the code line by line.
 
-Remy explains that sometimes, these first aid steps are enough to solve code problems. But if not, the rest of the roadmap will lead Mickey through strategies to better understand the problem and demonstrate it to others in a minimal reproducible example ("reprex").
+Remy explains that sometimes, these "First Aid" steps are enough to solve code problems. But if not, the rest of the roadmap will lead Mickey through strategies to better understand the problem and demonstrate it to others in a minimal reproducible example ("reprex").
 
 Remy emphasizes to Mickey that they are happy to keep helping, but they will be very busy trying to finish writing their dissertation. If Mickey can first follow the steps outlined in this roadmap, then Remy can more easily help with whatever Mickey is struggling to resolve.
 
-With an introduction to the dataset and a roadmap to guide them if they get stuck, Mickey feels ready to start coding!
+Mickey takes a deep breath. With an introduction to the dataset and a roadmap for guidance if they get stuck, Mickey feels ready to start coding!
 
 ::: instructor
 Mickey feels ready--do your learners also feel ready? This could be a good place to ask what questions they have :)
