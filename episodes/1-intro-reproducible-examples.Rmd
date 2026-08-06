@@ -50,15 +50,15 @@ Let's start out with a quick brainstorm.
 When you're coding in R and you get stuck, what are some things that you do to get help or get unstuck?
 :::
 
+One of the most frustrating parts of learning to code is getting stuck and not knowing what to do! Maybe R gives you an angry red error message you don’t understand, or your code doesn’t seem to be doing what you were expecting and you don’t know why. Maybe you try to use Google to find answers but you can’t quite find the same problem out there. What to do?
+
+Luckily, there are many people in the R and data science communities who are happy to help. However, in order for them to do so, you must give them the right information. Figuring out how to ask a good question can be hard. 
+
 ::: challenge
 ### Exercise 2 (think, pair, share): Helping someone else
 
 Think about a time that you helped someone else with their code. What information did you need to know in order to help? (If you have never helped someone else with their code, think about a time that someone helped you--what information did they need to know in order to help?)
 :::
-
-One of the most frustrating parts of learning to code is getting stuck and not knowing what to do! Maybe R gives you an angry red error message you don’t understand, or your code doesn’t seem to be doing what you were expecting and you don’t know why. Maybe you try to use Google to find answers but you can’t quite find the same problem out there. What to do?
-
-Luckily, there are many people in the R and data science communities who are happy to help. However, in order for them to do so, you must give them the right information. Figuring out how to ask a good question can be hard. 
 
 Many helpers or forums may ask you to provide example data or a **minimal reproducible example** (commonly abbreviated as a "**reprex**"). What even is that? Wouldn’t it be nice if you could just hand over your computer so a helper can see exactly what is happening? That's exactly what the reprex is for.
 
