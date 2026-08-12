@@ -32,29 +32,27 @@ library(stringr) # note to instructors: reading these packages in individually i
 surveys <- read_csv("data/surveys_complete_77_89.csv") 
 ```
 
-Let's take a look in more detail at the first step of the roadmap.
+In this episode, we'll cover what to do when you first encounter an error or undesired output from your code. We'll cover the basics of identifying errors, fixing them if possible, and determining when to move on from code first aid and create a minimal reproducible example.
 
-![](fig/01_identify_problem.png)
-
-In this episode, we'll cover what to do when you first encounter an error or undesired output from your code. We'll cover the basics of identifying errors, fixing them if possible, and determining when to create a reprex. At the end of the lesson, we'll return to Mickey's analysis.
-
-The first step in solving a problem is understanding what is going wrong. Sometimes R will help you out by displaying an error message when it is unable to run your code. This is a helpful diagnostic tool that, when interpreted correctly, can quickly lead you to a solution. Other times, R doesn't encounter any problems running your code, but the output is not what you expected. These problems may require a few extra steps to properly diagnose. We will start with easier scenarios and provide helpful "code first aid" steps as we build up to harder challenges.
-
-## First Aid Strategy #1: Interpret error messages and change function inputs
-
-R will often let us know there's a problem by displaying an error message. An error that generates an error message is called a **syntax error**. Error messages happen when R is not able to run your code (this is in contrast to a **warning** message, which gives a hint that something could be wrong while the code keeps running). Error messages are sometimes straightforward, but other times they can be very tricky to decipher. In this lesson, will teach some tools for interpreting syntax errors for yourself.
-
-Here's an example error message. In the last episode, we saw that the `taxa` column contains information about the higher-level taxon of each organism caught, such as "Rodent" or "Bird". We decide to look at the distribution of taxa by creating a frequency table.
+When we left off in the last episode, Mickey had just encountered an error while trying to make a frequency table of the taxa contained in the surveys dataset.
 
 ```{r error = T}
 table(taxa)
 ```
 
-This code produces an error. What's going on?
+To get started on fixing this error, let's take a look in more detail at the first step of the roadmap.
 
-R is telling us that it can't find `taxa` in the local environment. That's because we haven't told it where to look--recall that `taxa` is the name of a column in the `surveys` dataset.
+![](fig/01_identify_problem.png)
 
-The information from the error message doesn't specifically tell us how to solve the error, but it can help us realize what went wrong. In this case, we can look back at our previous code and see that we were able to point R to the column using the `$` operator:
+The first step in solving a problem is understanding what is going wrong. Sometimes R will help you out by displaying an error message when it is unable to run your code. This is a helpful diagnostic tool that, when interpreted correctly, can quickly lead you to a solution.
+
+## First Aid Strategy #1: Interpret error messages and change function inputs
+
+R will often let us know there's a problem by displaying an error message. An error that generates an error message is called a **syntax error**. Error messages happen when R is not able to run your code (this is in contrast to a **warning** message, which gives a hint that something could be wrong while the code keeps running). Error messages are sometimes straightforward, but other times they can be very tricky to decipher. In this lesson, will teach some tools for interpreting syntax errors for yourself.
+
+In the case of Mickey's error, R is telling us that it can't find `taxa` in the local environment. That's because we haven't told it where to look--recall that `taxa` is the name of a column in the `surveys` dataset.
+
+The information from the error message doesn't specifically tell us how to solve the error, but it can help us realize what went wrong. In this case, we need to point R to the column using the `$` operator:
 
 ```{r}
 table(surveys$taxa)
