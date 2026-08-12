@@ -190,10 +190,18 @@ Remy explains that sometimes, these "First Aid" steps will be enough to solve co
 
 Remy emphasizes to Mickey that they are happy to keep helping, but they will be very busy trying to finish writing their dissertation. If Mickey can first follow the steps outlined in this roadmap, then Remy can more easily help with whatever Mickey is struggling to resolve.
 
-Mickey takes a deep breath. With an introduction to the dataset and a roadmap for guidance if they get stuck, Mickey feels ready to start coding!
+Mickey takes a deep breath. With an introduction to the dataset and a roadmap for guidance if they get stuck, Mickey feels ready to start coding! They decide to start by learning more about which taxa are included in the dataset, since their analysis will focus only on rodents. Mickey wants to create a frequency table of the `taxa` column.
+
+```{r error = T}
+table(taxa)
+```
+
+Immediately, Mickey encounters an error! What's going on? Already, Mickey has an opportunity to try out Remy's roadmap. 
+
+In the next episode, we will begin to explore the roadmap, starting with some "code first aid" strategies. We'll learn more about different types of errors and how to start fixing them, and hopefully we'll be able to help Mickey get unstuck.
 
 ::: instructor
-Mickey feels ready--do your learners also feel ready? This could be a good place to ask what questions they have :)
+Mickey feels ready to start coding and using the roadmap. Do your learners also feel ready? This could be a good place to ask what questions they have :)
 :::
 
 ::: keypoints
