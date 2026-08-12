@@ -5,23 +5,23 @@ exercises: 20
 ---
 
 ::: questions
--   What do I do when I encounter an error?
--   What do I do when my code outputs something I don’t expect?
--   Why do errors and warnings appear in R?
--   How can I find which areas of code are responsible for errors?
--   How can I fix my code? What other options exist if I can't fix it?
+- What do I do when I encounter an error?
+- What do I do when my code outputs something I don’t expect?
+- Why do errors and warnings appear in R?
+- How can I find which areas of code are responsible for errors?
+- How can I fix my code? What other options exist if I can't fix it?
 :::
 
 ::: objectives
 After completing this episode, participants should be able to...
 
--   Describe how the desired code output differs from the actual output
--   Categorize an error message (e.g. syntax errors vs. semantic errors)
--   Describe what an error message is trying to communicate
--   Identify specific lines and/or functions generating the error message
--   Use R Documentation to look up function syntax and examples
--   Quickly fix commonly-encountered R errors using 'code first aid'
--   Identify when a problem is better suited for asking for further help, including making a `reprex`
+- Describe how the desired code output differs from the actual output
+- Categorize an error message (e.g. syntax errors vs. semantic errors)
+- Describe what an error message is trying to communicate
+- Identify specific lines and/or functions generating the error message
+- Use R Documentation to look up function syntax and examples
+- Quickly fix commonly-encountered R errors using 'code first aid'
+- Identify when a problem is better suited for asking for further help, including making a `reprex`
 :::
 
 ```{r, echo=F, message=FALSE, warning = FALSE}
@@ -40,7 +40,7 @@ In this episode, we'll cover what to do when you first encounter an error or und
 
 The first step in solving a problem is understanding what is going wrong. Sometimes R will help you out by displaying an error message when it is unable to run your code. This is a helpful diagnostic tool that, when interpreted correctly, can quickly lead you to a solution. Other times, R doesn't encounter any problems running your code, but the output is not what you expected. These problems may require a few extra steps to properly diagnose. We will start with easier scenarios and provide helpful "code first aid" steps as we build up to harder challenges.
 
-## Strategy 1: Interpret error messages and change function inputs
+## First Aid Strategy #1: Interpret error messages and change function inputs
 
 R will often let us know there's a problem by displaying an error message. An error that generates an error message is called a **syntax error**. Error messages happen when R is not able to run your code (this is in contrast to a **warning** message, which gives a hint that something could be wrong while the code keeps running). Error messages are sometimes straightforward, but other times they can be very tricky to decipher. In this lesson, will teach some tools for interpreting syntax errors for yourself.
 
@@ -49,9 +49,10 @@ Here's an example error message. In the last episode, we saw that the `taxa` col
 ```{r error = T}
 table(taxa)
 ```
+
 This code produces an error. What's going on?
 
-R is telling us that it can't find `taxa` in the local environment. That's because we haven't told it where to look--recall that `taxa` is the name of a column in the `surveys` dataset. 
+R is telling us that it can't find `taxa` in the local environment. That's because we haven't told it where to look--recall that `taxa` is the name of a column in the `surveys` dataset.
 
 The information from the error message doesn't specifically tell us how to solve the error, but it can help us realize what went wrong. In this case, we can look back at our previous code and see that we were able to point R to the column using the `$` operator:
 
@@ -70,11 +71,11 @@ It seems like that should have worked, but we got another error message, and thi
 
 First, we see an error from a function called `fortify`, which we didn't even use! Then, there's a more helpful informational message: "Did you accidentally pass `aes()` to the `data` argument?" This does seem to relate to our line of code, as we do pass `aes` into the `ggplot` function. But what is this "`data` argument?"
 
-## Strategy 2: Read function documentation
+## First Aid Strategy #2: Read function documentation
 
 Reading the error message gave us some clues, but it wasn't enough to fix the problem. Let's try another strategy. Reading the function documentation can improve our understanding of how the function works, and often that can reveal problems with our code.
 
-Let's access the documentation for the function `ggplot`: 
+Let's access the documentation for the function `ggplot`:
 
 ```{r}
 ?ggplot
@@ -92,8 +93,7 @@ ggplot(data = surveys, mapping = aes(x = taxa)) + geom_bar()
 
 The error message is gone, and it works! Here we see our desired plot. What do you notice about the data?
 
-*- Lots of rodents*
-*- Some missing values (NAs)*
+*- Lots of rodents* *- Some missing values (NAs)*
 
 Let's take a moment to highlight some patterns we're starting to see in the course of tinkering with our code.
 
@@ -103,16 +103,20 @@ We carefully **read the error message** and took a guess at what might be wrong.
 
 When we encountered another error message, we **looked through the function documentation** to find more clues about how to fix the error. This helped us see that we were missing an argument.
 
-Another strategy we could have tried would be to copy and paste the error message into a **search engine** for more interpretable explanations. And, when all else fails, we can prepare our code into a reproducible example for expert help.
+## First Aid Strategy #3: Search the error message
+
+Another strategy we could have tried would be to copy and paste the error message into a **search engine** for more interpretable explanations.
+
+## Practice applying code first aid strategies
 
 Let's see if we can use the strategies we've learned so far to address a new problem. Here they are, for reference:
 
 ::: callout
 ### Code first aid strategies
 
-- Interpret error messages and tweak inputs
-- Look at the function documentation
-- Put the error message into a search engine
+1.  Interpret error messages and tweak inputs
+2.  Look at the function documentation
+3.  Put the error message into a search engine
 :::
 
 :::: challenge
@@ -141,7 +145,7 @@ surveys %>% count(genus, species)
 :::
 ::::
 
-## Semantic errors
+### Semantic errors
 
 Let's go back to our rodent analysis. We would like to subset the data to include only the `Rodent` taxon (as opposed to the other taxa included in the dataset: Bird, Rabbit, Reptile or NA). Let's quickly check to see how much data we'd be throwing out by doing so:
 
@@ -149,7 +153,7 @@ Let's go back to our rodent analysis. We would like to subset the data to includ
 table(surveys$taxa)
 ```
 
-We're interested in the rodents, and thankfully it seems like a majority of our observations will be maintained when subsetting to rodents. But wait... In the barplot above, we could clearly see that there were some NA values. Why don't we see them here? 
+We're interested in the rodents, and thankfully it seems like a majority of our observations will be maintained when subsetting to rodents. But wait... In the barplot above, we could clearly see that there were some NA values. Why don't we see them here?
 
 This is a new type of problem, called a **semantic error**: the R code ran without any error messages, but it produced an unexpected output. Because there is no error message, semantic errors can be sneaky and hard to notice!
 
@@ -218,7 +222,7 @@ The steps to identifying the problem and in **code first aid** matches what we'v
 Generally, the more your code deviates from just using base R functions, or the more you use specific packages, both the quality of documentation and online help available from search engines and Googling gets worse and worse. While base R errors will often be solvable in a couple of minutes from a quick `?help` check or a long online discussion and solutions on a website like Stack Overflow, errors arising from little-used packages applied in bespoke analyses might merit isolating your specific problem to a reproducible example for online help, or even getting in touch with the developers! Such community input and questions are often the way packages and documentation improves over time.
 :::
 
-## Identifying the problem
+### Identifying the problem
 
 In the previous section, it was evident which function was causing a syntax or semantic error. But sometimes, identifying the problem may be trickier. It may be difficult to determine which lines or sections of code are producing the error.
 
@@ -250,9 +254,9 @@ Considering this chunk of code, let's take a step back. Is it possible that we'r
 krats
 ```
 
-It's empty! Something must have gone wrong not with `ggplot`, but with the code we used to create the `krats` object. 
+It's empty! Something must have gone wrong not with `ggplot`, but with the code we used to create the `krats` object.
 
-## Strategy 4: Using `print()` to show information
+## Code First Aid Strategy #4: Using `print()` to show information
 
 We can use a `print` statement to see which genera are included in the original `rodents` dataset.
 
@@ -279,11 +283,11 @@ ggplot(krats, aes(year, fill = plot_type)) +
   facet_wrap(~species)
 ```
 
-Our improved code here looks good. Checking the dimensions of our subsetted data frame using `dim()` function confirms we now have all the *Dipodomys* observations, and our plot is looking better. 
+Our improved code here looks good. Checking the dimensions of our subsetted data frame using `dim()` function confirms we now have all the *Dipodomys* observations, and our plot is looking better.
 
 Routinely printing out information about your dataset can be a good way to check that your intermediate results make sense.
 
-## Summary: Code first aid
+## Summary: Code first aid strategies
 
 Let's update our list of code first aid strategies:
 
@@ -292,39 +296,37 @@ Let's update our list of code first aid strategies:
 
 0.  Identify the problem area
 
--   add print statements immediately upstream or downstream of problem areas
--   check the desired output from functions
--   see whether any intermediate output can be further isolated and examined separately
+- add print statements immediately upstream or downstream of problem areas
+- check the desired output from functions
+- see whether any intermediate output can be further isolated and examined separately
 
 1.  Act on parts of the error we can understand
 
--   interpreting error messages
--   changing input to a function
--   checking on the control flow of code (e.g. for loops, if/else)
+- interpreting error messages
+- changing input to a function
+- checking on the control flow of code (e.g. for loops, if/else)
 
 2.  Reading the R documentation for relevant functions
 
--   reading the documentation's **Description**, **Usage**, **Arguments**, **Details**
--   testing out code from the **Examples** section
+- reading the documentation's **Description**, **Usage**, **Arguments**, **Details**
+- testing out code from the **Examples** section
 
 3.  Quick online help with a search engine
 
--   Copying error messages for more interpretable explanations
--   Describing your error in the hopes of an already-solved solution
+- Copying error messages for more interpretable explanations
+- Describing your error in the hopes of an already-solved solution
 :::
 
-We can now understand these steps as a continuous cycle of zeroing in on the problem more and more precisely. Whenever one of the first aid steps helps us identify a part of the code that is failing, we can zoom in on that piece of code and restart the checklist. 
+We can now understand these steps as a continuous cycle of zeroing in on the problem more and more precisely. Whenever one of the first aid steps helps us identify a part of the code that is failing, we can zoom in on that piece of code and restart the checklist.
 
 If the first aid steps are enough to solve the problem, great! If not, we can stop trying once we get stuck or don't understand anymore how the code is failing. At that point, we can isolate the specific code area and use it to create a reprex in order to get help from someone else. **We'll delve more into the process of creating a reprex in the next episode.**
 
 :::: challenge
 ### Exercise 3: Isolating the problem
 
-The following lines of code are not working correctly. 
+The following lines of code are not working correctly.
 
-A. What type of error is this?
-B. Using the toolbox of code first aid strategies, can you isolate the problem area?
-
+A. What type of error is this? B. Using the toolbox of code first aid strategies, can you isolate the problem area?
 
 ```{r, error=T}
 # Goal: run a chi square test to see whether kangaroo rat observations in the `control` plot type differ significantly between different plot_ids (hopefully not!)
@@ -368,11 +370,11 @@ We can see that some plots have significantly more or fewer counts than others! 
 :::
 ::::
 
-## When should I prepare my code for a reprex?
+## Beyond code first aid: When should I prepare my code for a reprex?
 
 If you've isolated the problem area and tried using **code first aid** strategies, but the error persists, it may be time to get some help.
 
-In a classroom setting, we may be used to raising our hand, pointing at our code, and saying "I'm not sure what's wrong." But outside of the classroom, helpers have limited time, bandwidth, and requisite knowledge to help. That's why reproducing the problem with a **reproducible example** is an essential skill to getting unstuck: it allows you to ask for expert help with a problem that's clearly identified, self-contained, and reproducible, and allows the expert to quickly see whether they've got the requisite skills to answer your question! 
+In a classroom setting, we may be used to raising our hand, pointing at our code, and saying "I'm not sure what's wrong." But outside of the classroom, helpers have limited time, bandwidth, and requisite knowledge to help. That's why reproducing the problem with a **reproducible example** is an essential skill to getting unstuck: it allows you to ask for expert help with a problem that's clearly identified, self-contained, and reproducible, and allows the expert to quickly see whether they've got the requisite skills to answer your question!
 
 ## Back to our analysis: Mickey tries to get unstuck
 
@@ -470,8 +472,8 @@ They decide to return to Remy's road map to figure out what to do next.
 Since code first aid was not enough to solve this problem, it looks like it's time to ask for help using a *reprex*.
 
 ::: keypoints
--   The first step to getting unstuck is identifying a problem, isolating the problem area, and interpreting the problem
--   Often, using "code first aid" -- acting on error messages, looking at data, inputs, etc., pulling up documentation, or asking a search engine, can help us to quickly fix the error on our own.
--   If code first aid doesn't work, we can ask for help and prepare a reproducible example (reprex) with a defined problem and isolated code
--   We'll cover future steps to prepare a reproducible example (reprex) in future episodes.
+- The first step to getting unstuck is identifying a problem, isolating the problem area, and interpreting the problem
+- Often, using "code first aid" -- acting on error messages, looking at data, inputs, etc., pulling up documentation, or asking a search engine, can help us to quickly fix the error on our own.
+- If code first aid doesn't work, we can ask for help and prepare a reproducible example (reprex) with a defined problem and isolated code
+- We'll cover future steps to prepare a reproducible example (reprex) in future episodes.
 :::
