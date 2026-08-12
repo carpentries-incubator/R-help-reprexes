@@ -186,7 +186,7 @@ With a clear understanding of the data, Mickey is now free to explore on their o
 
 Remy's roadmap outlines four key steps for making a reprex. It is also intended to help the user better understand their problem and potentially find a solution along the way. Remy explains that they follow these steps any time they get stuck while coding. Indeed, the first portion of the roadmap, which Remy likes to call "Code First Aid," includes preliminary steps to help identify and diagnose the problem, such as determining the type of error, reading function documentation, interpreting error messages, and running through the code line by line.
 
-Remy explains that sometimes, these "First Aid" steps are enough to solve code problems. But if not, the rest of the roadmap will lead Mickey through strategies to better understand the problem and demonstrate it to others in a minimal reproducible example ("reprex").
+Remy explains that sometimes, these "First Aid" steps will be enough to solve code problems. But if not, the rest of the roadmap will lead Mickey through strategies to better understand the problem and demonstrate it to others in a minimal reproducible example ("reprex").
 
 Remy emphasizes to Mickey that they are happy to keep helping, but they will be very busy trying to finish writing their dissertation. If Mickey can first follow the steps outlined in this roadmap, then Remy can more easily help with whatever Mickey is struggling to resolve.
 
