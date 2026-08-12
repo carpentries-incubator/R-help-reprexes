@@ -16,7 +16,7 @@ exercises: 20
 After completing this episode, participants should be able to...
 
 -   Describe how the desired code output differs from the actual output
--   Categorize an error message (e.g. syntax error, semantic errors, package-specific errors, etc.)
+-   Categorize an error message (e.g. syntax errors vs. semantic errors)
 -   Describe what an error message is trying to communicate
 -   Identify specific lines and/or functions generating the error message
 -   Use R Documentation to look up function syntax and examples
@@ -103,7 +103,7 @@ We carefully **read the error message** and took a guess at what might be wrong.
 
 When we encountered another error message, we **looked through the function documentation** to find more clues about how to fix the error. This helped us see that we were missing an argument.
 
-Another strategy we could have tried would be to copy and paste the error message into a **search engine or a generative LLM** for more interpretable explanations. And, when all else fails, we can prepare our code into a reproducible example for expert help.
+Another strategy we could have tried would be to copy and paste the error message into a **search engine** for more interpretable explanations. And, when all else fails, we can prepare our code into a reproducible example for expert help.
 
 Let's see if we can use the strategies we've learned so far to address a new problem. Here they are, for reference:
 
@@ -112,7 +112,7 @@ Let's see if we can use the strategies we've learned so far to address a new pro
 
 - Interpret error messages and tweak inputs
 - Look at the function documentation
-- Put the error message into a search engine or a generative LLM
+- Put the error message into a search engine
 :::
 
 :::: challenge
@@ -307,11 +307,10 @@ Let's update our list of code first aid strategies:
 -   reading the documentation's **Description**, **Usage**, **Arguments**, **Details**
 -   testing out code from the **Examples** section
 
-3.  Quick online help with a search engine / generative LLM
+3.  Quick online help with a search engine
 
 -   Copying error messages for more interpretable explanations
 -   Describing your error in the hopes of an already-solved solution
--   Seeing if an LLM generates equivalent error-free code solving the same goal
 :::
 
 We can now understand these steps as a continuous cycle of zeroing in on the problem more and more precisely. Whenever one of the first aid steps helps us identify a part of the code that is failing, we can zoom in on that piece of code and restart the checklist. 
@@ -472,7 +471,7 @@ Since code first aid was not enough to solve this problem, it looks like it's ti
 
 ::: keypoints
 -   The first step to getting unstuck is identifying a problem, isolating the problem area, and interpreting the problem
--   Often, using "code first aid" -- acting on error messages, looking at data, inputs, etc., pulling up documentation, asking a search engine or LLM, can help us to quickly fix the error on our own.
+-   Often, using "code first aid" -- acting on error messages, looking at data, inputs, etc., pulling up documentation, or asking a search engine, can help us to quickly fix the error on our own.
 -   If code first aid doesn't work, we can ask for help and prepare a reproducible example (reprex) with a defined problem and isolated code
 -   We'll cover future steps to prepare a reproducible example (reprex) in future episodes.
 :::
