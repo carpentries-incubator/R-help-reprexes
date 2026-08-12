@@ -151,7 +151,7 @@ Let's go back to our rodent analysis. We would like to subset the data to includ
 table(surveys$taxa)
 ```
 
-We're interested in the rodents, and thankfully it seems like a majority of our observations will be maintained when subsetting to rodents. But wait... In the barplot above, we could clearly see that there were some NA values. Why don't we see them here?
+We're interested in the rodents, and thankfully it seems like a majority of our observations will be maintained when subsetting to rodents. But wait... In the barplot above, we could see that there were some NA values. Why don't we see them here?
 
 This is a new type of problem, called a **semantic error**: the R code ran without any error messages, but it produced an unexpected output. Because there is no error message, semantic errors can be sneaky and hard to notice!
 
