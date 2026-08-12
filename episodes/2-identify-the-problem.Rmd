@@ -34,7 +34,7 @@ surveys <- read_csv("data/surveys_complete_77_89.csv")
 
 In this episode, we'll cover what to do when you first encounter an error or undesired output from your code. We'll cover the basics of identifying errors, fixing them if possible, and determining when to move on from code first aid and create a minimal reproducible example.
 
-When we left off in the last episode, Mickey had just encountered an error while trying to make a frequency table of the taxa contained in the surveys dataset.
+When we left off in the last episode, Mickey had just encountered an error while trying to make a frequency table of the taxa contained in the surveys dataset. 
 
 ```{r error = T}
 table(taxa)
