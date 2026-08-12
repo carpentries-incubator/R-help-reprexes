@@ -137,7 +137,6 @@ d is the correct answer!
 
 ```{r}
 surveys %>% count(genus, species)
-
 ```
 :::
 ::::
@@ -424,17 +423,19 @@ common_names <- data.frame(species = sort(unique(rodents_subset$species)), commo
 rodents_subset <- left_join(rodents_subset, common_names, by = "species")
 ```
 
-Now, Mickey is ready to start learning about kangaroo rat weights. They start by running a quick linear regression to predict `weight` based on `species` and `sex`.
+Now, Mickey is ready to start learning about kangaroo rat weights. They start by running a linear regression to predict the response variable `weight` based on two predictor variables: `common_name` and `sex`. To do this, Mickey is using the base R function `lm()` and pulling the data from the `rodents_subset` dataset.
+
+Once Mickey has created the model object, they examine the results of the model by running `summary()` on the model object.
 
 ```{r}
 # Explore k-rat weights
-weight_model <- lm(weight ~ species + sex, data = rodents_subset)
+weight_model <- lm(weight ~ common_name + sex, data = rodents_subset)
 summary(weight_model) 
 ```
 
-The negative coefficient for `common_nameOrd's` tells Mickey that Ord's kangaroo rats are significantly less heavy than Banner-tailed kangaroo rats.
+If you haven't looked at a model summary object before, or if it's been a while, don't worry about understanding all of the numbers here! One number that we can notice here is the negative coefficient for `common_nameOrd's` (-73.5400) tells Mickey that Ord's kangaroo rats are significantly lighter than Banner-tailed kangaroo rats.
 
-But something is wrong with the coefficients for sex. Why are there NA values for `sexM`? Let's directly visualize weight by species and sex to see.
+But we might also notice that something is wrong with the coefficients for sex. Why are there NA values for `sexM`? Let's directly visualize weight by species and sex to see.
 
 ```{r}
 # Weight by species and sex
