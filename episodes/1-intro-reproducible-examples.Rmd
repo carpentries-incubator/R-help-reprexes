@@ -57,7 +57,7 @@ Luckily, there are many people in the R and data science communities who are hap
 ::: challenge
 ### Exercise 2 (think, pair, share): Helping someone else
 
-Think about a time that you helped someone else with their code. What information did you need to know in order to help? (If you have never helped someone else with their code, think about a time that someone helped you--what information did they need to know in order to help?)
+Think about a time that you helped someone else with their code. What information did you need to know in order to help? (Alternatively: think about a time that someone helped you. What did they need to know in order to help?)
 :::
 
 Many helpers or forums may ask you to provide example data or a **minimal reproducible example** (commonly abbreviated as a "**reprex**"). What even is that? Wouldn’t it be nice if you could just hand over your computer so someone helping with your code can see exactly what is happening? That's exactly what the reprex is for.
