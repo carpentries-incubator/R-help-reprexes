@@ -14,9 +14,9 @@ This lesson will follow a fictional ecology grad student named Mickey as they ex
 
 It’s okay if you’re not an R expert. But even experienced coders may not always know how to get unstuck, so we hope this workshop will be useful to many levels of coding background.
 
-At the end of this lesson, we are hoping that you will have achieved two main things.
+At the end of this lesson, we are hoping that you will have achieved two main things:
 
-First, you will understand the importance of minimal reproducible examples for getting unstuck. Second, you will be equipped with a "road map" for breaking down your problem and constructing a minimal reproducible example. This road map can be applied broadly to various problems that you might encounter with your code in the future.
+**First**, you will understand the importance of minimal reproducible examples for getting unstuck. **Second**, you will be equipped with a "road map" for breaking down your problem and constructing a minimal reproducible example. This road map can be applied broadly to various problems that you might encounter with your code in the future. The road map won't necessarily solve every problem you may encounter, but it will serve as a toolkit for seeking help and getting unstuck in the future.
 
 In this **first episode**, we will introduce the concept of a *minimal reproducible example* and how it can be useful for getting unstuck while coding. We will introduce the road map that highlights the key steps we will follow as we move through the lesson. Finally, we will take a look at the dataset that we'll be using throughout the rest of the lesson.
 
