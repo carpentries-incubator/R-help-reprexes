@@ -118,6 +118,8 @@ Mickey has some past experience in R. They attended the "[Data Analysis and Visu
 This workshop assumes some prior experience with working in R and RStudio. We will assume you've taken the equivalent of the Data Analysis and Visualization in R for Ecologists workshop and are comfortable with basic commands, and we won't necessarily explain every line of code in detail.
 
 If you're much more experienced in R, this workshop is still for you! Even expert coders may not always know how to get unstuck. We hope this workshop will be useful to people with a variety of coding backgrounds.
+
+Also: in this lesson, we will be working in R. However, the principles and concepts of the road map should be applicable to other programming languages, too!
 :::
 
 So, we've been talking about the theory behind reprexes and introducing you to the workshop. From now on, we're going to shift over to live coding. At this point, you should go ahead and open RStudio. Make sure that you're in the RStudio project that you created for this lesson, and that you've downloaded the data as a csv and saved it in the "data/" folder. Let's take a few moments to get set up here.
