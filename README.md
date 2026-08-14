@@ -31,7 +31,7 @@ This lesson is a template lesson that uses [The Carpentries Workbench][workbench
 
 This lesson uses data from the `ratdat` package (learn more on the CRAN page: https://cran.r-project.org/web/packages/ratdat/index.html).
 
-## Acknowledgements
+## Acknowledgments
 
 The following people aided the development of this curriculum, by providing training, suggestions, reviews, and inspiration.
 
