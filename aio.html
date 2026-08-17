@@ -90,7 +90,7 @@
 </div>
     </div>
   </div>
-  <hr></header><nav class="navbar navbar-expand-xl bottom-nav incubator" aria-label="Main Navigation"><div class="container-fluid nav-container">
+</header><nav class="navbar navbar-expand-xl bottom-nav incubator" aria-label="Main Navigation"><div class="container-fluid nav-container">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle Navigation">
       <span class="navbar-toggler-icon"></span>
       <span class="menu-title">Menu</span>
@@ -207,8 +207,7 @@
             </div>
 <!--/div.col -->
 
-            <hr>
-</div>
+          </div>
 <!--/div.mobile-row -->
 
           <div class="accordion accordion-flush" id="accordion-chapters-toggle">
@@ -350,12 +349,48 @@
         
 <section id="aio-1-intro-reproducible-examples"><p>Content from <a href="1-intro-reproducible-examples.html">What is a reprex and why is it useful?</a></p>
 <hr>
-<p>Last updated on 2026-05-12 |
+<p>Last updated on 2026-08-17 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/1-intro-reproducible-examples.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
         </div>
+<section><h2 class="section-heading" id="welcome-and-introductions">Welcome and introductions<a class="anchor" aria-label="anchor" href="#welcome-and-introductions"></a>
+</h2>
+<hr class="half-width">
+<p>Welcome to “RRRR, I’m Stuck!” We’re glad you’re here. Let’s first
+take care of a few setup steps. You should all have followed the setup
+instructions on the workshop website, and you should have both R and
+RStudio installed. You should also have the following packages
+installed: {reprex}, {tidyverse}, and {ggplot2}. If you haven’t
+installed those packages, please take a moment to install them now.</p>
+<p>We have a range of levels of experience here. This workshop assumes
+that you are a researcher in ecology or biology who has some prior
+experience working with R in RStudio.</p>
+<p>This lesson will follow a fictional ecology grad student named Mickey
+as they explore a new dataset, deal with various common coding problems,
+and learn how to write a minimal reproducible example to ask for help in
+community forums. We will not spend much time discussing the code
+itself, as we will assume you have a basic background.</p>
+<p>It’s okay if you’re not an R expert. But even experienced coders may
+not always know how to get unstuck, so we hope this workshop will be
+useful to many levels of coding background.</p>
+<p>At the end of this lesson, we are hoping that you will have achieved
+two main things:</p>
+<p><strong>First</strong>, you will understand the importance of minimal
+reproducible examples for getting unstuck. <strong>Second</strong>, you
+will be equipped with a “road map” for breaking down your problem and
+constructing a minimal reproducible example. This road map can be
+applied broadly to various problems that you might encounter with your
+code in the future. The road map won’t necessarily solve every problem
+you may encounter, but it will serve as a toolkit for seeking help and
+getting unstuck in the future.</p>
+<p>In this <strong>first episode</strong>, we will introduce the concept
+of a <em>minimal reproducible example</em> and how it can be useful for
+getting unstuck while coding. We will introduce the road map that
+highlights the key steps we will follow as we move through the lesson.
+Finally, we will take a look at the dataset that we’ll be using
+throughout the rest of the lesson.</p>
 <div class="overview card">
 <h2 class="card-header">Overview</h2>
 <div class="row g-0">
@@ -380,7 +415,6 @@
 <li>Describe a minimal reproducible example and its requirements.</li>
 <li>Recognize how creating a minimal reproducible example can help you
 solve problems in your code.</li>
-<li>List the key steps to creating a minimal reproducible example.</li>
 <li>Explain the benefits of creating a minimal reproducible example both
 for you and for others.</li>
 <li>Load in the rodent survey data and briefly explain its
@@ -391,6 +425,8 @@ contents.</li>
 </div>
 </div>
 </div>
+
+<p>Let’s start out with a quick brainstorm.</p>
 <div id="exercise-1-think-pair-share-when-you-get-stuck" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -405,22 +441,6 @@ you do to get help or get unstuck?</p>
 </div>
 </div>
 </div>
-<div id="exercise-2-think-pair-share-helping-someone-else" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<span class="callout-header">Discussion</span>
-<div id="exercise-2-think-pair-share-helping-someone-else" class="callout-inner">
-<h3 class="callout-title">Exercise 2 (think, pair, share): Helping
-someone else</h3>
-<div class="callout-content">
-<p>Think about a time that you helped someone else with their code. What
-information did you need to know in order to help? (If you have never
-helped someone else with their code, think about a time that someone
-helped you–what information did they need to know in order to help?)</p>
-</div>
-</div>
-</div>
 <p>One of the most frustrating parts of learning to code is getting
 stuck and not knowing what to do! Maybe R gives you an angry red error
 message you don’t understand, or your code doesn’t seem to be doing what
@@ -431,12 +451,29 @@ What to do?</p>
 who are happy to help. However, in order for them to do so, you must
 give them the right information. Figuring out how to ask a good question
 can be hard.</p>
+<div id="exercise-2-think-pair-share-helping-someone-else" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<span class="callout-header">Discussion</span>
+<div id="exercise-2-think-pair-share-helping-someone-else" class="callout-inner">
+<h3 class="callout-title">Exercise 2 (think, pair, share): Helping
+someone else</h3>
+<div class="callout-content">
+<p>Think about a time that you helped someone else with their code. What
+information did you need to know in order to help? (Alternatively: think
+about a time that someone helped you. What did they need to know in
+order to help?)</p>
+</div>
+</div>
+</div>
 <p>Many helpers or forums may ask you to provide example data or a
 <strong>minimal reproducible example</strong> (commonly abbreviated as a
 “<strong>reprex</strong>”). What even is that? Wouldn’t it be nice if
-you could just hand over your computer so a helper can see exactly what
-is happening? That’s exactly what the reprex is for.</p>
-<section><h2 class="section-heading" id="what-is-a-reprex">What is a reprex?<a class="anchor" aria-label="anchor" href="#what-is-a-reprex"></a>
+you could just hand over your computer so someone helping with your code
+can see exactly what is happening? That’s exactly what the reprex is
+for.</p>
+</section><section><h2 class="section-heading" id="what-is-a-minimal-reproducible-example-reprex">What is a minimal reproducible example (“reprex”)?<a class="anchor" aria-label="anchor" href="#what-is-a-minimal-reproducible-example-reprex"></a>
 </h2>
 <hr class="half-width">
 <p>A reprex is essentially a <strong>simplified</strong> version of your
@@ -554,16 +591,18 @@ detail.</p>
 Even expert coders may not always know how to get unstuck. We hope this
 workshop will be useful to people with a variety of coding
 backgrounds.</p>
+<p>Also: in this lesson, we will be working in R. However, the
+principles and concepts of the road map should be applicable to other
+programming languages, too!</p>
 </div>
 </div>
 </div>
-<p>Mickey starts by loading the data so they can begin to explore it.
-They also load the {tidyverse}, a set of packages that will be useful
-for wrangling and visualizing the data.</p>
-
-<p>Let’s go over to RStudio. Make sure that you’re in the RStudio
-project that you created for this lesson, and that you’ve downloaded the
-data as a csv and saved it in the “data/” folder.</p>
+<p>So, we’ve been talking about the theory behind reprexes and
+introducing you to the workshop. From now on, we’re going to shift over
+to live coding. At this point, you should go ahead and open RStudio.
+Make sure that you’re in the RStudio project that you created for this
+lesson, and that you’ve downloaded the data as a csv and saved it in the
+“data/” folder. Let’s take a few moments to get set up here.</p>
 <div id="callout4" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
@@ -580,7 +619,12 @@ session of RStudio.</p>
 </div>
 </div>
 </div>
-<p>Now, we can load in the dataset with the following code:</p>
+
+<p>Okay, so let’s follow along with Mickey as they begin to explore the
+data. Mickey opens RStudio and starts by loading the {tidyverse}, a set
+of packages that will be useful for wrangling and visualizing the
+data.</p>
+
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -588,6 +632,10 @@ session of RStudio.</p>
 <code class="sourceCode R"><span><span class="co"># Loading the tidyverse package</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span></code></pre>
 </div>
+<p>Next, we can use the read_csv function from one of those tidyverse
+packages to load in the dataset. This line of code assumes that you have
+stored the surveys dataset in the data/ folder, according to the setup
+instructions.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -607,8 +655,9 @@ dbl (7): record_id, month, day, year, plot_id, hindfoot_length, weight
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<p>Mickey loads in the dataset and takes a look at it to find out what
-type of data was collected during these surveys.</p>
+<p>Let’s follow along with Mickey as they examine the dataset. Mickey
+wants to get familiar with the dataset and find out what type of data
+was collected during these surveys.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -667,7 +716,7 @@ spc_tbl_ [16,878 × 13] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
   ..   taxa = col_character(),
   ..   plot_type = col_character()
   .. )
- - attr(*, "problems")=&lt;externalptr&gt; </code></pre>
+ - attr(*, "problems")=&lt;pointer: 0x55c39d598f60&gt; </code></pre>
 </div>
 <p>Looking over Mickey’s shoulder, Remy explains that the dataset is
 made up of many individual rodent records (<code>record_id</code>). The
@@ -684,38 +733,29 @@ individual caught.</p>
 <p>In addition, there is a column called <code>taxa</code> that contains
 higher-level taxonomic information. Most of the observations are
 rodents, but there are also some birds, rabbits, and reptiles.</p>
-<div class="codewrapper sourceCode" id="cb6">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">table</span><span class="op">(</span><span class="va">surveys</span><span class="op">$</span><span class="va">taxa</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>
-   Bird  Rabbit Reptile  Rodent
-    300      69       4   16148 </code></pre>
-</div>
 <p>For each individual caught, the field crew took <code>weight</code>,
 <code>sex</code> and <code>hindfoot_length</code> measurements <em>when
 possible</em>, so values are sometimes missing.</p>
 <p>Overall, the dataset contains 16,878 rodent observations ranging
 across years from 1977 through 1989.</p>
 <p>With a clear understanding of the data, Mickey is now free to explore
-on their own. However, Remy notices that Mickey still looks nervous and
-decides to share a tool they recently found useful: a roadmap to getting
-unstuck in R by making a reprex.</p>
+on their own. However, Remy notices that Mickey still looks nervous,
+hesitating to write any code for fear of messing things up. Remy decides
+to share a tool they recently found useful: a roadmap to getting unstuck
+in R by making a reprex. Let’s take a quick break from our own RStudio
+sessions and look through this road map together before we get back to
+coding.</p>
 <figure><img src="fig/Roadmap_Aug25.svg" class="figure mx-auto d-block"></figure><p>Remy’s roadmap outlines four key steps for making a reprex. It is
 also intended to help the user better understand their problem and
-potentially find a solution along the way. Remy follows these steps any
-time they get stuck while coding. Indeed, the first portion of the
-roadmap, which Remy likes to call “code first aid,” includes preliminary
-steps to help identify and diagnose the problem, such as determining the
-type of error, reading function documentation, interpreting error
-messages, and running through the code line by line.</p>
-<p>Remy explains that sometimes, these first aid steps are enough to
-solve code problems. But if not, the rest of the roadmap will lead
+potentially find a solution along the way. Remy explains that they
+follow these steps any time they get stuck while coding. Indeed, the
+first portion of the roadmap, which Remy likes to call “Code First Aid,”
+includes preliminary steps to help identify and diagnose the problem,
+such as determining the type of error, reading function documentation,
+interpreting error messages, and running through the code line by
+line.</p>
+<p>Remy explains that sometimes, these “First Aid” steps will be enough
+to solve code problems. But if not, the rest of the roadmap will lead
 Mickey through strategies to better understand the problem and
 demonstrate it to others in a minimal reproducible example
 (“reprex”).</p>
@@ -723,8 +763,30 @@ demonstrate it to others in a minimal reproducible example
 they will be very busy trying to finish writing their dissertation. If
 Mickey can first follow the steps outlined in this roadmap, then Remy
 can more easily help with whatever Mickey is struggling to resolve.</p>
-<p>With an introduction to the dataset and a roadmap to guide them if
-they get stuck, Mickey feels ready to start coding!</p>
+<p>Mickey takes a deep breath. With an introduction to the dataset and a
+roadmap for guidance if they get stuck, Mickey feels ready to start
+coding! They decide to start by learning more about which taxa are
+included in the dataset, since their analysis will focus only on
+rodents. Mickey wants to create a frequency table of the
+<code>taxa</code> column.</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">table</span><span class="op">(</span><span class="va">taxa</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error:
+! object 'taxa' not found</code></pre>
+</div>
+<p>Immediately, Mickey encounters an error! What’s going on? Already,
+Mickey has an opportunity to try out Remy’s roadmap.</p>
+<p>In the next episode, we will begin to explore the roadmap, starting
+with some “code first aid” strategies. We’ll learn more about different
+types of errors and how to start fixing them, and hopefully we’ll be
+able to help Mickey get unstuck.</p>
 
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
@@ -759,7 +821,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-2-identify-the-problem"><p>Content from <a href="2-identify-the-problem.html">Identify the problem and make a plan</a></p>
 <hr>
-<p>Last updated on 2026-05-12 |
+<p>Last updated on 2026-08-17 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/2-identify-the-problem.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -791,8 +853,8 @@ it?</li>
 <ul>
 <li>Describe how the desired code output differs from the actual
 output</li>
-<li>Categorize an error message (e.g. syntax error, semantic errors,
-package-specific errors, etc.)</li>
+<li>Categorize an error message (e.g. syntax errors vs. semantic
+errors)</li>
 <li>Describe what an error message is trying to communicate</li>
 <li>Identify specific lines and/or functions generating the error
 message</li>
@@ -808,23 +870,34 @@ help, including making a <code>reprex</code>
 </div>
 </div>
 </div>
-<p>Let’s take a look in more detail at the first step of the
-roadmap.</p>
-<figure><img src="fig/01_identify_problem.png" class="figure mx-auto d-block"></figure><p>In this episode, we’ll cover what to do when you first encounter an
+<p>In this episode, we’ll cover what to do when you first encounter an
 error or undesired output from your code. We’ll cover the basics of
 identifying errors, fixing them if possible, and determining when to
-create a reprex. At the end of the lesson, we’ll return to Mickey’s
-analysis.</p>
-<p>The first step in solving a problem is understanding what is going
+move on from code first aid and create a minimal reproducible
+example.</p>
+<p>When we left off in the last episode, Mickey had just encountered an
+error while trying to make a frequency table of the taxa contained in
+the surveys dataset.</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">table</span><span class="op">(</span><span class="va">taxa</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error:
+! object 'taxa' not found</code></pre>
+</div>
+<p>To get started on fixing this error, let’s take a look in more detail
+at the first step of the roadmap.</p>
+<figure><img src="fig/01_identify_problem.png" class="figure mx-auto d-block"></figure><p>The first step in solving a problem is understanding what is going
 wrong. Sometimes R will help you out by displaying an error message when
 it is unable to run your code. This is a helpful diagnostic tool that,
-when interpreted correctly, can quickly lead you to a solution. Other
-times, R doesn’t encounter any problems running your code, but the
-output is not what you expected. These problems may require a few extra
-steps to properly diagnose. We will start with easier scenarios and
-provide helpful “code first aid” steps as we build up to harder
-challenges.</p>
-<section><h2 class="section-heading" id="strategy-1-interpret-error-messages-and-change-function-inputs">Strategy 1: Interpret error messages and change function inputs<a class="anchor" aria-label="anchor" href="#strategy-1-interpret-error-messages-and-change-function-inputs"></a>
+when interpreted correctly, can quickly lead you to a solution.</p>
+<section><h2 class="section-heading" id="first-aid-strategy-1-interpret-error-messages-and-change-function-inputs">First Aid Strategy #1: Interpret error messages and change function
+inputs<a class="anchor" aria-label="anchor" href="#first-aid-strategy-1-interpret-error-messages-and-change-function-inputs"></a>
 </h2>
 <hr class="half-width">
 <p>R will often let us know there’s a problem by displaying an error
@@ -835,30 +908,14 @@ message, which gives a hint that something could be wrong while the code
 keeps running). Error messages are sometimes straightforward, but other
 times they can be very tricky to decipher. In this lesson, will teach
 some tools for interpreting syntax errors for yourself.</p>
-<p>Here’s an example error message. In the last episode, we saw that the
-<code>taxa</code> column contains information about the higher-level
-taxon of each organism caught, such as “Rodent” or “Bird”. We decide to
-look at the distribution of taxa by creating a frequency table.</p>
-<div class="codewrapper sourceCode" id="cb1">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">table</span><span class="op">(</span><span class="va">taxa</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'taxa' not found</code></pre>
-</div>
-<p>This code produces an error. What’s going on?</p>
-<p>R is telling us that it can’t find <code>taxa</code> in the local
-environment. That’s because we haven’t told it where to look–recall that
-<code>taxa</code> is the name of a column in the <code>surveys</code>
-dataset.</p>
+<p>In the case of Mickey’s error, R is telling us that it can’t find
+<code>taxa</code> in the local environment. That’s because we haven’t
+told it where to look–recall that <code>taxa</code> is the name of a
+column in the <code>surveys</code> dataset.</p>
 <p>The information from the error message doesn’t specifically tell us
 how to solve the error, but it can help us realize what went wrong. In
-this case, we can look back at our previous code and see that we were
-able to point R to the column using the <code>$</code> operator:</p>
+this case, we need to point R to the column using the <code>$</code>
+operator:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -884,10 +941,10 @@ same information.</p>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in `fortify()` at ggplot2/R/plot.R:121:3:
+<pre class="error" tabindex="0"><code>Error in `fortify()`:
 ! `data` must be a &lt;data.frame&gt;, or an object coercible by `fortify()`,
   or a valid &lt;data.frame&gt;-like object coercible by `as.data.frame()`, not a
-  &lt;uneval&gt; object.
+  &lt;ggplot2::mapping&gt; object.
 ℹ Did you accidentally pass `aes()` to the `data` argument?</code></pre>
 </div>
 <p>It seems like that should have worked, but we got another error
@@ -900,7 +957,7 @@ message: “Did you accidentally pass <code>aes()</code> to the
 <code>data</code> argument?” This does seem to relate to our line of
 code, as we do pass <code>aes</code> into the <code>ggplot</code>
 function. But what is this “<code>data</code> argument?”</p>
-</section><section><h2 class="section-heading" id="strategy-2-read-function-documentation">Strategy 2: Read function documentation<a class="anchor" aria-label="anchor" href="#strategy-2-read-function-documentation"></a>
+</section><section><h2 class="section-heading" id="first-aid-strategy-2-read-function-documentation">First Aid Strategy #2: Read function documentation<a class="anchor" aria-label="anchor" href="#first-aid-strategy-2-read-function-documentation"></a>
 </h2>
 <hr class="half-width">
 <p>Reading the error message gave us some clues, but it wasn’t enough to
@@ -942,7 +999,7 @@ in the right order–first the name of the dataset for the
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">surveys</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">taxa</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/2-identify-the-problem-rendered-unnamed-chunk-6-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The error message is gone, and it works! Here we see our desired
+<figure><img src="fig/2-identify-the-problem-rendered-unnamed-chunk-6-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The error message is gone, and it works! Here we see our desired
 plot. What do you notice about the data?</p>
 <p><em>- Lots of rodents</em> <em>- Some missing values (NAs)</em></p>
 <p>Let’s take a moment to highlight some patterns we’re starting to see
@@ -956,10 +1013,15 @@ function</strong> accordingly and tried again.</p>
 <p>When we encountered another error message, we <strong>looked through
 the function documentation</strong> to find more clues about how to fix
 the error. This helped us see that we were missing an argument.</p>
+</section><section><h2 class="section-heading" id="first-aid-strategy-3-search-the-error-message">First Aid Strategy #3: Search the error message<a class="anchor" aria-label="anchor" href="#first-aid-strategy-3-search-the-error-message"></a>
+</h2>
+<hr class="half-width">
 <p>Another strategy we could have tried would be to copy and paste the
-error message into a <strong>search engine or a generative LLM</strong>
-for more interpretable explanations. And, when all else fails, we can
-prepare our code into a reproducible example for expert help.</p>
+error message into a <strong>search engine</strong> for more
+interpretable explanations.</p>
+</section><section><h2 class="section-heading" id="practice-applying-code-first-aid-strategies">Practice applying code first aid strategies<a class="anchor" aria-label="anchor" href="#practice-applying-code-first-aid-strategies"></a>
+</h2>
+<hr class="half-width">
 <p>Let’s see if we can use the strategies we’ve learned so far to
 address a new problem. Here they are, for reference:</p>
 <div id="code-first-aid-strategies" class="callout">
@@ -970,11 +1032,11 @@ address a new problem. Here they are, for reference:</p>
 <div id="code-first-aid-strategies" class="callout-inner">
 <h3 class="callout-title">Code first aid strategies</h3>
 <div class="callout-content">
-<ul>
+<ol style="list-style-type: decimal">
 <li>Interpret error messages and tweak inputs</li>
 <li>Look at the function documentation</li>
-<li>Put the error message into a search engine or a generative LLM</li>
-</ul>
+<li>Put the error message into a search engine</li>
+</ol>
 </div>
 </div>
 </div>
@@ -1000,9 +1062,9 @@ documentation if you’re stuck!)</p>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in `tally()` at magrittr/R/pipe.R:136:3:
-ℹ In argument: `n = sum(genus, na.rm = TRUE)`.
-Caused by error in `sum()`:
+<pre class="error" tabindex="0"><code>Error in `tally()`:
+ℹ In argument: `n = base::sum(genus, na.rm = TRUE)`.
+Caused by error in `base::sum()`:
 ! invalid 'type' (character) of argument</code></pre>
 </div>
 <ol style="list-style-type: lower-alpha">
@@ -1060,9 +1122,9 @@ to <code>group_by</code> two variables and a different function
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="semantic-errors">Semantic errors<a class="anchor" aria-label="anchor" href="#semantic-errors"></a>
-</h2>
-<hr class="half-width">
+<div class="section level3">
+<h3 id="semantic-errors">Semantic errors<a class="anchor" aria-label="anchor" href="#semantic-errors"></a>
+</h3>
 <p>Let’s go back to our rodent analysis. We would like to subset the
 data to include only the <code>Rodent</code> taxon (as opposed to the
 other taxa included in the dataset: Bird, Rabbit, Reptile or NA). Let’s
@@ -1082,8 +1144,8 @@ quickly check to see how much data we’d be throwing out by doing so:</p>
 </div>
 <p>We’re interested in the rodents, and thankfully it seems like a
 majority of our observations will be maintained when subsetting to
-rodents. But wait… In the barplot above, we could clearly see that there
-were some NA values. Why don’t we see them here?</p>
+rodents. But wait… In the barplot above, we could see that there were
+some NA values. Why don’t we see them here?</p>
 <p>This is a new type of problem, called a <strong>semantic
 error</strong>: the R code ran without any error messages, but it
 produced an unexpected output. Because there is no error message,
@@ -1103,8 +1165,9 @@ no error message to read. So let’s jump straight to strategy 2,
 <pre class="output" tabindex="0"><code>Help on topic 'table' was found in the following packages:
 
   Package               Library
-  vctrs                 /home/runner/.local/share/renv/cache/v5/linux-ubuntu-jammy/R-4.5/x86_64-pc-linux-gnu/vctrs/0.7.3/2dcde2d30d3ad67bf1d3a37177457b87
-  base                  /home/runner/.cache/R/renv/sandbox/linux-ubuntu-jammy/R-4.5/x86_64-pc-linux-gnu/9a444a72
+  base                  /github/home/.cache/R/renv/sandbox/linux-ubuntu-noble/R-4.6/x86_64-pc-linux-gnu/25ebdc09
+  bit64                 /home/rstudio/lesson/renv/cache/v5/linux-ubuntu-noble/R-4.6/x86_64-pc-linux-gnu/bit64/4.8.0/94d99f35c426436d2a3a56d20c6bcf45
+  vctrs                 /home/rstudio/lesson/renv/cache/v5/linux-ubuntu-noble/R-4.6/x86_64-pc-linux-gnu/vctrs/0.7.3/2dcde2d30d3ad67bf1d3a37177457b87
 
 
 Using the first match ...</code></pre>
@@ -1188,8 +1251,12 @@ the following lines of code:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>`summarise()` has grouped output by 'plot_type'. You can override using the
-`.groups` argument.</code></pre>
+<pre class="output" tabindex="0"><code>`summarise()` has regrouped the output.
+ℹ Summaries were computed grouped by plot_type and month.
+ℹ Output is grouped by plot_type.
+ℹ Use `summarise(.groups = "drop_last")` to silence this message.
+ℹ Use `summarise(.by = c(plot_type, month))` for per-operation grouping
+  (`?dplyr::dplyr_by`) instead.</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1197,7 +1264,7 @@ the following lines of code:</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">rodents_summary</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_tile</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">month</span>, <span class="va">plot_type</span>, fill<span class="op">=</span><span class="va">count</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/2-identify-the-problem-rendered-unnamed-chunk-13-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>B is a syntax error, and will produce the following error:</p>
+<figure><img src="fig/2-identify-the-problem-rendered-unnamed-chunk-13-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>B is a syntax error, and will produce the following error:</p>
 <div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1210,7 +1277,7 @@ the following lines of code:</p>
 <pre class="error" tabindex="0"><code>Error in `geom_tile()`:
 ! Problem while computing stat.
 ℹ Error occurred in the 1st layer.
-Caused by error in `setup_params()` at ggplot2/R/ggproto.R:197:17:
+Caused by error in `setup_params()`:
 ! `stat_count()` must only have an x or y aesthetic.</code></pre>
 </div>
 <p>Finally, C is a semantic error. It does produce a plot, which is
@@ -1221,7 +1288,7 @@ rather meaningless:</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">rodents</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_tile</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">month</span>, <span class="va">plot_type</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/2-identify-the-problem-rendered-unnamed-chunk-15-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
+<figure><img src="fig/2-identify-the-problem-rendered-unnamed-chunk-15-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
 </div>
 </div>
 </div>
@@ -1257,9 +1324,10 @@ documentation improves over time.</p>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="identifying-the-problem">Identifying the problem<a class="anchor" aria-label="anchor" href="#identifying-the-problem"></a>
-</h2>
-<hr class="half-width">
+</div>
+<div class="section level3">
+<h3 id="identifying-the-problem">Identifying the problem<a class="anchor" aria-label="anchor" href="#identifying-the-problem"></a>
+</h3>
 <p>In the previous section, it was evident which function was causing a
 syntax or semantic error. But sometimes, identifying the problem may be
 trickier. It may be difficult to determine which lines or sections of
@@ -1285,7 +1353,7 @@ years</strong>.</p>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in `combine_vars()` at ggplot2/R/facet-wrap.R:186:5:
+<pre class="error" tabindex="0"><code>Error in `combine_vars()`:
 ! Faceting variables must have at least one value.</code></pre>
 </div>
 <p>Uh-oh. Another error here, when we try to make a ggplot. But what is
@@ -1316,7 +1384,9 @@ to make sure it looks normal.</p>
 <p>It’s empty! Something must have gone wrong not with
 <code>ggplot</code>, but with the code we used to create the
 <code>krats</code> object.</p>
-</section><section><h2 class="section-heading" id="strategy-4-using-print-to-show-information">Strategy 4: Using <code>print()</code> to show information<a class="anchor" aria-label="anchor" href="#strategy-4-using-print-to-show-information"></a>
+</div>
+</section><section><h2 class="section-heading" id="code-first-aid-strategy-4-using-print-to-show-information">Code First Aid Strategy #4: Using <code>print()</code> to show
+information<a class="anchor" aria-label="anchor" href="#code-first-aid-strategy-4-using-print-to-show-information"></a>
 </h2>
 <hr class="half-width">
 <p>We can use a <code>print</code> statement to see which genera are
@@ -1381,15 +1451,15 @@ the misspelling.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre class="output" tabindex="0"><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
 </div>
-<figure><img src="fig/2-identify-the-problem-rendered-unnamed-chunk-19-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Our improved code here looks good. Checking the dimensions of our
+<figure><img src="fig/2-identify-the-problem-rendered-unnamed-chunk-19-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Our improved code here looks good. Checking the dimensions of our
 subsetted data frame using <code>dim()</code> function confirms we now
 have all the <em>Dipodomys</em> observations, and our plot is looking
 better.</p>
 <p>Routinely printing out information about your dataset can be a good
 way to check that your intermediate results make sense.</p>
-</section><section><h2 class="section-heading" id="summary-code-first-aid">Summary: Code first aid<a class="anchor" aria-label="anchor" href="#summary-code-first-aid"></a>
+</section><section><h2 class="section-heading" id="summary-code-first-aid-strategies">Summary: Code first aid strategies<a class="anchor" aria-label="anchor" href="#summary-code-first-aid-strategies"></a>
 </h2>
 <hr class="half-width">
 <p>Let’s update our list of code first aid strategies:</p>
@@ -1431,14 +1501,12 @@ examined separately</li>
 <li>testing out code from the <strong>Examples</strong> section</li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
-<li>Quick online help with a search engine / generative LLM</li>
+<li>Quick online help with a search engine</li>
 </ol>
 <ul>
 <li>Copying error messages for more interpretable explanations</li>
 <li>Describing your error in the hopes of an already-solved
 solution</li>
-<li>Seeing if an LLM generates equivalent error-free code solving the
-same goal</li>
 </ul>
 </div>
 </div>
@@ -1484,7 +1552,8 @@ strategies, can you isolate the problem area?</p>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in chisq.test(plot_counts$n, p = exp_proportions): 'x' and 'p' must have the same number of elements</code></pre>
+<pre class="error" tabindex="0"><code>Error in `chisq.test()`:
+! 'x' and 'p' must have the same number of elements</code></pre>
 </div>
 </div>
 </div>
@@ -1511,7 +1580,8 @@ strategies, can you isolate the problem area?</p>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in chisq.test(plot_counts$n, p = exp_proportions): 'x' and 'p' must have the same number of elements</code></pre>
+<pre class="error" tabindex="0"><code>Error in `chisq.test()`:
+! 'x' and 'p' must have the same number of elements</code></pre>
 </div>
 <p>If we decide to move the plot_counts line right after the first
 control_plot_data line, as plot_counts seems to be calculated correctly.
@@ -1545,7 +1615,8 @@ plots seem to attract the kangaroo rats more than others.</p>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="when-should-i-prepare-my-code-for-a-reprex">When should I prepare my code for a reprex?<a class="anchor" aria-label="anchor" href="#when-should-i-prepare-my-code-for-a-reprex"></a>
+</section><section><h2 class="section-heading" id="beyond-code-first-aid-when-should-i-prepare-my-code-for-a-reprex">Beyond code first aid: When should I prepare my code for a
+reprex?<a class="anchor" aria-label="anchor" href="#beyond-code-first-aid-when-should-i-prepare-my-code-for-a-reprex"></a>
 </h2>
 <hr class="half-width">
 <p>If you’ve isolated the problem area and tried using <strong>code
@@ -1575,7 +1646,7 @@ across species and sexes, so they create a quick visualization.</p>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="va">surveys</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>, fill <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/2-identify-the-problem-rendered-unnamed-chunk-23-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Whoa, this is really overwhelming! Mickey forgot that the dataset
+<figure><img src="fig/2-identify-the-problem-rendered-unnamed-chunk-23-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Whoa, this is really overwhelming! Mickey forgot that the dataset
 includes data for a lot of different species, not just kangaroo rats.
 Mickey is only interested in two kangaroo rat species: <em>Dipodomys
 ordii</em> (Ord’s kangaroo rat) and <em>Dipodomys spectabilis</em>
@@ -1647,15 +1718,19 @@ Mickey joins the common names to <code>rodents_subset</code>.</p>
 <span><span class="va">rodents_subset</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">rodents_subset</span>, <span class="va">common_names</span>, by <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Now, Mickey is ready to start learning about kangaroo rat weights.
-They start by running a quick linear regression to predict
-<code>weight</code> based on <code>species</code> and
-<code>sex</code>.</p>
+They start by running a linear regression to predict the response
+variable <code>weight</code> based on two predictor variables:
+<code>common_name</code> and <code>sex</code>. To do this, Mickey is
+using the base R function <code>lm()</code> and pulling the data from
+the <code>rodents_subset</code> dataset.</p>
+<p>Once Mickey has created the model object, they examine the results of
+the model by running <code>summary()</code> on the model object.</p>
 <div class="codewrapper sourceCode" id="cb48">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Explore k-rat weights</span></span>
-<span><span class="va">weight_model</span> <span class="op">&lt;-</span> <span class="fu">lm</span><span class="op">(</span><span class="va">weight</span> <span class="op">~</span> <span class="va">species</span> <span class="op">+</span> <span class="va">sex</span>, data <span class="op">=</span> <span class="va">rodents_subset</span><span class="op">)</span></span>
+<span><span class="va">weight_model</span> <span class="op">&lt;-</span> <span class="fu">lm</span><span class="op">(</span><span class="va">weight</span> <span class="op">~</span> <span class="va">common_name</span> <span class="op">+</span> <span class="va">sex</span>, data <span class="op">=</span> <span class="va">rodents_subset</span><span class="op">)</span></span>
 <span><span class="fu">summary</span><span class="op">(</span><span class="va">weight_model</span><span class="op">)</span> </span></code></pre>
 </div>
 <div class="codewrapper">
@@ -1663,17 +1738,17 @@ They start by running a quick linear regression to predict
 </h3>
 <pre class="output" tabindex="0"><code>
 Call:
-lm(formula = weight ~ species + sex, data = rodents_subset)
+lm(formula = weight ~ common_name + sex, data = rodents_subset)
 
 Residuals:
      Min       1Q   Median       3Q      Max
 -109.531   -7.991    3.239   11.469   48.469
 
 Coefficients: (1 not defined because of singularities)
-                   Estimate Std. Error t value Pr(&gt;|t|)
-(Intercept)          47.991      1.136   42.23   &lt;2e-16 ***
-speciesspectabilis   73.540      1.420   51.79   &lt;2e-16 ***
-sexM                     NA         NA      NA       NA
+                 Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)      121.5308     0.8516  142.71   &lt;2e-16 ***
+common_nameOrd's -73.5400     1.4201  -51.79   &lt;2e-16 ***
+sexM                   NA         NA      NA       NA
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -1682,12 +1757,15 @@ Residual standard error: 20.58 on 910 degrees of freedom
 Multiple R-squared:  0.7466,	Adjusted R-squared:  0.7464
 F-statistic:  2682 on 1 and 910 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<p>The negative coefficient for <code>common_nameOrd's</code> tells
-Mickey that Ord’s kangaroo rats are significantly less heavy than
-Banner-tailed kangaroo rats.</p>
-<p>But something is wrong with the coefficients for sex. Why are there
-NA values for <code>sexM</code>? Let’s directly visualize weight by
-species and sex to see.</p>
+<p>If you haven’t looked at a model summary object before, or if it’s
+been a while, don’t worry about understanding all of the numbers here!
+One number that we can notice here is the negative coefficient for
+<code>common_nameOrd's</code> (-73.5400) tells Mickey that Ord’s
+kangaroo rats are significantly lighter than Banner-tailed kangaroo
+rats.</p>
+<p>But we might also notice that something is wrong with the
+coefficients for sex. Why are there NA values for <code>sexM</code>?
+Let’s directly visualize weight by species and sex to see.</p>
 <div class="codewrapper sourceCode" id="cb50">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1703,7 +1781,7 @@ species and sex to see.</p>
 <pre class="warning" tabindex="0"><code>Warning: Removed 31 rows containing non-finite outside the scale range
 (`stat_boxplot()`).</code></pre>
 </div>
-<figure><img src="fig/2-identify-the-problem-rendered-unnamed-chunk-28-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>When Mickey visualizes the data, they see a problem in the graph,
+<figure><img src="fig/2-identify-the-problem-rendered-unnamed-chunk-28-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>When Mickey visualizes the data, they see a problem in the graph,
 too. As the model showed, Ord’s kangaroo rats are significantly smaller
 than Banner-tailed kangaroo rats. But something is definitely wrong!
 Because the boxes are colored by sex, we can see that all of the
@@ -1776,8 +1854,8 @@ like it’s time to ask for help using a <em>reprex</em>.</p>
 <li>The first step to getting unstuck is identifying a problem,
 isolating the problem area, and interpreting the problem</li>
 <li>Often, using “code first aid” – acting on error messages, looking at
-data, inputs, etc., pulling up documentation, asking a search engine or
-LLM, can help us to quickly fix the error on our own.</li>
+data, inputs, etc., pulling up documentation, or asking a search engine,
+can help us to quickly fix the error on our own.</li>
 <li>If code first aid doesn’t work, we can ask for help and prepare a
 reproducible example (reprex) with a defined problem and isolated
 code</li>
@@ -1793,7 +1871,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-3-minimal-reproducible-code"><p>Content from <a href="3-minimal-reproducible-code.html">Minimal reproducible code</a></p>
 <hr>
-<p>Last updated on 2026-05-12 |
+<p>Last updated on 2026-08-17 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/3-minimal-reproducible-code.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1988,7 +2066,8 @@ That model output could be a perfectly reasonable symptom to use!</p>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'weight_model' not found</code></pre>
+<pre class="error" tabindex="0"><code>Error:
+! object 'weight_model' not found</code></pre>
 </div>
 <p>But let’s not discount the work we’ve already done to diagnose this
 problem! Something looked strange about this model, so we made a plot.
@@ -2017,7 +2096,8 @@ both species in the subset than the original.</p>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'rodents_subset' not found</code></pre>
+<pre class="error" tabindex="0"><code>Error:
+! object 'rodents_subset' not found</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2168,7 +2248,7 @@ the code to make sure that it still reproduces the error.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ul>
 <li>The barplot of species and sex (ggplot) can be removed because it
@@ -2546,7 +2626,7 @@ any links that you are not going to use.
 </div>
 </div></section><section id="aio-4-minimal-reproducible-data"><p>Content from <a href="4-minimal-reproducible-data.html">Minimal reproducible data</a></p>
 <hr>
-<p>Last updated on 2026-05-12 |
+<p>Last updated on 2026-08-17 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/4-minimal-reproducible-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -2825,7 +2905,8 @@ following in your script. Does it run?</p>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'x' not found</code></pre>
+<pre class="error" tabindex="0"><code>Error:
+! object 'x' not found</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2836,7 +2917,8 @@ following in your script. Does it run?</p>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'xm' not found</code></pre>
+<pre class="error" tabindex="0"><code>Error:
+! object 'xm' not found</code></pre>
 </div>
 <p>It is missing the first line which actually creates the dataset
 <code>x</code>. Try again with the new line.</p>
@@ -3144,7 +3226,7 @@ Visualization in R for Ecologists</a>).</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1] 6 8 3 9 7</code></pre>
+<pre class="output" tabindex="0"><code>[1] 9 1 7 5 4</code></pre>
 </div>
 <p>Or you can randomly sample from a normal distribution</p>
 <div class="codewrapper sourceCode" id="cb20">
@@ -3157,8 +3239,8 @@ Visualization in R for Ecologists</a>).</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1]  0.1188915 -0.3301558 -1.4150999  0.8054840 -0.4148969  0.4130332
- [7]  0.6556804 -0.5345539  0.3292206 -0.8019879</code></pre>
+<pre class="output" tabindex="0"><code> [1] -1.486893255  1.515927052  0.003509509 -1.180639763  0.440395818
+ [6] -0.029670403  1.111021214 -0.475601365 -1.351540979 -0.061894251</code></pre>
 </div>
 <p>You can also use built-in vectors like <code>letters</code> to create
 factors.</p>
@@ -3172,8 +3254,8 @@ factors.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1] "a" "d" "c" "b" "b" "b" "b" "a" "a" "a" "b" "b" "b" "a" "c" "d" "a" "d" "a"
-[20] "d"</code></pre>
+<pre class="output" tabindex="0"><code> [1] "d" "c" "a" "a" "a" "a" "b" "a" "c" "d" "b" "c" "d" "d" "a" "a" "a" "c" "b"
+[20] "c"</code></pre>
 </div>
 <p>Remember that <strong>a data frame is just a collection of
 vectors</strong>. You can create a data frame using
@@ -3192,12 +3274,12 @@ variable.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>  x          y
-1 c  1.0825583
-2 a -1.1797574
-3 c -1.1858035
-4 c  0.6005886
-5 b  1.5737817
-6 c  0.9894655</code></pre>
+1 a 1.53156983
+2 a 0.71710553
+3 a 0.01919871
+4 a 1.06912241
+5 a 0.01327387
+6 b 0.85551646</code></pre>
 </div>
 <p><strong>However</strong>, when sampling at random you must remember
 to <code>set.seed()</code> before sending it to someone to make sure you
@@ -3472,15 +3554,15 @@ dataset just in case.</p>
 </h3>
 <pre class="output" tabindex="0"><code>   record_id  sex
 1          1    F
-2          2    F
+2          2 &lt;NA&gt;
 3          3    M
-4          4 &lt;NA&gt;
-5          5    M
-6          6    M
+4          4    M
+5          5    F
+6          6 &lt;NA&gt;
 7          7    M
-8          8    M
-9          9 &lt;NA&gt;
-10        10    M</code></pre>
+8          8 &lt;NA&gt;
+9          9    F
+10        10    F</code></pre>
 </div>
 <p>And just like that we helped Mickey create a mock dataset from
 scratch! Notice that they could also have compiled the same type of
@@ -3501,16 +3583,16 @@ dataset in a single line by creating each vector within
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>   record_id  sex
-1          1 &lt;NA&gt;
-2          2    F
-3          3    F
-4          4    F
-5          5 &lt;NA&gt;
-6          6    M
-7          7    M
-8          8    F
-9          9    F
-10        10 &lt;NA&gt;</code></pre>
+1          1    M
+2          2 &lt;NA&gt;
+3          3 &lt;NA&gt;
+4          4 &lt;NA&gt;
+5          5    M
+6          6    F
+7          7    F
+8          8 &lt;NA&gt;
+9          9 &lt;NA&gt;
+10        10    M</code></pre>
 </div>
 <p><strong>Important</strong>: Notice that the outputs of the two
 datasets are not the same. If you want the outputs to be EXACTLY the
@@ -4388,7 +4470,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-5-asking-your-question"><p>Content from <a href="5-asking-your-question.html">Asking your question</a></p>
 <hr>
-<p>Last updated on 2026-05-12 |
+<p>Last updated on 2026-08-17 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/5-asking-your-question.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -4548,7 +4630,7 @@ boxplot:</p>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">displ</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/5-asking-your-question-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Once again, we can highlight the code snippet, copy it to the
+<figure><img src="fig/5-asking-your-question-rendered-unnamed-chunk-2-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Once again, we can highlight the code snippet, copy it to the
 clipboard, and then run <code>reprex()</code> in the console.</p>
 <pre><code><span><span class="co"># In the console:</span></span>
 <span><span class="fu">reprex</span><span class="op">(</span><span class="op">)</span></span></code></pre>
@@ -4772,7 +4854,7 @@ TRUE, and observe what happens.</p>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">displ</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/5-asking-your-question-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><pre><code><span><span class="co"># In the console:</span></span>
+<figure><img src="fig/5-asking-your-question-rendered-unnamed-chunk-4-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><pre><code><span><span class="co"># In the console:</span></span>
 <span><span class="fu">reprex</span><span class="op">(</span>session_info <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </section><section><h2 class="section-heading" id="formatting">2. Formatting<a class="anchor" aria-label="anchor" href="#formatting"></a>
 </h2>
@@ -4986,7 +5068,7 @@ this? Here is my minimal reproducible example.”</p>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">class</span>, y <span class="op">=</span> <span class="va">displ</span>, color <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/5-asking-your-question-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><ol start="2" style="list-style-type: lower-alpha"><li>
+<figure><img src="fig/5-asking-your-question-rendered-unnamed-chunk-5-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><ol start="2" style="list-style-type: lower-alpha"><li>
 </li></ol>
 <p>“I’m working with this data about cars. The <code>class</code> column
 refers to the type of car–for example,”compact” class means that the car
@@ -5010,7 +5092,7 @@ color? Here’s a reprex.”</p>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">class</span>, y <span class="op">=</span> <span class="va">displ</span>, color <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/5-asking-your-question-rendered-unnamed-chunk-6-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><ol start="3" style="list-style-type: lower-alpha"><li>
+<figure><img src="fig/5-asking-your-question-rendered-unnamed-chunk-6-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><ol start="3" style="list-style-type: lower-alpha"><li>
 </li></ol>
 <p>“Help, my code isn’t working! It says I have too many elements. I
 made a reprex so you can see the data and the error message. I hope
@@ -5025,7 +5107,8 @@ that’s helpful. Thank you so much!”</p>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in table(mpg): attempt to make a table with &gt;= 2^31 elements</code></pre>
+<pre class="error" tabindex="0"><code>Error in `table()`:
+! attempt to make a table with &gt;= 2^31 elements</code></pre>
 </div>
 </div>
 </div>
@@ -5117,7 +5200,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.20.1" class="external-link">sandpaper (0.20.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.1.0" class="external-link">varnish (1.1.0)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.2)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/" class="external-link">varnish (1.1.1)</a></p>
 		</div>
 		</footer>
 </div> <!-- / div.container -->
@@ -5140,8 +5223,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/R-help-reprexes/aio.html",
   "identifier": "https://carpentries-incubator.github.io/R-help-reprexes/aio.html",
   "dateCreated": "2024-05-14",
-  "dateModified": "2026-05-12",
-  "datePublished": "2026-05-12"
+  "dateModified": "2026-08-17",
+  "datePublished": "2026-08-17"
 }
 
   </script><script>

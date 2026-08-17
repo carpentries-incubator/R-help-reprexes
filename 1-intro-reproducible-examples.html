@@ -68,7 +68,7 @@
         </ul></div>
     </div>
   </div>
-  <hr></header><nav class="navbar navbar-expand-xl bottom-nav incubator" aria-label="Main Navigation"><div class="container-fluid nav-container">
+</header><nav class="navbar navbar-expand-xl bottom-nav incubator" aria-label="Main Navigation"><div class="container-fluid nav-container">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle Navigation">
       <span class="navbar-toggler-icon"></span>
       <span class="menu-title">Menu</span>
@@ -117,12 +117,8 @@
     -->
     <a id="search-button" class="btn btn-primary" href="aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
   </div><!--/div.container-fluid -->
-</nav><aside class="col-md-12 lesson-progress"><div style="width: 0%" class="percentage">
-    0%
-  </div>
-  <div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" style="width: 0%">
-    </div>
+</nav><aside class="col-md-12 lesson-progress"><div class="progress incubator">
+    <div class="progress-bar incubator" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Lesson Progress">0%</div>
   </div>
 </aside><div class="container">
       <div class="row">
@@ -178,7 +174,7 @@
               </div><!--div.sidenav-view-selector -->
             </div><!--/div.col -->
 
-            <hr></div><!--/div.mobile-row -->
+          </div><!--/div.mobile-row -->
 
           <div class="accordion accordion-flush" id="accordion-chapters-toggle">
             <div class="accordion-item">
@@ -213,7 +209,8 @@
 
     <div id="flush-collapsecurrent" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
-        <ul><li><a href="#what-is-a-reprex">What is a reprex?</a></li>
+        <ul><li><a href="#welcome-and-introductions">Welcome and introductions</a></li>
+<li><a href="#what-is-a-minimal-reproducible-example-reprex">What is a minimal reproducible example (“reprex”)?</a></li>
 <li><a href="#why-use-a-reprex">Why use a reprex?</a></li>
 <li><a href="#meet-mickey-your-learning-companion">Meet Mickey, your learning companion</a></li>
         </ul></div><!--/div.accordion-body-->
@@ -300,8 +297,8 @@
         <!-- START: inst/pkgdown/templates/content-instructor.html -->
   <div class="col-xl-8 col-lg-12 primary-content">
     <nav class="lesson-content mx-md-4" aria-label="Previous and Next Chapter Top"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
-        <a class="chapter-link" href="index.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
-        <a class="chapter-link float-end" href="2-identify-the-problem.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link" href="index.html" rel="prev"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
+        <a class="chapter-link float-end" href="2-identify-the-problem.html" rel="next">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
@@ -314,9 +311,9 @@
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
-      <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
+    </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>What is a reprex and why is it useful?</h1>
-        <p>Last updated on 2026-05-12 |
+        <p>Last updated on 2026-08-17 |
 
         <a href="https://github.com/carpentries-incubator/R-help-reprexes/edit/main/episodes/1-intro-reproducible-examples.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -328,7 +325,40 @@
 
         
 
-
+<section><h2 class="section-heading" id="welcome-and-introductions">Welcome and introductions<a class="anchor" aria-label="anchor" href="#welcome-and-introductions"></a></h2>
+<hr class="half-width"><p>Welcome to “RRRR, I’m Stuck!” We’re glad you’re here. Let’s first
+take care of a few setup steps. You should all have followed the setup
+instructions on the workshop website, and you should have both R and
+RStudio installed. You should also have the following packages
+installed: {reprex}, {tidyverse}, and {ggplot2}. If you haven’t
+installed those packages, please take a moment to install them now.</p>
+<p>We have a range of levels of experience here. This workshop assumes
+that you are a researcher in ecology or biology who has some prior
+experience working with R in RStudio.</p>
+<p>This lesson will follow a fictional ecology grad student named Mickey
+as they explore a new dataset, deal with various common coding problems,
+and learn how to write a minimal reproducible example to ask for help in
+community forums. We will not spend much time discussing the code
+itself, as we will assume you have a basic background.</p>
+<p>It’s okay if you’re not an R expert. But even experienced coders may
+not always know how to get unstuck, so we hope this workshop will be
+useful to many levels of coding background.</p>
+<p>At the end of this lesson, we are hoping that you will have achieved
+two main things:</p>
+<p><strong>First</strong>, you will understand the importance of minimal
+reproducible examples for getting unstuck. <strong>Second</strong>, you
+will be equipped with a “road map” for breaking down your problem and
+constructing a minimal reproducible example. This road map can be
+applied broadly to various problems that you might encounter with your
+code in the future. The road map won’t necessarily solve every problem
+you may encounter, but it will serve as a toolkit for seeking help and
+getting unstuck in the future.</p>
+<p>In this <strong>first episode</strong>, we will introduce the concept
+of a <em>minimal reproducible example</em> and how it can be useful for
+getting unstuck while coding. We will introduce the road map that
+highlights the key steps we will follow as we move through the lesson.
+Finally, we will take a look at the dataset that we’ll be using
+throughout the rest of the lesson.</p>
 <div class="overview card">
 <h2 class="card-header">Overview</h2>
 <div class="row g-0">
@@ -350,7 +380,6 @@
 <ul><li>Describe a minimal reproducible example and its requirements.</li>
 <li>Recognize how creating a minimal reproducible example can help you
 solve problems in your code.</li>
-<li>List the key steps to creating a minimal reproducible example.</li>
 <li>Explain the benefits of creating a minimal reproducible example both
 for you and for others.</li>
 <li>Load in the rodent survey data and briefly explain its
@@ -361,6 +390,7 @@ contents.</li>
 </div>
 </div>
 
+<p>Let’s start out with a quick brainstorm.</p>
 <div id="exercise-1-think-pair-share-when-you-get-stuck" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -375,22 +405,6 @@ you do to get help or get unstuck?</p>
 </div>
 </div>
 </div>
-<div id="exercise-2-think-pair-share-helping-someone-else" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<span class="callout-header">Discussion</span>
-<div id="exercise-2-think-pair-share-helping-someone-else" class="callout-inner">
-<h3 class="callout-title">Exercise 2 (think, pair, share): Helping
-someone else</h3>
-<div class="callout-content">
-<p>Think about a time that you helped someone else with their code. What
-information did you need to know in order to help? (If you have never
-helped someone else with their code, think about a time that someone
-helped you–what information did they need to know in order to help?)</p>
-</div>
-</div>
-</div>
 <p>One of the most frustrating parts of learning to code is getting
 stuck and not knowing what to do! Maybe R gives you an angry red error
 message you don’t understand, or your code doesn’t seem to be doing what
@@ -401,12 +415,29 @@ What to do?</p>
 who are happy to help. However, in order for them to do so, you must
 give them the right information. Figuring out how to ask a good question
 can be hard.</p>
+<div id="exercise-2-think-pair-share-helping-someone-else" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<span class="callout-header">Discussion</span>
+<div id="exercise-2-think-pair-share-helping-someone-else" class="callout-inner">
+<h3 class="callout-title">Exercise 2 (think, pair, share): Helping
+someone else</h3>
+<div class="callout-content">
+<p>Think about a time that you helped someone else with their code. What
+information did you need to know in order to help? (Alternatively: think
+about a time that someone helped you. What did they need to know in
+order to help?)</p>
+</div>
+</div>
+</div>
 <p>Many helpers or forums may ask you to provide example data or a
 <strong>minimal reproducible example</strong> (commonly abbreviated as a
 “<strong>reprex</strong>”). What even is that? Wouldn’t it be nice if
-you could just hand over your computer so a helper can see exactly what
-is happening? That’s exactly what the reprex is for.</p>
-<section><h2 class="section-heading" id="what-is-a-reprex">What is a reprex?<a class="anchor" aria-label="anchor" href="#what-is-a-reprex"></a></h2>
+you could just hand over your computer so someone helping with your code
+can see exactly what is happening? That’s exactly what the reprex is
+for.</p>
+</section><section><h2 class="section-heading" id="what-is-a-minimal-reproducible-example-reprex">What is a minimal reproducible example (“reprex”)?<a class="anchor" aria-label="anchor" href="#what-is-a-minimal-reproducible-example-reprex"></a></h2>
 <hr class="half-width"><p>A reprex is essentially a <strong>simplified</strong> version of your
 problematic code that clearly demonstrates the problem you are facing
 (includes <strong>only</strong> the necessary information to show the
@@ -516,16 +547,18 @@ detail.</p>
 Even expert coders may not always know how to get unstuck. We hope this
 workshop will be useful to people with a variety of coding
 backgrounds.</p>
+<p>Also: in this lesson, we will be working in R. However, the
+principles and concepts of the road map should be applicable to other
+programming languages, too!</p>
 </div>
 </div>
 </div>
-<p>Mickey starts by loading the data so they can begin to explore it.
-They also load the {tidyverse}, a set of packages that will be useful
-for wrangling and visualizing the data.</p>
-
-<p>Let’s go over to RStudio. Make sure that you’re in the RStudio
-project that you created for this lesson, and that you’ve downloaded the
-data as a csv and saved it in the “data/” folder.</p>
+<p>So, we’ve been talking about the theory behind reprexes and
+introducing you to the workshop. From now on, we’re going to shift over
+to live coding. At this point, you should go ahead and open RStudio.
+Make sure that you’re in the RStudio project that you created for this
+lesson, and that you’ve downloaded the data as a csv and saved it in the
+“data/” folder. Let’s take a few moments to get set up here.</p>
 <div id="callout4" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
@@ -542,7 +575,12 @@ session of RStudio.</p>
 </div>
 </div>
 </div>
-<p>Now, we can load in the dataset with the following code:</p>
+
+<p>Okay, so let’s follow along with Mickey as they begin to explore the
+data. Mickey opens RStudio and starts by loading the {tidyverse}, a set
+of packages that will be useful for wrangling and visualizing the
+data.</p>
+
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -550,6 +588,10 @@ session of RStudio.</p>
 <code class="sourceCode R"><span><span class="co"># Loading the tidyverse package</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span></code></pre>
 </div>
+<p>Next, we can use the read_csv function from one of those tidyverse
+packages to load in the dataset. This line of code assumes that you have
+stored the surveys dataset in the data/ folder, according to the setup
+instructions.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -569,8 +611,9 @@ dbl (7): record_id, month, day, year, plot_id, hindfoot_length, weight
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<p>Mickey loads in the dataset and takes a look at it to find out what
-type of data was collected during these surveys.</p>
+<p>Let’s follow along with Mickey as they examine the dataset. Mickey
+wants to get familiar with the dataset and find out what type of data
+was collected during these surveys.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -629,7 +672,7 @@ spc_tbl_ [16,878 × 13] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
   ..   taxa = col_character(),
   ..   plot_type = col_character()
   .. )
- - attr(*, "problems")=&lt;externalptr&gt; </code></pre>
+ - attr(*, "problems")=&lt;pointer: 0x55c39d598f60&gt; </code></pre>
 </div>
 <p>Looking over Mickey’s shoulder, Remy explains that the dataset is
 made up of many individual rodent records (<code>record_id</code>). The
@@ -646,38 +689,29 @@ individual caught.</p>
 <p>In addition, there is a column called <code>taxa</code> that contains
 higher-level taxonomic information. Most of the observations are
 rodents, but there are also some birds, rabbits, and reptiles.</p>
-<div class="codewrapper sourceCode" id="cb6">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">table</span><span class="op">(</span><span class="va">surveys</span><span class="op">$</span><span class="va">taxa</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>
-   Bird  Rabbit Reptile  Rodent
-    300      69       4   16148 </code></pre>
-</div>
 <p>For each individual caught, the field crew took <code>weight</code>,
 <code>sex</code> and <code>hindfoot_length</code> measurements <em>when
 possible</em>, so values are sometimes missing.</p>
 <p>Overall, the dataset contains 16,878 rodent observations ranging
 across years from 1977 through 1989.</p>
 <p>With a clear understanding of the data, Mickey is now free to explore
-on their own. However, Remy notices that Mickey still looks nervous and
-decides to share a tool they recently found useful: a roadmap to getting
-unstuck in R by making a reprex.</p>
+on their own. However, Remy notices that Mickey still looks nervous,
+hesitating to write any code for fear of messing things up. Remy decides
+to share a tool they recently found useful: a roadmap to getting unstuck
+in R by making a reprex. Let’s take a quick break from our own RStudio
+sessions and look through this road map together before we get back to
+coding.</p>
 <figure><img src="fig/Roadmap_Aug25.svg" class="figure mx-auto d-block"></figure><p>Remy’s roadmap outlines four key steps for making a reprex. It is
 also intended to help the user better understand their problem and
-potentially find a solution along the way. Remy follows these steps any
-time they get stuck while coding. Indeed, the first portion of the
-roadmap, which Remy likes to call “code first aid,” includes preliminary
-steps to help identify and diagnose the problem, such as determining the
-type of error, reading function documentation, interpreting error
-messages, and running through the code line by line.</p>
-<p>Remy explains that sometimes, these first aid steps are enough to
-solve code problems. But if not, the rest of the roadmap will lead
+potentially find a solution along the way. Remy explains that they
+follow these steps any time they get stuck while coding. Indeed, the
+first portion of the roadmap, which Remy likes to call “Code First Aid,”
+includes preliminary steps to help identify and diagnose the problem,
+such as determining the type of error, reading function documentation,
+interpreting error messages, and running through the code line by
+line.</p>
+<p>Remy explains that sometimes, these “First Aid” steps will be enough
+to solve code problems. But if not, the rest of the roadmap will lead
 Mickey through strategies to better understand the problem and
 demonstrate it to others in a minimal reproducible example
 (“reprex”).</p>
@@ -685,8 +719,30 @@ demonstrate it to others in a minimal reproducible example
 they will be very busy trying to finish writing their dissertation. If
 Mickey can first follow the steps outlined in this roadmap, then Remy
 can more easily help with whatever Mickey is struggling to resolve.</p>
-<p>With an introduction to the dataset and a roadmap to guide them if
-they get stuck, Mickey feels ready to start coding!</p>
+<p>Mickey takes a deep breath. With an introduction to the dataset and a
+roadmap for guidance if they get stuck, Mickey feels ready to start
+coding! They decide to start by learning more about which taxa are
+included in the dataset, since their analysis will focus only on
+rodents. Mickey wants to create a frequency table of the
+<code>taxa</code> column.</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">table</span><span class="op">(</span><span class="va">taxa</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error:
+! object 'taxa' not found</code></pre>
+</div>
+<p>Immediately, Mickey encounters an error! What’s going on? Already,
+Mickey has an opportunity to try out Remy’s roadmap.</p>
+<p>In the next episode, we will begin to explore the roadmap, starting
+with some “code first aid” strategies. We’ll learn more about different
+types of errors and how to start fixing them, and hopefully we’ll be
+able to help Mickey get unstuck.</p>
 
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
@@ -755,7 +811,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.20.1" class="external-link">sandpaper (0.20.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.1.0" class="external-link">varnish (1.1.0)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.2)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/" class="external-link">varnish (1.1.1)</a></p>
 		</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -777,8 +833,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/R-help-reprexes/1-intro-reproducible-examples.html",
   "identifier": "https://carpentries-incubator.github.io/R-help-reprexes/1-intro-reproducible-examples.html",
   "dateCreated": "2024-05-14",
-  "dateModified": "2026-05-12",
-  "datePublished": "2026-05-12"
+  "dateModified": "2026-08-17",
+  "datePublished": "2026-08-17"
 }
 
   </script><script>
