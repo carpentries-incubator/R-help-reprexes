@@ -389,7 +389,7 @@ x
 ```
 
 ``` output
-[1] 9 1 7 5 4
+[1] 10  6  5  4  8
 ```
 
 Or you can randomly sample from a normal distribution
@@ -401,8 +401,8 @@ x
 ```
 
 ``` output
- [1] -1.486893255  1.515927052  0.003509509 -1.180639763  0.440395818
- [6] -0.029670403  1.111021214 -0.475601365 -1.351540979 -0.061894251
+ [1]  0.4760138 -0.6508881  1.2957358 -0.2470855  0.1605621  0.1431950
+ [7] -1.0798288 -0.5305154 -0.7065024 -1.3041342
 ```
 
 You can also use built-in vectors like `letters` to create factors.
@@ -414,7 +414,7 @@ x
 ```
 
 ``` output
- [1] "d" "c" "a" "a" "a" "a" "b" "a" "c" "d" "b" "c" "d" "d" "a" "a" "a" "c" "b"
+ [1] "d" "c" "a" "c" "a" "c" "a" "b" "d" "b" "d" "b" "b" "a" "c" "b" "b" "c" "d"
 [20] "c"
 ```
 
@@ -430,12 +430,12 @@ head(data)
 
 ``` output
   x          y
-1 a 1.53156983
-2 a 0.71710553
-3 a 0.01919871
-4 a 1.06912241
-5 a 0.01327387
-6 b 0.85551646
+1 c  2.5287354
+2 b -0.5895183
+3 b  1.7580499
+4 b -0.2833237
+5 c -0.7485005
+6 b  1.0269052
 ```
 
 **However**, when sampling at random you must remember to `set.seed()` before sending it to someone to make sure you both get the same numbers!
@@ -668,13 +668,13 @@ sample_data
 1          1    F
 2          2 <NA>
 3          3    M
-4          4    M
+4          4    F
 5          5    F
 6          6 <NA>
 7          7    M
-8          8 <NA>
-9          9    F
-10        10    F
+8          8    M
+9          9    M
+10        10    M
 ```
 
 And just like that we helped Mickey create a mock dataset from scratch!
@@ -692,16 +692,16 @@ sample2_data
 
 ``` output
    record_id  sex
-1          1    M
-2          2 <NA>
-3          3 <NA>
+1          1    F
+2          2    M
+3          3    F
 4          4 <NA>
-5          5    M
-6          6    F
-7          7    F
-8          8 <NA>
-9          9 <NA>
-10        10    M
+5          5 <NA>
+6          6    M
+7          7    M
+8          8    F
+9          9    F
+10        10    F
 ```
 
 **Important**: Notice that the outputs of the two datasets are not the same.
