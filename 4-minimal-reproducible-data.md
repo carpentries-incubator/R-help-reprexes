@@ -389,7 +389,7 @@ x
 ```
 
 ``` output
-[1] 10  6  5  4  8
+[1] 10  9  2  7  3
 ```
 
 Or you can randomly sample from a normal distribution
@@ -401,8 +401,8 @@ x
 ```
 
 ``` output
- [1]  0.4760138 -0.6508881  1.2957358 -0.2470855  0.1605621  0.1431950
- [7] -1.0798288 -0.5305154 -0.7065024 -1.3041342
+ [1] -2.33295624 -0.06216557 -0.71007445 -2.11494412 -0.07357975  1.02662370
+ [7]  2.03586129  0.75299392 -0.82179010  0.30995145
 ```
 
 You can also use built-in vectors like `letters` to create factors.
@@ -414,8 +414,8 @@ x
 ```
 
 ``` output
- [1] "d" "c" "a" "c" "a" "c" "a" "b" "d" "b" "d" "b" "b" "a" "c" "b" "b" "c" "d"
-[20] "c"
+ [1] "a" "b" "c" "c" "b" "c" "b" "b" "d" "b" "b" "d" "b" "b" "a" "c" "d" "d" "a"
+[20] "b"
 ```
 
 Remember that **a data frame is just a collection of vectors**.
@@ -429,13 +429,13 @@ head(data)
 ```
 
 ``` output
-  x          y
-1 c  2.5287354
-2 b -0.5895183
-3 b  1.7580499
-4 b -0.2833237
-5 c -0.7485005
-6 b  1.0269052
+  x         y
+1 a 1.8024149
+2 b 0.5755715
+3 b 0.5851802
+4 c 1.3952368
+5 c 0.3059955
+6 b 0.8102780
 ```
 
 **However**, when sampling at random you must remember to `set.seed()` before sending it to someone to make sure you both get the same numbers!
@@ -665,16 +665,16 @@ sample_data
 
 ``` output
    record_id  sex
-1          1    F
-2          2 <NA>
-3          3    M
+1          1    M
+2          2    F
+3          3 <NA>
 4          4    F
 5          5    F
-6          6 <NA>
-7          7    M
-8          8    M
-9          9    M
-10        10    M
+6          6    M
+7          7 <NA>
+8          8 <NA>
+9          9 <NA>
+10        10 <NA>
 ```
 
 And just like that we helped Mickey create a mock dataset from scratch!
@@ -692,16 +692,16 @@ sample2_data
 
 ``` output
    record_id  sex
-1          1    F
+1          1    M
 2          2    M
 3          3    F
-4          4 <NA>
-5          5 <NA>
-6          6    M
+4          4    F
+5          5    M
+6          6 <NA>
 7          7    M
 8          8    F
 9          9    F
-10        10    F
+10        10 <NA>
 ```
 
 **Important**: Notice that the outputs of the two datasets are not the same.

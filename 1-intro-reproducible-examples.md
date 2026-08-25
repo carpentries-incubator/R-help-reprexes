@@ -224,7 +224,7 @@ spc_tbl_ [16,878 × 13] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
   ..   taxa = col_character(),
   ..   plot_type = col_character()
   .. )
- - attr(*, "problems")=<pointer: 0x562c15cd1550> 
+ - attr(*, "problems")=<pointer: 0x559058afde50> 
 ```
 
 Looking over Mickey's shoulder, Remy explains that the dataset is made up of many individual rodent records (`record_id`). The date of each record is given by the `month`, `day`, and `year` columns.
