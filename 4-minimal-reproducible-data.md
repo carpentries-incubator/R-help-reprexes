@@ -389,7 +389,7 @@ x
 ```
 
 ``` output
-[1] 6 3 2 1 4
+[1]  6  5  7 10  9
 ```
 
 Or you can randomly sample from a normal distribution
@@ -401,8 +401,8 @@ x
 ```
 
 ``` output
- [1]  0.4214584744  0.0731087321 -0.6572124930  0.9023443151 -1.5696696907
- [6] -0.4272036927 -0.4762797642 -0.4042316060  0.0009391043 -0.9514070424
+ [1] -0.4889782 -0.7415801 -0.8308849  0.6900835 -1.6168805  0.2581006
+ [7] -0.9952304 -1.1183613 -0.1110504  0.9646053
 ```
 
 You can also use built-in vectors like `letters` to create factors.
@@ -414,7 +414,7 @@ x
 ```
 
 ``` output
- [1] "a" "b" "a" "b" "c" "d" "a" "b" "c" "d" "c" "a" "b" "c" "b" "c" "b" "d" "a"
+ [1] "a" "b" "d" "d" "c" "b" "b" "d" "b" "b" "b" "d" "c" "a" "a" "d" "d" "b" "b"
 [20] "c"
 ```
 
@@ -430,12 +430,12 @@ head(data)
 
 ``` output
   x          y
-1 a -1.3211138
-2 a  1.0663142
-3 c  2.0229453
-4 b -0.4187903
-5 a -1.3195143
-6 a -1.4176786
+1 b  0.4914190
+2 b  1.0554418
+3 b -1.0050612
+4 c  0.2552870
+5 b  0.1970843
+6 a -0.4368204
 ```
 
 **However**, when sampling at random you must remember to `set.seed()` before sending it to someone to make sure you both get the same numbers!
@@ -665,16 +665,16 @@ sample_data
 
 ``` output
    record_id  sex
-1          1 <NA>
-2          2    M
+1          1    M
+2          2 <NA>
 3          3    F
 4          4    M
-5          5 <NA>
+5          5    F
 6          6    M
-7          7 <NA>
+7          7    F
 8          8    M
-9          9    F
-10        10    F
+9          9    M
+10        10 <NA>
 ```
 
 And just like that we helped Mickey create a mock dataset from scratch!
@@ -693,15 +693,15 @@ sample2_data
 ``` output
    record_id  sex
 1          1    M
-2          2 <NA>
-3          3    M
-4          4 <NA>
-5          5    F
-6          6    F
+2          2    F
+3          3 <NA>
+4          4    M
+5          5 <NA>
+6          6 <NA>
 7          7    F
-8          8 <NA>
-9          9 <NA>
-10        10    M
+8          8    M
+9          9    F
+10        10 <NA>
 ```
 
 **Important**: Notice that the outputs of the two datasets are not the same.
