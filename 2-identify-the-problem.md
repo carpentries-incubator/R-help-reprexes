@@ -148,7 +148,7 @@ surveys %>% tally(genus, species)
 ```
 
 ``` error
-Error in `tally()`:
+Error in `tally()` at magrittr/R/pipe.R:136:3:
 ℹ In argument: `n = base::sum(genus, na.rm = TRUE)`.
 Caused by error in `base::sum()`:
 ! invalid 'type' (character) of argument
