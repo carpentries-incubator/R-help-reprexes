@@ -389,7 +389,7 @@ x
 ```
 
 ``` output
-[1] 5 2 4 7 9
+[1] 1 7 4 6 9
 ```
 
 Or you can randomly sample from a normal distribution
@@ -401,8 +401,8 @@ x
 ```
 
 ``` output
- [1]  0.1732390  0.2711410  0.2921979 -0.8463217  0.4818391  0.2568586
- [7]  0.4575511 -0.4857464  0.6558333 -0.9595141
+ [1] -1.49689119 -0.09552608 -0.39902417  1.40819401  0.82706011 -0.40562096
+ [7] -0.47651682  1.18674403 -0.54368494  0.87195624
 ```
 
 You can also use built-in vectors like `letters` to create factors.
@@ -414,8 +414,8 @@ x
 ```
 
 ``` output
- [1] "b" "a" "a" "c" "c" "b" "b" "a" "d" "c" "b" "c" "a" "c" "a" "d" "d" "d" "b"
-[20] "d"
+ [1] "d" "b" "a" "b" "a" "c" "a" "a" "d" "c" "d" "a" "c" "c" "a" "b" "c" "d" "b"
+[20] "a"
 ```
 
 Remember that **a data frame is just a collection of vectors**.
@@ -430,12 +430,12 @@ head(data)
 
 ``` output
   x          y
-1 b  2.0505533
-2 c  0.4926366
-3 a -2.0676734
-4 b -0.6672139
-5 b -1.6706301
-6 c -0.6290321
+1 b  1.4548764
+2 c  1.0539939
+3 b  0.8321454
+4 c -0.8238742
+5 a  2.4203150
+6 c -0.8997621
 ```
 
 **However**, when sampling at random you must remember to `set.seed()` before sending it to someone to make sure you both get the same numbers!
@@ -665,14 +665,14 @@ sample_data
 
 ``` output
    record_id  sex
-1          1 <NA>
-2          2 <NA>
-3          3 <NA>
+1          1    M
+2          2    F
+3          3    F
 4          4 <NA>
-5          5    M
-6          6    F
+5          5 <NA>
+6          6 <NA>
 7          7    M
-8          8    M
+8          8 <NA>
 9          9    M
 10        10    M
 ```
@@ -693,15 +693,15 @@ sample2_data
 ``` output
    record_id  sex
 1          1 <NA>
-2          2 <NA>
+2          2    F
 3          3    F
-4          4 <NA>
-5          5 <NA>
-6          6    M
-7          7    F
-8          8    M
+4          4    F
+5          5    F
+6          6    F
+7          7    M
+8          8    F
 9          9    M
-10        10 <NA>
+10        10    M
 ```
 
 **Important**: Notice that the outputs of the two datasets are not the same.
