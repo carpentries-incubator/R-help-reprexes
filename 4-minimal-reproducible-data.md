@@ -389,7 +389,7 @@ x
 ```
 
 ``` output
-[1]  7  5  2  8 10
+[1]  2  1  9  4 10
 ```
 
 Or you can randomly sample from a normal distribution
@@ -401,8 +401,8 @@ x
 ```
 
 ``` output
- [1]  1.9523739  1.0164506  0.2732060 -2.0914976  1.4723747 -0.1218512
- [7] -0.1239142 -0.4845600 -1.0518170 -0.3118369
+ [1] -0.87528851 -0.05208450  1.66680289 -0.75625627  0.37840435 -1.31157879
+ [7] -0.89984921 -0.05354329 -0.59371046 -0.08043945
 ```
 
 You can also use built-in vectors like `letters` to create factors.
@@ -414,7 +414,7 @@ x
 ```
 
 ``` output
- [1] "a" "a" "d" "a" "c" "c" "c" "a" "c" "d" "c" "d" "a" "b" "a" "a" "a" "a" "c"
+ [1] "a" "a" "d" "b" "a" "c" "c" "b" "d" "a" "d" "b" "b" "b" "c" "b" "a" "d" "b"
 [20] "b"
 ```
 
@@ -429,13 +429,13 @@ head(data)
 ```
 
 ``` output
-  x          y
-1 a -0.6132695
-2 a -0.5702423
-3 a -0.6096595
-4 b  0.7456155
-5 a -0.4711728
-6 c  0.9432335
+  x           y
+1 c  1.22586836
+2 a  0.19205415
+3 b -0.08198664
+4 a  0.68098460
+5 a  1.79938516
+6 b -0.23371749
 ```
 
 **However**, when sampling at random you must remember to `set.seed()` before sending it to someone to make sure you both get the same numbers!
@@ -666,13 +666,13 @@ sample_data
 ``` output
    record_id  sex
 1          1    M
-2          2    M
+2          2    F
 3          3    F
-4          4    M
+4          4    F
 5          5 <NA>
 6          6 <NA>
-7          7    F
-8          8 <NA>
+7          7 <NA>
+8          8    M
 9          9    M
 10        10 <NA>
 ```
@@ -692,16 +692,16 @@ sample2_data
 
 ``` output
    record_id  sex
-1          1 <NA>
+1          1    F
 2          2 <NA>
 3          3 <NA>
-4          4 <NA>
-5          5    M
-6          6 <NA>
-7          7 <NA>
+4          4    M
+5          5 <NA>
+6          6    M
+7          7    M
 8          8    M
-9          9    F
-10        10    M
+9          9 <NA>
+10        10    F
 ```
 
 **Important**: Notice that the outputs of the two datasets are not the same.
