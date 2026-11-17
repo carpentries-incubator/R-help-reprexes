@@ -389,7 +389,7 @@ x
 ```
 
 ``` output
-[1]  7  8 10  3  9
+[1]  8  5  6  2 10
 ```
 
 Or you can randomly sample from a normal distribution
@@ -401,8 +401,8 @@ x
 ```
 
 ``` output
- [1] -0.8031877 -0.7563867 -1.4829878  0.6333299 -1.6349323 -1.0527896
- [7]  0.9336899 -0.3078867  1.5471231 -2.8607957
+ [1]  1.840653933 -0.372162046  1.223422811 -0.292236592  1.156281801
+ [6] -0.272574017 -0.807164219 -0.002817666 -1.809535095 -1.322851039
 ```
 
 You can also use built-in vectors like `letters` to create factors.
@@ -414,8 +414,8 @@ x
 ```
 
 ``` output
- [1] "b" "a" "a" "d" "a" "d" "c" "c" "b" "c" "b" "a" "d" "d" "a" "a" "a" "c" "d"
-[20] "c"
+ [1] "c" "c" "b" "d" "a" "b" "c" "d" "d" "a" "d" "b" "d" "a" "b" "b" "d" "b" "a"
+[20] "a"
 ```
 
 Remember that **a data frame is just a collection of vectors**.
@@ -430,12 +430,12 @@ head(data)
 
 ``` output
   x          y
-1 c  1.1030237
-2 a  1.1925150
-3 b  0.7677287
-4 b  0.3114555
-5 b -1.1111251
-6 b -0.8703181
+1 c -0.1062601
+2 b -0.1626270
+3 b  0.0657971
+4 a  1.0158880
+5 a -1.1282540
+6 b  2.2957319
 ```
 
 **However**, when sampling at random you must remember to `set.seed()` before sending it to someone to make sure you both get the same numbers!
@@ -665,16 +665,16 @@ sample_data
 
 ``` output
    record_id  sex
-1          1    M
-2          2    F
-3          3    M
-4          4    M
+1          1 <NA>
+2          2    M
+3          3    F
+4          4 <NA>
 5          5    F
-6          6    M
-7          7    F
-8          8 <NA>
-9          9    F
-10        10    F
+6          6 <NA>
+7          7    M
+8          8    M
+9          9 <NA>
+10        10    M
 ```
 
 And just like that we helped Mickey create a mock dataset from scratch!
@@ -692,16 +692,16 @@ sample2_data
 
 ``` output
    record_id  sex
-1          1    F
-2          2    F
-3          3 <NA>
-4          4    M
+1          1 <NA>
+2          2 <NA>
+3          3    F
+4          4    F
 5          5    F
-6          6    M
-7          7    M
+6          6 <NA>
+7          7 <NA>
 8          8    M
-9          9    M
-10        10 <NA>
+9          9 <NA>
+10        10    F
 ```
 
 **Important**: Notice that the outputs of the two datasets are not the same.
