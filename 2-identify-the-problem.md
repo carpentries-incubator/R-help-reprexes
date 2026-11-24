@@ -219,9 +219,9 @@ We can't use our first code first aid strategy here, since there is no error mes
 Help on topic 'table' was found in the following packages:
 
   Package               Library
-  base                  /github/home/.cache/R/renv/sandbox/linux-ubuntu-noble/R-4.6/x86_64-pc-linux-gnu/25ebdc09
-  bit64                 /home/rstudio/lesson/renv/cache/v5/linux-ubuntu-noble/R-4.6/x86_64-pc-linux-gnu/bit64/4.8.0/94d99f35c426436d2a3a56d20c6bcf45
-  vctrs                 /home/rstudio/lesson/renv/cache/v5/linux-ubuntu-noble/R-4.6/x86_64-pc-linux-gnu/vctrs/0.7.3/2dcde2d30d3ad67bf1d3a37177457b87
+  base                  /github/home/.cache/R/renv/sandbox/linux-ubuntu-resolute/R-4.6/x86_64-pc-linux-gnu/25ebdc09
+  bit64                 /home/rstudio/lesson/renv/cache/v5/linux-ubuntu-resolute/R-4.6/x86_64-pc-linux-gnu/bit64/4.8.0/94d99f35c426436d2a3a56d20c6bcf45
+  vctrs                 /home/rstudio/lesson/renv/cache/v5/linux-ubuntu-resolute/R-4.6/x86_64-pc-linux-gnu/vctrs/0.7.3/2dcde2d30d3ad67bf1d3a37177457b87
 
 
 Using the first match ...

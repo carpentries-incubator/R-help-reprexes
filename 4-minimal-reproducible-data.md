@@ -389,7 +389,7 @@ x
 ```
 
 ``` output
-[1]  8  5  6  2 10
+[1]  1  7  6  4 10
 ```
 
 Or you can randomly sample from a normal distribution
@@ -401,8 +401,8 @@ x
 ```
 
 ``` output
- [1]  1.840653933 -0.372162046  1.223422811 -0.292236592  1.156281801
- [6] -0.272574017 -0.807164219 -0.002817666 -1.809535095 -1.322851039
+ [1] -1.1091833 -1.0755658 -1.0800977  1.0394117  0.1363323 -0.8005700
+ [7] -0.9320665 -1.6314005  0.6199741 -1.1816924
 ```
 
 You can also use built-in vectors like `letters` to create factors.
@@ -414,8 +414,8 @@ x
 ```
 
 ``` output
- [1] "c" "c" "b" "d" "a" "b" "c" "d" "d" "a" "d" "b" "d" "a" "b" "b" "d" "b" "a"
-[20] "a"
+ [1] "a" "b" "c" "b" "b" "b" "c" "d" "a" "c" "c" "a" "d" "b" "d" "a" "a" "b" "b"
+[20] "b"
 ```
 
 Remember that **a data frame is just a collection of vectors**.
@@ -429,13 +429,13 @@ head(data)
 ```
 
 ``` output
-  x          y
-1 c -0.1062601
-2 b -0.1626270
-3 b  0.0657971
-4 a  1.0158880
-5 a -1.1282540
-6 b  2.2957319
+  x           y
+1 b -2.27463884
+2 c -0.57249673
+3 a  0.73165501
+4 a  1.38495816
+5 b -0.04407336
+6 c -1.40503850
 ```
 
 **However**, when sampling at random you must remember to `set.seed()` before sending it to someone to make sure you both get the same numbers!
@@ -665,16 +665,16 @@ sample_data
 
 ``` output
    record_id  sex
-1          1 <NA>
-2          2    M
-3          3    F
-4          4 <NA>
+1          1    F
+2          2 <NA>
+3          3    M
+4          4    F
 5          5    F
 6          6 <NA>
-7          7    M
-8          8    M
-9          9 <NA>
-10        10    M
+7          7    F
+8          8 <NA>
+9          9    M
+10        10 <NA>
 ```
 
 And just like that we helped Mickey create a mock dataset from scratch!
@@ -694,13 +694,13 @@ sample2_data
    record_id  sex
 1          1 <NA>
 2          2 <NA>
-3          3    F
+3          3 <NA>
 4          4    F
 5          5    F
-6          6 <NA>
-7          7 <NA>
-8          8    M
-9          9 <NA>
+6          6    F
+7          7    M
+8          8 <NA>
+9          9    F
 10        10    F
 ```
 
